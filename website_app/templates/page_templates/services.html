@@ -1,0 +1,18 @@
+{% extends "home_page_layout.html" %}
+
+{% set page_title = "Services" %}
+{% set page_logo = "services.png" %}
+{% set next_page = "prototypes" %}
+{% set previous_page = "knowledge" %}
+{% set content_page="services_page_content.html" %}
+
+{% set SummaryPagesArray = [
+     ["service_summary_enterprise_architecture.html", "service_summary_processes_improvement.html", "service_summary_strategic_planning.html"]
+    ,["service_summary_project_ivv.html", "service_summary_project_management.html", "service_summary_project_mentoring.html"]
+    ,["service_summary_data_analytics.html", "service_summary_development_websolutions.html", "service_summary_development_mobileapps.html"]
+    ,["service_summary_technology_governance.html", "service_summary_data_analytics.html", "service_summary_compliance_support.html"]
+    ] %}
+
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->
+{% endblock %}

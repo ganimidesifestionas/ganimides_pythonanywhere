@@ -1,0 +1,12 @@
+{% extends "home_page_layout.html" %}
+
+{% set page_title = "Cookies Policy" %}
+{% set page_logo = "policy.png" %}
+{% set next_page = "about" %}
+{% set previous_page = "privacy_policy" %}
+{% set content_page="cookies_policy_page_content.html" %}
+{% set link_page1 = ["terms_and_conditions","terms and conditions of use","terms and conditions of use","link/button"] %}
+{% set link_page2 = ["privacy_policy","privacy policy","privacy policy","link/button"] %}
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->
+{% endblock %}

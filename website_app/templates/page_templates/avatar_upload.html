@@ -1,0 +1,11 @@
+{% extends "home_page_layout.html" %}
+
+{% set page_title = title %}
+{% set page_logo = "home.png" %}
+{% set next_page = "" %}
+{% set previous_page = "" %}
+{% set content_page="avatar_upload_page_content.html" %}
+{% set content_page_template="_layout_page_content_template_inputform.html" %}
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->
+{% endblock %}

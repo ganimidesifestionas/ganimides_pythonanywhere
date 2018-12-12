@@ -1,0 +1,19 @@
+<div class="d-flex flex-column">
+    <div class="p-0">
+        {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
+        <div class="p-0 left subscriber_menu_navbar">
+            <!-- Tab panes -->
+            <div class="left p-0">
+                <!-- form 5 confirm mobile-->
+                <div id="mobileconfirm">
+                    <div class="d-flex">
+                        <div class="subscriber_form">
+                            {% include [language_fullpathfile('form_email_confirmation.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_email_confirmation.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--end of tab-content-->
+        </div><!--end of col 1-->
+    </div>
+</div>

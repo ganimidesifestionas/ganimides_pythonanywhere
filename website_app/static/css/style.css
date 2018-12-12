@@ -1,0 +1,1943 @@
+/*
+    ****************************************************
+*/
+body, html {
+    width: 100%;
+    height: 100%;
+    color: black;
+    background-color: #f8f8f8;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+
+header {
+    color: red;
+    background-color: transparent /*#f8f8f8*/;
+    font-family: Consolas,Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+footer {
+    color: black;
+    background-color: red;  /*#f8f8f8*/;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+
+
+body, h1, h2, h3, h4 {
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    font-weight: 700;
+}
+
+p {
+    color: black;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+a:active {
+    color: yellow;
+    background-color:transparent;
+}
+
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #eeeeee;
+}
+
+table {
+    vertical-align: top;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    border-color: magenta;
+    border-width: 0px;
+    border-style: solid;
+    border: 0px;
+}
+td {
+    border: 0px dashed magenta;
+    white-space: normal;
+    padding: 0px;
+    margin: 0px;
+}
+
+/*
+    ****************************************************
+*/
+.container-row {
+    display: flex; /* equal height of the children */
+}
+
+.container-col {
+    flex:1; /* additionally, equal width */
+    padding: 1em;
+    border: solid;
+}
+.menu-row {
+    display: flex; /* equal height of the children */
+}
+.menu-col {
+    padding: 0px;
+    margin: 0px;
+    /*flex: inherit; 1; additionally, equal width */
+    /*padding: 1em;*/
+    /*border: solid;*/
+    vertical-align: middle;
+    width: auto;
+    white-space: nowrap;
+    float: left;
+}
+.menu-col-fullwidth {
+    width:100%
+}
+.menu-col-left {
+    margin-right:5px;
+}
+.menu-col-middle {
+    margin-right: 5px;
+}
+.menu-col-right {
+    right: 5px;
+    left: auto;
+    padding-right:5px;
+}
+
+/*
+    ****************************************************
+*/
+.content-page {
+    color: black;
+    background-color: white;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 6px;
+    border: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-bottom: 3px dotted grey;
+}
+
+    .content-page td {
+        border: 0px dashed blue;
+        white-space: normal;
+    }
+
+.dotted-line-top {
+    border-top: 2px dotted red;
+}
+
+.dotted-line-bottom {
+    border-bottom: 2px dotted gray;
+}
+
+
+/*
+    ****************************************************
+*/
+.container-grid {
+    color: black;
+    background-color: transparent;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: 0px solid red;
+    display: inline-table;
+}
+
+    .container-grid table {
+        vertical-align: top;
+        background-color: lightgray;
+        border-radius: 6px;
+        padding: 10px;
+        border: 2px dashed green;
+    }
+
+    .container-grid td {
+        border: 2px solid blue;
+        white-space: normal;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: transparent;
+        border-radius: 6px;
+    }
+
+.summary_container {
+    background-color: gray;
+    border-radius: 6px;
+    color: black;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    /*border: 3px dotted green;*/
+}
+.cell-left {
+    margin-left: 0px;
+    margin-right: 6px;
+    float: left;
+}
+
+.cell-middle {
+    margin-left: 0px;
+    margin-right: 6px;
+    float: left;
+}
+
+.cell-right {
+    margin-left: 0px;
+    margin-right: 0px;
+    float: right;
+}
+.cell-full {
+    margin-left: 0px;
+    margin-right: 6px;
+}
+
+.cell_nowrap {
+    white-space: nowrap;
+    text-align:left;
+}
+
+.address_cell {
+    white-space: nowrap;
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    vertical-align:top;
+}
+
+.email_link {
+    color:blue;
+    font-size:10pt;
+}
+
+.row-top {
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+.row-bottom {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.row-middle {
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+
+.width-3columns {
+    width: 33%;
+}
+
+.width-2columns {
+    width: 44%;
+}
+
+.width-1column {
+    width: 98%;
+}
+
+.container_cell_wide {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.container-cell-vertical-wide {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.container_cell_top {
+    vertical-align: top;
+}
+
+.container_cell_middle {
+    vertical-align: middle;
+}
+
+.container_cell_bottom {
+    vertical-align: bottom;
+}
+
+/*
+    ****************************************************
+*/
+.page-left-side-content{
+    background-color: aqua
+}
+.page-right-side-content {
+    background-color:  aquamarine
+}
+
+/*
+    ****************************************************
+*/
+.page-image-cell {
+    padding:2px;
+    padding-left:0px
+}
+.page-image_icon {
+    width: 100px;
+    height: 100px;
+}
+
+/*
+    ****************************************************
+*/
+
+.top_menu {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: black;
+    background-color: whitesmoke;
+    font-family: 'Segoe UI Light', Tangerine, Inconsolata, serif;
+    font-size: 8pt;
+    font-style: normal;
+    padding: 0px;
+    border: 0px dashed blue;
+    width: 100%;
+    height: 100%;
+}
+    .top_menu a:link {
+        color: black;
+        padding: 0px;
+    }
+
+    .top_menu a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+    .top_menu table {
+        background-color: transparent;
+        vertical-align: middle;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        border-spacing: 0px;
+        padding: 0;
+        border-color: magenta;
+        border-width: 0px;
+        border-style: solid;
+        border: 0px;
+        white-space: nowrap;
+    }
+    .top_menu td {
+        border: 0px dashed magenta;
+        align-content: center;
+        white-space: nowrap;
+    }
+
+/*
+    ***********************
+    1
+    ***********************
+*/
+.page-head {
+    color: white;
+    font-family: 'Open Sans', 'Segoe UI Black';
+    font-size: 12px;
+    font-style: normal;
+    border: 0px dashed blue;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+    .page-head a:link {
+        color: white;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-decoration: none
+    }
+
+.page-head-line {
+    border-bottom: 1px solid white;
+    border-bottom-color:white
+}
+.page-head-title {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.page-head-menu {
+    color: yellow;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+
+/*
+    *******************************************
+*/
+/*
+    *******************************************
+*/
+.top-menu-navbar {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 20px;
+}
+    .top-menu-navbar a:link {
+        color: blue;
+    }
+
+    .top-menu-navbar a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        background-color: darkgray;
+        border-radius: 6px;
+        padding-left: 0px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .top-menu-navbar a:visited {
+        color: darkred;
+    }
+    .top-menu-navbar > li {
+        color: black;
+        text-decoration-color: black
+    }
+        .top-menu-navbar > li > a {
+            color: black;
+            text-decoration-color: black
+        }
+/*
+    **************************
+*/
+.top-menu-navbar-option {
+    color: white !important;
+}
+    .top-menu-navbar-option > li > a {
+        color: white !important;
+    }
+
+    .top-menu-navbar-option a:visited {
+        color: gray !important;
+        background-color: transparent !important;
+    }
+
+    .top-menu-navbar-option a:hover {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        background-color: transparent !important;
+    }
+
+    .top-menu-navbar-option a:active {
+        color: yellow !important;
+        background-color: #00ff00 !important;
+    }
+    .top-menu-navbar-option > .active > a {
+        color: black !important;
+        border: 0px dotted white !important;
+        background-color: transparent !important;
+        text-decoration: underline !important;
+    }
+/*
+    -----------------------
+*/
+/*
+    -----------------------
+*/
+.top-menu-navbar-dropdown {
+    color: gray;
+    font-family: 'Segoe UI Light';
+    font-size: 10pt;
+    font-style: normal;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-decoration: none;
+}
+    .top-menu-navbar-dropdown a:link {
+        font-family: 'Segoe UI Light';
+        font-size: 10pt;
+        font-style: normal;
+        color: black;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-decoration: none;
+    }
+
+    .top-menu-navbar-dropdown li>a {
+        color: black;
+        padding-left: 0px;
+        padding-right: 0px;
+        text-decoration: none;
+}
+    .top-menu-navbar-dropdown a:visited {
+        color: darkred !important;
+        background-color: transparent !important;
+    }
+
+    .top-menu-navbar-dropdown a:hover {
+        color: black !important;
+        background-color: darkgray !important;
+        border-radius: 6px !important;
+    }
+
+.top-menu-navbar-brand {
+    padding: 0px;
+    margin: 0px;
+    border:0px dotted black;
+}
+    .top-menu-navbar-brand:hover {
+        border: 0px dotted black;
+        /*
+        width: 30px;
+        height: 20px;
+        padding: 0px;
+        margin: 0px;
+        background-image: url('../../static/image/home_icon_grey.gif');
+            */
+    }
+    .top-menu-navbar-brand > img {
+        max-height: 100%;
+        height: 100%;
+        width: auto;
+        padding: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin: 0 auto;
+        /* probably not needed anymore, but doesn't hurt */
+        -o-object-fit: contain;
+        object-fit: contain;
+    }
+
+.top_navigation_line {
+    color: orange;
+    font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
+    font-size: 10pt;
+    font-style: normal;
+}
+
+
+    /*
+    ****************************
+*/
+.menu_image {
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+.avatar_image {
+    width: 150px;
+    height: 150px;
+}
+.mcafee-logo {
+    width: 150px;
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+}
+.facebook-login-image {
+    width: 200px;
+    height: 30px;
+}
+
+#logo {
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+}
+#homeicon {
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    /*background-image: url('../../static/images/home_icon_white.gif');*/
+}
+
+#xcontact_message {
+    width: 30px;
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+    /*background-image: url('../../static/images/home_icon_white.gif');*/
+}
+form textarea#xcontact_message {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+}
+
+.menu-form-control {
+    display: block;
+    width: 100%;
+    height: 16px;
+    padding: 0px 0px;
+    font-size: 10px;
+    line-height: 1.428571429;
+    color: #555555;
+    vertical-align: middle;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.top_menu a:link {
+    color: black;
+    padding-right:10px;
+}
+/*
+    ****************************************************
+*/
+
+.page-content-leftrightside {
+    background-color: magenta;
+}
+
+.page-content {
+    background-color: white;
+}
+/*
+    ****************************************************
+*/
+.reading-page {
+    color: black;
+    background-color: white;
+    font-family: 'Segoe UI Light', Inconsolata, serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0px dashed magenta;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    white-space:normal;
+}
+    .reading-page td {
+        border: 1px dashed magenta;
+        white-space: normal;
+    }
+
+
+    .reading-page > h1 {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+    .reading-page > h2 {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+    .reading-page > h3 {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+    .reading-page > h4 {
+        font-family: 'Segoe UI Black','Graphik Web','Arial Rounded MT';
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+    .reading-page > p {
+        color: black;
+        background-color: white;
+        font-family: 'Segoe UI Light', Inconsolata, serif;
+        font-size: 10pt;
+        font-style: normal;
+        font-weight: normal;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        white-space: normal;
+    }
+.text-indent-tab {
+    margin-left: 30px;
+    padding-left: 30px;
+}
+
+
+/*
+    ******************************************
+*/
+.summary-page {
+    background-color: lightgray;
+    border-radius: 20px;
+    vertical-align: top;
+    /*
+    padding: 10px;
+    vertical-align: top;
+    margin: 10px;
+    */
+}
+
+/*
+    ******************************************
+*/
+.reading-page-container-table {
+    background-color: transparent;
+    vertical-align: top;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    border-spacing: 0px;
+    padding: 0;
+    border-color: magenta;
+    border-width: 0px;
+    border-style: solid;
+    border: 0px dashed blue;
+}
+
+    .reading-page-container-table td {
+        border: 3px dashed red;
+        /*
+        padding: 10px;
+        margin: 10px;
+        */
+    }
+
+    .reading-page-container-table > h1 {
+        font-family: 'Segoe UI Light', Inconsolata, serif;
+        font-size: 10pt;
+        font-style: normal;
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+
+    .reading-page-container-table > h2 {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+
+    .reading-page-container-table > h3 {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+
+    .reading-page-container-table > h4 {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    }
+
+    /*
+    ****************************************************
+*/
+    .page-row {
+    margin-right: -2px;
+    margin-left: -2px;
+}
+
+    .page-row:before,
+    .page-row:after {
+        display: table;
+        content: " ";
+    }
+
+    .page-row:after {
+        clear: both;
+    }
+
+    .page-row:before,
+    .page-row:after {
+        display: table;
+        content: " ";
+    }
+
+    .page-row:after {
+        clear: both;
+    }
+
+
+.text-normal-reading {
+    color: black;
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.text-note-italics {
+    color: gray;
+    font-style: italic;
+}
+.text-emphasis-gray {
+    color: gray;
+    font-weight: lighter;
+}
+.text-emphasis-black {
+    color: black;
+    font-weight: lighter;
+}
+.text-emphasis {
+    color: black;
+    font-family: 'Segoe UI Light', Inconsolata, serif;
+    font-style: normal;
+    font-weight: bold;
+}
+.text-emphasis-shadow-bold {
+    font-style: normal;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.text-note {
+    color: black;
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-style: normal;
+    font-weight: 100;
+    color: gray;
+}
+
+.text-note-italics {
+    color: black;
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-style: italic;
+    font-weight: 100;
+    color: gray;
+}
+
+
+.text_last_revision {
+    color: Black;
+    font-family: Inconsolata, serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight:  300;
+    padding: 0px;
+    margin: 0px;
+    white-space: normal;
+    text-transform: uppercase;
+    text-decoration: none; /*underline !important;*/
+}
+
+.text_notes_black {
+    color: black;
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10px;
+    font-style: normal;
+    font-style: normal;
+    font-weight: 100;
+}
+
+    .text_notes_black a:link {
+        color: blue;
+        font-family: Inconsolata, 'Segoe UI Light', serif;
+        font-size: 10px;
+        font-style: normal;
+        font-style: normal;
+        font-weight: 100;
+    }
+
+.justify {
+    width: 100%;
+    background: transparent;
+    margin: 0 auto;
+    max-width: 90%;
+    list-style: disc outside none;
+    text-align: justify;
+    display: block;
+}
+
+#justify {
+    width: 100%;
+    background: transparent;
+}
+
+    #justify p {
+        margin: 0 auto;
+        max-width: 90%;
+        list-style: disc outside none;
+        text-align: justify;
+        display: block; /* list-item;*/
+        background: #ccc;
+    }
+
+.document_page_reading {
+    color: black;
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+}
+
+    .document_page_reading > p {
+        margin: 0 auto;
+        max-width: 100%;
+        list-style: disc outside none;
+        text-align: justify;
+        display: block; /* list-item;*/
+        background: transparent;
+    }
+
+    .document_page_reading > h1 {
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .document_page_reading > h2 {
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .document_page_reading > h3 {
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .document_page_reading > h4 {
+        font-family: 'Open Sans',Inconsolata,'Segoe UI Light', serif;
+        font-size: 10pt;
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+.internal_use_cell {
+    color: darkred;
+    background-color: white;
+    font-family: Inconsolata, serif;
+    font-size: 8pt;
+    font-style: normal;
+    font-weight: normal;
+    padding: 0px;
+    margin: 0px;
+    white-space: normal;
+    text-align: right;
+}
+
+
+/*
+    ****************************************************
+*/
+
+
+
+img.navbar-logo {
+    width: 80px;
+    height: 40px;
+    vertical-align: top;
+    padding: 0px 0px;
+}
+/*
+.navbar-default {
+    background-color: red;
+    border-color: green;
+}
+*/
+
+p.copyright {
+    margin: 15px 0 0;
+}
+
+.alert-info {
+    width: 50%;
+    margin: auto;
+    color: #687430;
+    background-color: #e6ecca;
+    border-color: #aec251;
+}
+
+.btn-default {
+    border-color: #aec251;
+    color: #aec251;
+}
+
+.btn-default:hover {
+    background-color: #aec251;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.content-section {
+    padding: 50px 0;
+    border-top: 1px solid #e7e7e7;
+}
+
+.footer, .push {
+  clear: both;
+  height: 4em;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    background: url(../images/intro-bg.jpg) no-repeat center center;
+    background-size: cover;
+    height: 100%;
+}
+
+.intro-message {
+    position: relative;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    font-size: 5em;
+}
+
+.intro-message > h3 {
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.lead {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.topnav {
+    font-size: 14px;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+
+/*
+    ********************************COLORS
+*/
+
+/*::head-----------------------*/
+.page-head-title, .page-head, .page-head a:link {
+    color: white;
+}
+.page_head_background {
+    background-color: #8c1111;
+}
+.page-head-line {
+    border-bottom-color: white
+}
+.page-head-menu {
+    color: yellow;
+}
+/*::left-right-----------------------*/
+.page-left-side-content {
+    background-color: white
+}
+
+.page-right-side-content {
+    background-color: white
+}
+
+/*::topmenu-----------------------*/
+.top-menu-navbar-option , .top-menu-navbar-option > li > a {
+    color: white !important;
+}
+    .top-menu-navbar-option a:visited {
+        color: gray !important;
+        background-color: transparent !important;
+    }
+    .top-menu-navbar-option a:hover {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        background-color: transparent !important;
+    }
+    .top-menu-navbar-option a:active {
+        color: white !important;
+        background-color: #00ff00 !important;
+    }
+
+    .top-menu-navbar-option > .active > a {
+        color: black !important;
+        border: 0px dotted white !important;
+        background-color: green !important;
+        text-decoration: underline !important;
+    }
+/*
+    -----------------------
+*/
+.top-menu-navbar-search-form {
+    color: black;
+}
+
+    .top-menu-navbar-dropdown a:link {
+        color: black;
+    }
+
+    .top-menu-navbar-dropdown li > a {
+        color: black;
+    }
+
+    .top-menu-navbar-dropdown a:visited {
+        color: darkred !important;
+        background-color: transparent !important;
+    }
+
+    .top-menu-navbar-dropdown a:hover {
+        color: black !important;
+        background-color: darkgray !important;
+        border-radius: 6px !important;
+    }
+
+
+
+/*::content-----------------------*/
+.page-content-leftrightside {
+    background-color: white;
+}
+.page-content {
+    background-color: white;
+}
+
+/*::footer-----------------------*/
+.page_footer {
+    background-color: darkgray;
+}
+    .page_footer a:link {
+        color: white;
+    }
+    .page_footer a:hover {
+        background-color: #00ff00;
+    }
+    .page_footer a:active {
+        background-color: #00ff00;
+    }
+
+/*::page-content-----------------------*/
+.content_page_content {
+    background-color: white;
+}
+.content_page_content {
+    color: black;
+}
+    .content_page_content > h1, .content_page_content > h2, .content_page_content > h3, .content_page_content > h4 {
+        color: black;
+        background-color: transparent;
+    }
+    .content_page_content > p {
+        color: black;
+        background-color: transparent;
+    }
+
+.summary_container {
+    color: black;
+    background-color: lightgray;
+}
+/*
+    *************************************************
+    fonts
+    *************************************************
+*/
+.goodfont {
+    font-family: Montserrat,'Inconsolata','Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-feature-settings: "liga";
+}
+/*
+.content-page, .container-grid, .summary_container, .content_page_content {
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+
+    .content_page_content > p {
+        font-size: 10pt;
+        font-style: normal;
+        font-weight: normal;
+    }
+
+    .content_page_content > h1, .content_page_content > h2, .content_page_content > h3,, .content_page_content > h4 {
+        font-weight: bold;
+    }
+.summary_container {
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+    .summary_container > h1, .summary_container > h2 {
+        font-family: 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-size: 12pt;
+        font-style: normal;
+        font-weight: 900;
+        padding: 0px;
+        margin: 0px;
+    }
+    .summary_container > p {
+        font-family: Inconsolata,Consolas,'Segoe UI Light', serif;
+        padding: 0px;
+        font-weight: normal;
+        font-size: 10pt;
+    }
+
+.page-head-menu {
+    font-family: Inconsolata, 'Open Sans', serif;
+    font-size: 10px;
+    font-style: normal;
+}
+
+.page-head-title {
+    font-family: 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    color: white !important;
+}
+
+.page-title {
+    font-family: 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+}
+.page-head, .top-menu-navbar, .top-menu-navbar a:link {
+    font-family: Inconsolata,'Open Sans', 'Segoe UI Black';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 100;
+}
+
+.top-menu-navbar-search-form {
+    font-family: Consolas,'Segoe UI Light','Times New Roman', Times, serif;
+    font-size: 10px;
+    font-style: normal;
+}
+.top-menu-navbar-dropdown{
+    font-family: 'Segoe UI Light';
+    font-size: 10pt;
+    font-style: normal;
+}
+    .top-menu-navbar-dropdown a:link {
+        font-family: 'Segoe UI Light';
+        font-size: 10pt;
+        font-style: normal;
+    }
+
+.reading-page, .summary-page {
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.reading-page-container-table > h1, .reading-page-container-table > h2, .reading-page-container-table > h3, .reading-page-container-table > h4 {
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+.text-normal-reading {
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+}
+.text-emphasis {
+    font-style: normal;
+    font-weight: bold;
+}
+.text-emphasis-shadow-bold {
+    font-style: normal;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+footer, .page_footer {
+    font-family: 'Inconsolata','Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 8pt;
+    font-style: normal;
+}
+.menu_font_small {
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 700;
+}
+.menu_font_large {
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 700;
+}
+    */
+
+.menu_navbar_small {
+    color: white;
+    font-family: Inconsolata, 'Segoe UI Light';
+    font-size: 10px;
+    font-style: normal;
+    padding-left: 0px;
+    padding-right: 10px;
+    text-decoration: none;
+}
+    .menu_navbar_small a:link {
+        font-family: Inconsolata, 'Segoe UI Light';
+        font-size: 10px;
+        font-style: normal;
+        color: yellow;
+        padding-left: 0px;
+        padding-right: 10px;
+        text-decoration: none;
+    }
+
+.main_menu_navbar_main {
+    color: white;
+    font-family: Inconsolata, 'Segoe UI Light';
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    padding-left: 0px;
+    padding-right: 10px;
+    text-decoration: none;
+}
+
+    .main_menu_navbar_main a:link {
+        font-family: Inconsolata, 'Segoe UI Light';
+        font-size: 10px;
+        font-style: normal;
+        font-weight:900;
+        color: yellow;
+        padding-left: 0px;
+        padding-right: 10px;
+        text-decoration: none;
+    }
+    .main_menu_navbar_main a:visited {
+        color: white !important;
+        background-color: transparent !important;
+    }
+
+    .main_menu_navbar_main a:hover {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        background-color: transparent !important;
+    }
+
+    .main_menu_navbar_main a:active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        color: white !important;
+        border: 1px dotted white !important;
+        background-color: #00ff00 !important;
+        text-decoration: none !important;
+    }
+
+    .main_menu_navbar_main > .active > a {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px #2a3302 !important;
+        background-color: transparent !important;
+        text-decoration: none !important;
+    }
+
+
+.main_menu_navbar_small {
+    color: white;
+    font-family: Inconsolata, 'Segoe UI Light';
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    padding-left: 0px;
+    padding-right: 10px;
+    text-decoration: none;
+}
+
+    .main_menu_navbar_small a:link {
+        font-family: Inconsolata, 'Segoe UI Light';
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 900;
+        color: yellow;
+        padding-left: 0px;
+        padding-right: 10px;
+        text-decoration: none;
+    }
+
+    .main_menu_navbar_small a:visited {
+        color: white !important;
+        background-color: transparent !important;
+    }
+
+    .main_menu_navbar_small a:hover {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        background-color: transparent !important;
+    }
+
+    .main_menu_navbar_small a:active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        color: white !important;
+        border: 1px dotted white !important;
+        background-color: #00ff00 !important;
+        text-decoration: none !important;
+    }
+
+    .main_menu_navbar_main > .active > a {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px #2a3302 !important;
+        background-color: transparent !important;
+        text-decoration: none !important;
+    }
+
+
+.top-menu-navbar-dropdown {
+    color: blue;
+    font-family: Inconsolata, 'Segoe UI Light';
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 900;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-decoration: none;
+}
+
+    .top-menu-navbar-dropdown a:link {
+        font-family: Inconsolata, 'Segoe UI Light';
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 900;
+        color: black;
+        padding-left: 5px;
+        padding-right: 5px;
+        text-decoration: none;
+    }
+
+    .top-menu-navbar-dropdown a:visited {
+        color: darkred !important;
+        background-color: transparent !important;
+    }
+
+    .top-menu-navbar-dropdown a:hover {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        background-color: transparent !important;
+    }
+
+    .top-menu-navbar-dropdown a:active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        color: white !important;
+        border: 1px dotted white !important;
+        background-color: #00ff00 !important;
+        text-decoration: none !important;
+    }
+
+    .top-menu-navbar-dropdown > .active > a {
+        color: #00ff00 !important;
+        text-shadow: 2px 2px 3px #2a3302 !important;
+        background-color: transparent !important;
+        text-decoration: none !important;
+    }
+
+/*
+    -----------------------
+*/
+.nomargins{
+    margin:0px;
+}
+.design_div {
+    border: 2px solid blue !important;
+}
+
+.design_row {
+    border: 2px solid green !important;
+}
+.design_cell {
+    border: 2px solid red !important;
+}
+.design_table {
+    margin: 0px;
+    padding: 0px;
+}
+    .design_table tr {
+        border: 0px dotted yellow !important;
+    }
+
+    .design_table td {
+        border: 0px solid green !important;
+    }
+
+.design_table1 {
+    color: black;
+    /*
+    font-family: Inconsolata, "Open Sans", serif, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    */
+    margin: 0px;
+    padding: 0px;
+    border: 2px solid black
+}
+
+    .design_table1 tr {
+        border: 2px dotted yellow !important;
+    }
+
+    .design_table1 td {
+        border: 2px solid black !important;
+    }
+
+.design_table2 {
+    color: black;
+    /*
+    font-family: Inconsolata, "Open Sans", serif, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    */
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid blue
+}
+
+    .design_table2 tr {
+        border: 1px solid green !important;
+    }
+
+    .design_table2 td {
+        border: 1px solid blue !important;
+    }
+
+.design_table3 {
+    color: black;
+    /*
+    font-family: Inconsolata, "Open Sans", serif, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    */
+    margin: 0px;
+    padding: 0px;
+    border: 2px solid green
+}
+
+    .design_table3 tr {
+        border: 2px solid yellow !important;
+    }
+
+    .design_table3 td {
+        border: 2px solid magenta !important;
+    }
+
+
+
+/*
+    ****************************************************
+*/
+.page_head_background {
+    background-color: #8c1111;
+    background-color: red;
+    background-color: lightgray;
+}
+.page_container_background {
+    background-color: white;
+}
+.right_side_container_background {
+    background-color: white;
+}
+.left_side_container_background {
+    background-color: white;
+}
+
+.left_side_container {
+    width: 10px;
+    color: red;
+    background-color: white;
+    font-family: Inconsolata, "Open Sans", serif, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid black
+}
+
+.right_side_container {
+    width: 10px;
+    color: red;
+    background-color: white;
+    font-family: Inconsolata, "Open Sans", serif, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid black
+}
+
+.page_container {
+    color: black;
+    background-color: white;
+    font-family: Inconsolata, "Open Sans", serif, "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid black
+}
+
+    .page_container table {
+        border: 0px dotted red !important;
+    }
+
+    .page_container td {
+        border: 0px solid blue !important;
+    }
+
+.debug_borders {
+    border: 2px dashed magenta;
+}
+.emphasis_borders {
+    border: 2px dashed magenta;
+}
+.content_page_content {
+    color: black;
+    background-color: white;
+    font-family: 'Segoe UI Light', Inconsolata, serif;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    white-space: normal;
+    border-top: 3px dotted gray;
+}
+
+    .content_page_content table {
+        width: 100%;
+    }
+
+    .content_page_content td {
+        border: 0px dashed red;
+    }
+
+    .content_page_content > h1 {
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .content_page_content > h2 {
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .content_page_content > h3 {
+        font-weight: bold;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .content_page_content > h4 {
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 2px;
+    }
+
+    .content_page_content > p {
+        color: black;
+        font-size: 10pt;
+        font-style: normal;
+        font-weight: normal;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-top: 0px;
+        margin-bottom: 3px;
+        white-space: normal;
+    }
+
+.page_footer {
+    color: black;
+    vertical-align: middle;
+    border: 0px dotted red;
+    font-family: 'Inconsolata', Montserrat,'Segoe UI Light','Inconsolata','Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+
+.page_footer_background {
+    background-color: red;
+}
+
+    .page_footer a:link {
+        color: blue;
+        font-weight: bold;
+        padding: 2px;
+        text-decoration: none;
+    }
+
+    .page_footer a:hover {
+        background-color: orange;
+        border-radius: 4px;
+    }
+
+
+.pagefooter_page_nav_line {
+    color: white;
+}
+.pagefooter_menu_line {
+    color: white;
+}
+.pagefooter_copywrite_line {
+    color: white;
+}
+.page_footer_menu_images {
+    color: black;
+    margin: 0px;
+    vertical-align: middle;
+}
+.page_footer_menu_image {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.page_footer_cell {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.page_title {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 00px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+
+
+.custom-toggler.navbar-toggler {
+    border-color: #0000ff; /*rgb(255,102,203);*/
+}
+
+.custom-toggler .navbar-toggler-icon {
+  /*background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");*/
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,0,0, 0.7)'     stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+ol.carousel-indicators {
+    position: absolute;
+    bottom: 5px;
+    margin: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+}
+
+    ol.carousel-indicators li,
+    ol.carousel-indicators li.active {
+        width: 1rem;
+        height: 1rem;
+        margin: 0;
+        border-radius: 50%;
+        border: 1px;
+        background: transparent;
+    }
+
+    ol.carousel-indicators li {
+        background: rgba(255,255,255,0.39);
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+
+        ol.carousel-indicators li.active {
+            background:orange ;
+        }
+
+.carousel-indicators-numbers li {
+    text-indent: 0;
+    margin: 0 2px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 100%;
+    line-height: 30px;
+    color: #fff;
+    background-color: #999;
+    transition: all 0.25s ease;
+}
+.carousel-indicators-numbers li.active .carousel-indicators-numbers li.hover {
+    margin: 0 2px;
+    width: 30px;
+    height: 30px;
+    background-color: #337ab7;
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%343A40' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%343A40' viewBox='0 0 8 8'%3E%3Cpath d='M4 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.inpage_carousel img {
+    width: 300px;
+    height: 200px;
+}
+
+.page_top_image img {
+    width: 100px;
+    height: 100px;
+}
+.page_middle_image img {
+    width: 100px;
+    height: 100px;
+}
+.page_summary_image img {
+    width: 100px;
+    height: 100px;
+}
+.page_bottom_image img {
+    width: 100px;
+    height: 100px;
+}
+
+
+/*
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+    */

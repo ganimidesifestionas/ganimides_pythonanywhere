@@ -1,0 +1,50 @@
+<div style="padding:20px">
+    {% include [language_fullpathfile('secure_info_general.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('secure_info_general.html','COMPONENT')] %}<!--@include@ @parameterized@ @versioning@-->
+    <div class="clearfix"></div>
+    <!-- picture -->
+    <div class="d-flex justify-content-between p-1 m-2">
+        {% if current_user.avatarImageFile %}
+        {% set avatarImageFile=current_user.avatarImageFile %}
+        {% else %}
+        {% set avatarImageFile='../../static/images/icon_avatar_default.png' %}
+        {% endif %}
+        <img class="rounded-circle mx-auto d-block avatar_image border border-dark" alt="" src='{{avatarImageFile}}'>
+    </div>
+
+    <div class="d-flex flex-column p-1 m-1 w-100">
+        <form id="uploadavatar" action="{{ url_for('home.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" class="subscriber_form" novalidate>
+            {{ form.hidden_tag() }}
+            <!-- empty avatar selection-->
+            <div class="form-group form-check p-0 d-flex align-items-center h-100 w-100 justify-content-between">
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="radio1">
+                        <input type="radio" class="form-check-input" id="radio1" name="emptyAvatarType" value="F">empty female avatar
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="radio2">
+                        <input type="radio" class="form-check-input" id="radio2" name="emptyAvatarType" value="M">empty male avatar
+                    </label>
+                </div>
+            </div>
+
+            <!-- select a photo-->
+            <div class="w-100 p-1 m-1" style="text-align:center;">
+                {{ form.photo(class='button_upload') }}
+                {% for error in form.photo.errors %}
+                <span class="text-note" style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+
+            <!-- moderate a photo with a 3rd party tool-->
+            <div class="w-100 p-1 m-1" style="text-align:center;">
+                <p class="text-note p-0 m-0">Image moderation with&nbsp;<a href="https://sightengine.com/">Sightengine</a></p>
+            </div>
+
+            <!-- upload-->
+            <div class="w-100 p-1 m-1" style="text-align:center;">
+                {{form.submit(class='button_simple_small')}}
+            </div>
+        </form>
+    </div>
+</div>

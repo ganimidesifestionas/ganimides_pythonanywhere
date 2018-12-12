@@ -1,0 +1,11 @@
+{% extends "home_page_layout.html" %}
+
+{% set page_title = "Contact Us" %}
+{% set page_logo = "contact.png" %}
+{% set next_page = "homepage" %}
+{% set previous_page = "about" %}
+{% set content_page="contact_us_page_content.html" %}
+
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->
+{% endblock %}

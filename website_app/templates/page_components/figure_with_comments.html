@@ -1,0 +1,29 @@
+{% set picture='philippos2.jpeg' %}
+{% set name='Philippos A. Leandrou' %}
+{% set nameandtitle='Philippos A. Leandrou, Philosopher and Technology Evangelist' %}
+{% set jobtitle='Leandrou Technology Forward customer' %}
+{% set company='Leandrou Technology Forward' %}
+{% set company_text='For 50 years, WWF has been protecting the future of nature. The world''s leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.' %}
+{% set quote='We''ve used Rocket Lawyer for literally everything! From client contracts, to health & safety policies for our office, and everything in between, including our first office lease and shareholders agreements - Rocket Lawyer document creation is invaluable.' %}
+<div class="d-flex" style="height:100%">
+    {% if picture_is_visible!='' %}
+    <div class="align-self-center">
+        <figure class="">
+            <div class="pod-panel center-block testimonial p-5">
+                <img class="mx-auto d-block img-fluid img-responsive center-block rounded-circle" alt="{{nameandtitle}}" title="{{nameandtitle}}" src="{{picture_file(picture)}}">
+                <figcaption>
+                    <div class="">
+                        <blockquote class="blockquote">
+                            <p>{{company_text}}</p>
+                            <p class="quote_text">{{quote}}</p>
+                            <footer class="blockquote-footer">
+                                <cite title="{{nameandtitle}}">{{nameandtitle}}<br>{{jobtitle}}</cite>
+                            </footer>
+                        </blockquote>
+                    </div>
+                </figcaption>
+            </div>
+        </figure>
+    </div>
+    {% endif %}
+</div>

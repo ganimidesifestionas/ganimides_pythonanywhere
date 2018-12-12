@@ -1,0 +1,45 @@
+{% extends "myBank/base.html" %}{% block title %}my profile{% endblock %}
+{% block body %}
+{%if error %}
+<div class="alert alert-danger">
+    {{error}}
+</div>
+{% else %}
+<div class="content-section">
+    <div>
+        <h2>{{ title }}</h2>
+        <div class="row col-md-6 offset-md-1">
+            <div class="card">
+                <div class="card-block">
+                    @profile_details@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="{{url_for('auth.subscriber_profile')}}">edit &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="{{url_for('auth.subscriber_profile')}}">change email &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="{{url_for('auth.password_change')}}">change password &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="{{url_for('auth.subscriber_profile')}}">change mobile &raquo;</a></p>
+        </div>
+        {% if not(current_user.emailConfirmed) %}
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="{{url_for('auth.send_confirmation_email')}}">send confirmation email &raquo;</a></p>
+        </div>
+        {% endif %}
+        {% if not(current_user.mobileConfirmed) %}
+        <div class="col-md-4">
+            <p><a class="btn btn-default" href="{{url_for('auth.send_confirmation_sms')}}">send confirmation sms &raquo;</a></p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}

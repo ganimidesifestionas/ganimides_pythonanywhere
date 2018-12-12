@@ -1,0 +1,21 @@
+{% extends "home_page_layout.html" %}
+`
+{% set page_title = "The Company" %}
+{% set page_logo = "company.png" %}
+{% set next_page = "why" %}
+{% set previous_page = "homepage" %}
+{% set content_page="company_page_content.html" %}
+{% set SummaryPagesArray = [
+     ["research_summary_human_to_machine.html", "research_summary_cognitive_computing.html", "research_summary_robot_operator.html"]
+    ,["research_summary_digital_labour.html", "research_summary_blockchain.html", "research_summary_wave_energy.html"]
+    ,["research_summary_customer_onboarding.html", "research_summary_cognitive_computing.html", "research_summary_robot_operator.html"]
+    ,["research_summary_human_to_machine.html", "research_summary_open_banking.html", "research_summary_customer_service.html"]
+    ,["research_summary_gaming.html", "research_summary_electronic_trade.html", "research_summary_customer_service.html"]
+    ,["research_summary_digital_labour.html", "research_summary_customer_service.html",null]
+    ,["research_summary_digital_labour.html", null,"research_summary_customer_service.html"]
+    ,["research_summary_blockchain.html", null,null]
+    ] %}
+
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->
+{% endblock %}

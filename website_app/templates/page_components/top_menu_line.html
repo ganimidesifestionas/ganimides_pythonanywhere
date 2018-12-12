@@ -1,0 +1,98 @@
+{% set prototypes_list_of_routes = ['/prototypes','/mybank','/mygame'] %}
+{% set about_list_of_routes = ['/about','/contact','/terms_and_conditions','/privacy_policy','/cookies_policy'] %}
+{% set help_list_of_routes=['/prototypes','/mybank','/mygame'] %}
+{% set home_is_active='' %}
+{% set company_is_active='' %}
+{% set why_is_active='' %}
+{% set research_is_active='' %}
+{% set academy_is_active='' %}
+{% set knowledge_is_active='' %}
+{% set services_is_active='' %}
+{% set prototypes_is_active='' %}
+{% set about_is_active='' %}
+{% set login_active='' %}
+{% set register_active='' %}
+{% set help_active='' %}
+
+{% set x=request.path.rfind('/') %}
+{% set option=request.path[x:] %}
+
+{% if request.path.find('/login')>=0 %}
+    {% set login_active='active' %}
+{% elif request.path.find('/register')>=0 %}
+    {% set register_active='active' %}
+{% elif request.path == '/' or request.path.find('/home')>=0 or request.path.find('/landingpage')>=0 %}
+    {% set home_is_active='active' %}
+{% elif request.path.find('/company')>=0 %}
+    {% set company_is_active='active' %}
+{% elif request.path.find('/why')>=0 %}
+    {% set why_is_active='active' %}
+{% elif request.path.find('/research')>=0 %}
+    {% set research_is_active='active' %}
+{% elif request.path.find('/academy')>=0 %}
+    {% set academy_is_active='active' %}
+{% elif request.path.find('/knowledge')>=0 %}
+    {% set knowledge_is_active='active' %}
+{% elif request.path.find('/services')>=0 %}
+    {% set services_is_active='active' %}
+{% elif option in help_list_of_routes %}
+    {% set help_active='active' %}
+{% elif option in prototypes_list_of_routes %}
+    {% set prototypes_is_active='active' %}
+{% elif option in about_list_of_routes %}
+    {% set about_is_active='active' %}
+{% endif %}
+
+<div class="bg-light justify-content-center">
+<div class="d-flex p-0  justify-content-center">
+    <div >
+    <nav class="navbar navbar-expand-sm bg-light navbar-light w-100 justify-content-between p-0 m-0">
+        <!-- Toggler/collapsibe Button -->
+        <div class="">
+            <button class="navbar-toggler ml-auto xcustom-toggler" type="button" data-toggle="collapse" data-target="#GlobalMenu" aria-controls="GlobalMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <!-- MAIN MENU collapsibleNavbar -->
+        <div id="GlobalMenu" class="collapse navbar-collapse header_menu">
+            <ul class="navbar-nav">
+                <li class="{{home_is_active}} nav-item p-0"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('homepage')}}">Home</a></li>
+                <li class="{{company_is_active}} nav-item p-0"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('company')}}">Company</a></li>
+                <li class="{{why_is_active}} nav-item p-0"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('why')}}">Why Ganimides</a></li>
+                <li class="{{research_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('research')}}">Research</a></li>
+                <li class="{{academy_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('academy')}}">FinTec Academy</a></li>
+                <li class="{{knowledge_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('knowledge')}}">knowledge center</a></li>
+                <li class="{{services_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('services')}}">Services</a></li>
+                <li class="{{prototypes_is_active}} nav-item dropdown"><a title="our prototypes" class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Prototypes&nbsp;</a>
+                    <div class="dropdown-menu header_menu_dropdown_list" aria-labelledby="ProtoTypesDropdownList">
+                        <a class="dropdown-item" href="/myBank">MyBank</a>
+                        <a class="dropdown-item" href="{{url_for('home.myGame')}}">MyGame</a>
+                        <div class="dropdown-divider p-0 m-0"></div>
+                        <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
+                        <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
+                        <div class="dropdown-divider p-0 m-0"></div>
+                        <a class="dropdown-item" href="{{url_for('research')}}">Research</a>
+                        <a class="dropdown-item" href="{{url_for('academy')}}">FinTec Academy</a>
+                        <a class="dropdown-item" href="{{url_for('services')}}">Services</a>
+                        <div class="dropdown-divider p-0 m-0"></div>
+                        <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
+                    </div>
+                </li>
+                <li class="{{about_is_active}} nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="AboutDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">About&nbsp;</a>
+                    <div class="dropdown-menu header_menu_dropdown_list" aria-labelledby="AboutDropdownList">
+                        <a class="dropdown-item" href="{{url_for('about')}}">About Us</a>
+                        <a class="dropdown-item" href="{{url_for('contact')}}">Contact</a>
+                        <div class="dropdown-divider p-0 m-0"></div>
+                        <a class="dropdown-item" href="{{url_for('terms_and_conditions')}}">Terms &amp; Conditions of use</a>
+                        <a class="dropdown-item" href="{{url_for('privacy_policy')}}">Privacy Policy</a>
+                        <a class="dropdown-item" href="{{url_for('cookies_policy')}}">Cookies Policy</a>
+                        <div class="dropdown-divider p-0 m-0"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+</div>
+</div>
+

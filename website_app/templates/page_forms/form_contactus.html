@@ -1,0 +1,47 @@
+<div style="padding:20px">
+    {% include [language_fullpathfile('secure_info_general.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('secure_info_general.html','COMPONENT')] %}<!--@include@ @parameterized@ @versioning@-->
+    <div class="clearfix text-note mb-3"></div>
+    <form id="formContactUs" action="{{ url_for('home.contact_form') }}" method="post" role="form" autocomplete="on" class="subscriber_form" validate>
+        <fieldset>
+            {{form.hidden_tag()}}
+            <div class="d-flex flex-column content p-0 m-0 mb-1">
+                <div class="row p-0 m-0">
+                    <table>
+                        <tr>
+                            <td style="vertical-align:top;padding-left:10px;padding-right:10px;width:10%;height:auto;border:0px dotted red;">
+                                {{ form.firstName.label }}<br />
+                                {{ form.firstName(size=32) }}<br />
+                                {{ form.lastName.label }}<br />
+                                {{ form.lastName(size=32) }}<br />
+                                {{ form.jobTitle.label }}<br />
+                                {{ form.jobTitle(size=32) }}<br />
+                                {{ form.company.label }}<br />
+                                {{ form.company(size=32) }}<br />
+                                {{ form.email.label }}<br />
+                                {{ form.email(size=32) }}<br />
+                            </td>
+                            <td style="vertical-align:top;padding-left:10px;padding-right:10px;width:auto;height:auto;border:0px dotted blue">
+                                {{ form.contact_message.label }}<br>
+                                {{ form.contact_message(rows="10", cols="80") }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <p>{{ form.submit(class='button_simple_small') }}</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- separator line -->
+                <div class="border border-warning" style="width:100%;text-align:center;display:block;margin:5px auto;"></div>
+
+                <!-- signup with buttons (facebook etc) -->
+                <div class="signUpCenter">
+                    <a id="fbLoginLink" onclick="facebookLogin(); return false;" class="fb-btn-img"><img class="facebook-login-image" src="../../static/images/facebook-login.png" alt="connect with facebook" title="connect with facebook"></a>
+                    <br>
+                    <em class="text-note">We will never post to your account without permission.</em>
+                </div>
+                </div>
+        </fieldset>
+    </form>
+</div>

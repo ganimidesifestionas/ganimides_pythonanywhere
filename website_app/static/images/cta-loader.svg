@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="30px" height="30px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>Button Loader</title>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-1" sketch:type="MSArtboardGroup">
+<animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    from="0 15 15"
+                    to="360 15 15"
+                    dur="1.5s"
+                    rotate="auto"
+                    repeatCount="indefinite"  />
+
+            <path d="M4.38340841,19.8035839 C4.59039267,19.2886921 5.02909645,19.2353832 5.34998843,19.6666506 L9.514721,25.2639039 C10.1713033,26.1463273 9.85299832,26.5867008 8.80796021,26.2488613 L5.68948951,25.2407232 C3.47282491,26.4118076 3.0291506,26.6462049 3.0291506,26.6462049 C2.0499551,27.1635229 1.5919493,26.747587 1.99885,25.7353853 L4.38340841,19.8035839 Z" id="Shape" fill="#ffffff" sketch:type="MSShapeGroup" transform="translate(5.853488, 23.122886) scale(-1, 1) rotate(49.000000) translate(-5.853488, -23.122886) "></path>
+            <path d="M22.8834092,3.63959605 C23.0903934,3.12470427 23.5290972,3.07139532 23.8499892,3.50266279 L28.0147218,9.09991606 C28.6713041,9.98233949 28.3529991,10.422713 27.307961,10.0848735 L24.1894903,9.07673535 C21.9728257,10.2478198 21.5291514,10.482217 21.5291514,10.482217 C20.5499559,10.9995351 20.0919501,10.5835992 20.4988508,9.57139747 L22.8834092,3.63959605 Z" id="Shape" fill="#ffffff" sketch:type="MSShapeGroup" transform="translate(24.353489, 6.958898) scale(1, -1) rotate(49.000000) translate(-24.353489, -6.958898) "></path>
+            <path d="M24.0045927,7.06773336 C23.3878976,6.36821164 22.6909668,5.74111508 21.9281962,5.20083944 C19.9711615,3.81465832 17.5807175,3 15,3 C8.37258296,3 2.99999996,8.372583 2.99999996,15" id="Oval-3" stroke="#ffffff" stroke-width="2" sketch:type="MSShapeGroup"></path>
+            <path d="M26.9954475,18.9566414 C26.4035312,18.3016951 25.7403811,17.7123556 25.018214,17.2008397 C23.0611792,15.8146586 20.6707353,15.0000002 18.0900177,15.0000002 C11.4626007,15.0000002 6.09001771,20.3725832 6.09001771,27.0000002" id="Oval-3" stroke="#ffffff" stroke-width="2" sketch:type="MSShapeGroup" transform="translate(16.542733, 21.000000) scale(-1, -1) translate(-16.542733, -21.000000) "></path>
+        </g>
+    </g>
+</svg>

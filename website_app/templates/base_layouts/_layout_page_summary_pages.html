@@ -1,0 +1,100 @@
+<!--summary-pages-->
+    {# namespace global variables #}
+    {% set ns = namespace() %}
+    {% set ns.rows=0 %}
+    {% set ns.rowCells=0 %}
+
+    {% for gridRow in SummaryPagesArray %}
+    {% set ns.rowCells=0 %}
+    {% for cell in gridRow %}
+    {% if cell %}
+    {% set ns.rowCells=ns.rowCells+1 %}
+    {% endif %}
+    {% if ns.rowCells>0 %}
+    {% set ns.rows=ns.rows+1 %}
+    {% endif %}
+    {% endfor %}
+
+    {% if ns.rowCells>0 %}
+
+    {% set xrowpos="row-middle" %}
+    {% if loop.last %}
+    {% set xrowpos="row-bottom" %}
+    {% elif loop.first %}
+    {% set xrowpos="row-top" %}
+    {% else %}
+    {% set xrowpos="row-middle" %}
+    {% endif %}
+
+    {% if ns.rowCells>0 %}
+    {% if loop.first %}
+<div class="content_page_content">
+    <div class="container-grid">
+        {% endif %}
+        <div class="container-row {{xrowpos}}">
+            {% endif %}
+
+            {% if ns.rowCells==1 %}
+            {% for cell in gridRow %}
+            {% if cell %}
+            {% set subpage_file = page_file(cell) %}
+            {% set language_subpage_file=language_file(subpage_file,CURRENT_LANGUAGE) %}
+            <div class="summary_container cell-full container-col">
+                {% include [language_subpage_file,subpage_file] %} <!--@include@ @parameterized@-->
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if ns.rowCells==2 %}
+            {% set rowCells=0 %}
+            {% for cell in gridRow %}
+            {% if cell %}
+            {% set rowCells=rowCells+1 %}
+            {% set cellpos="cell-right" %}
+            {% if rowCells==1 %}
+            {% set cellpos="cell-left" %}
+            {% endif %}
+            {% set subpage_file = page_file(cell) %}
+            {% set language_subpage_file=language_file(subpage_file,CURRENT_LANGUAGE) %}
+            <div class="summary_container {{cellpos}} container-col">
+                {% include [language_subpage_file,subpage_file] %} <!--@include@ @parameterized@-->
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if ns.rowCells==3 %}
+            {% set rowCells=0 %}
+            {% for cell in gridRow %}
+            {% if cell %}
+            {% set rowCells=rowCells+1 %}
+            {% set cellpos="cell-right" %}
+            {% if rowCells==1 %}
+            {% set cellpos="cell-left" %}
+            {% endif %}
+            {% if rowCells==2 %}
+            {% set cellpos="cell-middle" %}
+            {% endif %}
+            {% set subpage_file = page_file(cell) %}
+            {% set language_subpage_file=language_file(subpage_file,CURRENT_LANGUAGE) %}
+            <div class="summary_container {{cellpos}} container-col">
+                {% include [language_subpage_file,subpage_file] %} <!--@include@ @parameterized@-->
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            {% if ns.rowCells>0 %}
+        </div>
+        {% if loop.last %}
+    </div>
+</div>
+    {% endif %}
+    {% endif %}
+
+    {% endif %}
+    {% endfor %}
+
+    {# variables from namespace#}
+    {% set rows=ns.rows %}

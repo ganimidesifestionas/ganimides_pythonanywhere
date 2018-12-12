@@ -1,0 +1,22 @@
+{% extends "home_page_layout.html" %}
+
+{% set page_title = "About us" %}
+{% set page_logo = "about.png" %}
+{% set next_page = "contact" %}
+{% set previous_page = "prototypes" %}
+{% set content_page="about_page_content.html" %}
+
+{# link_page example: set link_pageX = ["why","why","bla-bla-bla..."] #}
+{# page image example:set page_XXX_image = ['picturexxx.png','why'] #}
+
+{% set page_leftside_section = null %}
+
+{% set SummaryPagesArray = [null,null,null] %}
+
+{% set page_image = image_file(page_logo) %}
+{% set page_content_file = page_file(content_page) %}
+{% set language_page_content_file=language_file(page_content_file,CURRENT_LANGUAGE) %}
+
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->
+{% endblock %}

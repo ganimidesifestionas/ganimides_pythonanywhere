@@ -1,0 +1,14 @@
+<!--messages field errors only-->
+{% with messages = get_flashed_messages(with_categories=true,category_filter=['error','message']) %}
+{% if messages %}
+    {% for message in messages %}
+        {% if "Error in the".upper() in message[1].upper() %}
+            {% if loop.first %}<div class="p-0 m-0 pl-1 pr-1 bg-light">
+    {% endif %}
+    <h2 class="text-danger small">{{message[1]}}</h2>
+    {% if loop.last %}
+</div>{% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% endwith %}

@@ -1,0 +1,20 @@
+<!--messages all-->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="p-0 m-0 pl-1 pr-1 bg-light">
+    {% for message in messages %}
+    {% if "error".upper() in message[0].upper() or "error".upper() in message[1].upper() %}
+    <h2 class="text-danger small">
+        {% elif message[0]=='warning' %}
+        <h2 class="text-warning small">
+            {% elif message[0]=='success' %}
+            <h2 class="text-success small">
+                {% else %}
+                <h2 class="text-info small">
+                    {% endif %}
+                    {% if message[0]=='warning' %}{{message[0]}} : {% endif %}{{message[1]}}
+                </h2>
+                {% endfor %}
+</div>
+{% endif %}
+{% endwith %}

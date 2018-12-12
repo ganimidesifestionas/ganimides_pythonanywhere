@@ -1,0 +1,102 @@
+{% set page_header="_layout_page_header.html" %}
+{% set page_header_design="" %}
+{% set page_header_version="" %}
+{% set page_summary_pages="_layout_page_summary_pages.html" %}
+{% set page_summary_pages_design="" %}
+{% set page_summary_pages_version="" %}
+
+<table class="design_table" width="100%">
+    <!--1:page-top-image-or-carousel-->
+    <tr>
+        <td class="">
+            {% if page_top_image and page_top_image[1] %}
+            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_top.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
+            {% endif %}
+            {% if language_page_top_carousel_file or page_top_carousel_file %}
+            {% include [language_page_top_carousel_file, page_top_carousel_file] %}
+            {% endif %}
+        </td>
+    </tr>
+
+    <!--2:page-header:page-logo,title,buttons-->
+    <tr>
+        <td class="">
+            {% include LAYOUTS_FOLDER+version_file(page_header,execution_mode,page_header_design,page_header_version) %} <!--@include@ @layout@ @versioning@-->
+        </td>
+    </tr>
+
+    <!--2a:messages-->
+    <tr>
+        <td class="">
+            {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
+            {#% include [language_fullpathfile('messages_display_all.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_all.html','COMPONENT')] %#}
+            {#% include [language_fullpathfile('messages_display_excepterrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_excepterrors.html','COMPONENT')] %#}
+            {#% include [language_fullpathfile('messages_display_fielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_fielderrors.html','COMPONENT')] %#}
+        </td>
+    </tr>
+
+    <!--3:page-middle-image-or-carousel-->
+    <tr>
+        <td class="">
+            {% if page_middle_image and page_middle_image[1] %}
+            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_middle.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
+            {% endif %}
+            {% if language_page_middle_carousel_file or page_middle_carousel_file %}
+            {% include [language_page_middle_carousel_file, page_middle_carousel_file] %}
+            {% endif %}
+        </td>
+    </tr>
+
+    <!--4:page-content-->
+    <tr>
+        <td class="">
+            <table class="align-top">
+                <tr>
+                    <td class="align-top">
+                        <div class="content_page_content">
+                            {% include [language_page_file(content_page,CURRENT_LANGUAGE), page_file(content_page)] %} <!--@include@ @parameterized@ @versioning@-->
+                        </div>
+                    </td>
+                    <td class="align-top">
+                        {% if page_inpage_image and page_inpage_image[1] %}
+                        {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
+                        {% endif %}
+                        {% if language_page_inpage_carousel_file or page_inpage_carousel_file %}
+                        {% include [language_page_inpage_carousel_file, page_inpage_carousel_file] %}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <!--5:page-summary-pages-image-or-carousel-->
+    <tr>
+        <td class="">
+            {% if page_bottom_image and page_bottom_image[1] %}
+            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_bottom.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
+            {% endif %}
+            {% if language_page_summary_carousel_file or page_summary_carousel_file %}
+            {% include [language_page_summary_carousel_file, page_summary_carousel_file] %}
+            {% endif %}
+        </td>
+    </tr>
+
+    <!--6:summary pages-->
+    <tr>
+        <td class="">
+            {% include LAYOUTS_FOLDER+version_file(page_summary_pages,execution_mode,page_summary_pages_design,page_summary_pages_version) %} <!--@include@ @layout@ @versioning@-->
+        </td>
+    </tr>
+    <!--7:page-bottom-image-->
+    <tr>
+        <td class="">
+            {% if page_bottom_image and page_bottom_image[1] %}
+            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_bottom.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
+            {% endif %}
+            {% if language_page_bottom_carousel_file or page_bottom_carousel_file %}
+            {% include [language_page_bottom_carousel_file, page_bottom_carousel_file] %}
+            {% endif %}
+        </td>
+    </tr>
+</table>

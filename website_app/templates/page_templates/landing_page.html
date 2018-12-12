@@ -1,0 +1,24 @@
+{% extends "home_page_layout.html" %}
+
+{% set page_title = "Ganimides Business Technology Management" %}
+{% set page_logo = "home.png" %}
+{% set next_page = "company" %}
+{% set previous_page = "contact" %}
+{% set content_page_template="_layout_page_content_template_default.html" %}
+{% set content_page="landing_page_content.html" %}
+{% set inpage_carousel="leandrou_family_carousel.html" %}
+
+{% set SummaryPagesArray = [
+     ["landingpage_summary_academy.html", "landingpage_summary_company.html", "landingpage_summary_knowledge_center.html"]
+    ,["landingpage_summary_prototypes.html", "landingpage_summary_research.html", "landingpage_summary_services.html"]
+    ,["landingpage_summary_why.html", null, null]
+    ] %}
+
+{% set page_content_template_version="" %}
+{% set page_content_template_design="" %}
+{% set page_content_version="" %}
+{% set page_content_design="" %}
+
+{% block content %}
+{% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,"") %} <!--@include@ @layout@-->
+{% endblock %}

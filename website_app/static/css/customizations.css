@@ -1,0 +1,622 @@
+html {
+    font-size: 100.01%;
+    -webkit-font-smoothing: antialiased;
+    font-smooth: always;
+}
+.article h2{
+    color:#f90;/*orange*/
+}
+
+.color_blue {
+    color: #005782;/*blue*/
+}
+
+/*
+    ============================================================
+    left & right containers width
+    ============================================================
+*/
+
+.left_side_container {
+    width: 10%;
+    background-color: white;
+    vertical-align: top;
+}
+
+.right_side_container {
+    width: 10%;
+    background-color: white;
+    vertical-align: top;
+}
+
+/*
+    ============================================================
+    this code auto activates a drop down list on a dropdown-menu
+    ============================================================
+*/
+.dropdown:hover > .dropdown-menu {
+    display: block !important;
+}
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none !important;/*Add this, to prevent clicking dropdown's default click function*/
+}
+
+/*
+    ============================================================
+    lines
+    ============================================================
+*/
+.top_navigation_line {
+    color: orange;
+    font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
+    font-size: 10pt;
+    font-style: normal;
+}
+.internal_use_line {
+    color: orange;
+    font-family: consolas,Inconsolata, 'Segoe UI Light', Tangerine, serif;
+    font-size: 9pt;
+    font-style: normal;
+    text-align:right;
+}
+.copywrite_line {
+    color: orange;
+    font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
+    font-size: 10pt;
+    font-style: normal;
+}
+
+/*
+    ============================================================
+    support menu customizations
+    ============================================================
+*/
+.support_menu {
+    color: #005293 !important; /*good blue*/
+    background-color: transparent;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+}
+    .support_menu a {
+        color: #005293 !important; /*good blue*/
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+    .support_menu a:link {
+        color: #005293 !important; /*good blue*/
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+
+    .support_menu a:hover {
+        background-color: #f90 !important; /*orange*/
+    }
+
+    .support_menu li{
+        color: red !important; /*good blue*/
+        font-weight: 500 !important;
+        font-size: 12px !important;
+        padding:1px !important;
+    }
+    .support_menu li.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-bottom: 1px solid #f90 !important;
+    }
+.support_menu_dropdown_list {
+    font-size: 12px !important;
+    #border: 1px solid lightgray !important;
+    #border-radius: 5px !important;
+    #background-color: white !important;
+    #font-family: Inconsolata,Montserrat,'Open Sans',  Inconsolata, serif;
+    #font-style: normal !important;
+    #font-weight: 600 !important;
+}
+    .support_menu_dropdown_list a {
+        color: green !important;
+    }
+    .support_menu_dropdown_list a:link {
+        color: green !important;
+        padding:2px !important;
+    }
+    .support_menu_dropdown_list a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        background-color: lightgray !important;
+    }
+
+/*
+    ============================================================
+    header menu customizations
+    ============================================================
+*/
+.header_menu {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+}
+    .header_menu a {
+        color: rgba(0,0,0,0.6) !important;
+        background-color: transparent;
+        font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+    .header_menu a:link {
+        color: rgba(0,0,0,0.6) !important;
+        background-color: transparent;
+        font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+    /*
+    .header_menu a:visited {
+        color: #808080 !important;
+    }
+    */
+    .header_menu a:hover {
+        background-color: #f90 !important; /*orange*/
+        color: #fff !important; /*white*/
+    }
+
+.header_menu_dropdown_list {
+    font-size: 12px !important;
+    #border: 1px solid lightgray !important;
+    #border-radius: 5px !important;
+    #background-color: white !important;
+    #font-family: Inconsolata,Montserrat,'Open Sans',  Inconsolata, serif;
+    #font-style: normal !important;
+    #font-weight: 600 !important;
+}
+    .header_menu_dropdown_list a {
+        color: green !important;
+    }
+    .header_menu_dropdown_list a:link {
+        color: green !important;
+        padding:2px !important;
+    }
+    .header_menu_dropdown_list a:hover {
+        background-color: #f90 !important; /*orange*/
+        background-color: lightgray !important;
+        color: #fff !important; /*white*/
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border: 0px solid gray !important;
+        border-radius: 0px !important;
+    }
+
+
+/*
+    ============================================================
+    footer menu customizations
+    ============================================================
+*/
+.footer_menu {
+    color: #005293 !important; /*good blue*/
+    background-color: transparent;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+}
+    .footer_menu a {
+        color: #005293 !important; /*good blue*/
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+    .footer_menu a:link {
+        color: #005293 !important; /*good blue*/
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+
+    .footer_menu a:hover {
+        background-color: #f90 !important; /*orange*/
+    }
+
+    .footer_menu li{
+        color: red !important; /*good blue*/
+        font-weight: 500 !important;
+        font-size: 12px !important;
+        padding:1px !important;
+    }
+    .footer_menu li.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-bottom: 1px solid #f90 !important;
+    }
+/*
+    ============================================================
+    social media menu customizations
+    ============================================================
+*/
+.social_media_menu {
+    color: #005293 !important; /*good blue*/
+    background-color: transparent;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+}
+    .social_media_menu a {
+        color: #005293 !important; /*good blue*/
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+    .social_media_menu a:link {
+        color: #005293 !important; /*good blue*/
+        font-weight: 500;
+        font-size: 12px;
+        padding:2px;
+    }
+
+    .social_media_menu a:hover {
+        background-color: #f90 !important; /*orange*/
+    }
+
+    .social_media_menu li{
+        color: red !important; /*good blue*/
+        font-weight: 500 !important;
+        font-size: 12px !important;
+        padding:1px !important;
+    }
+    .social_media_menu li.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-bottom: 1px solid #f90 !important;
+    }
+
+/*
+    ============================================================
+    top navbar customizations
+    ============================================================
+*/
+.company_brand {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 12px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 0px;
+    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 00px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.page_title {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 12px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 0px;
+    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 00px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+
+/*
+    ============================================================
+    this code auto activates a drop down list on a dropdown-menu
+    ============================================================
+
+
+.dropdown:hover > .dropdown-menu {
+    display: block !important;
+}
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none !important;/*Add this, to prevent clicking dropdown's default click function*/
+}
+*/
+
+
+.support_menu_navbar {
+    color: #f00 /*#005293*/ !important; /*good blue*/
+    background-color: transparent;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 100;
+    font-size: 12px;
+}
+    .support_menu_navbar a:link{
+        color: #005293 !important; /*good blue*/
+        xbackground-color: transparent;
+        xfont-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        xfont-feature-settings: "liga";
+        font-weight: 400;
+        xfont-size: 12px;
+    }
+    .support_menu_navbar a:hover {
+        background-color: #f90 !important; /*orange*/
+        border-radius: 7px !important;
+    }
+    .support_menu_navbar li.active , li.nav-item.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        border-bottom: 1px solid #f90 !important;
+    }
+
+
+.top-menu-navbar-search-form {
+    color: red;
+    font-family: Consolas,'Segoe UI Light','Times New Roman', Times, serif;
+    font-size: 10px;
+    font-style: normal;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    vertical-align: top;
+    height: auto;
+    line-height: normal;
+    border-radius: 3px;
+    max-width: 280px;
+    border-width: 0px;
+    border-style: dotted;
+    border-color: black;
+    border-image: none;
+}
+    .top-menu-navbar-search-form.input {
+        color: blue !important;
+        font-family: Consolas,'Segoe UI Light','Times New Roman', Times, serif !important;
+        font-size: 10px !important;
+        font-style: normal !important;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        border-width: 1px 0px !important;
+        border-style: none !important;
+        border-color: black !important;
+        border-image: none !important;
+        border-radius: 3px !important;
+    }
+
+    .top-menu-navbar-search-form.button {
+    }
+
+
+.subscriber_menu_navbar {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 100;
+    font-size: 12px;
+}
+
+    .subscriber_menu_navbar a:visited {
+        color: #800080 !important;
+    }
+
+    .subscriber_menu_navbar a:link {
+        color: #005782 !important;
+        background-color: transparent;
+        font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 100;
+        font-size: 12px;
+    }
+
+    .subscriber_menu_navbar a:hover {
+        /*text-shadow: 2px 2px 3px rgba(0,0,0,0.6);*/
+        background-color: #f90 !important; /*orange*/
+        color: #fff !important; /*white*/
+        border: 1px solid gray !important;
+        border-bottom: 5px solid #808080 !important;
+    }
+
+    .subscriber_menu_navbar li.active a /*, li.nav-item.active*/ {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        color: #005782 !important; /*white*/
+        border-bottom: 5px solid #f90 !important;
+    }
+.subscriber_menu_content_page {
+    background-color: #ccc;
+}
+.subscriber_menu_picture_page {
+    background-color: white;
+}
+.subscriber_form {
+    background-color: #ccc;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: auto;
+    line-height: unset;
+}
+    .subscriber_form label {
+        color: Black !important;
+        background-color: transparent;
+        font-family: 'Segoe UI Light', Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    .subscriber_form input {
+        color: Black !important;
+        background-color: white;
+        font-family: Inconsolata,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 100;
+        font-size: 12px;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        max-width: 480px
+    }
+
+    .subscriber_form a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        background-color: transparent !important; /*orange*/
+        color: #000 !important; /*white*/
+        border-radius: 0px !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        border: 0px solid gray !important;
+        border-bottom: 0px solid #808080 !important;
+    }
+
+    .input_1_perrow {
+        width:480px
+    }
+
+.input_2_perrow {
+    width: 228px
+}
+.input_x3 {
+    width: 145px
+}
+
+.text_notes_black {
+    color: black;
+    font-family: Inconsolata, 'Segoe UI Light', serif;
+    font-size: 10px;
+    font-style: normal;
+    font-style: normal;
+    font-weight: 100;
+}
+    .text_notes_black label {
+        color: blue;
+        font-family: Inconsolata, 'Segoe UI Light', serif;
+        font-size: 10px;
+        font-style: normal;
+        font-style: normal;
+        font-weight: 100;
+    }
+
+    .text_notes_black a:link {
+        color: blue;
+        font-family: Inconsolata, 'Segoe UI Light', serif;
+        font-size: 10px;
+        font-style: normal;
+        font-style: normal;
+        font-weight: 100;
+    }
+
+
+.quote_text {
+    color: Black;
+    background-color: transparent;
+    font-family: 'Segoe UI Light', Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 100;
+    font-size: 14px;
+}
+.quote_title {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans',  Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+
+/*============================================================*/
+.navmenu li ul {
+    border-bottom: 5px solid #f90;
+}
+
+.navmenu ul {
+    background: #fff;
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    list-style: none;
+}
+
+.navmenu ul, .navmenu > li.open:hover > a, .navmenu > li.open > a:active {
+    border: 1px solid #ccc;
+    border-bottom-color: #fff;
+}
+
+.navmenu ul, .navmenu li {
+    margin: 0;
+    padding: 0;
+}
+/*============================================================*/
+
+.readonly_form_field {
+    background-color: #ccc;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: auto;
+    line-height: unset;
+}
+
+    .readonly_form_field label {
+        color: Black !important;
+        background-color: transparent;
+        font-family: 'Segoe UI Light', Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 300;
+        font-size: 14px;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .readonly_form_field input {
+        color: Blue !important;
+        background-color: white;
+        font-family: Inconsolata,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 100;
+        font-size: 14px;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        max-width: 480px
+    }

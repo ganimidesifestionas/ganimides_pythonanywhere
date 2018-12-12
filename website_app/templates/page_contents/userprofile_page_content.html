@@ -1,0 +1,74 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% set userprofile_is_active='active show' %}
+{% set profilechange_is_active='' %}
+{% set passwordchange_is_active='' %}
+{% set avatarupload_is_active='' %}
+{% if activeTAB=='userprofilechange' %}
+    {% set profilechange_is_active='active show' %}
+    {% set userprofile_is_active='' %}
+{%endif%}
+{% if activeTAB=='passwordchange' %}
+    {% set passwordchange_is_active='active show' %}
+    {% set userprofile_is_active='' %}
+{%endif%}
+{% if activeTAB=='avatarupload' %}
+    {% set avatarupload_is_active='active show' %}
+    {% set userprofile_is_active='' %}
+{%endif%}
+
+<div class="d-flex flex-column">
+    <div class="p-0">
+        <!-- title
+        <h1 id="signHeading">Sign up for an account</h1>
+        <!--messages-->
+        {#% include [language_fullpathfile('messages_display_fielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_fielderrors.html','COMPONENT')] %#}
+        {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
+        {#% include [language_fullpathfile('messages_display_all.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_all.html','COMPONENT')] %#}
+        {#% include [language_fullpathfile('messages_display_excepterrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_excepterrors.html','COMPONENT')] %#}
+        <div class="p-0 left subscriber_menu_navbar">
+            <!-- Nav tabs -->
+            <div class="left">
+                <ul class="nav nav-tabs p-10" role="tablist">
+                    <li class="nav-item {{userprofile_is_active}}"><a class="nav-link {{userprofile_is_active}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
+                    <li class="nav-item {{profilechange_is_active}}"><a class="nav-link {{profilechange_is_active}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
+                    <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link {{passwordchange_is_active}}" href="#passchange" data-toggle="tab">Change Password</a></li>
+                    <!--<li class="nav-item x{avatarupload_is_active}}"><a class="nav-link x{avatarupload_is_active}}" href="#uploads" data-toggle="tab">Upload Your Picture</a></li>-->
+                </ul>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content left p-0">
+
+                <!-- form 1 userprofile-readonly -->
+                <div id="userprofile" class="tab-pane fade {{userprofile_is_active}} left">
+                    <div class="d-flex">
+                        <div class="subscriber_form">
+                            {% include [language_fullpathfile('form_userprofile.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_userprofile.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- form 2 profile change-->
+                <div id="profilechange" class="tab-pane fade {{profilechange_is_active}} left">
+                    <div class="d-flex">
+                        <div class="subscriber_form">
+                            {% include [language_fullpathfile('form_userprofile_change.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_userprofile_change.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- form 3 password change-->
+                <div id="passchange" class="tab-pane fade {{passwordchange_is_active}}">
+                    <div class="d-flex">
+                        <div class="subscriber_form">
+                            {% include [language_fullpathfile('form_password_change.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_password_change.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!--end of tab-content-->
+        </div><!--end of col 1-->
+    </div>
+</div>
+
