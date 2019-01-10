@@ -65,6 +65,9 @@ class Config(object):
     COMPONENTS_FOLDER = 'page_components/'
     EMAILS_FOLDER = 'email_templates/'
     SMS_FOLDER = 'sms_templates/'
+    #############################################################################################
+    #components folders: authorization etc
+    #############################################################################################
     AUTHORIZATION_FOLDER = 'authorization/'
     #############################################################################################
     #for upload files pictures avatars etc

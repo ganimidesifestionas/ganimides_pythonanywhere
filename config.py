@@ -78,6 +78,10 @@ PAGES_FOLDER = 'page_contents/'
 FORMS_FOLDER = 'page_forms/'
 COMPONENTS_FOLDER = 'page_components/'
 #############################################################################################
+#components folders: authorization etc
+#############################################################################################
+AUTHORIZATION_FOLDER = 'authorization/'
+#############################################################################################
 #for upload files pictures avatars etc
 #############################################################################################
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024 #Ths code will limit the maximum allowed payload to 16 megabytes.  If a larger
