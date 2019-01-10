@@ -1,7 +1,7 @@
 """
 This script runs the ganimides_website application using a development server.
 """
-
+ 
 from os import environ
 from website_app import app
 

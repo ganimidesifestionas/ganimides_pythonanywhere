@@ -1,5 +1,5 @@
-<div>
-    {% include LAYOUTS_FOLDER+version_file("_layout_footer_navigation_line.html",execution_mode,design_type,design_version_footer_navigationline) %}
-    {% include LAYOUTS_FOLDER+version_file("_layout_footer_menu.html",execution_mode,design_type,design_version_footer_menu) %}
-    {% include LAYOUTS_FOLDER+version_file("_layout_footer_copywrite_line.html",execution_mode,design_type,design_version_footer_copywrite) %}
+<div class="d-flex flex-wrap bg-white w-100 border-top border-bottom">
+    {% include [language_fullpathfile('footer_navigation_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('footer_navigation_line.html','COMPONENT')] %}
+    {% include [language_fullpathfile('footer_menu_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('footer_menu_line.html','COMPONENT')] %}
+    {% include [language_fullpathfile('footer_copywrite_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('footer_copywrite_line.html','COMPONENT')] %}
 </div>

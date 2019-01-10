@@ -4,83 +4,101 @@
 {% set page_summary_pages="_layout_page_summary_pages.html" %}
 {% set page_summary_pages_design="" %}
 {% set page_summary_pages_version="" %}
+<!---
+<canvas id="canvas"></canvas>
+-->
+<div class="d-flex flex-column justify-content-center">
+    <!--0:page-top-navigation-line-->
+    <div class="d-flex justify-content-end">
+        {% include [language_fullpathfile('top_navigation_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('top_navigation_line.html','COMPONENT')] %}
+    </div>
+    <!--3:messages-->
+    <div class="d-flex justify-content-center align-items-center message_line pl-2 pr-2">
+        {% include [language_fullpathfile('messages_display_excepterrors.html',CURRENT_LANGUAGE,'COMPONENT'),fullpathfile('messages_display_excepterrors.html','COMPONENT')] %}
+    </div>
 
-<table class="design_table1">
-    <!--1:page-top-image-or-carousel-->
-    <tr>
-        <td>
-            {% if page_top_image and page_top_image[1] %}
-            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_top.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
-            {% endif %}
-            {% if language_page_top_carousel_file or page_top_carousel_file %}
-            {% include [language_page_top_carousel_file, page_top_carousel_file] %}
-            {% endif %}
-        </td>
-    </tr>
+    <div class="d-flex justify-content-center col-md-10 mx-auto mb-2 mt-2 document-page">
+        <div class="d-flex flex-column justify-content-center pl-2 pr-2">
+            <!--1:page-top-image-or-carousel-->
+            <div class="d-flex justify-content-center">
+                {% if page_top_image_file %}
+                {% include LAYOUTS_FOLDER+version_file("_layout_page_image_top.html",execution_mode,design_type,design_version) %}
+                {% endif %}
+                {% if language_page_top_carousel_file or page_top_carousel_file %}
+                {% include [language_page_top_carousel_file, page_top_carousel_file] %}
+                {% endif %}
+            </div>
 
-    <!--2:page-header:page-logo,title,buttons-->
-    <tr>
-        <td>
-            {% include LAYOUTS_FOLDER+version_file(page_header,execution_mode,page_header_design,page_header_version) %} <!--@include@ @layout@ @versioning@-->
-        </td>
-    </tr>
+            <!--2:page-header:page-logo,title,buttons-->
+            <div class="d-flex justify-content-start">
+                {% include LAYOUTS_FOLDER+version_file(page_header,execution_mode,page_header_design,page_header_version) %}
+            </div>
 
-    <!--3:page-middle-image-or-carousel-->
-    <tr>
-        <td>
-            {% if page_middle_image and page_middle_image[1] %}
-            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_middle.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
-            {% endif %}
-            {% if language_page_middle_carousel_file or page_middle_carousel_file %}
-            {% include [language_page_middle_carousel_file, page_middle_carousel_file] %}
-            {% endif %}
-        </td>
-    </tr>
+            <!--4:page-middle-image-or-carousel-->
+            <div class="d-flex justify-content-center">
+                {% if page_middle_image %}
+                {% include
+                LAYOUTS_FOLDER+version_file("_layout_page_image_middle.html",execution_mode,design_type,design_version)
+                %}
+                {% endif %}
+                {% if language_page_middle_carousel_file or page_middle_carousel_file %}
+                {% include [language_page_middle_carousel_file, page_middle_carousel_file] %}
+                {% endif %}
+            </div>
 
-    <!--4:page-content-->
-    <tr>
-        <td>
-            <table class="align-top">
-                <tr>
-                    <td class="align-top">
-                        <div class="content_page_content">
-                            {% include [language_page_file(content_page,CURRENT_LANGUAGE), page_file(content_page)] %} <!--@include@ @parameterized@ @versioning@-->
-                        </div>
-                    </td>
-                    <td class="align-top">
-                        {% if page_inpage_image and page_inpage_image[1] %}
-                        {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
+            <!--5:page-content-->
+            <div class="d-flex justify-content-center">
+                <div class="d-flex">
+                    <div class="">
+                    </div>
+                    <div class="">
+                        {% if page_inpage_image_left %}
+                        {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage_left.html",execution_mode,design_type,design_version) %}
+                        {% endif %}
+                        {% if language_page_inpage_carousel_file_left or page_inpage_carousel_file_left %}
+                        {% include [language_page_inpage_carousel_file_left, page_inpage_carousel_file_left] %}
+                        {% endif %}
+                    </div>
+                    <div class="flex-grow-1">
+                        {% include [language_page_file(content_page,CURRENT_LANGUAGE,active_module), page_file(content_page,active_module)] %}
+                    </div>
+                    <div class="">
+                        {% if page_inpage_image %}
+                        {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage.html",execution_mode,design_type,design_version) %}
                         {% endif %}
                         {% if language_page_inpage_carousel_file or page_inpage_carousel_file %}
                         {% include [language_page_inpage_carousel_file, page_inpage_carousel_file] %}
                         {% endif %}
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+                    </div>
+                </div>
+            </div>
 
-    <!--5:page-summary-pages-image-or-carousel-->
-    <tr>
-        <td>
-            {% if page_bottom_image and page_bottom_image[1] %}
-            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_bottom.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
-            {% endif %}
-            {% if language_page_summary_carousel_file or page_summary_carousel_file %}
-            {% include [language_page_summary_carousel_file, page_summary_carousel_file] %}
-            {% endif %}
-        </td>
-    </tr>
+            <!--6:page-summary-pages-image-or-carousel-->
+            <div class="d-flex justify-content-center">
+                {% if page_bottom_image %}
+                {% include LAYOUTS_FOLDER+version_file("_layout_page_image_bottom.html",execution_mode,design_type,design_version) %}
+                {% endif %}
+                {% if language_page_summary_carousel_file or page_summary_carousel_file %}
+                {% include [language_page_summary_carousel_file, page_summary_carousel_file] %}
+                {% endif %}
+            </div>
 
-    <!--7:page-bottom-image-->
-    <tr>
-        <td>
-            {% if page_bottom_image and page_bottom_image[1] %}
-            {% include LAYOUTS_FOLDER+version_file("_layout_page_image_bottom.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@ @fixed@-->
-            {% endif %}
-            {% if language_page_bottom_carousel_file or page_bottom_carousel_file %}
-            {% include [language_page_bottom_carousel_file, page_bottom_carousel_file] %}
-            {% endif %}
-        </td>
-    </tr>
-</table>
+            <!--7:summary pages-->
+            <div class="d-flex justify-content-center mt-0">
+                {% include LAYOUTS_FOLDER+version_file(page_summary_pages,execution_mode,page_summary_pages_design,page_summary_pages_version) %}
+            </div>
+
+            <!--8:page-bottom-image-or-carousel-->
+            <div class="d-flex justify-content-center">
+                {% if page_bottom_image %}
+                {% include
+                LAYOUTS_FOLDER+version_file("_layout_page_image_bottom.html",execution_mode,design_type,design_version)
+                %}
+                {% endif %}
+                {% if language_page_bottom_carousel_file or page_bottom_carousel_file %}
+                {% include [language_page_bottom_carousel_file, page_bottom_carousel_file] %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

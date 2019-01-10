@@ -10,6 +10,6 @@ def login_xrequired(func):
         if session.get('user_id'):
             return func(*args, **kwargs)
         else:
-            return redirect(url_for('home.login'))
+            return redirect(url_for('authorization.login'))
 
     return qingwa

@@ -119,7 +119,7 @@ def send_email_test(email):
     """ Send a test email
     """
     token = generate_confirmation_token(email)
-    confirm_url = url_for('home.emailconfirm', token=token, _external=True)
+    confirm_url = url_for('authorization.emailconfirm', token=token, _external=True)
     html = render_template('page_templates/email_confirmation_email.html', confirm_url=confirm_url)
     subject = "Please confirm your email"
     result=send_email(email, subject, html)
@@ -135,7 +135,7 @@ def send_emailconfirmation_email(email):
     subscriber.emailConfirmedDT=None
     db.session.commit()
     token = generate_confirmation_token(subscriber.email)
-    confirm_url = url_for('home.emailconfirm', token=token, _external=True)
+    confirm_url = url_for('authorization.emailconfirm', token=token, _external=True)
     html = render_template('page_templates/email_confirmation_email.html', confirm_url=confirm_url)
     subject = "Please confirm your email"
     result=send_email(subscriber.email, subject, html)
@@ -524,9 +524,10 @@ def login():
             flash("Sorry ! Bots are not allowed.",'error')
         else:
            # Process request here
-           #print('   ###',"Recaptcha OK, Login Details submitted successfully.")
-           #flash("Recaptcha OK, Login Details submitted successfully.",'success')
+           print('   ###',"Recaptcha OK, Login Details submitted successfully.")
+           flash("Recaptcha OK, Login Details submitted successfully.",'success')
            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+           print('   ###',"Subscriber",subscriber)
            if subscriber is None:
                form.email.errors.append("invalid email or password")
                form.password.errors.append("invalid email or password")
@@ -546,18 +547,20 @@ def login():
                        if subscriber.isAdmin:
                            return redirect(url_for('home.admin_dashboard'))
                        else:
-                           return redirect(url_for('homepage'))
+                           # SUCCESS!!! send hom to the last page
+                           return redirect(url_for(app.lastpage))
                    else:
                        form.email.errors.append("invalid email or password")
                        form.password.errors.append("invalid email or password")
     ## load login only template
-    return render_template('page_templates/landing_page.html'
+    return render_template('page_templates/login.html'
                             ,login_form=form
                             ,registration_form=RegistrationForm()
                             ,activeTAB='login'
-                            ,title='login/Register'
+                            ,title='login'
                             ,pages=app.pages
                            )
+
 
 @home.route('/login_or_register/<action_tab>', methods=['GET', 'POST'])
 def login_or_register(action_tab):

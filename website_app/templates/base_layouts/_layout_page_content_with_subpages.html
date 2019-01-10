@@ -1,7 +1,7 @@
 {% set page_image = image_file(page_logo) %}
 {% set page_content_file = page_file(content_page) %}
 {% set language_page_content_file=language_file(page_content_file,CURRENT_LANGUAGE) %}
-<table class="design_table">
+<table class="design_table" width="100%">
     <tr>
         <!--page-left-side-section-->
         <td class="left-side-container page-left-side-content">
@@ -35,7 +35,7 @@
                     <!--4:page-content-->
                     <tr>
                         <td colspan="2">
-                            <div class="content_page_content">
+                            <div class="content-page">
                                 {% include [language_page_content_file, page_content_file] %}
                             </div>
                         </td>

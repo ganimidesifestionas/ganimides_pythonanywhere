@@ -1,18 +1,17 @@
 <div class="d-flex flex-column">
     <div class="p-0">
         {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
-        <div class="p-0 left subscriber_menu_navbar">
+        <div class="p-0 left">
             <!-- Tab panes -->
             <div class="left p-0">
-                <!-- form 5 confirm mobile-->
-                <div id="mobileconfirm">
+                <!-- form:contact_us-->
+                <div id="contact_form">
                     <div class="d-flex">
-                        <div class="subscriber_form">
-                            {% include [language_fullpathfile('form_contactus.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_contactus.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                        <div class="">
+                            {% include [language_fullpathfile('form_contactus.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_contactus.html','FORM')] %}
                         </div>
                     </div>
                 </div>
-
             </div><!--end of tab-content-->
         </div><!--end of col 1-->
     </div>

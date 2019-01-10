@@ -1,7 +1,11 @@
-<div class="xborder xborder-danger mx-auto text-center">
-    <h1>Leadrou Family Carousel demo with bootstrap version4</h1>
+<div class="d-flex flex-column justify-content-center">
+    <div class="">
+        <span style="text-align: center">
+            <h1>Leandrou Family Carousel demo with bootstrap version4</h1>
+        </span>
+    </div>
     <!--The main div for carousel-->
-    <div id="company_carousel" class="carousel slide page_carousel xborder xborder-warning" data-ride="carousel" style="background-color: transparent">
+    <div class="carousel slide page_carousel"  id="company_carousel" data-ride="carousel" style="background-color: transparent;">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#company_carousel" data-slide-to="0" class="active"></li>
@@ -19,7 +23,7 @@
         <div class="carousel-inner xborder xborder-primary inpage_carousel">
             <div class="carousel-item active">
                 {% set picfile=picture_file('IMG_010.JPG') %}
-                <img class="d-inline img-fluid mx-auto d-block" src="{{picfile}}" >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{picfile}}" >
                 <p class="text-light">
                 for ever friends...
                 <!--
@@ -29,31 +33,31 @@
             </div>
 
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_001.JPG')}}">
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_001.JPG')}}" style="max-width:300px;">
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_002.JPG')}}"  >
+                <img style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_002.JPG')}}">
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_003.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_003.JPG')}}" >
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_004.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_004.JPG')}}" >
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_005.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_005.JPG')}}" >
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_006.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_006.JPG')}}" >
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_007.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_007.JPG')}}" >
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_008.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_008.JPG')}}" >
             </div>
             <div class="carousel-item">
-                <img class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_009.JPG')}}"  >
+                <img  style="max-height:200px;" class="d-inline img-fluid mx-auto d-block" src="{{url_for('static', filename='pictures/IMG_009.JPG')}}" >
             </div>
             <!-- Next / Previous controls here -->
             <a class="carousel-control-prev" href="#company_carousel" role="button" data-slide="prev">

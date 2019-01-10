@@ -1,0 +1,124 @@
+<!--page content template-->
+{% if not(content_page_template) %}
+{% set content_page_template="_layout_page_content_template_default.html" %}
+{%endif%}
+{% if not(page_content_template_version) %}
+{% set page_content_template_version="" %}
+{%endif%}
+{% if not(page_content_template_design) %}
+{% set page_content_template_design="" %}
+{%endif%}
+{% if not(page_content_version) %}
+{% set page_content_version="" %}
+{%endif%}
+{% if not(page_content_design) %}
+{% set page_content_design="" %}
+{%endif%}
+
+
+{% set page_content_file = page_file(content_page) %}
+{% set language_page_content_file=language_file(page_content_file,CURRENT_LANGUAGE) %}
+
+{% set page_image = '' %}
+{% if page_logo %}
+{% set page_image = image_file(page_logo) %}
+{%endif%}
+
+{% set page_top_image_file = "" %}
+{% set page_inpage_image_file = "" %}
+{% set page_middle_image_file = "" %}
+{% set page_summary_image_file = "" %}
+{% set page_bottom_image_file = "" %}
+
+{% if page_top_image %}
+{% set page_top_image_file = image_file(page_top_image) %}
+{% endif %}
+
+{% if page_inpage_image_left %}
+{% set page_inpage_image_left_file = image_file(page_inpage_image_left) %}
+{% endif %}
+
+{% if page_inpage_image %}
+{% set page_inpage_image_file = image_file(page_inpage_image) %}
+{% endif %}
+
+{% if page_middle_image %}
+{% set page_middle_image_file = image_file(page_middle_image) %}
+{% endif %}
+
+{% if page_summary_image %}
+{% set page_summary_image_file = image_file(page_summary_image) %}
+{% endif %}
+
+{% if page_bottom_image %}
+{% set page_bottom_image_file = image_file(page_bottom_image) %}
+{% endif %}
+
+{% if carousel %}
+{% set page_carousel_file = page_file(carousel) %}
+{% set language_page_carousel_file=language_file(page_carousel_file,CURRENT_LANGUAGE) %}
+{% endif %}
+
+{% if top_carousel %}
+{% set page_top_carousel_file = page_file(top_carousel) %}
+{% set language_page_top_carousel_file=language_file(page_top_carousel_file,CURRENT_LANGUAGE) %}
+{% endif %}
+
+{% if middle_carousel %}
+{% set page_middle_carousel_file = page_file(middle_carousel) %}
+{% set language_page_middle_carousel_file=language_file(page_middle_carousel_file,CURRENT_LANGUAGE) %}
+{% endif %}
+
+{% if summary_carousel %}
+{% set page_summary_carousel_file = page_file(summary_carousel) %}
+{% set language_page_summary_carousel_file=language_file(page_summary_carousel_file,CURRENT_LANGUAGE) %}
+{% endif %}
+
+{% if bottom_carousel %}
+{% set page_bottom_carousel_file = page_file(bottom_carousel) %}
+{% set language_page_bottom_carousel_file=language_file(page_bottom_carousel_file,CURRENT_LANGUAGE) %}
+{% endif %}
+
+{% if inpage_carousel %}
+{% set page_inpage_carousel_file = page_file(inpage_carousel) %}
+{% set language_page_inpage_carousel_file=language_file(page_inpage_carousel_file,CURRENT_LANGUAGE) %}
+{% endif %}
+
+
+{% if not(link_page1) %}{% set link_page1="" %}{% endif %}
+{% if not(link_page2) %}{% set link_page2="" %}{% endif %}
+{% if not(link_page3) %}{% set link_page3="" %}{% endif %}
+{% if not(link_page4) %}{% set link_page4="" %}{% endif %}
+{% if not(link_page5) %}{% set link_page5="" %}{% endif %}
+{% if not(link_page6) %}{% set link_page6="" %}{% endif %}
+{% if not(link_page7) %}{% set link_page7="" %}{% endif %}
+{% if not(link_page8) %}{% set link_page8="" %}{% endif %}
+{% if not(link_page9) %}{% set link_page9="" %}{% endif %}
+{% set LinkPagesArray = [link_page1 ,link_page2, link_page3, link_page4 ,link_page5, link_page6, link_page7,link_page8, link_page9] %}
+<table class="design_table" width="100%">
+    <tr class="">
+        <td class="left_side_container p-0 m-0">
+            <div class="bg-white">
+                {% include
+                LAYOUTS_FOLDER+version_file('_layout_leftside.html',execution_mode,design_type,design_version_left)
+                %}
+            </div>
+        </td>
+        <td class="p-0 m-0">
+            <div class="page_container p-0 m-0">
+                {% include
+                LAYOUTS_FOLDER+version_file(content_page_template,execution_mode,page_content_template_design,page_content_template_version)
+                %}
+            </div>
+        </td>
+    </tr>
+    <tr class="">
+        <td class="internal_use_line bg-white p-0 m-0">
+        </td>
+        <td colspan="1" class="internal_use_line bg-white p-0 m-0">
+            {% include [language_fullpathfile('internaluse_line.html',CURRENT_LANGUAGE,'COMPONENT'),
+            fullpathfile('internaluse_line.html','COMPONENT')]
+            %}
+        </td>
+    </tr>
+</table>

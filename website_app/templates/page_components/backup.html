@@ -87,15 +87,15 @@
                     </li>
                     {% if not(current_user.is_authenticated) %}
                         <li class="{{login_active}} nav-item">
-                            <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('home.login_or_register',action_tab='login')}}">Log-in</a>
+                            <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('authorization.login_or_register',action_tab='login')}}">Log-in</a>
                         </li>
 
                         <li class="{{register_active}} nav-item">
-                            <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('home.login_or_register',action_tab='register')}}}">Register</a>
+                            <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('authorization.login_or_register',action_tab='register')}}}">Register</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('home.logout')}}">Logout</a>
+                            <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('authorization.logout')}}">Logout</a>
                         </li>
                     {% endif %}
 
@@ -103,9 +103,9 @@
                         <a class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
                         <div class="dropdown-menu dropdown_list" aria-labelledby="helpDropdownList">
                             <a class="dropdown-item" href="/myBank">MyBank</a>
-                            <a class="dropdown-item" href="{{url_for('home.myGame')}}">MyGame</a>
+                            <a class="dropdown-item" href="{{url_for('authorization.myGame')}}">MyGame</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url_for('home.sendtestemail') }}">send test email</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
                             <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
@@ -157,24 +157,24 @@
                         <div class="dropdown-menu dropdown_list" aria-labelledby="usermenu1">
                             <a class="dropdown-item" href="#">Signed-in as {{ current_user.firstName.lower() }}</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url_for('home.logout') }}">Logout</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.logout') }}">Logout</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ url_for('home.userprofile') }}">Your Profile</a>
-                            <a class="dropdown-item" href="{{ url_for('home.userprofilechange') }}">Change Profile</a>
-                            <a class="dropdown-item" href="{{ url_for('home.passwordchange') }}">Change Password</a>
-                            <a class="dropdown-item" href="{{ url_for('home.upload_avatar') }}">Change Your Avatar</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.userprofile') }}">Your Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.userprofilechange') }}">Change Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.passwordchange') }}">Change Password</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.upload_avatar') }}">Change Your Avatar</a>
                             <div class="dropdown-divider"></div>
                             {% if not(current_user.mobileConfirmed) and current_user.mobile %}
-                                <a class="dropdown-item" href="{{ url_for('home.mobileconfirm') }}">Confirm Your Mobile</a>
+                                <a class="dropdown-item" href="{{ url_for('authorization.mobileconfirm') }}">Confirm Your Mobile</a>
                             {% endif %}
                             {% if not(current_user.emailConfirmed) %}
-                                <a class="dropdown-item" href="{{ url_for('home.emailconfirmrequest') }}">Confirm Your Email</a>
+                                <a class="dropdown-item" href="{{ url_for('authorization.emailconfirmrequest') }}">Confirm Your Email</a>
                             {% endif %}
                             <div class="dropdown-divider"></div>
                             {% if current_user.passwordreset %}
-                                <a class="dropdown-item" href="{{ url_for('home.password_reset',email='*') }}">Reset Your Password</a>
+                                <a class="dropdown-item" href="{{ url_for('authorization.password_reset',email='*') }}">Reset Your Password</a>
                             {% else %}
-                                <a class="dropdown-item" href="{{ url_for('home.forgetpassword') }}">Reset Your Password</a>
+                                <a class="dropdown-item" href="{{ url_for('authorization.forgetpassword') }}">Reset Your Password</a>
                             {% endif %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Setting</a>
@@ -187,8 +187,8 @@
                             <img class="menu_image rounded-circle" alt="" src="../../static/images/icon_user_not_loggedIn.png">
                         </a>
                         <div class="dropdown-menu dropdown_list" aria-labelledby="usermenu2">
-                            <a class="dropdown-item" href="{x url_for('home.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                            <a class="dropdown-item" href="{x url_for('home.register') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                            <a class="dropdown-item" href="{x url_for('authorization.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                            <a class="dropdown-item" href="{x url_for('authorization.register') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
                         </div>
                         -->
                     {% endif %}
@@ -212,7 +212,7 @@
                 <li class="prototypes_is_active nav-item dropdown"><a title="our prototypes" class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Prototypes&nbsp;</a>
                     <div class="dropdown-menu dropdown_list" aria-labelledby="ProtoTypesDropdownList">
                         <a class="dropdown-item" href="/myBank">MyBank</a>
-                        <a class="dropdown-item" href="{{url_for('home.myGame')}}">MyGame</a>
+                        <a class="dropdown-item" href="{{url_for('authorization.myGame')}}">MyGame</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
                         <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
@@ -251,15 +251,15 @@
                 </li>
                 {% if not(current_user.is_authenticated) %}
                     <li class="{{login_active}} nav-item hidden-sm-up">
-                        <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('home.login_or_register',action_tab='login')}}">Log-in</a>
+                        <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('authorization.login_or_register',action_tab='login')}}">Log-in</a>
                     </li>
 
                     <li class="{{register_active}} nav-item hidden-sm-up">
-                        <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('home.login_or_register',action_tab='register')}}}">Register</a>
+                        <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('authorization.login_or_register',action_tab='register')}}}">Register</a>
                     </li>
                 {% else %}
                     <li class="nav-item hidden-sm-up">
-                        <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('home.logout')}}">Logout</a>
+                        <a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('authorization.logout')}}">Logout</a>
                     </li>
                 {% endif %}
 
@@ -267,7 +267,7 @@
                     <a class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
                     <div class="dropdown-menu dropdown_list" aria-labelledby="helpDropdownList">
                         <a class="dropdown-item" href="/myBank">MyBank</a>
-                        <a class="dropdown-item" href="{{url_for('home.myGame')}}">MyGame</a>
+                        <a class="dropdown-item" href="{{url_for('authorization.myGame')}}">MyGame</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
                         <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
@@ -320,24 +320,24 @@
                     <div class="dropdown-menu dropdown_list" aria-labelledby="usermenu1">
                         <a class="dropdown-item" href="#">Signed-in as {{ current_user.firstName.lower() }}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url_for('home.logout') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ url_for('authorization.logout') }}">Logout</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ url_for('home.userprofile') }}">Your Profile</a>
-                        <a class="dropdown-item" href="{{ url_for('home.userprofilechange') }}">Change Profile</a>
-                        <a class="dropdown-item" href="{{ url_for('home.passwordchange') }}">Change Password</a>
-                        <a class="dropdown-item" href="{{ url_for('home.upload_avatar') }}">Change Your Avatar</a>
+                        <a class="dropdown-item" href="{{ url_for('authorization.userprofile') }}">Your Profile</a>
+                        <a class="dropdown-item" href="{{ url_for('authorization.userprofilechange') }}">Change Profile</a>
+                        <a class="dropdown-item" href="{{ url_for('authorization.passwordchange') }}">Change Password</a>
+                        <a class="dropdown-item" href="{{ url_for('authorization.upload_avatar') }}">Change Your Avatar</a>
                         <div class="dropdown-divider"></div>
                         {% if not(current_user.mobileConfirmed) and current_user.mobile %}
-                            <a class="dropdown-item" href="{{ url_for('home.mobileconfirm') }}">Confirm Your Mobile</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.mobileconfirm') }}">Confirm Your Mobile</a>
                         {% endif %}
                         {% if not(current_user.emailConfirmed) %}
-                            <a class="dropdown-item" href="{{ url_for('home.emailconfirmrequest') }}">Confirm Your Email</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.emailconfirmrequest') }}">Confirm Your Email</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
                         {% if current_user.passwordreset %}
-                            <a class="dropdown-item" href="{{ url_for('home.password_reset',email='*') }}">Reset Your Password</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.password_reset',email='*') }}">Reset Your Password</a>
                         {% else %}
-                            <a class="dropdown-item" href="{{ url_for('home.forgetpassword') }}">Reset Your Password</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.forgetpassword') }}">Reset Your Password</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Setting</a>
@@ -350,8 +350,8 @@
                         <img class="menu_image rounded-circle" alt="" src="../../static/images/icon_user_not_loggedIn.png">
                     </a>
                     <div class="dropdown-menu dropdown_list" aria-labelledby="usermenu2">
-                        <a class="dropdown-item" href="{x url_for('home.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                        <a class="dropdown-item" href="{x url_for('home.register') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                        <a class="dropdown-item" href="{x url_for('authorization.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                        <a class="dropdown-item" href="{x url_for('authorization.register') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
                     </div>
                     -->
                 {% endif %}

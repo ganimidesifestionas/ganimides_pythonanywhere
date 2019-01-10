@@ -1,74 +1,85 @@
 {% import "bootstrap/utils.html" as utils %}
 {% import "bootstrap/wtf.html" as wtf %}
-{% set userprofile_is_active='active show' %}
+
+
+{% set userprofile_is_active='active' %}
+{% set userprofile_show='active show' %}
 {% set profilechange_is_active='' %}
+{% set profilechange_show='' %}
 {% set passwordchange_is_active='' %}
+{% set passwordchange_show='' %}
 {% set avatarupload_is_active='' %}
+{% set avatarupload_show='' %}
+
 {% if activeTAB=='userprofilechange' %}
-    {% set profilechange_is_active='active show' %}
-    {% set userprofile_is_active='' %}
+{% set profilechange_is_active='active' %}
+{% set profilechange_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
 {%endif%}
 {% if activeTAB=='passwordchange' %}
-    {% set passwordchange_is_active='active show' %}
-    {% set userprofile_is_active='' %}
+{% set passwordchange_is_active='active' %}
+{% set passwordchange_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
 {%endif%}
 {% if activeTAB=='avatarupload' %}
-    {% set avatarupload_is_active='active show' %}
-    {% set userprofile_is_active='' %}
+{% set avatarupload_is_active='active' %}
+{% set avatarupload_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
 {%endif%}
 
 <div class="d-flex flex-column">
     <div class="p-0">
-        <!-- title
-        <h1 id="signHeading">Sign up for an account</h1>
-        <!--messages-->
-        {#% include [language_fullpathfile('messages_display_fielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_fielderrors.html','COMPONENT')] %#}
-        {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
-        {#% include [language_fullpathfile('messages_display_all.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_all.html','COMPONENT')] %#}
-        {#% include [language_fullpathfile('messages_display_excepterrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_excepterrors.html','COMPONENT')] %#}
-        <div class="p-0 left subscriber_menu_navbar">
+        <div class="p-0 left">
             <!-- Nav tabs -->
             <div class="left">
-                <ul class="nav nav-tabs p-10" role="tablist">
-                    <li class="nav-item {{userprofile_is_active}}"><a class="nav-link {{userprofile_is_active}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
-                    <li class="nav-item {{profilechange_is_active}}"><a class="nav-link {{profilechange_is_active}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
-                    <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link {{passwordchange_is_active}}" href="#passchange" data-toggle="tab">Change Password</a></li>
-                    <!--<li class="nav-item x{avatarupload_is_active}}"><a class="nav-link x{avatarupload_is_active}}" href="#uploads" data-toggle="tab">Upload Your Picture</a></li>-->
+                <ul class="nav nav-tabs form-tabs" role="tablist">
+                    <li class="nav-item form-tab-item {{userprofile_is_active}}"><a class="nav-link form-tab-link {{userprofile_show}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
+                    <li class="nav-item form-tab-item {{profilechange_is_active}}"><a class="nav-link form-tab-link {{profilechange_show}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
+                    <li class="nav-item form-tab-item {{passwordchange_is_active}}" ><a class="nav-link form-tab-link {{passwordchange_show}}" href="#passchange" data-toggle="tab">Change Password</a></li>
+                    <li class="nav-item form-tab-item {{avatarupload_is_active}}"><a class="nav-link form-tab-link {{avatarupload_show}}" href="#uploadpicture" data-toggle="tab">Upload Your Picture</a></li>
                 </ul>
             </div>
             <!-- Tab panes -->
-            <div class="tab-content left p-0">
-
+            <div class="tab-content left">
+               
                 <!-- form 1 userprofile-readonly -->
-                <div id="userprofile" class="tab-pane fade {{userprofile_is_active}} left">
-                    <div class="d-flex">
-                        <div class="subscriber_form">
-                            {% include [language_fullpathfile('form_userprofile.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_userprofile.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                <div id="userprofile" class="tab-pane fade {{userprofile_show}} left">
+                    <div class="d-flex justify-content-center authorization-form tabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_userprofile.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_userprofile.html','FORM')] %}
                         </div>
                     </div>
                 </div>
 
                 <!-- form 2 profile change-->
-                <div id="profilechange" class="tab-pane fade {{profilechange_is_active}} left">
-                    <div class="d-flex">
-                        <div class="subscriber_form">
-                            {% include [language_fullpathfile('form_userprofile_change.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_userprofile_change.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                <div id="profilechange" class="tab-pane fade {{profilechange_show}} left">
+                    <div class="d-flex justify-content-center authorization-form tabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_userprofile_change.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_userprofile_change.html','FORM')] %}
                         </div>
                     </div>
                 </div>
 
                 <!-- form 3 password change-->
-                <div id="passchange" class="tab-pane fade {{passwordchange_is_active}}">
-                    <div class="d-flex">
-                        <div class="subscriber_form">
-                            {% include [language_fullpathfile('form_password_change.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_password_change.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
+                <div id="passchange" class="tab-pane fade {{passwordchange_show}}">
+                    <div class="d-flex justify-content-center authorization-form tabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_password_change.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_password_change.html','FORM')] %}
                         </div>
                     </div>
                 </div>
-
-
-            </div><!--end of tab-content-->
-        </div><!--end of col 1-->
+                <!-- form 4 upload image-->
+                <div id="uploadpicture" class="tab-pane fade {{avatarupload_show}}">
+                    <div class="d-flex justify-content-center authorization-form tabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_avatar_upload.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_avatar_upload.html','FORM')] %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-

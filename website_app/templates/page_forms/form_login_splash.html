@@ -1,0 +1,100 @@
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#login_modal_form">
+    Login
+</button>
+-->
+<!-- Modal -->
+<div class="modal fade" id="login_modal_form" tabindex="-1" role="dialog" aria-labelledby="login_modal_form_Label">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content align-self-center border border-light" style="width:fit-content">
+            <!--form is not validated locally on the browser (novalidate option) in order to use the forget password button-->
+            <form id="formLogin" action="{{ url_for('authorization.loginForm') }}" method="post" role="form" autocomplete="on" class="" novalidate>
+                <fieldset>
+                    {{ loginform.hidden_tag() }}
+                    <div class="modal-header align-items-center">
+                        <h4 class="modal-title mx-auto" id="login_modal_form_Label">Login</h4>
+                        <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <!--separation line-->
+                    <div class="border border-warning border-top-0 border-left-0 border-right-0"></div>
+
+                    <div class="modal-body">
+                        <div class="d-flex flex-column">
+                            <div class="p-0">
+                                {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
+                                <div class="p-0 left">
+                                    <!--===================================================-->
+                                    <div class="form-group d-flex flex-column">
+                                        {{ loginform.email.label }}
+                                        {{ loginform.email(size=32, class="form-control input-style") }}
+                                        {% for error in loginform.email.errors %}
+                                        <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group d-flex flex-column">
+                                        {{ loginform.password.label }}
+                                        {{ loginform.password(size=32, class="form-control input-style") }}
+                                        {% for error in loginform.password.errors %}
+                                        <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="form-group d-flex justify-content-start">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-flex">
+                                                {{loginform.rememberMe(class="form-checkbox")}}
+                                            </div>
+                                            <div class="d-flex">
+                                                <p class="checkbox-label">Remember Me</p>
+                                            </div>
+                                        </div>
+                                        <div class="ml-auto d-flex align-items-center">
+                                            <!--
+                                            <button name="action" type="submit" value="forget_password" class="btn btn-warning p-1">Forget Your Password?</button>
+                                            -->
+                                            {{loginform.forgetPassword(class="btn btn-warning p-1")}}
+                                        </div>
+                                        {% for error in loginform.rememberMe.errors %}
+                                        <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="form-group d-flex justify-content-center align-items-center">
+                                        <div class="d-flex">
+                                            {{ loginform.recaptcha }}
+                                            {% for error in loginform.recaptcha.errors %}
+                                            <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <!--===================================================-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--separation line-->
+                    <div class="border border-warning border-top-0 border-left-0 border-right-0"></div>
+
+                    <div class="modal-footer d-flex justify-content-start">
+                        <div class="justify-content-center align-items-center mt-0 mb-0 p-0">
+                            Don't have an account yet?&nbsp;
+                            <a class="" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a>
+                        </div>
+                        <div class="d-flex flex-grow-1 justify-content-end mt-0 mb-0 p-0">
+                            <div class="mr-2">
+                                <button type="button" class="btn btn-default p-1" data-dismiss="modal">Close</button>
+                            </div>
+                            <div>
+                                <!--
+                                <button name="action" type="submit" value="login" class="btn btn-warning p-1">Login</button>
+                                -->
+                                {{loginform.submit(class="btn btn-warning p-1")}}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

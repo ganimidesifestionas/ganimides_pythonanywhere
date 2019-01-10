@@ -1,47 +1,133 @@
-<div style="padding:20px">
-    {% include [language_fullpathfile('secure_info_general.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('secure_info_general.html','COMPONENT')] %}<!--@include@ @parameterized@ @versioning@-->
-    <div class="clearfix text-note mb-3"></div>
-    <form id="formContactUs" action="{{ url_for('home.contact_form') }}" method="post" role="form" autocomplete="on" class="subscriber_form" validate>
-        <fieldset>
-            {{form.hidden_tag()}}
-            <div class="d-flex flex-column content p-0 m-0 mb-1">
-                <div class="row p-0 m-0">
-                    <table>
-                        <tr>
-                            <td style="vertical-align:top;padding-left:10px;padding-right:10px;width:10%;height:auto;border:0px dotted red;">
-                                {{ form.firstName.label }}<br />
-                                {{ form.firstName(size=32) }}<br />
-                                {{ form.lastName.label }}<br />
-                                {{ form.lastName(size=32) }}<br />
-                                {{ form.jobTitle.label }}<br />
-                                {{ form.jobTitle(size=32) }}<br />
-                                {{ form.company.label }}<br />
-                                {{ form.company(size=32) }}<br />
-                                {{ form.email.label }}<br />
-                                {{ form.email(size=32) }}<br />
-                            </td>
-                            <td style="vertical-align:top;padding-left:10px;padding-right:10px;width:auto;height:auto;border:0px dotted blue">
-                                {{ form.contact_message.label }}<br>
-                                {{ form.contact_message(rows="10", cols="80") }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <p>{{ form.submit(class='button_simple_small') }}</p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <!-- separator line -->
-                <div class="border border-warning" style="width:100%;text-align:center;display:block;margin:5px auto;"></div>
+{% set secure_text='Your information is secured and protected.' %}
+{% set include_mcafee='Y' %}
+<form class="authorization-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
+    <fieldset>
+        {{ contactusform.hidden_tag() }}
+        <div class="modal-header align-items-center">
+            <h4 class="modal-title mx-auto" id="contactus_modal_form_Label">Contact Us</h4>
+            <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
 
-                <!-- signup with buttons (facebook etc) -->
-                <div class="signUpCenter">
-                    <a id="fbLoginLink" onclick="facebookLogin(); return false;" class="fb-btn-img"><img class="facebook-login-image" src="../../static/images/facebook-login.png" alt="connect with facebook" title="connect with facebook"></a>
-                    <br>
-                    <em class="text-note">We will never post to your account without permission.</em>
+        <div class="authorization-form-line"></div>
+
+        <div class="modal-body">
+            <div class="d-flex flex-column">
+                <div class="p-0">
+                    {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
+                    <div class="p-0 left">
+                        <!--===================================================-->
+                        <div class="d-flex flex-column justify-content-start">
+                            {% if not(current_user.is_authenticated) %}
+                            <div class="form-group d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{contactusform.firstName.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if contactusform.firstName.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ contactusform.firstName(class="form-control input-style") }}
+                                {% for error in contactusform.firstName.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{contactusform.lastName.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if contactusform.lastName.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ contactusform.lastName(class="form-control input-style")}}
+                                {% for error in contactusform.lastName.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{contactusform.company.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if contactusform.company.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ contactusform.company( class="form-control input-style") }}
+                                {% for error in contactusform.company.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{contactusform.jobTitle.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if contactusform.jobTitle.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ contactusform.jobTitle(class="form-control input-style") }}
+                                {% for error in contactusform.company.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <div class="form-group d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{contactusform.email.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if contactusform.email.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ contactusform.email(size=60,class="form-control input-style") }}
+                                {% for error in contactusform.company.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group d-flex flex-column justify-content-start align-self-start">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{contactusform.contact_message.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if contactusform.contact_message.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ contactusform.contact_message(class="form-control input-style") }}
+                                {% for error in contactusform.contact_message.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <!--==================================================-->
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="authorization-form-line"></div>
+
+        <div class="modal-footer d-flex justify-content-start">
+            {% if not(current_user.is_authenticated) %}
+            <div class="justify-content-center align-items-center mt-0 mb-0 p-0">
+                Already Registered?&nbsp;<a class="" href="{{url_for('authorization.login')}}">Log in.</a>
+            </div>
+            {% endif %}
+
+            <div class="d-flex flex-grow-1 justify-content-end mt-0 mb-0 p-0">
+                <div class="mr-2">
+                    <button type="button" class="btn btn-default p-1" data-dismiss="modal">Close</button>
                 </div>
-        </fieldset>
-    </form>
-</div>
+                <div>
+                    <button type="submit" class="btn btn-warning p-1">Submit</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

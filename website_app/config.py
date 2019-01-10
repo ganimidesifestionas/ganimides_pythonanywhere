@@ -22,19 +22,19 @@ class Config(object):
     FLASKY_SLOW_DB_QUERY_TIME = 0.5
     BASE_DIR=basedir
     COPYWRITE_YEAR="2018"
-    COMPANY_NAME = "Leandrou&Leandrou Technology Services";
-    COMPANY_COLOR="blue";
-    DOMAIN_NAME="ganimedes.com";
-    DOMAIN_TITLE = "Ganimides Business Technology Institute";
-    DOMAIN_COLOR="lightseagreen";
-    CONTACT_EMAIL="webmaster@ganimedes.com";
-    COMPANY_ADDRESS="4, vasilis michelides str.<br/>2015 dhasoupolis<br/>Nicosia<br/>Cyprus<br/>";
-    COMPANY_PHONES="00357.22311634";
-    COMPANY_CONTACT_EMAIL="contact@L&LTech.com";
-    COMPANY_SUPPORT_EMAIL="support@LeandrouTech.com";
-    CONTACT_EMAIL="contact@ganimedes.com";
-    SUPPORT_EMAIL="support@ganimedes.com";
-    INQUIRY_EMAIL="inquiry@ganimedes.com";
+    COMPANY_NAME = "Leandrou Technology Forward"
+    COMPANY_COLOR="blue"
+    DOMAIN_NAME="ganimedes.com"
+    DOMAIN_TITLE = "Ganimides Business Technology Institute"
+    DOMAIN_COLOR="lightseagreen"
+    CONTACT_EMAIL="webmaster@ganimedes.com"
+    COMPANY_ADDRESS="4, vasilis michelides str.<br/>2015 dhasoupolis<br/>Nicosia<br/>Cyprus<br/>"
+    COMPANY_PHONES="00357.22311634"
+    COMPANY_CONTACT_EMAIL="contact@L&LTech.com"
+    COMPANY_SUPPORT_EMAIL="support@LeandrouTech.com"
+    CONTACT_EMAIL="contact@ganimedes.com"
+    SUPPORT_EMAIL="support@ganimedes.com"
+    INQUIRY_EMAIL="inquiry@ganimedes.com"
     WEBSITE_ADMIN_EMAIL="admin@ganimedes.com"
     LANGUAGES = {
         'en': ['English','uk.png']
@@ -46,7 +46,7 @@ class Config(object):
         ,'gr': 'greece.png'
         ,'cy': 'cyprus.png'
     }
-    DEFAULT_LANGUAGE = 'cy';
+    DEFAULT_LANGUAGE = 'cy'
     #############################################################################################
     #server app folders
     #############################################################################################
@@ -63,6 +63,9 @@ class Config(object):
     PAGES_FOLDER = 'page_contents/'
     FORMS_FOLDER = 'page_forms/'
     COMPONENTS_FOLDER = 'page_components/'
+    EMAILS_FOLDER = 'email_templates/'
+    SMS_FOLDER = 'sms_templates/'
+    AUTHORIZATION_FOLDER = 'authorization/'
     #############################################################################################
     #for upload files pictures avatars etc
     #############################################################################################

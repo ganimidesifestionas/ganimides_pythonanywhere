@@ -33,10 +33,18 @@ app = Flask(__name__, instance_relative_config=True) #--> important: the folders
 ################################################################################
 ################################################################################
 ################################################################################
-pages=''
-login_active=''
-register_active=''
-help_active=''
+app.pages=''
+app.lastpage='homepage'
+app.lastpage_html='page_templates/landing_page.html'
+app.login_active=''
+app.register_active=''
+app.help_active=''
+app.splash_form=''
+app.loginform=None
+app.registrationform=None
+app.contactusform=None
+app.forgetpasswordform=None
+app.splashform=None
 ################################################################################
 ################################################################################
 ################################################################################
@@ -105,7 +113,7 @@ print('###LOGIN-MANAGER###','login_manager = LoginManager(application)')
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_message = "You must be logged in to access this page."
-login_manager.login_view = "home.login"
+login_manager.login_view = "authorization.login"
 ################################################################################
 ################################################################################
 ################################################################################
@@ -141,21 +149,21 @@ migrate = Migrate(app, db)
 ################################################################################
 print('')
 print('###ERROR_HANDLERS###')
-print('   @app.errorhandler(403)','render_template(errors/403.html, title=Forbidden)')
+print('   @app.errorhandler(403)','render_template(error_pages/403.html, title=Forbidden)')
 @app.errorhandler(403)
 def forbidden(error):
-    return render_template('errors/403.html', title='Forbidden'), 403
+    return render_template('error_pages/403.html', title='Forbidden'), 403
 
-print('   @app.errorhandler(404)','render_template(errors/404.html, title=Page Not Found)')
+print('   @app.errorhandler(404)','render_template(error_pages/404.html, title=Page Not Found)')
 @app.errorhandler(404)
 def page_not_found(error):
     varPageName = str(request._get_current_object())
-    return render_template('errors/404.html', title='Page Not Found',PageNotFound=varPageName), 404
+    return render_template('error_pages/404.html', title='Page Not Found',PageNotFound=varPageName), 404
 
-print('   @app.errorhandler(500)','render_template(errors/500.html, title=Server Error)')
+print('   @app.errorhandler(500)','render_template(error_pages/500.html, title=Server Error)')
 @app.errorhandler(500)
 def internal_server_error(error):
-    return render_template('errors/500.html', title='Server Error'), 500
+    return render_template('error_pages/500.html', title='Server Error'), 500
 
 ################################################################################
 ################################################################################
@@ -178,9 +186,9 @@ print('###BLUEPRINTS (SUB-APPCOMPONENTS)###')
 # Import modules/components using their blueprint handler variable i.e module_authoroization
 
 ### authorization module
-from . module_home.controllers import home as authorization_module
-app.register_blueprint(authorization_module,url_prefix='/home')
-print('   autorization_module---','app.register_blueprint(authorization_module,url_prefix=''/authorization'')')
+from . module_authorization.routes import authorization as authorization_module
+app.register_blueprint(authorization_module,url_prefix='/authorization')
+print('   authorization_module---','app.register_blueprint(authorization_module,url_prefix=''/authorization'')')
 
 ### protototypes page
 #from . module_prototypes.controllers import prototypes as prototypes_module
@@ -224,7 +232,20 @@ def write_to_disk(name, surname, email):
 def inject_configuration_parameters_as_variables():
     print('   ###SERVER_RUNNING###','inject_configuration_parameters_as_variables:')
     return dict(
-         GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY=app.config['GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY']
+        EXECUTION_MODE=app.config['EXECUTION_MODE']
+        ,pages=app.pages
+        ,lastpage=app.lastpage
+        ,lastpage_html=app.lastpage_html
+        ,splash_form=app.splash_form
+        ,login_active=app.login_active
+        ,register_active=app.register_active
+        ,help_active=app.help_active
+        ,loginform=app.loginform
+        ,registrationform=app.registrationform
+        ,contactusform=app.contactusform
+        ,forgetpasswordform=app.forgetpasswordform
+        ,splashform=app.splashform
+        ,GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY=app.config['GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY']
         ,GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY=app.config['GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY']
         ,GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY=app.config['GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY']
         ,GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY=app.config['GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY']
@@ -240,6 +261,7 @@ def inject_configuration_parameters_as_variables():
         ,IMAGES_FOLDER=app.config['IMAGES_FOLDER']
         ,PICTURES_FOLDER=app.config['PICTURES_FOLDER']
         ,UPLOAD_FOLDER=app.config['UPLOAD_FOLDER']
+        ,AUTHORIZATION_FOLDER=app.config['AUTHORIZATION_FOLDER']
         ,ALLOWED_EXTENSIONS=app.config['ALLOWED_EXTENSIONS']
         ,AVAILABLE_LANGUAGES=app.config['LANGUAGES']
         ,CURRENT_LANGUAGE=session.get('language',request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
@@ -265,7 +287,8 @@ def inject_configuration_parameters_as_variables():
 
 @app.context_processor
 def inject_utility_functions():
-    print('   ###SERVER_RUNNING###','inject_utility_functions:')
+    print('###SERVER_RUNNING###','inject_utility_functions:')
+
     #print('###inject_utility_functions:format_price()')
     def format_price(amount, currency=u'€'):
         return u'{0:.2f}{1}'.format(amount, currency)
@@ -283,7 +306,7 @@ def inject_utility_functions():
     def version_file(file='',environment='',design='',version=''):
         nfile=file
         if (environment!=''):
-            nfile=environment+'/'+nfile
+            nfile=environment+content_page+nfile
         if (design!=''):
             nfile=nfile.replace('.', '_'+design+'.')
         if (version!=''):
@@ -291,7 +314,7 @@ def inject_utility_functions():
         return nfile
 
     #print('###inject_utility_functions:fullpathfile()')
-    def fullpathfile(file='',type='TEMPLATE'):
+    def fullpathfile(file='',type='TEMPLATE',module=''):
         folder=app.config['TEMPLATES_ROOT_FOLDER']
         if (type.upper()=='LAYOUT'):
             folder=app.config['LAYOUT_FOLDER']
@@ -307,6 +330,12 @@ def inject_utility_functions():
             folder=app.config['PICTURES_FOLDER']
         if (type.upper()=='FORM'):
             folder=app.config['FORMS_FOLDER']
+
+        if module:
+            if (type.upper()=='LAYOUT'):
+                folder=module+'/'
+            else:
+                folder=module+'/'+folder
         file1=file
         file2=file1
         if (file1.find('/')<0):
@@ -338,32 +367,64 @@ def inject_utility_functions():
         return file2
 
     #print('###inject_utility_functions:page_file()')
-    def page_file(file=''):
+    def page_file(file='',module=''):
         file1=file
         file2=file1
         if (file1.find('/')<0):
-            file2 = app.config['PAGES_FOLDER']+file1
+            if module:
+                file2 = module+'/'+app.config['PAGES_FOLDER']+file1
+            else:
+                file2 = app.config['PAGES_FOLDER']+file1
         return file2
 
     #print('###inject_utility_functions:form_file()')
-    def form_file(file=''):
+    def form_file(file='',module=''):
         file1=file
         file2=file1
         if (file1.find('/')<0):
-            file2 = app.config['FORMS_FOLDER']+file1
+            if module:
+                file2 = module+'/'+app.config['FORMS_FOLDER']+file1
+            else:
+                file2 = app.config['FORMS_FOLDER']+file1
         return file2
 
     #print('###inject_utility_functions:component_file()')
-    def component_file(file=''):
+    def component_file(file='',module=''):
         file1=file
         file2=file1
         if (file1.find('/')<0):
-            file2 = app.config['COMPONENTS_FOLDER']+file1
+            if module:
+                file2 = module+'/'+app.config['COMPONENTS_FOLDER']+file1
+            else:
+                file2 = app.config['COMPONENTS_FOLDER']+file1
         return file2
 
+    #print('###inject_utility_functions:email_template_file()')
+    def email_template_file(file='',module=''):
+        file1=file
+        file2=file1
+        if (file1.find('/')<0):
+            if module:
+                file2 = module+'/'+app.config['EMAILS_FOLDER']+file1
+            else:
+                file2 = app.config['EMAILS_FOLDER']+file1
+        return file2
+
+    #print('###inject_utility_functions:sms_template_file()')
+    def sms_template_file(file='',module=''):
+        file1=file
+        file2=file1
+        if (file1.find('/')<0):
+            if module:
+                file2 = module+'/'+app.config['SMS_FOLDER']+file1
+            else:
+                file2 = app.config['SMS_FOLDER']+file1
+        return file2
+
+
     #print('###inject_utility_functions:language_page_file()')
-    def language_page_file(file='',language='en'):
-        nfile=page_file(file)
+    def language_page_file(file='',language='en',module=''):
+        nfile=page_file(file,module)
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
         if (language!=app.config['DEFAULT_LANGUAGE']):
@@ -371,16 +432,19 @@ def inject_utility_functions():
         return nfile
 
     #print('###inject_utility_functions:template_file()')
-    def template_file(file=''):
+    def template_file(file='',module=''):
         file1=file
         file2=file1
         if (file1.find('/')<0):
-            file2 = app.config['TEMPLATES_FOLDER']+file1
+            if module:
+                file2 = module+'/'+file1
+            else:
+                file2 = app.config['TEMPLATES_FOLDER']+file1
         return file2
 
     #print('###inject_utility_functions:language_fullpathfile()')
-    def language_fullpathfile(file='',language='en',type='PAGE'):
-        nfile=fullpathfile(file,type)
+    def language_fullpathfile(file='',language='en',type='PAGE',module=''):
+        nfile=fullpathfile(file,type,module)
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
         if (language!=app.config['DEFAULT_LANGUAGE']):
@@ -401,6 +465,8 @@ def inject_utility_functions():
         ,language_fullpathfile=language_fullpathfile
         ,template_file=template_file
         ,component_file=component_file
+        ,email_template_file=email_template_file
+        ,sms_template_file=sms_template_file
 )
 ################################################################################
 ################################################################################

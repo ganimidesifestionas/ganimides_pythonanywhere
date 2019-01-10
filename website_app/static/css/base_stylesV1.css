@@ -1,0 +1,1878 @@
+/*
+    ============================================================
+    this code auto activates a drop down list on a dropdown-menu
+    ============================================================
+*/
+
+.dropdown:hover > .dropdown-menu {
+    display: block !important;
+}
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none !important;/*Add this, to prevent clicking dropdown's default click function*/
+}
+
+/*
+    ****************************************************
+    ****************************************************
+    *** images, logos, icons, pictures
+    ****************************************************
+    ****************************************************
+*/
+.menu_image {
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+.avatar_image {
+    width: 150px;
+    height: 150px;
+}
+.mcafee-logo {
+    width: 150px;
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+}
+.facebook-login-image {
+    width: 200px;
+    height: 30px;
+}
+#logo {
+    width: 30px;
+    height: 30px;
+    margin:auto;
+}
+#homeicon {
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    /*background-image: url('../../static/images/home_icon_white.gif');*/
+}
+#GlobalMenuButton{
+    color:blue;
+}
+.page-image-cell {
+    padding:2px;
+    padding-left:0px
+}
+.page-image_icon {
+    width: 100px;
+    height: 100px;
+}
+.social_media_icon {
+    width: 30px;
+    height: 30px;
+}
+/*
+    ****************************************************
+    ****************************************************
+    *** text formatting
+    ****************************************************
+    ****************************************************
+*/
+.text-align-right{
+    float:right;
+}
+.text-bottom-right {
+    position:absolute;
+    bottom:4px;
+    right:5px;
+}
+.text-normal-reading {
+    color: black;
+    font-family: Inconsolata,Consolas,'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 300;
+}
+.text-company-name {
+    color: black;
+    font-size: 10pt;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-style: normal;
+    font-weight: 600;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.text-emphasis-gray {
+    color: gray;
+    /*font-weight: lighter;*/
+}
+.text-emphasis-black {
+    color: black;
+    font-weight: lighter;
+}
+.text-emphasis {
+    /*
+    color: black;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-style: normal;
+    */
+    font-weight: bold;
+}
+.text-emphasis-shadow-bold {
+    font-style: normal;
+    font-weight: bold;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+.text-note {
+    /*
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 100;
+    */
+    color: gray;
+}
+.text-note-italics {
+    color: gray;
+    font-style: italic;
+}
+
+.text-previous-version {
+    text-decoration: line-through;
+}
+
+.text_last_revision {
+    color: Black;
+    /*
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight:  300;
+    */
+    padding: 0px;
+    margin: 0px;
+    white-space: normal;
+    text-transform: uppercase;
+    /*text-decoration: none;*/ /*underline ;*/
+    font-size: 80%;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.text-security-note {
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 9pt;
+    font-style: normal;
+    font-weight: 600;
+    color: blue;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.text-error-note {
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 9pt ;
+    font-style: normal ;
+    font-weight: 600;
+    color: red;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.text_notes_black {
+    color: black;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 10px;
+    font-style: normal;
+    font-style: normal;
+    font-weight: 100;
+}
+
+    .text_notes_black a:link {
+        color: blue;
+        font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+        font-size: 10px;
+        font-style: normal;
+        font-style: normal;
+        font-weight: 100;
+    }
+
+    .text_notes_black label {
+            color: blue;
+            font-family: Inconsolata, 'Segoe UI Light', serif;
+            font-size: 10px;
+            font-style: normal;
+            font-style: normal;
+            font-weight: 100;
+        }
+    
+    .quote_text {
+        color: Black;
+        background-color: transparent;
+        font-family: 'Segoe UI Light', Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .quote_title {
+        color: Black;
+        background-color: transparent;
+        font-family: Montserrat,'Open Sans',  Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    
+.justify {
+    width: 100%;
+    background: transparent;
+    margin: 0 auto;
+    max-width: 100%;
+    list-style: disc outside none;
+    text-align: justify;
+    display: block;
+}
+.email_link {
+    color:blue;
+}
+#justify {
+    width: 100%;
+    background: transparent;
+}
+    #justify p {
+        margin: 0 auto;
+        max-width: 90%;
+        list-style: disc outside none;
+        text-align: justify;
+        display: block; /* list-item;*/
+        background: #ccc;
+    }
+
+.page_title {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 14pt;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: 0px;
+    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 00px;
+    }    
+
+/*
+    ****************************************************
+    ****************************************************
+    design support
+    ****************************************************
+    ****************************************************
+*/
+
+.design_div {
+    border: 2px solid blue ;
+}
+.design_row {
+    border: 2px solid green ;
+}
+.design_cell {
+    border: 2px solid red ;
+}
+.design_table {
+    margin: 0px ;
+    padding: 0px ;
+    border: 0px dotted green ;
+    }
+    .design_table tr {
+        margin: 0px ;
+        padding: 0px ;
+        border: 0px dotted green ;
+        }
+    .design_table td {
+        margin: 0px !important;
+        padding: 0px !important;
+        border: 0px dotted green !important;
+        }
+
+.design_table0 {
+    color: black;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid orange
+}
+    .design_table0 tr {
+        border: 1px dotted orange ;
+        vertical-align:top;
+        margin: 0px;
+        padding: 0px;
+    }
+    .design_table0 td {
+        border: 1px solid orange ;
+        margin: 0px;
+        padding: 0px;
+    }
+
+.design_table1 {
+    color: black;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid black
+}
+    .design_table1 tr {
+        border: 1px dotted black ;
+        vertical-align:top;
+        margin: 0px;
+        padding: 0px;
+    }
+    .design_table1 td {
+        border: 1px solid black ;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .design_table2 {
+    color: black;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid blue
+}
+
+    .design_table2 tr {
+        border: 2px solid blue !important;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .design_table2 td {
+        border: 3px solid blue !important ;
+        margin: 0px;
+        padding: 0px;
+    }
+
+.design_table3 {
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid magenta
+}
+
+    .design_table3 tr {
+        border: 1px solid magenta ;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .design_table3 td {
+        border: 1px solid magenta ;
+        margin: 0px;
+        padding: 0px;
+    }
+.design_table4 {
+        margin: 0px;
+        padding: 0px;
+        border: 1px solid green
+}
+    
+        .design_table4 tr {
+            border: 1px solid green ;
+            margin: 0px;
+            padding: 0px;
+        }
+    
+        .design_table4 td {
+            border: 1px solid green;
+            margin: 0px;
+            padding: 0px;
+        }
+/*
+    ****************************************************
+    ****************************************************
+    *** lines
+    ****************************************************
+    ****************************************************
+*/
+.dotted-line-top {
+    border-top: 2px dotted gray;
+}
+.dotted-line-bottom {
+    border-bottom: 2px dotted gray;
+}
+.dotted-line-top-orange {
+    border-top: 2px dotted orange;
+}
+.dotted-line-bottom-orange {
+    border-bottom: 2px dotted orange;
+}
+.dotted-line-top-red {
+    border-top: 2px dotted red;
+}
+.dotted-line-bottom-red {
+    border-bottom: 2px dotted red;
+}
+.dotted-line-top-black {
+    border-top: 2px dotted black;
+}
+.dotted-line-bottom-black {
+    border-bottom: 2px dotted black;
+}
+
+hr {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border: 0;
+    border-top: 1px solid #eeeeee;
+}
+
+/*
+    ****************************************************
+    ****************************************************
+    *** buttons
+    ****************************************************
+    ****************************************************
+*/
+.button_intext {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+    background-color: #ffec64;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+    color: black !important;
+    font-family: Inconsolata,Verdana,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 11pt;
+    padding: 2px 2px;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap !important;
+    margin:1px
+}
+    .button_intext:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+        background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+        background-color: #ffab23;
+        text-decoration: none;
+        color: black !important;
+    }
+
+    .button_intext:active {
+        position: relative;
+        top: 1px;
+    }
+    .button_intext a {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_intext a:link {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+
+.button_learnmore {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+    background-color: #ffec64;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+    color: black !important;
+    font-family: Inconsolata,Verdana,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 11pt;
+    padding: 2px 2px;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap !important;
+    margin:1px
+}
+    .button_learnmore:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+        background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+        background-color: #ffab23;
+        text-decoration: none;
+        color: black !important;
+    }
+    .button_learnmore a {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_learnmore a:link {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_learnmore:active {
+        position: relative;
+        top: 1px;
+    }
+
+    .button_back {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+    background-color: #ffec64;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    display: inline-block;
+    cursor: pointer;
+    color: black !important;
+    font-family: Inconsolata,Verdana,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 11pt;
+    padding: 2px 2px;
+    font-weight: 900;
+    text-decoration: none;
+    white-space: nowrap !important;
+    margin:1px
+}
+    .button_back:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+        background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+        background-color: #ffab23;
+        color: black !important;
+        text-decoration: none;
+    }
+    .button_back:active {
+        position: relative;
+        top: 1px;
+    }
+    .button_back a:visited {
+        color: black !important;
+    }
+    .button_back a {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_back a:link {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+
+    .button_contactus_intext {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
+        background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+        background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+        background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+        background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
+        background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23',GradientType=0);
+        background-color: #ffec64;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        display: inline-block;
+        cursor: pointer;
+        font-family: Inconsolata,Verdana,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif  !important;
+        /*font-size: 11pt*/;
+        padding: 2px 2px !important;
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_contactus_intext a {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_contactus_intext a:link {
+        color: black !important; /*good blue*/
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+    .button_contactus_intext:hover {
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
+        background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
+        background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64',GradientType=0);
+        background-color: #ffab23;
+        text-decoration: none;
+        color: black !important;
+        font-weight:600;
+        white-space: nowrap !important;
+        }
+    .button_contactus_intext:active {
+        position: relative;
+        top: 1px;
+        white-space: nowrap !important;
+        }
+/*
+    ****************************************************
+    ****************************************************
+    *** cells
+    ****************************************************
+    ****************************************************
+*/
+.summary-cell {
+    /*flex:1;*/ /* additionally, equal width */
+    padding: 0.5em;
+    border: 2px solid black;
+    border-radius: 6px;
+    background-color: lightgray;
+    color: black;
+    font-family: Inconsolata,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+.summary-cell > p {
+    text-align: justify;
+    font-weight: 600;
+    padding:1px
+}
+.summary-cell > h1 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 900;
+    margin-top: 2pt;
+    margin-bottom: 2pt;
+}
+.summary-cell > h2 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 700;
+    margin-top: 2pt;
+    margin-bottom: 2pt;
+}
+.summary-cell > h3 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 500;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    margin-top: 2pt;
+    margin-bottom: 2pt;
+}
+.summary-cell > h4 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 500;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    margin-top: 2pt;
+    margin-bottom: 2pt;
+}
+.address_cell {
+    white-space: nowrap;
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    vertical-align:top;
+}
+.cell-left {
+    margin-left: 0px;
+    margin-right: 6px;
+    float: left;
+}
+.cell-right {
+    margin-left: 0px;
+    margin-right: 0px;
+    float: right;
+}
+.cell-full {
+    margin-left: 0px;
+    margin-right: 6px;
+}
+.cell-center {
+    float: center;
+}
+
+.cell-middle {
+    vertical-align: middle;
+}
+
+.cell_nowrap {
+    white-space: nowrap;
+    text-align:left;
+}
+
+.container_cell_wide {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.container-cell-vertical-wide {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.container_cell_top {
+    vertical-align: top;
+}
+.container_cell_middle {
+    vertical-align: middle;
+}
+.container_cell_bottom {
+    vertical-align: bottom;
+}
+/*
+    ****************************************************
+    ****************************************************
+    lines
+    ****************************************************
+    ****************************************************
+*/
+.top_navigation_line {
+    color: orange;
+    font-family: Inconsolata,'Segoe UI Light', Tangerine, serif;
+    font-size: 10pt;
+    font-style: normal;
+}
+.internal_use_line {
+    color: orange;
+    font-family: Inconsolata,'Segoe UI Light', Tangerine, serif;
+    font-size: 10pt;
+    font-style: normal;
+    text-align:center;
+}
+.copywrite_line {
+    color: black;
+    font-family: Inconsolata,'Segoe UI Light', Tangerine, serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 900;
+}
+.company_brand {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 14pt;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+/*
+    ****************************************************
+    ****************************************************
+    *** forms
+    ****************************************************
+    ****************************************************
+*/
+.form-messages {
+    background-color: transparent;
+    height: auto;
+    line-height: unset;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 9pt;
+    color:red;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+.form-messages h1, h2, h3, h4 {
+    font-size: 10pt;
+    font-weight: 900;
+    padding:0px
+}
+
+
+.xform-checkbox {
+    width: 16px !important;
+    height: 16px !important;
+    display: inline-block  !important;
+    position: relative  !important;
+    margin: 1px;
+    outline: 2px solid black;
+}
+
+.form-checkbox label {
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 600;
+    color: blue;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+/*
+.form-checkbox input[type='checkbox']{
+    width: 16px !important;
+    height: 16px !important;
+    display: inline-block  !important;
+    position: relative  !important;
+    margin: 1px;
+    outline: 2px solid black;
+  }
+*/
+
+/*
+.form-checkbox input {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    border:1px solid red;
+}
+*/
+.checkbox-label {
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: 600;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.authorization-form {
+    background-color:#f8f9fa;
+    height: auto;
+    line-height: unset;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    color:black;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:1px;
+    padding-bottom:1px;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+    .authorization-form label {
+        color: #8c8c8c;
+        background-color: transparent;
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        -webkit-font-smoothing: antialiased;
+        font-stretch: always;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .authorization-form input {
+        color: #8c8c8c;
+        border: 1px solid #e1e1e6;
+        /*background-color: #fff;*/
+        font-family: Inconsolata,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        border-radius:3px;
+        padding: 10px 20px;
+        max-width: 500px;
+            }
+
+        .authorization-form input[type=submit] {
+            font-weight: 600 !important;
+            font-size: 12px  !important;
+            width:100%;
+        }
+        
+    .authorization-form a {
+        color:orange;
+        background-color: transparent;
+        font-family: Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+    }
+/*
+    .authorization-form a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        background-color: gray !important;
+        color: white !important; 
+        padding: 1px !important;
+        border: 0px solid gray !important;
+        border-radius: 0px !important;
+    }
+*/
+    .input_1_perrow {
+        width:480px
+    }
+
+.input_2_perrow {
+    width: 228px
+}
+.input_x3 {
+    width: 145px
+}
+
+
+.readonly-form {
+    background-color:#f8f9fa;
+    height: auto;
+    line-height: unset;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    color:black;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:1px;
+    padding-bottom:1px;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+    .readonly-form label {
+        color: #8c8c8c;
+        background-color: transparent;
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        -webkit-font-smoothing: antialiased;
+        font-stretch: always;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .readonly-form input {
+        color: #8c8c8c;
+        border: 1px solid #e1e1e6;
+        /*background-color: #fff;*/
+        font-family: Inconsolata,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        border-radius:3px;
+        padding: 10px 20px;
+        max-width: 500px;
+            }
+
+        .readonly-form input[type=submit] {
+            font-weight: 600 !important;
+            font-size: 12px  !important;
+            width:100%;
+        }
+        
+    .readonly-form a {
+        color:orange;
+        background-color: transparent;
+        font-family: Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+    }
+/*
+    .readonly-form a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        background-color: gray !important;
+        color: white !important; 
+        padding: 1px !important;
+        border: 0px solid gray !important;
+        border-radius: 0px !important;
+    }
+*/
+.readonly-form-field {
+    background-color:#f8f9fa;
+    height: auto;
+    line-height: unset;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    color:black;
+    padding-left:1px;
+    padding-right:1px;
+    padding-top:1px;
+    padding-bottom:1px;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+    .readonly-form-field label {
+        color: #8c8c8c;
+        background-color: transparent;
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        -webkit-font-smoothing: antialiased;
+        font-stretch: always;
+        text-transform: capitalize;
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .readonly-form-field input {
+        color:blue; /*#8c8c8c;*/
+        border: 1px solid #e1e1e6;
+        /*background-color: #fff;*/
+        font-family: Inconsolata,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        border-radius:3px;
+        padding: 2px;
+        max-width: 480px;
+    }
+    .readonly-form-field a {
+    color:orange !important;
+    background-color: transparent !important;
+    font-family: Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif !important;
+    font-feature-settings: "liga" !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    }
+    .readonly-form-field a:link {
+        color:orange !important;
+        background-color: transparent !important;
+        font-family: Inconsolata,'Segoe UI Light', 'Open Sans', 'Segoe UI Black',  serif !important;
+        font-feature-settings: "liga" !important;
+        font-style: normal !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        }
+
+/*
+    ****************************************************
+    ****************************************************
+    menus
+    ****************************************************
+    ****************************************************
+*/
+/*
+    ============================================================
+    support menu customizations
+    ============================================================
+*/
+.support_menu {
+    color: black; /*#005293 !important; /*good blue*/
+    background-color: transparent;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight:600;
+    font-size: 11pt;
+    padding:1px;
+}
+    .support_menu a {
+        color: black; /*#005293 !important; /*good blue*/
+        font-weight:600;
+    }
+    .support_menu a:link {
+        color: black; /*#005293 !important; /*good blue*/
+        font-weight:600;
+    }
+
+    .support_menu a:hover {
+        /*background-color: #f90 !important; /*orange*/
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        color:white !important;
+        background-color: lightgray !important;
+    }
+
+    .support_menu li{
+        color: red !important; /*good blue*/
+        font-weight: 500 !important;
+    }
+    .support_menu li.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-bottom: 1px solid #f90 !important;
+    }
+.support_menu_dropdown_list {
+    font-size: 11pt !important;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif !important;
+    padding:1px !important;
+    color: green !important;
+    font-weight:600;
+}
+    .support_menu_dropdown_list a {
+        color: green !important;
+    }
+    .support_menu_dropdown_list a:link {
+        color: green !important;
+    }
+    .support_menu_dropdown_list a:hover {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        color:white !important;
+        background-color: lightgray !important;
+    }
+
+/*
+    ============================================================
+    header menu customizations
+    ============================================================
+*/
+.header_menu {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,Consolas,Inconsolata,'Open Sans', 'Segoe UI Black', serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 11pt;
+    padding:1px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+    .header_menu a {
+        color: rgba(0,0,0,0.6) !important;
+        background-color: transparent;
+    }
+    .header_menu a:link {
+        color: rgba(0,0,0,0.6) !important;
+        background-color: transparent;
+    }
+    /*
+    .header_menu a:visited {
+        color: #808080 !important;
+    }
+    */
+    .header_menu a:hover {
+        /*background-color: #f90 !important; /*orange*/
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        color:white !important;
+        background-color: lightgray !important;
+    }
+    .header_menu li.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-bottom: 1px solid #f90 !important;
+    }
+
+
+.header_menu_dropdown_list {
+    font-size: 11pt !important;
+    padding:1px !important;
+    font-weight:600;
+    text-align:left;
+}
+    .header_menu_dropdown_list a {
+        color: blue !important;
+        font-weight:600
+    }
+    .header_menu_dropdown_list a:link {
+        color:blue !important;
+        font-weight:600
+    }
+    .header_menu_dropdown_list a:hover {
+        background-color: #f90 !important; /*orange*/
+        background-color: lightgray !important;
+        color: #fff !important; /*white*/
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border: 0px solid gray !important;
+        border-radius: 0px !important;
+    }
+/*
+    ============================================================
+    footer menu customizations
+    ============================================================
+*/
+.footer_menu {
+        color: black; /*#005293 !important; /*good blue*/
+        background-color: transparent;
+        font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight:600;
+        font-size: 11pt;
+}
+        .footer_menu a {
+            color: black; /*#005293 !important; /*good blue*/
+            font-weight:600;
+        }
+        .footer_menu a:link {
+            color: black; /*#005293 !important; /*good blue*/
+            font-weight:600;
+        }
+    
+        .footer_menu a:hover {
+            /*background-color: #f90 !important; /*orange*/
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+            color:white !important;
+            background-color: lightgray !important;
+        }
+    
+        .footer_menu li{
+            color: red !important; /*good blue*/
+            font-weight: 500 !important;
+        }
+        .footer_menu li.active {
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+            border-bottom: 1px solid #f90 !important;
+        }
+    .footer_menu_dropdown_list {
+        font-size: 11pt !important;
+        font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif !important;
+        padding:1px !important;
+        color: green !important;
+        font-weight:600;
+    }
+        .footer_menu_dropdown_list a {
+            color: green !important;
+        }
+        .footer_menu_dropdown_list a:link {
+            color: green !important;
+        }
+        .footer_menu_dropdown_list a:hover {
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+            color:white !important;
+            background-color: lightgray !important;
+        }
+    /*
+    ============================================================
+    social media menu customizations
+    ============================================================
+*/
+.social_media_menu {
+    color:black !important;
+    background-color: transparent;
+    font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12pt;
+    border: 1px solid transparent;
+}
+    .social_media_menu a {
+        color:black !important;
+        font-weight: 600;
+        font-size: 12pt;
+        padding:1px;
+        border: 1px solid transparent;
+    }
+    .social_media_menu a:link {
+        color:black !important;
+        font-weight: 600;
+        font-size: 12pt;
+        padding:1px;
+        border: 1px solid transparent;
+    }
+
+    .social_media_menu a:hover {
+        color:white !important; 
+        background-color: lightgray !important;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-radius: 50%;
+        border: 1px solid orange;
+    }
+
+    .social_media_menu li{
+        color: red !important; /*good blue*/
+        font-weight: 500 !important;
+        font-size: 12px !important;
+        padding:1px !important;
+    }
+    .social_media_menu li.active {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6) !important;
+        border-bottom: 1px solid #f90 !important;
+    }
+/*
+    ============================================================
+    social media menu customizations
+    ============================================================
+*/
+    .links_menu {
+        color: black; /*good blue*/
+        background-color: transparent;
+        font-family: Inconsolata, Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 11pt;
+    }
+        .links_menu a {
+            color: #005293; /*good blue*/
+            font-weight: 600;
+            font-size: 11pt;
+            padding:2px;
+        }
+        .links_menu a:link {
+            color: #005293; /*good blue*/
+            font-weight: 600;
+            font-size: 11pt;
+            padding:2px;
+        }
+    
+        .links_menu a:hover {
+            color: white;
+            /*text-shadow: 2px 2px 3px rgba(0,0,0,0.6);*/
+            background-color: lightgray !important;
+        }
+    
+        .links_menu li.active {
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+            border-bottom: 1px solid #f90;
+        }
+/*
+    ============================================================
+    this code auto activates a drop down list on a dropdown-menu
+    ============================================================
+
+
+.dropdown:hover > .dropdown-menu {
+    display: block !important;
+}
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none !important; Add this, to prevent clicking dropdown's default click function
+}
+*/
+/*
+    ============================================================
+    ============================================================
+*/
+.top-menu-navbar-search-form {
+    color: red;
+    font-family: Consolas,'Segoe UI Light','Times New Roman', Times, serif;
+    font-size: 10px;
+    font-style: normal;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    vertical-align: top;
+    height: auto;
+    line-height: normal;
+    border-radius: 3px;
+    max-width: 280px;
+    border-width: 0px;
+    border-style: dotted;
+    border-color: black;
+    border-image: none;
+}
+    .top-menu-navbar-search-form.input {
+        color: blue !important;
+        font-family: Consolas,'Segoe UI Light','Times New Roman', Times, serif !important;
+        font-size: 10px !important;
+        font-style: normal !important;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        border-width: 1px 0px !important;
+        border-style: none !important;
+        border-color: black !important;
+        border-image: none !important;
+        border-radius: 3px !important;
+    }
+
+    .top-menu-navbar-search-form.button {
+    }
+
+/*
+    ============================================================
+    authorization menu
+    ============================================================
+*/
+.subscriber_menu_navbar {
+    color: Black;
+    background-color: transparent;
+    font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 100;
+    font-size: 12px;
+}
+
+    .subscriber_menu_navbar a:visited {
+        color: #800080 !important;
+    }
+
+    .subscriber_menu_navbar a:link {
+        color: #005782 !important;
+        background-color: transparent;
+        font-family: Montserrat,'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+        font-feature-settings: "liga";
+        font-style: normal;
+        font-weight: 100;
+        font-size: 12px;
+    }
+
+    .subscriber_menu_navbar a:hover {
+        /*text-shadow: 2px 2px 3px rgba(0,0,0,0.6);*/
+        background-color: #f90 !important; /*orange*/
+        color: #fff !important; /*white*/
+        border: 1px solid gray !important;
+        border-bottom: 5px solid #808080 !important;
+    }
+
+    .subscriber_menu_navbar li.active a /*, li.nav-item.active*/ {
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        color: #005782 !important; /*white*/
+        border-bottom: 5px solid #f90 !important;
+    }
+.subscriber_menu_content_page {
+    background-color: #ccc;
+}
+.subscriber_menu_picture_page {
+    background-color: white;
+}
+
+
+
+/*============================================================
+.navmenu li ul {
+    border-bottom: 5px solid #f90;
+}
+
+.navmenu ul {
+    background: #fff;
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    list-style: none;
+}
+
+.navmenu ul, .navmenu > li.open:hover > a, .navmenu > li.open > a:active {
+    border: 1px solid #ccc;
+    border-bottom-color: #fff;
+}
+
+.navmenu ul, .navmenu li {
+    margin: 0;
+    padding: 0;
+}
+/*============================================================*/
+
+    ****************************************************
+    ****************************************************
+    *** columns
+    ****************************************************
+    ****************************************************
+*/
+/*
+    ****************************************************
+    ****************************************************
+    *** rows
+    ****************************************************
+    ****************************************************
+*/
+.row-top {
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+.row-bottom {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.row-middle {
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+.width-3columns {
+    width: 33%;
+}
+.width-2columns {
+    width: 44%;
+}
+.width-1column {
+    width: 98%;
+}
+
+/*
+    ****************************************************
+    ****************************************************
+    *** containers
+    ****************************************************
+    ****************************************************
+*/
+
+.left_side_container {
+    width: 10%;
+    background-color: white;
+    vertical-align: top;
+}
+
+.right_side_container {
+    width: 10%;
+    background-color: white;
+    vertical-align: top;
+}
+
+.container-grid {
+    color: black;
+    background-color: transparent;
+    font-family: Inconsolata,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: 0px solid red;
+    display: inline-table;
+}
+    .container-grid table {
+        vertical-align: top;
+        background-color: lightgray;
+        border-radius: 6px;
+        padding: 10px;
+        /*border: 2px dashed green;*/
+    }
+
+    .container-grid td {
+        /*border: 2px solid blue;*/
+        white-space: normal;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background-color: transparent;
+        border-radius: 6px;
+    }
+
+.summary_container {
+    background-color: lightgray;
+    border-radius: 6px;
+    color: black;
+    font-family: Inconsolata,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    /*border: 3px dotted green;*/
+}
+.container-row {
+    display: flex; /* equal height of the children */
+}
+
+.container-col {
+    flex:1; /* additionally, equal width */
+    padding: 0.5em;
+    border: solid;
+}
+/*
+    ****************************************************
+    ****************************************************
+    *** pages
+    ****************************************************
+    ****************************************************
+*/
+.form-page {
+    background-color: white;
+}
+/*
+    ****************************************************
+    ****************************************************
+    *** default-page-content
+    ****************************************************
+    ****************************************************
+*/
+.content-page {
+    color: black;
+    background-color:white !important;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-style: normal;
+    font-feature-settings: "liga";
+    font-weight: 600;
+    font-size: 12pt;
+    text-align: justify;
+    margin:0px;
+    margin-bottom:10px;
+    margin-left:0px;
+    margin-right:0px;
+}
+.content-page td {
+    border: 0px dashed blue !important;
+    white-space: normal;
+}
+.content-page > p {
+    text-align: justify;
+    font-weight: 600;
+    padding:1px;
+    background: transparent;
+}
+.content-page > h1 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 900;
+    margin-top: 14pt;
+    margin-bottom: 2pt;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+.content-page > h2 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 700;
+    margin-top: 14pt;
+    margin-bottom: 2pt;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+.content-page > h3 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 500;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    margin-top: 14pt;
+    margin-bottom: 2pt;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+.content-page > h4 {
+    font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+    font-weight: 500;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    margin-top: 14pt;
+    margin-bottom: 2pt;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+.content-page > h1, .content-page > h2, .content-page > h3, .content-page > h4 {
+        color: black;
+        background-color: transparent;
+    }
+
+/*
+    ****************************************************
+    ****************************************************
+    *** document_page
+    ****************************************************
+    ****************************************************
+*/
+.document-page {
+    background-color: #f8f9fa!important;
+    color: black;
+    font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
+    font-style: normal;
+    font-feature-settings: "liga";
+    font-weight: 500;
+    font-size: 16px;
+    margin:0px;
+    margin-left:4px;
+    margin-right:4px;
+    /*border:0px dotted red !important;*/
+    text-align: justify;
+    padding:1px
+}
+    .document-page > p {
+        text-align: justify;
+        font-weight: 600;
+        padding:1px
+    }
+    .document-page > h1 {
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+        font-weight: 900;
+        margin-top: 14pt;
+        margin-bottom: 2pt;
+    }
+    .document-page > h2 {
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+        font-weight: 700;
+        margin-top: 16px;
+        margin-bottom: 2pt;
+    }
+    .document-page > h3 {
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+        font-weight: 500;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 14pt;
+        margin-bottom: 2pt;
+    }
+    .document-page > h4 {
+        font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+        font-weight: 500;
+        text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+        margin-top: 14pt;
+        margin-bottom: 2pt;
+    }
+    .document-page-lastrevision {
+            color: Black;
+            font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
+            font-weight: 700;
+            /*
+            */
+            padding: 0px;
+            margin: 0px;
+            white-space: normal;
+            text-transform: uppercase;
+            /*text-decoration: none;*/ /*underline !important;*/
+            font-size: 80%;
+            -webkit-font-smoothing: antialiased;
+            font-stretch: always;
+            border-bottom: 2px dotted red;
+            margin-bottom: 2px
+        }
+    .document-page-footer {
+        color: Black;
+        padding: 0px;
+        margin: 0px;
+        white-space: normal;
+        /*text-decoration: none;*/ /*underline !important;*/
+        font-size: 120%;
+        -webkit-font-smoothing: antialiased;
+        font-stretch: always;
+        border-top: 2px dotted red;
+}
+.document-page-footer a{
+    color:black !important;
+    white-space: normal;
+    text-decoration: none;
+    font-size: 120%;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+.document-page-footer a:link{
+    color: black;
+    white-space: normal;
+    text-decoration: none;
+    font-size: 120%;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.document-page-footer a:hover {
+    color: white !important;
+    background-color: lightgray !important;
+}
+
+
+.table-page {
+    color: black;
+    background-color: white;
+    font-family: Inconsolata,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    white-space: nowrap;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 6px;
+    border: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-bottom: 3px dotted grey !important;
+}
+    .table-page td {
+        border: 0px dashed blue !important;
+        white-space: nowrap;
+    }
+
+    /*
+    ****************************************************
+    ****************************************************
+    *** general
+    ****************************************************
+    ****************************************************
+*/
+html {
+    width: 100%;
+    height: 100%;
+    color: red;
+    background-color:black;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+    font-size: 100.01%;
+    font-stretch: always;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body{
+    width: 100%;
+    height: 100%;
+    color: red;
+    background-color:black;
+    font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+header {
+    color: red;
+    background-color:green;
+    font-family: Inconsolata,Consolas,Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+footer {
+    color: red;
+    background-color:blue;
+    font-family: Inconsolata,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    font-feature-settings: "liga";
+}
+h1, h2, h3, h4 {
+    font-family: Inconsolata,Consolas,Montserrat,'Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif ;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: 900;
+    font-feature-settings: "liga";
+}
+p {
+    color: black;
+    font-size: 12pt;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border:0px dotted green;
+}
+.vertical-middle{
+    vertical-align:middle !important;
+}
+

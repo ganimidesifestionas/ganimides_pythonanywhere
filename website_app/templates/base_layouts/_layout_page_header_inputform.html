@@ -1,0 +1,68 @@
+<table class="design_table form-page" width="100%">
+    <tr>
+        <td>
+            <div class="d-flex justify-content-center p-1">
+                <table class="design_table">
+                    <!--1:page header-->
+                    <tr>
+                        <td width="1%" class="page-image-cell">
+                            <!--page image id-->
+                            <img src={{page_image}} class="page-image_icon rounded-circle" />
+                        </td>
+                        <td class="cell-middle" width="100%">
+                            <table class="design_table" width="100%">
+                                <tr>
+                                    <td>
+                                        <!--page title-->
+                                        <div class="p-2">
+                                            <h1 class="page_title">{{page_title}}</h1>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="d-flex justify-content-end">
+                <!-- A grey horizontal navbar that becomes vertical on small screens -->
+                <nav class="navbar navbar-expand bg-transparent links_menu">
+                    <!-- Links -->
+                    <ul class="navbar-nav">
+                        {% for pageLink in LinkPagesArray %}
+                        {% if pageLink[0] %}
+                        {% if pageLink[3]=='button' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for(pageLink[0])}}" class="button_back">{{pageLink[1]}}&raquo;
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        <!--page top button links-->
+                        {% if previous_page %}
+                        <li class="nav-item">
+                            <a class="nav-link button_back" href="{{url_for(previous_page)}}">&laquo;
+                                previous</a>
+                        </li>
+                        {% endif %}
+                        {% if next_page %}
+                        <li class="nav-item">
+                            <a class="nav-link button_learnmore" href="{{url_for(next_page)}}">learn more &raquo;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </td>
+    </tr>
+</table>

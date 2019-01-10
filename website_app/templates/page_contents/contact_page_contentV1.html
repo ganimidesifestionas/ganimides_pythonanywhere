@@ -1,0 +1,57 @@
+
+<table class="design_table table-page" width="100%">
+    <tr>
+        <td colspan="2" class="p-2">
+            <div class="p-2">
+                <span style="white-space: nowrap;">
+                    <h1>{{ WEBSITE_TITLE}}</h1>
+                </span>
+            </div> 
+        </td>
+
+        <!--
+    Share a map or location On your computer, open Google Maps.
+    Go to the directions, map, or Street View image you want to share.
+    On the top left, click Menu .
+    Select Share or embed map. If you don't see this option, click Link to this map. ...
+    Copy and paste the link wherever you want to share the map.
+    -->
+    
+    <td rowspan="4" width="100%" style="vertical-align:middle;">
+            <div class="picture p-2">
+                <a target="_blank" href="https://www.google.co.uk/maps/place/Ganimides+Technologies/@35.1412804,32.8131458,9z/data=!4m5!3m4!1s0x14de198e814af39b:0x9b3bb69135e96c60!8m2!3d35.1408505!4d33.3734969">
+                    <img class="d-inline img-fluid mx-auto d-block" src="../../static/images/location_nicosia.png" height="250" width="300" alt="{{COMPANY_NAME}}" />
+                </a>
+            </div>
+    </td>
+
+    </tr>
+    <tr>
+        <td>
+            <address class="address_cell p-2">
+                4, vasilis michelides str.<br />
+                2015 dhasoupolis<br />
+                Nicosia<br />
+                Cyprus<br />
+            </address>
+        </td>
+    </tr>
+    <tr>
+        <td >
+            <address class="address_cell p-2">
+                <strong>Telephone(s):&nbsp;</strong>{{COMPANY_PHONES}}
+            </address>
+        </td>
+        <!--<abbr title="Phone">P:</abbr>00357.22311634-->
+    </tr>
+    <tr>
+        <td >
+            <address class="address_cell p-2">
+                <strong>Contact:</strong>&nbsp;<a class="email_link" href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>&nbsp;
+                <br /><strong>Support:</strong>&nbsp;<a class="email_link" href="mailto:{{SUPPORT_EMAIL}}?subject=Request for Support">{{SUPPORT_EMAIL}}</a>&nbsp;
+                <br /><strong>Inquiry:</strong>&nbsp;<a class="email_link" href="mailto:{{INQUIRY_EMAIL}}?subject=Request for Iformation">{{INQUIRY_EMAIL}}</a>&nbsp;
+                <br /><strong>Marketing:</strong>&nbsp;<a class="email_link" href="mailto:{{COMPANY_CONTACT_EMAIL}}">{{COMPANY_CONTACT_EMAIL}}</a>&nbsp;
+            </address>
+        </td>
+    </tr>
+</table>

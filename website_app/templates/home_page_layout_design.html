@@ -1,0 +1,160 @@
+{% set bobbistaar="xxxx" %}
+{% set execution_mode = "" %}
+{% set design_type = "bootstrap" %}
+{% set design_type = "" %}
+{% set design_version = "" %}
+
+{% set design_version_header = "" %}
+{% set design_version_header_menu = "" %}
+
+{% set design_version_footer = "" %}
+{% set design_version_footer_navigationline = "" %}
+{% set design_version_footer_menu = "" %}
+{% set design_version_footer_copywrite = "" %}
+
+{% set design_version_pagecontent = "" %}
+{% set design_version_page_content_template = "" %}
+{% set design_version_page_definition = "" %}
+{% set design_version_internaluse = "" %}
+
+{% set design_version_left = "" %}
+{% set design_version_right = "" %}
+
+<!DOCTYPE html>
+<html lang="en" class="gr__getbootstrap_com">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="ganimides business technology management">
+    <meta name="keywords" content="business, technology, strategy, digital, transformation, development, innovation, fintec, banking">
+    <meta name="author" content="philippos leandrou">
+
+    <title>ganimedes business technology</title>
+
+    <!-- FONTS from google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Inconsolata|Droid+Sans" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" type="text/css">
+    <!-- ICONS from google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- RECAPTCHA from google -->
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <!--
+        <link rel="stylesheet" hrefhttps://fonts.googleapis.com/css?family=Tangerine:bold,bolditalic|Inconsolata:italic|Droid+Sans' />
+    -->
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+    <!-- MATERIALIZE -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="xhttps://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="xhttps://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/base_styles.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/#buttons.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/#style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/customizations.css" />
+
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <!--
+    <script src="/static/scripts/on_contentloaded_event.js"></script>
+    -->
+
+    <!--<link rel="icon" href="https://getbootstrap.com/favicon.ico">-->
+    <!--<link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">-->
+
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/ganimides_logoB3.gif')}}">
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+    <header>
+        <!--header is here-->
+    </header>
+
+    <div class="d-flex p-12 bg-white text-black">
+        <div class="border w-10 bg-white text-black justify-content-start">
+            &nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="border border-warning d-flex flex-column flex-grow-1 bg-white">
+            <div class="border border-danger d-flex flex-column">
+                header
+                {#% include LAYOUTS_FOLDER+version_file("_layout_header.html",execution_mode,design_type,design_version_header) %#}
+            </div>
+            <div class="border border-danger d-flex flex-column">
+                body
+                <div class="d-flex">
+                    {#% block content %#}
+                    {#% endblock %#}
+                </div>
+                <div class="d-flex">
+                    {#% include LAYOUTS_FOLDER+version_file("_layout_rightside.html",execution_mode,design_type,"") %#}
+                </div>
+            </div>
+            <div class="border border-danger d-flex flex-column">
+                footer
+                {#% include LAYOUTS_FOLDER+version_file("_layout_footer.html",execution_mode,design_type,"") %#}
+            </div>
+        </div>
+        <div class="border w-10 bg-white text-black justify-content-end">
+            &nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <footer>
+        <!--footer is here-->
+    </footer>
+    <!--black is here-->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    <!--
+    <script src="/static/scripts/snowfall.js"></script>
+    -->
+    <!--
+            <script src="./Fixed top navbar example for Bootstrap_files/jquery-3.3.1.slim.min.js.download" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="./Fixed top navbar example for Bootstrap_files/popper.min.js.download"></script>
+        <script src="./Fixed top navbar example for Bootstrap_files/bootstrap.min.js.download"></script>
+        <iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./Fixed top navbar example for Bootstrap_files/saved_resource.html"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}" style="display: none;"></div>
+    -->
+    <!-- Optional Google Analytics: change UA-XXXXX-X to be your site's ID.
+           <script>
+               (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+               function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+               e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+               e.src='https://www.google-analytics.com/analytics.js';
+               r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+               ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+           </script>
+           -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+            -->
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

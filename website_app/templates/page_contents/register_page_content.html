@@ -1,59 +1,8 @@
-{% import "bootstrap/utils.html" as utils %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% set register_is_active='active show' %}
-{% set login_is_active='' %}
-{% set passwordchange_is_active='' %}
-{% if activeTAB=='login' %}
-    {% set login_is_active='active show' %}
-    {% set register_is_active='' %}
-{%endif%}
-{% if activeTAB=='register' %}
-    {% set register_is_active='active show' %}
-    {% set picture_is_visible='yes' %}
-{%endif%}
-<div class="d-flex flex-column">
-    <div class="p-0">
-        <!-- title
-        <h1 id="signHeading">Sign up for an account</h1>
-        <!--messages-->
-        {% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %}
-        <div class="p-0 left subscriber_menu_navbar">
-            <!-- Nav tabs -->
-            <div class="left">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item {{login_is_active}}"><a class="nav-link {{login_is_active}}" href="#login" data-toggle="tab">Sign in</a></li>
-                    <li class="nav-item {{register_is_active}}"><a class="nav-link {{register_is_active}}" href="#register" data-toggle="tab">Sign up</a></li>
-                </ul>
-            </div>
-            <!-- Tab panes -->
-            <div class="tab-content left p-0">
-                <!-- form 2 Sign up (register)-->
-                <div id="register" class="tab-pane fade {{register_is_active}} left">
-                    <div class="d-flex">
-                        <!-- col 1 left-->
-                        <div class="subscriber_form">
-                            {% include [language_fullpathfile('form_register.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_register.html','FORM')] %}<!--@include@ @parameterized@ @versioning@-->
-                        </div><!-- end of col 1 -->
-                        <!-- col 2 right-->
-                        <div class="flex-grow-1 subscriber_menu_picture_page hidden-xs hidden-sm hidden-md">
-                            {% include [language_fullpathfile('figure_with_comments.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('figure_with_comments.html','COMPONENT')] %}<!--@include@ @parameterized@ @versioning@-->
-                        </div><!-- end of col 2 -->
-                    </div>
-                </div>
-                <!-- form 1 Sign In(login) -->
-                <div id="login" class="tab-pane fade {{login_is_active}} left">
-                    <div class="d-flex">
-                        <!-- col 1 left-->
-                        <div class="subscriber_form">
-                            {% include [language_fullpathfile('form_login.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_login.html','FORM')] %} <!--@include@ @parameterized@ @versioning@-->
-                        </div><!-- end of col 1 -->
-                        <!-- col 2 right-->
-                        <div class="flex-grow-1 subscriber_menu_picture_page hidden-xs hidden-sm hidden-md">
-                        </div><!-- end of col 2 -->
-                    </div>
-                </div>
-            </div><!--end of tab-content-->
-        </div><!--end of col 1-->
+    <div class="d-flex flex-column authorization-form " style="width:520px">
+        <div class="form-messages justify-content-center">
+            {#% include [language_fullpathfile('messages_display_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_exceptfielderrors.html','COMPONENT')] %#}
+        </div>
+        <div class="">
+            {% include [language_fullpathfile('form_register.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('form_register.html','FORM')] %}
+        </div>
     </div>
-</div>

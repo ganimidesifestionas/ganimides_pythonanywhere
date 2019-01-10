@@ -1,0 +1,38 @@
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#contactus_modal_form">
+    Contact Us
+</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#login_modal_form">
+    Login
+</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registration_modal_form">
+    Register
+</button>
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#forgetpassword_modal_form">
+    Register
+</button>
+-->
+{% if contactusform %}
+<div class="d-flex">
+    <!--contactus splash form -->
+    {% include [language_fullpathfile('splashform_contactus.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('splashform_contactus.html','FORM')] %}
+</div>
+{% endif %}
+{% if loginform %}
+<div class="d-flex">
+    <!--login splash form -->
+    {% include [language_fullpathfile('splashform_login.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('splashform_login.html','FORM','authorization')] %}
+</div>
+{% endif %}
+{% if registrationform %}
+<div class="d-flex">
+    <!--registration splash form -->
+    {% include [language_fullpathfile('splashform_registration.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('splashform_registration.html','FORM','authorization')] %}
+</div>
+{% endif %}
+{% if forgetpasswordform %}
+<div class="d-flex">
+    <!--forgetpassword splash form -->
+    {% include [language_fullpathfile('splashform_forgetpassword.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('splashform_forgetpassword.html','FORM','authorization')] %}
+</div>
+{% endif %}

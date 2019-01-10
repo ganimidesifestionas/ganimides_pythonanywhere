@@ -4,9 +4,11 @@
 {% set page_logo = "policy.png" %}
 {% set next_page = "about" %}
 {% set previous_page = "cookies_policy" %}
+{% set content_page_template="_layout_page_content_template_document.html" %}
 {% set content_page="terms_and_conditions_page_content.html" %}
 {% set link_page1 = ["privacy_policy","privacy policy","privacy policy","link/button"] %}
 {% set link_page2 = ["cookies_policy","cookies policy","cookies policy","link/button"] %}
+{% set enable_contactusform="true" %}
 
 {% block content %}
 {% include LAYOUTS_FOLDER+version_file("_layout_page_content.html",execution_mode,design_type,design_version) %} <!--@include@ @layout@-->

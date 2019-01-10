@@ -922,7 +922,7 @@ form textarea#xcontact_message {
         background: #ccc;
     }
 
-.document_page_reading {
+.document-page {
     color: black;
     font-family: Inconsolata, 'Segoe UI Light', serif;
     font-size: 10pt;
@@ -930,7 +930,7 @@ form textarea#xcontact_message {
     font-weight: normal;
 }
 
-    .document_page_reading > p {
+    .document-page > p {
         margin: 0 auto;
         max-width: 100%;
         list-style: disc outside none;
@@ -939,28 +939,28 @@ form textarea#xcontact_message {
         background: transparent;
     }
 
-    .document_page_reading > h1 {
+    .document-page > h1 {
         font-weight: bold;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .document_page_reading > h2 {
+    .document-page > h2 {
         font-weight: bold;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .document_page_reading > h3 {
+    .document-page > h3 {
         font-weight: bold;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .document_page_reading > h4 {
+    .document-page > h4 {
         font-family: 'Open Sans',Inconsolata,'Segoe UI Light', serif;
         font-size: 10pt;
         font-style: normal;
@@ -1188,17 +1188,17 @@ p.copyright {
     }
 
 /*::page-content-----------------------*/
-.content_page_content {
+.content-page {
     background-color: white;
 }
-.content_page_content {
+.content-page {
     color: black;
 }
-    .content_page_content > h1, .content_page_content > h2, .content_page_content > h3, .content_page_content > h4 {
+    .content-page > h1, .content-page > h2, .content-page > h3, .content-page > h4 {
         color: black;
         background-color: transparent;
     }
-    .content_page_content > p {
+    .content-page > p {
         color: black;
         background-color: transparent;
     }
@@ -1217,7 +1217,7 @@ p.copyright {
     font-feature-settings: "liga";
 }
 /*
-.content-page, .container-grid, .summary_container, .content_page_content {
+.content-page, .container-grid, .summary_container, .content-page {
     font-family: Montserrat,'Inconsolata','Segoe UI','Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     font-style: normal;
@@ -1225,13 +1225,13 @@ p.copyright {
     font-feature-settings: "liga";
 }
 
-    .content_page_content > p {
+    .content-page > p {
         font-size: 10pt;
         font-style: normal;
         font-weight: normal;
     }
 
-    .content_page_content > h1, .content_page_content > h2, .content_page_content > h3,, .content_page_content > h4 {
+    .content-page > h1, .content-page > h2, .content-page > h3,, .content-page > h4 {
         font-weight: bold;
     }
 .summary_container {
@@ -1672,7 +1672,7 @@ footer, .page_footer {
 .emphasis_borders {
     border: 2px dashed magenta;
 }
-.content_page_content {
+.content-page {
     color: black;
     background-color: white;
     font-family: 'Segoe UI Light', Inconsolata, serif;
@@ -1695,43 +1695,43 @@ footer, .page_footer {
     border-top: 3px dotted gray;
 }
 
-    .content_page_content table {
+    .content-page table {
         width: 100%;
     }
 
-    .content_page_content td {
+    .content-page td {
         border: 0px dashed red;
     }
 
-    .content_page_content > h1 {
+    .content-page > h1 {
         font-weight: bold;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .content_page_content > h2 {
+    .content-page > h2 {
         font-weight: bold;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .content_page_content > h3 {
+    .content-page > h3 {
         font-weight: bold;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .content_page_content > h4 {
+    .content-page > h4 {
         font-style: normal;
         font-weight: bold;
         margin-top: 10px;
         margin-bottom: 2px;
     }
 
-    .content_page_content > p {
+    .content-page > p {
         color: black;
         font-size: 10pt;
         font-style: normal;
