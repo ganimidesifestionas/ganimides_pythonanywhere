@@ -116,6 +116,7 @@ def flash_errors(form):
 def send_mobileconfirmation_sms(code):
     """ Send a mobile confirmation Code via SMS
     """
+    print('   ','###send_mobileconfirmation_sms###')
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
     subscriber.mobileConfirmationCode=code
     subscriber.mobileConfirmationCodeDT=datetime.now()
@@ -124,24 +125,30 @@ def send_mobileconfirmation_sms(code):
     db.session.commit()
     sms_message = render_template('authorization/sms_templates/sms_mobile_confirmation.html', verification_code=code)
     smsfrom = 'Ganimides'
+    print('   ','###send_mobileconfirmation_sms###','message=',sms_message)
     #result=send_sms(subscriber.mobile,smsfrom,sms_message)
     subject = "please confirm your mobile"
     result=send_email(subscriber.email,subject,sms_message)
+    print('   ','###send_mobileconfirmation_sms###','result=',result)
     return(result)
 
 def send_email_test(email):
     """ Send a test email
     """
+    print('   ','###send_email_test###')
     token = generate_confirmation_token(email)
     confirm_url = url_for('authorization.emailconfirm', token=token, _external=True)
     html = render_template('authorization/email_templates/email_confirmation_email.html', confirm_url=confirm_url)
+    print('   ','###send_email_test###','message=',html)
     subject = "Please confirm your email"
     result=send_email(email, subject, html)
+    print('   ','###send_email_test###','result=',result)
     return result
 
 def send_emailconfirmation_email(email):
     """ Send an email confirmation email
     """
+    print('   ','###send_emailconfirmation_email###')
     subscriber = Subscriber.query.filter_by(email=email).first()
     if not(subscriber):
         return 'email not found'
@@ -151,29 +158,37 @@ def send_emailconfirmation_email(email):
     token = generate_confirmation_token(subscriber.email)
     confirm_url = url_for('authorization.emailconfirm', token=token, _external=True)
     html = render_template('authorization/email_templates/email_confirmation_email.html', confirm_url=confirm_url)
+    print('   ','###send_emailconfirmation_email###','message=',html)
     subject = "Please confirm your email"
     result=send_email(subscriber.email, subject, html)
+    print('   ','###send_emailconfirmation_email###','result=',result)
     return result
 
 def send_passwordreset_email(parEmail):
     """ Send a password reset email
     """
+    print('   ','###send_passwordreset_email###')
     token = generate_confirmation_token(parEmail)
     confirm_url = url_for('authorization.passwordresetverification', token=token, _external=True)
     html = render_template('authorization/email_templates/email_passwordreset_email.html', confirm_url=confirm_url)
+    print('   ','###send_passwordreset_email###','message=',html)
     subject = "Password Reset"
     result=send_email(parEmail, subject, html)
+    print('   ','###send_passwordreset_email###','result=',result)
     return result
 
 def send_messagereceiveconfirmation_email(paremail,parcontactid):
     """ Send an email to confirm message receive
     """
+    print('   ','###send_messagereceiveconfirmation_email###')
     tokenStr=str(parcontactid)+'-'+paremail
     token = generate_confirmation_token(tokenStr)
     confirm_url = url_for('authorization.contactemailverification', token=token, _external=True)
     html = render_template('authorization/email_templates/email_messagereceive_confirmation.html', confirm_url=confirm_url,referenceid=parcontactid)
+    print('   ','###send_messagereceiveconfirmation_email###','message=',html)
     subject = "message receive confirmation"
     result=send_email(paremail, subject, html)
+    print('   ','###send_messagereceiveconfirmation_email###','result=',result)
     return result
 
 def is_human(captcha_response):
@@ -1019,19 +1034,26 @@ def upload_avatar():
                     #success redirect to userprofile
                     return redirect(url_for('authorization.userprofile'))
 
-    print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    return render_template('authorization/userprofile_template.html'
-                            ,userprofiledisplay_form=profileDisplayForm
-                            ,userprofilechange_form=profileChangeForm
-                            ,passwordchange_form=passwordchangeForm
-                            ,mobileconfirmation_form=mobileConfirmForm
-                            ,emailconfirmation_form=emailConfirmForm
-                            ,avatarupload_form=form
-                            ,activeTAB=varActiveTAB
-                            ,title=varTitle
-                            ,pages=app.pages
-                            )
+    return render_template('authorization/authorization_forms_template.html'
+        ,avatarupload_form=form
+        #,form=form
+        ,title='Upload Your Avatar'
+        ,formPage='form_avatar_upload.html'
+        )
+
+    # print('   ###activeTAB',varActiveTAB)
+    # return render_template('authorization/userprofile_template.html'
+    #                         ,userprofiledisplay_form=profileDisplayForm
+    #                         ,userprofilechange_form=profileChangeForm
+    #                         ,passwordchange_form=passwordchangeForm
+    #                         ,mobileconfirmation_form=mobileConfirmForm
+    #                         ,emailconfirmation_form=emailConfirmForm
+    #                         ,avatarupload_form=form
+    #                         ,activeTAB=varActiveTAB
+    #                         ,title=varTitle
+    #                         ,pages=app.pages
+    #                         )
 
 @authorization.route('/mobileconfirm', methods=['GET', 'POST'])
 @login_required

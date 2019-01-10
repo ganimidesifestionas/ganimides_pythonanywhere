@@ -8,7 +8,7 @@
             </div>
             <div class="d-flex">
                 {% if page_title %}
-                <div class="align-self-center p-2">
+                <div class="align-self-center">
                     <h1 class="page_title">{{page_title}}</h1>
                 </div>
                 {% endif %}
@@ -21,7 +21,8 @@
             {% else %}
             <span>
             {% endif %}
-                    <nav class="navbar navbar-expand bg-transparent align-items-center links_menu">
+            {% if link_pages > 0 %}
+                    <nav class="navbar navbar-expand bg-transparent align-items-center pt-0 pb-0 pr-0 links_menu">
                         <ul class="navbar-nav">
                             {% for pageLink in LinkPagesArray %}
                             {% if pageLink[0] %}
@@ -53,6 +54,8 @@
                             {% endif %}
                         </ul>
                     </nav>
+                    {% endif %}
+
             </span>
         </div>
     </div>
