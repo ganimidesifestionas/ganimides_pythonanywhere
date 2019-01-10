@@ -823,11 +823,20 @@ p {
     margin: 0;
     padding: 0;
 }
-
+    
 /*============================================================*/
 /* Style the tab */
+.xnav-link
+{
+    color:orange;
+}
+.xnav-link.active
+{
+    color:blank !important;
+    font-weight:900 !important;
+}
 
-  /* Style the buttons inside the tab */
+/* Style the buttons inside the tab */
   .form-tabs button {
     background-color: white; /*inherit;*/
     color:green;
@@ -1574,10 +1583,13 @@ hr {
     font-weight: 600;
     background-color: transparent;
     font-feature-settings: "liga";
+    padding:0px;
 }
 .message_line p{
     font-weight: 600;
     font-size: 9pt;
+    padding:0px;
+    margin:0px;
 }
 
 .company_brand {
@@ -1593,7 +1605,7 @@ hr {
     border: 0px;
     padding: 0px;
 }
-
+/*
 .form-tabs {
     background-color:transparent !important;
     color:orange !important;
@@ -1623,6 +1635,7 @@ hr {
         color:black !important;
         font-weight:600;
     }
+    */
 /*
     ****************************************************
     ****************************************************
@@ -1644,8 +1657,12 @@ hr {
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-
 .form-messages h1, h2, h3, h4 {
+    font-size: 10pt;
+    font-weight: 900;
+    padding: 0px
+}
+.form-messages p {
     font-size: 10pt;
     font-weight: 900;
     padding: 0px

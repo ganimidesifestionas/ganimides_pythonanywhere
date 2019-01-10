@@ -1,17 +1,17 @@
 <!--display all messages-->
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        <div class="d-flex flex-column bg-transparent justify-content-center align-items-center p-1">
+        <div class="d-flex flex-column bg-transparent justify-content-center align-items-center">
         {% for message in messages %}
-            <div class="d-flex bg-transparent justify-content-center align-items-center message_line p-0 m-0">
+            <div class="d-flex bg-transparent justify-content-center align-items-center message_line">
             {% if "error".upper() in message[0].upper() or "error".upper() in message[1].upper() %}
-                    <p class="text-danger xfont-weight-bold">
+                    <p class="text-danger font-weight-bold">
             {% elif message[0]=='warning' %}
-                    <p class="text-warning xfont-weight-bold">
+                    <p class="text-warning font-weight-bold">
             {% elif message[0]=='success' %}
-                    <p class="text-success xfont-weight-bold">
+                    <p class="text-success font-weight-bold">
             {% else %}
-                    <p class="text-info xfont-weight-bold">
+                    <p class="text-info font-weight-bold">
             {% endif %}
             {% if message[0]=='warning' %}
                 {{message[0]}} : 

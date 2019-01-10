@@ -1,6 +1,7 @@
 <div class="d-flex flex-column readonly-form pt-1 pb-1 mb-1" style="padding-left:10px;padding-right:10px;">
     {#% include [language_fullpathfile('secure_info_general.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('secure_info_general.html','COMPONENT')] %#}
     <div class="clearfix"></div>
+    
     <div class="d-flex justify-content-between p-0 m-0">
         {% if current_user.avatarImageFile %}
         {% set avatarImageFile=current_user.avatarImageFile %}

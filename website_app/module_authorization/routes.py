@@ -122,7 +122,7 @@ def send_mobileconfirmation_sms(code):
     subscriber.mobileConfirmed=False
     subscriber.mobileConfirmedDT=None
     db.session.commit()
-    sms_message = render_template('autorization/sms_templates/sms_mobile_confirmation.html', verification_code=code)
+    sms_message = render_template('authorization/sms_templates/sms_mobile_confirmation.html', verification_code=code)
     smsfrom = 'Ganimides'
     #result=send_sms(subscriber.mobile,smsfrom,sms_message)
     subject = "please confirm your mobile"
@@ -134,7 +134,7 @@ def send_email_test(email):
     """
     token = generate_confirmation_token(email)
     confirm_url = url_for('authorization.emailconfirm', token=token, _external=True)
-    html = render_template('autorization/email_templates/email_confirmation_email.html', confirm_url=confirm_url)
+    html = render_template('authorization/email_templates/email_confirmation_email.html', confirm_url=confirm_url)
     subject = "Please confirm your email"
     result=send_email(email, subject, html)
     return result
@@ -150,7 +150,7 @@ def send_emailconfirmation_email(email):
     db.session.commit()
     token = generate_confirmation_token(subscriber.email)
     confirm_url = url_for('authorization.emailconfirm', token=token, _external=True)
-    html = render_template('autorization/email_templates/email_confirmation_email.html', confirm_url=confirm_url)
+    html = render_template('authorization/email_templates/email_confirmation_email.html', confirm_url=confirm_url)
     subject = "Please confirm your email"
     result=send_email(subscriber.email, subject, html)
     return result
@@ -160,7 +160,7 @@ def send_passwordreset_email(parEmail):
     """
     token = generate_confirmation_token(parEmail)
     confirm_url = url_for('authorization.passwordresetverification', token=token, _external=True)
-    html = render_template('autorization/email_templates/email_passwordreset_email.html', confirm_url=confirm_url)
+    html = render_template('authorization/email_templates/email_passwordreset_email.html', confirm_url=confirm_url)
     subject = "Password Reset"
     result=send_email(parEmail, subject, html)
     return result
@@ -171,7 +171,7 @@ def send_messagereceiveconfirmation_email(paremail,parcontactid):
     tokenStr=str(parcontactid)+'-'+paremail
     token = generate_confirmation_token(tokenStr)
     confirm_url = url_for('authorization.contactemailverification', token=token, _external=True)
-    html = render_template('autorization/email_templates/email_messagereceive_confirmation.html', confirm_url=confirm_url,referenceid=parcontactid)
+    html = render_template('authorization/email_templates/email_messagereceive_confirmation.html', confirm_url=confirm_url,referenceid=parcontactid)
     subject = "message receive confirmation"
     result=send_email(paremail, subject, html)
     return result
@@ -308,91 +308,12 @@ def allowed_file(filename):
 #def pathtoimage(imagefile):
     #print('request-/:',request.url)
 #    return request.url+'/'+imagefile
-
+#############################################################
+### basic 
+#############################################################
 @authorization.route('/', methods=['GET', 'POST'])
 def homepageredirect():
     return redirect(url_for('homepage'))
-
-@authorization.route('/contactemailverification/<token>')
-#@login_required
-def contactemailverification(token):
-    app.pages=app.pages+" / " +"email verification"
-    print('CONTACT-EMAIL-VERIFICATION',request.method," token=",token,request.url)
-    try:
-        tokenStr = confirm_token(token,3600)
-    except:
-        flash('The link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('homepage'))
-
-    if not(tokenStr):
-        flash('The link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('homepage'))
-
-    print('tokenStr',tokenStr)
-    x=tokenStr.split('-',1)
-    contactID=x[0]
-    print('CONTACT-ID',contactID)
-    contactmessage=ContactMessage.query.filter_by(id=contactID).first_or_404()
-    if not(contactmessage):
-        flash('The link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('homepage'))
-    contactmessage.confirmed=True
-    contactmessage.confirmedDT=datetime.now()
-    db.session.commit()
-    flash('Your Message has been received. We will contact You ASAP.', 'success')
-    subscriber = Subscriber.query.filter_by(email=contactmessage.email).first()
-    if subscriber is None:
-        # add as subscriber
-        subscriber = Subscriber(
-            email=contactmessage.email
-            ,firstName=contactmessage.firstName
-            ,lastName=contactmessage.lastName
-            ,jobTitle=contactmessage.jobTitle
-            ,company=contactmessage.company
-            ,registeredDT=datetime.now()
-            )
-        subscriber.mobile=''
-        subscriber.userName=''
-        subscriber.confirmed=None
-        subscriber.confirmedDT=None
-
-        db.session.add(subscriber)
-        db.session.commit()
-        flash('You email has been registered!','success')
-    else:
-        if not(subscriber.emailConfirmed):
-            #confirm the susbscriber
-            subscriber.emailConfirmed = True
-            subscriber.emailConfirmedDT = datetime.now()
-            #db.session.add(subscriber)
-            db.session.commit()
-            flash('You have confirmed your Email. Thanks!', 'success')
-
-    return redirect(url_for('homepage'))
-
-@authorization.route('/myBank')
-@login_required
-def myBank():
-    app.pages=app.pages+" / " +"my Bank"
-    print('MYBANK',request.method,request.url)
-    """Renders the app(myBank) home page."""
-    return render_template(
-        'mybank/mybank_index.html'
-        ,title='myBank'
-        ,pages=app.pages
-        ,message='open banking prototype........'
-    )
-
-@authorization.route('/myGame')
-def myGame():
-    print('MYGAME',request.method,request.url)
-    """Renders the app(myBank) home page."""
-    return render_template(
-        'myGame/myGame.html'
-        ,title='myGame'
-        ,pages=app.pages
-        ,message='gaming prototype........'
-    )
 
 @authorization.route('/register', methods=['GET', 'POST'])
 def register():
@@ -547,7 +468,6 @@ def login():
                             ,formPage='form_login.html'
                            )
 
-
 @authorization.route('/login_or_register/<action_tab>', methods=['GET', 'POST'])
 def login_or_register(action_tab):
     app.pages="login or register"
@@ -584,7 +504,7 @@ def login_or_register(action_tab):
 @authorization.route('/logout')
 @login_required
 def logout():
-    app.pages=app.pages+" / " +"logout"
+    app.pages="logout"
     print('LOGOUT',request.method,request.url)
     logout_user()
     flash('You have successfully logged out.','success')
@@ -595,7 +515,194 @@ def logout():
     # redirect to lastpage or login page
     return redirect(url_for(app.lastpage))
 
+#############################################################
+### confirmation pages with email link, after send emal or sms
+#############################################################
+@authorization.route('/sendconfirmationemail', methods=['POST','GET'])
+def send_confirmation_email():
+    app.pages="send confirmation email"
+    print('SENDCONFIRMATIONEMAIL',request.method,request.url)
+    form = emailConfirmationForm()
+    subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+    if subscriber is None:
+        form.email.errors.append("invalid email")
+        varTitle='User Profile : ???'
+    else:
+        form.email.data = subscriber.email
+        varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
+    if request.method == 'GET':
+        if subscriber.emailConfirmed:
+           flash('email already confirmed.', 'error')
+    #subscriber = Subscriber.query.filter_by(id=current_user.id).first()
+    subscriber.emailConfirmed=False
+    subscriber.emailConfirmedDT=None
+    db.session.commit()
+    result=send_emailconfirmation_email(subscriber.email)
+    if result=='OK':
+        flash('an activation link has been sent to {}'.format(subscriber.email),'warning')
+        flash('please open this email and click the provided link to activate Your new email','info')
+    else:
+        #error_text=result.dumps()
+        ErrorMsg='Failed to send confirmation email'
+        flash(ErrorMsg, 'error')
 
+    return redirect(url_for('authorization.login'))
+
+@authorization.route('/sendtestemail', methods=['POST','GET'])
+def sendtestemail():
+    app.pages="send test email"
+    print('SEND_TEST_EMAIL',request.method,request.url)
+    test_email='philippos.leandrou@gmail.com'
+    result=send_email_test(test_email)
+    if result=='OK':
+        flash('an activation link has been sent to {}'.format(test_email),'warning')
+        flash('please open this email and click the provided link to activate Your new email','info')
+    else:
+        #error_text=result.dumps()
+        ErrorMsg='Failed to send confirmation email'
+        flash(ErrorMsg, 'error')
+
+    return redirect(url_for('authorization.login'))
+
+@authorization.route('/sendconfirmationsms', methods=['POST','GET'])
+def send_confirmation_sms():
+    app.pages="send mobile verification sms"
+    print('SENDCONFIRMATIONSMS',request.method,request.url)
+    subscriber = Subscriber.query.filter_by(id=current_user.id).first()
+    code=generate_mobileconfirmation_code(subscriber.mobile)
+    subscriber.mobileConfirmationCode=code
+    subscriber.mobileConfirmationCodeDT=datetime.now()
+    subscriber.mobileConfirmed=False
+    subscriber.mobileConfirmedDT=None
+    db.session.commit()
+    result=send_mobileconfirmation_sms(code)
+    #token = generate_mobileconfirmation_token(subscriber.mobile)
+    ##print('   @@@token=',token)
+    #subscriber.mobileConfirmationCode=token
+    #subscriber.mobileConfirmationCodeDT=datetime.now()
+    #db.session.commit()
+    ##print('   @@@DB UPDATED')
+    #sms_message = render_template('page_templates/sms_mobile_confirmation.html', verification_code=token)
+    #smsfrom = 'Ganimides'
+    ##result=send_sms(subscriber.mobile,smsfrom,sms_message)
+    #subject = "please confirm your mobile"
+    #result=send_email(subscriber.email,subject,sms_message)
+    if result=='OK':
+        flash('a confirmation code has been sent via sms to {}. Use this code to confirm your mobile'.format(subscriber.mobile), 'success')
+        return redirect(url_for('authorization.mobileconfirm'))
+    else:
+        #error_text=result.dumps()
+        ErrorMsg='Failed to send confirmation code via sms. Request a new mobile confirmation Code'
+        flash(ErrorMsg, 'error')
+        return redirect(url_for('authorization.mobileconfirm'))
+
+@authorization.route('/confirm/<token>')
+def emailconfirm(token):
+    print('CONFIRM',request.method," token=",token,request.url)
+    try:
+        email = confirm_token(token,3600)
+    except:
+        flash('The confirmation link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.userprofile'))
+
+    if not(email):
+        flash('The confirmation link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.userprofile'))
+
+    user = Subscriber.query.filter_by(email=email).first_or_404()
+    if user.emailConfirmed:
+        flash('Email already confirmed. Please login.', 'info')
+    else:
+        user.emailConfirmed = True
+        user.emailConfirmedDT = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('You have confirmed your Email. Thanks!', 'success')
+
+    return redirect(url_for('authorization.login'))
+
+@authorization.route('/passwordresetverification/<token>')
+def passwordresetverification(token):
+    print('PASSWORDRESETVERICATION',request.method," token=",token,request.url)
+    try:
+        email = confirm_token(token,3600)
+    except:
+        flash('The password reset link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.login'))
+
+    if not(email):
+        flash('The password reset link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.login'))
+
+    subscriber = Subscriber.query.filter_by(email=email).first_or_404()
+    if not(subscriber):
+        flash('The password reset link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.login'))
+
+    subscriber.passwordReset=True
+    db.session.commit()
+    flash('Your Password has been reset. Please define Your password.', 'success')
+    return redirect(url_for('authorization.password_reset',email=email))
+
+@authorization.route('/contactemailverification/<token>')
+def contactemailverification(token):
+    app.pages="email verification"
+    print('CONTACT-EMAIL-VERIFICATION',request.method," token=",token,request.url)
+    try:
+        tokenStr = confirm_token(token,3600)
+    except:
+        flash('The link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('homepage'))
+
+    if not(tokenStr):
+        flash('The link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('homepage'))
+
+    print('tokenStr',tokenStr)
+    x=tokenStr.split('-',1)
+    contactID=x[0]
+    print('CONTACT-ID',contactID)
+    contactmessage=ContactMessage.query.filter_by(id=contactID).first_or_404()
+    if not(contactmessage):
+        flash('The link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('homepage'))
+    contactmessage.confirmed=True
+    contactmessage.confirmedDT=datetime.now()
+    db.session.commit()
+    flash('Your Message has been received. We will contact You ASAP.', 'success')
+    subscriber = Subscriber.query.filter_by(email=contactmessage.email).first()
+    if subscriber is None:
+        # add as subscriber
+        subscriber = Subscriber(
+            email=contactmessage.email
+            ,firstName=contactmessage.firstName
+            ,lastName=contactmessage.lastName
+            ,jobTitle=contactmessage.jobTitle
+            ,company=contactmessage.company
+            ,registeredDT=datetime.now()
+            )
+        subscriber.mobile=''
+        subscriber.userName=''
+        subscriber.confirmed=None
+        subscriber.confirmedDT=None
+
+        db.session.add(subscriber)
+        db.session.commit()
+        flash('You email has been registered!','success')
+    else:
+        if not(subscriber.emailConfirmed):
+            #confirm the susbscriber
+            subscriber.emailConfirmed = True
+            subscriber.emailConfirmedDT = datetime.now()
+            #db.session.add(subscriber)
+            db.session.commit()
+            flash('You have confirmed your Email. Thanks!', 'success')
+
+    return redirect(url_for('homepage'))
+
+#############################################################
+### user profile forms (tab form)
+#############################################################
 @authorization.route('/userprofile')
 @login_required
 def userprofile():
@@ -609,17 +716,17 @@ def userprofile():
     mobileConfirmForm = mobileConfirmationForm()
     passwordchangeForm=PasswordChangeForm()
     avatarUploadForm=AvatarUploadForm()
-
     #print('---userID=',current_user.id)
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
     result=fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailConfirmForm,mobileConfirmForm,passwordchangeForm,avatarUploadForm)
+
     form=profileDisplayForm
     varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
     mobileconfirmed=True
     if subscriber.mobile and not(subscriber.mobileConfirmed):
         mobileconfirmed=False
     # load userprofile template
-    return render_template('page_templates/userprofile.html'
+    return render_template('authorization/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=profileChangeForm
                             ,passwordchange_form=passwordchangeForm
@@ -636,7 +743,7 @@ def userprofile():
 @authorization.route('/userprofilechange', methods=['GET', 'POST'])
 @login_required
 def userprofilechange():
-    app.pages=app.pages+" / " +"change"
+    app.pages="user profile change"
     print('PROFILECHANGE',request.method,request.url)
 
     # fill-in the forms from the DB
@@ -774,7 +881,7 @@ def userprofilechange():
 
     print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    return render_template('page_templates/userprofile.html'
+    return render_template('authorization/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=form
                             ,passwordchange_form=passwordchangeForm
@@ -789,7 +896,7 @@ def userprofilechange():
 @authorization.route('/passwordchange', methods=['GET', 'POST'])
 @login_required
 def passwordchange():
-    app.pages=app.pages+" / " +"password change"
+    app.pages="password change"
     print('PASSWORDCHANGE',request.method,request.url)
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -823,7 +930,7 @@ def passwordchange():
 
     print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    return render_template('page_templates/userprofile.html'
+    return render_template('authorization/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=profileChangeForm
                             ,passwordchange_form=form
@@ -835,11 +942,10 @@ def passwordchange():
                             ,pages=app.pages
                             )
 
-
 @authorization.route('/upload_avatar', methods=['GET','POST'])
 @login_required
 def upload_avatar():
-    app.pages=app.pages+" / " +"upload avatar"
+    app.pages="upload avatar"
     print('UPLOAD-AVATAR',request.method,request.url)
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
     varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
@@ -915,7 +1021,7 @@ def upload_avatar():
 
     print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    return render_template('page_templates/userprofile.html'
+    return render_template('authorization/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=profileChangeForm
                             ,passwordchange_form=passwordchangeForm
@@ -927,31 +1033,36 @@ def upload_avatar():
                             ,pages=app.pages
                             )
 
-#    return render_template('page_templates/avatar_upload.html'
-#                        ,avatarupload_form=form
-#                        ,title='upload your avatar picture'
-#                        ,pages=app.pages
-#                        )
-
 @authorization.route('/mobileconfirm', methods=['GET', 'POST'])
 @login_required
 def mobileconfirm():
-    app.pages=app.pages+" / " +"mobile confirm"
+    app.pages="mobile confirmation"
     print('MOBILECONFIRM',request.method,request.url)
-
-    form = mobileConfirmationForm()
+    # fill-in the forms from the DB
+    profileDisplayForm = UserProfileDisplayForm()
+    profileChangeForm = UserProfileChangeForm()
+    emailConfirmForm = emailConfirmationForm()
+    mobileConfirmForm = mobileConfirmationForm()
+    passwordchangeForm=PasswordChangeForm()
+    avatarUploadForm=AvatarUploadForm()
+    #print('---userID=',current_user.id)
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
+    result=fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailConfirmForm,mobileConfirmForm,passwordchangeForm,avatarUploadForm)
     varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
+    varActiveTAB='mobileconfirmation'
+
     if request.method == 'GET':
+        form=mobileConfirmForm
         form.mobile.data = subscriber.mobile
         form.mobile_token.data = ''
         if subscriber.mobileConfirmed:
            flash('mobile already confirmed.', 'error')
 
     if request.method == 'POST':
-        #print('---mobile=',form.mobile.data)
+        form=mobileConfirmationForm()
         if form.validate_on_submit():
-            subscriber = Subscriber.query.filter_by(mobile=form.mobile.data).first_or_404()
+            varActiveTAB='mobileconfirmation'
+            #subscriber = Subscriber.query.filter_by(mobile=form.mobile.data).first_or_404()
             #print('---mobileConfirmed=',subscriber.mobileConfirmed)
             if subscriber.mobileConfirmed:
                 #flash('mobile already confirmed.', 'info')
@@ -982,50 +1093,32 @@ def mobileconfirm():
                         flash('You have successfully confirmed your mobile.','success')
                         return redirect(url_for('authorization.userprofile'))
 
-    # load userprofile template
-    return render_template('page_templates/mobileconfirmation.html'
-                        ,form=form
-                        ,title='mobile confirmation'
-                        ,pages=app.pages
-                        ,alreadyconfirmed=subscriber.mobileConfirmed
-                        )
+    return render_template('authorization/authorization_forms_template.html'
+        ,mobileconfirmation_form=form
+        #,form=form
+        ,title='mobile confirmation'
+        ,formPage='form_mobile_confirmation.html'
+        ,alreadyconfirmed=subscriber.mobileConfirmed
+        )
 
-@authorization.route('/sendconfirmationsms', methods=['POST','GET'])
-def send_confirmation_sms():
-    app.pages=app.pages+" / " +"send verification sms"
-    print('SENDCONFIRMATIONSMS',request.method,request.url)
-    subscriber = Subscriber.query.filter_by(id=current_user.id).first()
-    code=generate_mobileconfirmation_code(subscriber.mobile)
-    subscriber.mobileConfirmationCode=code
-    subscriber.mobileConfirmationCodeDT=datetime.now()
-    subscriber.mobileConfirmed=False
-    subscriber.mobileConfirmedDT=None
-    db.session.commit()
-    result=send_mobileconfirmation_sms(code)
-    #token = generate_mobileconfirmation_token(subscriber.mobile)
-    ##print('   @@@token=',token)
-    #subscriber.mobileConfirmationCode=token
-    #subscriber.mobileConfirmationCodeDT=datetime.now()
-    #db.session.commit()
-    ##print('   @@@DB UPDATED')
-    #sms_message = render_template('page_templates/sms_mobile_confirmation.html', verification_code=token)
-    #smsfrom = 'Ganimides'
-    ##result=send_sms(subscriber.mobile,smsfrom,sms_message)
-    #subject = "please confirm your mobile"
-    #result=send_email(subscriber.email,subject,sms_message)
-    if result=='OK':
-        flash('a confirmation code has been sent via sms to {}. Use this code to confirm your mobile'.format(subscriber.mobile), 'success')
-        return redirect(url_for('authorization.mobileconfirm'))
-    else:
-        #error_text=result.dumps()
-        ErrorMsg='Failed to send confirmation code via sms. Request a new mobile confirmation Code'
-        flash(ErrorMsg, 'error')
-        return redirect(url_for('authorization.mobileconfirm'))
+    #print('   ###activeTAB',varActiveTAB)
+    # load userprofile template
+    # return render_template('authorization/userprofile_template.html'
+    #                         ,userprofiledisplay_form=profileDisplayForm
+    #                         ,userprofilechange_form=profileChangeForm
+    #                         ,passwordchange_form=passwordchangeForm
+    #                         ,mobileconfirmation_form=form
+    #                         ,emailconfirmation_form=emailConfirmForm
+    #                         ,avatarupload_form=avatarUploadForm
+    #                         ,activeTAB=varActiveTAB
+    #                         ,title=varTitle
+    #                         ,pages=app.pages
+    #                         )
 
 @authorization.route('/emailconfirmrequest/<email>', methods=['GET', 'POST'])
 #@login_required
 def emailconfirmrequest(email):
-    app.pages=app.pages+" / " +"email verification request"
+    app.pages="email verification request"
     print('EMAILCONFIRMREQUEST',request.method,request.url)
     form = emailConfirmationForm()
     form.email.data = email
@@ -1063,108 +1156,13 @@ def emailconfirmrequest(email):
                     ErrorMsg='Failed to send confirmation email'
                     flash(ErrorMsg, 'error')
 
-    # load userprofile template
-    return render_template('page_templates/emailconfirmation.html'
-                        ,form=form
-                        ,title='email confirmation'
-                        ,pages=app.pages
-                        ,alreadyconfirmed=subscriber.emailConfirmed
-                        )
-@authorization.route('/sendconfirmationemail', methods=['POST','GET'])
-def send_confirmation_email():
-    app.pages=app.pages+" / " +"send confirmation email"
-    print('SENDCONFIRMATIONEMAIL',request.method,request.url)
-    form = emailConfirmationForm()
-    subscriber = Subscriber.query.filter_by(email=form.email.data).first()
-    if subscriber is None:
-        form.email.errors.append("invalid email")
-        varTitle='User Profile : ???'
-    else:
-        form.email.data = subscriber.email
-        varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
-    if request.method == 'GET':
-        if subscriber.emailConfirmed:
-           flash('email already confirmed.', 'error')
-    #subscriber = Subscriber.query.filter_by(id=current_user.id).first()
-    subscriber.emailConfirmed=False
-    subscriber.emailConfirmedDT=None
-    db.session.commit()
-    result=send_emailconfirmation_email(subscriber.email)
-    if result=='OK':
-        flash('an activation link has been sent to {}'.format(subscriber.email),'warning')
-        flash('please open this email and click the provided link to activate Your new email','info')
-    else:
-        #error_text=result.dumps()
-        ErrorMsg='Failed to send confirmation email'
-        flash(ErrorMsg, 'error')
-
-    return redirect(url_for('authorization.login'))
-
-@authorization.route('/sendtestemail', methods=['POST','GET'])
-def sendtestemail():
-    app.pages=app.pages+" / " +"send test email"
-    print('SEND_TEST_EMAIL',request.method,request.url)
-    test_email='philippos.leandrou@gmail.com'
-    result=send_email_test(test_email)
-    if result=='OK':
-        flash('an activation link has been sent to {}'.format(test_email),'warning')
-        flash('please open this email and click the provided link to activate Your new email','info')
-    else:
-        #error_text=result.dumps()
-        ErrorMsg='Failed to send confirmation email'
-        flash(ErrorMsg, 'error')
-
-    return redirect(url_for('authorization.login'))
-
-@authorization.route('/confirm/<token>')
-#@login_required
-def emailconfirm(token):
-    print('CONFIRM',request.method," token=",token,request.url)
-    try:
-        email = confirm_token(token,3600)
-    except:
-        flash('The confirmation link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.userprofile'))
-
-    if not(email):
-        flash('The confirmation link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.userprofile'))
-
-    user = Subscriber.query.filter_by(email=email).first_or_404()
-    if user.emailConfirmed:
-        flash('Email already confirmed. Please login.', 'info')
-    else:
-        user.emailConfirmed = True
-        user.emailConfirmedDT = datetime.now()
-        db.session.add(user)
-        db.session.commit()
-        flash('You have confirmed your Email. Thanks!', 'success')
-
-    return redirect(url_for('authorization.login'))
-
-@authorization.route('/passwordresetverification/<token>')
-#@login_required
-def passwordresetverification(token):
-    print('PASSWORDRESETVERICATION',request.method," token=",token,request.url)
-    try:
-        email = confirm_token(token,3600)
-    except:
-        flash('The password reset link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.login'))
-
-    if not(email):
-        flash('The password reset link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.login'))
-
-    subscriber = Subscriber.query.filter_by(email=email).first_or_404()
-    if not(subscriber):
-        flash('The password reset link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.login'))
-
-    subscriber.passwordReset=True
-    db.session.commit()
-    flash('Your Password has been reset. Please define Your password.', 'success')
-    return redirect(url_for('authorization.password_reset',email=email))
+    # load emailconfirmation
+    return render_template('authorization/authorization_forms_template.html'
+        ,form=form
+        ,title='email confirmation'
+        ,formPage='form_email_confirmation.html'
+        ,alreadyconfirmed=subscriber.emailConfirmed
+        )
 
 @authorization.route('/passwordreset/<email>', methods=['GET', 'POST'])
 def password_reset(email=''):
@@ -1196,8 +1194,6 @@ def password_reset(email=''):
                             ,formPage='form_password_reset.html'
                             ,passwordreset=subscriber.passwordReset
                             )
-
-
 
 ###########################################################
 ###################splash forms############################
@@ -1283,12 +1279,17 @@ def loginForm():
                             return redirect(url_for(app.lastpage))
 
     print('LOGIN-FORM','RETURN',app.lastpage_html,'with splash_form','login')
+    #flash("www=please login!!!",'warning')
+    #flash("sss=please login!!!",'success')
+    #flash("iii=please login!!!",'info')
+    #flash("eee=please login!!!",'error')
     return render_template(
         app.lastpage_html
         ,loginform=form
         ,activeTAB='login'
         ,splash_form='login'
         )
+
 @authorization.route('/registrationForm', methods=['GET','POST'])
 def registrationForm():
     init_form_options()
@@ -1373,7 +1374,6 @@ def registrationForm():
 @authorization.route('/contactForm', methods=['GET', 'POST'])
 def contactForm():
     init_form_options()
-    #app.pages=app.pages+" / " +"contact_form"
     print('CONTACT-FORM',request.method,request.url)
     print('CONTACT-FORM',request.method,'lastpage',app.lastpage)
     print('CONTACT-FORM',request.method,'lastpage_html',app.lastpage_html)
@@ -1416,7 +1416,6 @@ def contactForm():
 
 @authorization.route('/forgetpassword/<email>', methods=['GET', 'POST'])
 def forgetpassword(email=''):
-    #app.pages=app.pages+" / " +"forget password"
     print('FORGETPASSWORD',request.method,request.url,'email',email)
     form = forgetPasswordForm()
     form.email.data=email
@@ -1462,7 +1461,32 @@ def forgetpassword(email=''):
         ,splash_form='forgetpassword'
         )
 
+###########################################################
+###################experimental forms######################
+###########################################################
+@authorization.route('/myBank')
+@login_required
+def myBank():
+    app.pages=app.pages+" / " +"my Bank"
+    print('MYBANK',request.method,request.url)
+    """Renders the app(myBank) home page."""
+    return render_template(
+        'mybank/mybank_index.html'
+        ,title='myBank'
+        ,pages=app.pages
+        ,message='open banking prototype........'
+    )
 
+@authorization.route('/myGame')
+def myGame():
+    print('MYGAME',request.method,request.url)
+    """Renders the app(myBank) home page."""
+    return render_template(
+        'myGame/myGame.html'
+        ,title='myGame'
+        ,pages=app.pages
+        ,message='gaming prototype........'
+    )
 
 #@authorization.route('/fblogin')
 #def loginwithfb():

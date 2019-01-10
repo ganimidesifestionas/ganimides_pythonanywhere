@@ -1,37 +1,33 @@
 <!--messages: errors except field errors-->
 {% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for message in messages %}
-{% if not ("Error in the".upper() in message[1].upper()) %}
-{% if ("error".upper() in message[0].upper() or "error".upper() in message[1].upper()) %}
-
-{% if loop.first %}
-<div class="d-flex flex-column bg-transparent justify-content-center align-items-center p-1">
-    {% endif %}
-    {% if "Error".upper() in message[0].upper() or "Error".upper() in message[1].upper() %}
-    <div class="d-flex bg-transparent justify-content-center align-items-center message_line p-0 m-0">
-        <p class="text-danger font-weight-bold">
-            {% elif message[0]=='warning' %}
-            <div class="d-flex bg-transparent justify-content-center align-items-center message_line p-0 m-0">
-                <p class="text-warning font-weight-bold">
-                    {% elif message[0]=='success' %}
-                    <div class="d-flex bg-transparent justify-content-center align-items-center message_line p-0 m-0">
-                        <p class="text-success font-weight-bold">
-                            {% else %}
-                            <div class="d-flex bg-transparent justify-content-center align-items-center message_line p-0 m-0">
-                                <p class="text-info xfont-weight-bold">
-                                    {% endif %}
-                                    {% if message[0]=='warning' %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if not ("Error in the".upper() in message[1].upper()) %}
+                {% if ("error".upper() in message[0].upper() or "error".upper() in message[1].upper()) %}
+                    {% if loop.first %}
+                    <div class="d-flex flex-column bg-transparent justify-content-center align-items-center">
+                    {% endif %}
+                        <div class="d-flex bg-transparent justify-content-center align-items-center authorization_message_line">
+                        {% if "Error".upper() in message[0].upper() or "Error".upper() in message[1].upper() %}
+                            <p class="text-danger font-weight-bold">
+                        {% elif message[0]=='warning' %}
+                            <p class="text-warning font-weight-bold">
+                        {% elif message[0]=='success' %}
+                            <p class="text-success font-weight-bold">
+                        {% else %}
+                            <p class="text-info font-weight-bold">
+                        {% endif %}
+                                {% if message[0]=='warning' %}
                                     {{message[0]}} :
-                                    {% endif %}
-                                    {{message[1]}}
-                                </p>
-                            </div>
-                            {% if loop.last %}
+                                {% endif %}
+                                {{message[1]}}
+                            </p>
+                        </div>
+                    {% if loop.last %}
                     </div>
                     {% endif %}
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}

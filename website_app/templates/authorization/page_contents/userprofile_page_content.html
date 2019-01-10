@@ -1,0 +1,131 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% set userprofile_is_active='active' %}
+{% set userprofile_show='active show' %}
+{% set profilechange_is_active='' %}
+{% set profilechange_show='' %}
+{% set passwordchange_is_active='' %}
+{% set passwordchange_show='' %}
+{% set avatarupload_is_active='' %}
+{% set avatarupload_show='' %}
+{% set mobileconfirmation_is_active='' %}
+{% set mobileconfirmation_show='' %}
+
+{% if activeTAB=='userprofilechange' %}
+{% set profilechange_is_active='active' %}
+{% set profilechange_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
+{%endif%}
+{% if activeTAB=='passwordchange' %}
+{% set passwordchange_is_active='active' %}
+{% set passwordchange_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
+{%endif%}
+{% if activeTAB=='avatarupload' %}
+{% set avatarupload_is_active='active' %}
+{% set avatarupload_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
+{%endif%}
+{% if activeTAB=='mobileconfirmation' %}
+{% set mobileconfirmation_is_active='active' %}
+{% set mobileconfirmation_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
+{%endif%}
+{% if activeTAB=='emailconfirmation' %}
+{% set emailconfirmation_is_active='active' %}
+{% set emailconfirmation_show='active show' %}
+{% set userprofile_is_active='' %}
+{% set userprofile_show='' %}
+{%endif%}
+
+<div class="d-flex flex-column">
+    <!--
+    <div class="left mt-2 mb-1">
+        <div class="d-flex justify-content-between p-0 m-0">
+            {% if current_user.avatarImageFile %}
+            {% set avatarImageFile=current_user.avatarImageFile %}
+            {% else %}
+            {% set avatarImageFile='../../static/images/icon_avatar_default.png' %}
+            {% endif %}
+            <img class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="align-items-center pl-1">
+                <a href="{{ url_for('authorization.upload_avatar') }}">Change</a>
+            </div>
+        </div>
+    </div>
+    -->
+    <div class="p-0">
+        <div class="p-0 left">
+            <!-- Nav tabs -->
+            <div class="left">
+                <ul class="nav nav-tabs " role="tablist">
+                    <li class="nav-item {{userprofile_is_active}}"><a class="nav-link authorization-form-nav-link {{userprofile_show}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
+                    <li class="nav-item {{profilechange_is_active}}"><a class="nav-link authorization-form-nav-link {{profilechange_show}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
+                    <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link authorization-form-nav-link {{passwordchange_show}}" href="#passchange" data-toggle="tab">Change Password</a></li>
+                    {% if avatarupload_is_active %}
+                    <li class="nav-item {{avatarupload_is_active}}"><a class="nav-link authorization-form-nav-link {{avatarupload_show}}" href="#uploadpicture" data-toggle="tab">Upload Your Picture</a></li>
+                    {% endif %}
+                    {% if mobileconfirmation_is_active %}
+                    <li class="nav-item {{mobileconfirmation_is_active}}"><a class="nav-link authorization-form-nav-link {{mobileconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
+                    {% endif %}
+                    {% if emailconfirmation_is_active %}
+                    <li class="nav-item {{emailconfirmation_is_active}}"><a class="nav-link authorization-form-nav-link {{emailconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content left">
+
+                <!-- form 1 userprofile-readonly -->
+                <div id="userprofile" class="tab-pane fade {{userprofile_show}} left">
+                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_userprofile.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_userprofile.html','FORM','authorization')] %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- form 2 profile change-->
+                <div id="profilechange" class="tab-pane fade {{profilechange_show}} left">
+                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_userprofile_change.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_userprofile_change.html','FORM','authorization')] %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- form 3 password change-->
+                <div id="passchange" class="tab-pane fade {{passwordchange_show}}">
+                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_password_change.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_password_change.html','FORM','authorization')] %}
+                        </div>
+                    </div>
+                </div>
+                <!-- form 4 upload image-->
+                <div id="uploadpicture" class="tab-pane fade {{avatarupload_show}}">
+                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_avatar_upload.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_avatar_upload.html','FORM','authorization')] %}
+                        </div>
+                    </div>
+                </div>
+                <!-- form 9 upload image-->
+                <div id="mobileconfirmation" class="tab-pane fade {{mobileconfirmation_show}}">
+                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('form_mobile_confirmation.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_mobile_confirmation.html','FORM','authorization')] %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
