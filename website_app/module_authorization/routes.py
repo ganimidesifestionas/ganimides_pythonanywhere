@@ -397,7 +397,7 @@ def register():
             flash_errors(form)
 
     # load registration template
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
                             ,login_form=LoginForm()
                             ,registration_form=form
                             ,activeTAB='register'
@@ -475,7 +475,7 @@ def login():
 
     #print('LOGIN',request.method,'splash_form',app.splash_form)
     #load login page
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
                             ,login_form=form
                             ,registration_form=RegistrationForm()
                             ,activeTAB='login'
@@ -508,7 +508,7 @@ def login_or_register(action_tab):
                 else:
                     return redirect(url_for('homepage'))
     # load login/registration template
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
                             ,login_form=form
                             ,registration_form=RegistrationForm()
                             ,activeTAB=action_tab
@@ -741,7 +741,7 @@ def userprofile():
     if subscriber.mobile and not(subscriber.mobileConfirmed):
         mobileconfirmed=False
     # load userprofile template
-    return render_template('authorization/userprofile_template.html'
+    return render_template('authorization/page_templates/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=profileChangeForm
                             ,passwordchange_form=passwordchangeForm
@@ -896,7 +896,7 @@ def userprofilechange():
 
     print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    return render_template('authorization/userprofile_template.html'
+    return render_template('authorization/page_templates/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=form
                             ,passwordchange_form=passwordchangeForm
@@ -945,7 +945,7 @@ def passwordchange():
 
     print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    return render_template('authorization/userprofile_template.html'
+    return render_template('authorization/page_templates/userprofile_template.html'
                             ,userprofiledisplay_form=profileDisplayForm
                             ,userprofilechange_form=profileChangeForm
                             ,passwordchange_form=form
@@ -1035,7 +1035,7 @@ def upload_avatar():
                     return redirect(url_for('authorization.userprofile'))
 
     # load userprofile template
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
         ,avatarupload_form=form
         #,form=form
         ,title='Upload Your Avatar'
@@ -1043,7 +1043,7 @@ def upload_avatar():
         )
 
     # print('   ###activeTAB',varActiveTAB)
-    # return render_template('authorization/userprofile_template.html'
+    # return render_template('authorization/page_templates/userprofile_template.html'
     #                         ,userprofiledisplay_form=profileDisplayForm
     #                         ,userprofilechange_form=profileChangeForm
     #                         ,passwordchange_form=passwordchangeForm
@@ -1115,7 +1115,7 @@ def mobileconfirm():
                         flash('You have successfully confirmed your mobile.','success')
                         return redirect(url_for('authorization.userprofile'))
 
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
         ,mobileconfirmation_form=form
         #,form=form
         ,title='mobile confirmation'
@@ -1125,7 +1125,7 @@ def mobileconfirm():
 
     #print('   ###activeTAB',varActiveTAB)
     # load userprofile template
-    # return render_template('authorization/userprofile_template.html'
+    # return render_template('authorization/page_templates/userprofile_template.html'
     #                         ,userprofiledisplay_form=profileDisplayForm
     #                         ,userprofilechange_form=profileChangeForm
     #                         ,passwordchange_form=passwordchangeForm
@@ -1179,7 +1179,7 @@ def emailconfirmrequest(email):
                     flash(ErrorMsg, 'error')
 
     # load emailconfirmation
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
         ,form=form
         ,title='email confirmation'
         ,formPage='form_email_confirmation.html'
@@ -1210,7 +1210,7 @@ def password_reset(email=''):
         return redirect(url_for('authorization.login'))
 
     # load passsword reset template
-    return render_template('authorization/authorization_forms_template.html'
+    return render_template('authorization/page_templates/authorization_forms_template.html'
                             ,form=form
                             ,title=varTitle
                             ,formPage='form_password_reset.html'
@@ -1471,7 +1471,7 @@ def forgetpassword(email=''):
 
     # load passsword_forget template
     print('FORGETPASSWORD','RETURN',app.lastpage_html,'with splash_form','forgetpassword')
-    #return render_template('authorization/authorization_forms_template.html'
+    #return render_template('authorization/page_templates/authorization_forms_template.html'
     #                        app.lastpage_html
     #                        ,forgetpasswordform=form
     #                        ,formPage='form_forget_splash.html'

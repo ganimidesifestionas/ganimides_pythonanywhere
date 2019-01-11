@@ -18,7 +18,7 @@
     border-radius: 4px;
 }
 .authorization-form h1{
-    font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14pt;
     font-style: normal;
     font-weight: 900;
@@ -69,13 +69,20 @@
     color: black;
     font-weight: 900;
     font-size: 12px;
-    xwidth: 100%;
+}
+.authorization-form input[type=button] {
+    color: black;
+    font-weight: 900;
+    font-size: 12px;
+}
+.authorization-form input[type=button] :hover {
+    color: white !important;
 }
 
 .authorization-form button {
+    color: black;
     font-weight: 900;
     font-size: 12px;
-    xwidth: 100%;
 }
 
 .authorization-form textarea {
@@ -93,7 +100,7 @@
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
     font-feature-settings: "liga";
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
     padding: 2px;
     border: 1px solid transparent;
@@ -115,7 +122,7 @@
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
     font-feature-settings: "liga";
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
     padding: 2px;
     border: 1px solid transparent;

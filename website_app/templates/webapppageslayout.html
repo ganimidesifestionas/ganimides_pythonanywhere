@@ -98,12 +98,8 @@
             </div>
             {% include [language_fullpathfile('cookies_alert.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('cookies_alert.html','COMPONENT')] %}
             {% include [language_fullpathfile('splash_forms.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('splash_forms.html','COMPONENT')] %}
-
             <div class="d-flex">
                 <!--advertise banner top -->
-                <div id="banner">
-                    <div id="cloud-scroll"></div>
-                </div>                
             </div>
             <div class="d-flex">
                 <div class="d-flex flex-grow-1">
@@ -130,6 +126,9 @@
 
     <footer>
         <!--footer is here-->
+        <div id="banner">
+            <div id="cloud-scroll"></div>
+        </div>                
     </footer>
     <!--black is here-->
     <!-- Bootstrap core JavaScript
@@ -234,7 +233,7 @@
                         x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
                         y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
                         x=x.replace(/^\s+|\s+$/g,"");
-                        alert(x)
+                        /*alert(x)*/
                         if (x==c_name)
                         {
                             return unescape(y);

@@ -1,0 +1,14 @@
+<!--BEGIN--page_template = "userprofile_template"-->
+{% extends "webapppageslayout.html" %}
+{% set active_module = 'authorization' %}
+{% set page_title = title %}
+{% set page_logo = "" %}
+{% set next_page = "" %}
+{% set previous_page = "" %}
+{% set content_page="userprofile_page_content.html" %}
+
+{% set content_page_template="authorizationpageslayout_pagecontenttemplate.html" %}
+{% block content %}
+{% include appfolder('MASTERLAYOUT',active_module)+version_file("authorizationpageslayout.html",execution_mode,design_type,design_version) %}
+{% endblock %}
+<!--ENDOF--page_template = "userprofile_template"-->

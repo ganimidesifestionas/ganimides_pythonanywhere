@@ -313,29 +313,62 @@ def inject_utility_functions():
             nfile=nfile.replace('.', '_v'+version+'.')
         return nfile
 
+    def appfolder(type='template',module=''):
+        folder=app.config['TEMPLATES_ROOT_FOLDER']
+        folder=''
+        if module:
+            folder=module+'/'
+
+        if (type.upper()=='MASTERLAYOUT' or type.upper()=='PAGESLAYOUT'):
+            folder=folder
+        if (type.upper()=='LAYOUT'):
+            folder=folder+app.config['LAYOUTS_FOLDER']
+        if (type.upper()=='LAYOUT_COMPONENT'):
+            folder=folder+app.config['LAYOUTS_FOLDER']
+        if (type.upper()=='TEMPLATE'):
+            folder=folder+app.config['TEMPLATES_FOLDER']
+        if (type.upper()=='PAGE'):
+            folder=folder+app.config['PAGES_FOLDER']
+        if (type.upper()=='COMPONENT'):
+            folder=folder+app.config['COMPONENTS_FOLDER']
+        if (type.upper()=='IMAGE'):
+            folder=folder+app.config['IMAGES_FOLDER']
+        if (type.upper()=='PICTURE'):
+            folder=folder+app.config['PICTURES_FOLDER']
+        if (type.upper()=='FORM'):
+            folder=folder+app.config['FORMS_FOLDER']
+        # if module:
+        #     if (type.upper()=='LAYOUT_COMPONENT' or type.upper()=='TEMPLATE' or not(type)):
+        #         folder=module+'/'
+        
+        return folder
+
+
     #print('###inject_utility_functions:fullpathfile()')
     def fullpathfile(file='',type='TEMPLATE',module=''):
-        folder=app.config['TEMPLATES_ROOT_FOLDER']
-        if (type.upper()=='LAYOUT'):
-            folder=app.config['LAYOUT_FOLDER']
-        if (type.upper()=='TEMPLATE'):
-            folder=app.config['TEMPLATES_FOLDER']
-        if (type.upper()=='PAGE'):
-            folder=app.config['PAGES_FOLDER']
-        if (type.upper()=='COMPONENT'):
-            folder=app.config['COMPONENTS_FOLDER']
-        if (type.upper()=='IMAGE'):
-            folder=app.config['IMAGES_FOLDER']
-        if (type.upper()=='PICTURE'):
-            folder=app.config['PICTURES_FOLDER']
-        if (type.upper()=='FORM'):
-            folder=app.config['FORMS_FOLDER']
+        folder=appfolder(type,module)
+        # folder=app.config['TEMPLATES_ROOT_FOLDER']
+        # if (type.upper()=='LAYOUT_COMPONENT'):
+        #     folder=app.config['LAYOUTS_FOLDER']
+        # if (type.upper()=='TEMPLATE'):
+        #     folder=app.config['TEMPLATES_FOLDER']
+        # if (type.upper()=='PAGE'):
+        #     folder=app.config['PAGES_FOLDER']
+        # if (type.upper()=='COMPONENT'):
+        #     folder=app.config['COMPONENTS_FOLDER']
+        # if (type.upper()=='IMAGE'):
+        #     folder=app.config['IMAGES_FOLDER']
+        # if (type.upper()=='PICTURE'):
+        #     folder=app.config['PICTURES_FOLDER']
+        # if (type.upper()=='FORM'):
+        #     folder=app.config['FORMS_FOLDER']
 
-        if module:
-            if (type.upper()=='LAYOUT'):
-                folder=module+'/'
-            else:
-                folder=module+'/'+folder
+        # if module:
+        #     if (type.upper()=='LAYOUT_COMPONENT'):
+        #         folder=module+'/'
+        #     else:
+        #         folder=module+'/'+folder
+
         file1=file
         file2=file1
         if (file1.find('/')<0):
@@ -399,6 +432,26 @@ def inject_utility_functions():
                 file2 = app.config['COMPONENTS_FOLDER']+file1
         return file2
 
+    #print('###inject_utility_functions:template_file()')
+    def template_file(file='',module=''):
+        file1=file
+        file2=file1
+        if (file1.find('/')<0):
+            if module:
+                file2 = module+'/'+file1
+            else:
+                file2 = app.config['TEMPLATES_FOLDER']+file1
+        return file2
+
+    #print('###inject_utility_functions:layout_file()')
+    def layout_file(file='',module=''):
+        file1=file
+        file2=file1
+        if (file1.find('/')<0):
+            folder=appfolder('LAYOUT_COMPONENT',module)
+            file2 = folder+file1
+        return file2
+
     #print('###inject_utility_functions:email_template_file()')
     def email_template_file(file='',module=''):
         file1=file
@@ -431,16 +484,6 @@ def inject_utility_functions():
             nfile=nfile.replace('.html', '_'+language+'.html')
         return nfile
 
-    #print('###inject_utility_functions:template_file()')
-    def template_file(file='',module=''):
-        file1=file
-        file2=file1
-        if (file1.find('/')<0):
-            if module:
-                file2 = module+'/'+file1
-            else:
-                file2 = app.config['TEMPLATES_FOLDER']+file1
-        return file2
 
     #print('###inject_utility_functions:language_fullpathfile()')
     def language_fullpathfile(file='',language='en',type='PAGE',module=''):
@@ -453,18 +496,20 @@ def inject_utility_functions():
 
     return dict(
         format_price=format_price
+        ,appfolder=appfolder
         ,fullpathfile=fullpathfile
         ,language_file=language_file
+        ,language_fullpathfile=language_fullpathfile
         ,version_file=version_file
         ,image_file=image_file
         ,picture_file=picture_file
         ,flag_file=flag_file
-        ,page_file=page_file
-        ,form_file=form_file
-        ,language_page_file=language_page_file
-        ,language_fullpathfile=language_fullpathfile
+        ,layout_file=layout_file
         ,template_file=template_file
         ,component_file=component_file
+        ,page_file=page_file
+        ,language_page_file=language_page_file
+        ,form_file=form_file
         ,email_template_file=email_template_file
         ,sms_template_file=sms_template_file
 )

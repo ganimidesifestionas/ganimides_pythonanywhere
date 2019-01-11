@@ -58,7 +58,7 @@ class Config(object):
     UPLOAD_FOLDER = '../../static/Uploads/'
     TEMPLATES_ROOT_FOLDER = 'website_app/templates'
     #relative to flask templates which is https://www.pythonanywhere.com/user/ganimides/files/home/ganimides/ganimides_website/website_app/templates
-    LAYOUTS_FOLDER = 'base_layouts/'
+    LAYOUTS_FOLDER = 'layout_components/'
     TEMPLATES_FOLDER = 'templates/'
     PAGES_FOLDER = 'page_contents/'
     FORMS_FOLDER = 'page_forms/'
