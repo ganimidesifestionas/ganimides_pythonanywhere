@@ -12,7 +12,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 
 # local imports
-from . config import app_config
+from .config import app_config
 from logging.config import dictConfig
 
 #print('###dictConfig###',dictConfig)
@@ -54,29 +54,32 @@ app.splashform=None
 ################################################################################
 print('')
 print('###CONFIGURE FLASK-APP###')
-print('   CONFIG-1-FROM-INSTANCE','../instance/config.py')
-app.config.from_pyfile('../instance/config.py') #from instance
-print('   (1-instance) EYECATCH---',app.config['EYECATCH'])
-print('   (1-instance) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
-################################################################################
 #########################################################################################
-print('   CONFIG-2-FROM-ROOT','../config.py')
+print('   CONFIG-1-FROM-SERVER','../config.py')
 app.config.from_pyfile('../config.py') #from the (server) root
-print('   (2-root) EYECATCH---',app.config['EYECATCH'])
-print('   (2-root) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   (1-server) EYECATCH---',app.config['EYECATCH'])
+print('   (1-server) SERVER---',app.config['SERVER'])
+print('   (1-server) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+#########################################################################################
+print('   CONFIG-2-FROM-SERVER-INSTANCE','../instance/config.py')
+app.config.from_pyfile('../instance/config.py') #from instance
+print('   (2-instance) EYECATCH---',app.config['EYECATCH'])
+print('   (2-instance) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 config_name = app.config['EXECUTION_ENVIRONMENT']
 print('   CONFIG-3-APP-ENVIRONMENT',config_name,'.config.py')
 app.config.from_object(app_config[config_name])
-print('   3(environment)',config_name,'EYECATCH---',app.config['EYECATCH'])
-print('   3(environment)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   (3-environment)',config_name,'EYECATCH---',app.config['EYECATCH'])
+print('   (3-environment)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 config_name = app.config['EXECUTION_MODE']
 print('   CONFIG-4-APP-EXEC-MODE',config_name,'.config.py')
 app.config.from_object(app_config[config_name])
-print('   4(exec-mode)',config_name,'EYECATCH---',app.config['EYECATCH'])
-print('   4(exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   (4-exec-mode)',config_name,'EYECATCH---',app.config['EYECATCH'])
+print('   (4-exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
+
+
 #########################################################################################
 print('   @@@check','RECAPTCHA_SITE_KEY---',app.config['RECAPTCHA_SITE_KEY'])
 print('   @@@check','RECAPTCHA_SECRET_KEY---',app.config['RECAPTCHA_SECRET_KEY'])
@@ -230,9 +233,10 @@ def write_to_disk(name, surname, email):
 ################################################################################
 @app.context_processor
 def inject_configuration_parameters_as_variables():
-    print('   ###SERVER_RUNNING###','inject_configuration_parameters_as_variables:')
+    print('###SERVER_RUNNING###','inject_configuration_parameters_as_variables:')
     return dict(
         EXECUTION_MODE=app.config['EXECUTION_MODE']
+        ,SERVER=app.config['SERVER']
         ,pages=app.pages
         ,lastpage=app.lastpage
         ,lastpage_html=app.lastpage_html
@@ -245,14 +249,10 @@ def inject_configuration_parameters_as_variables():
         ,contactusform=app.contactusform
         ,forgetpasswordform=app.forgetpasswordform
         ,splashform=app.splashform
-        ,GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY=app.config['GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY']
-        ,GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY=app.config['GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY']
-        ,GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY=app.config['GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY']
-        ,GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY=app.config['GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY']
         ,RECAPTCHA_SITE_KEY=app.config['RECAPTCHA_SITE_KEY']
         ,RECAPTCHA_SECRET_KEY=app.config['RECAPTCHA_SECRET_KEY']
-        ,RECAPTCHA_PUBLIC_KEY=app.config['RECAPTCHA_PUBLIC_KEY']
-        ,RECAPTCHA_PRIVATE_KEY=app.config['RECAPTCHA_PRIVATE_KEY']
+        ,RECAPTCHA_PUBLIC_KEY=app.config['RECAPTCHA_SITE_KEY']
+        ,RECAPTCHA_PRIVATE_KEY=app.config['RECAPTCHA_SECRET_KEY']
         ,LAYOUTS_FOLDER=app.config['LAYOUTS_FOLDER']
         ,TEMPLATES_FOLDER=app.config['TEMPLATES_FOLDER']
         ,FORMS_FOLDER=app.config['FORMS_FOLDER']

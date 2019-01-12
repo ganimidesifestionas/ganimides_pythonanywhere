@@ -167,7 +167,7 @@ def is_human(captcha_response):
         Returns True captcha test passed for submitted form else returns False.
     """
     secret=app.config.get('RECAPTCHA_SECRET_KEY')
-    #print('   ###GOOGLE_RECAPTCHA_CHECKBOX_SECRETKEY=',secret)
+    #print('   ###GOOGLE_RECAPTCHA_SECRETKEY=',secret)
     payload = {'response':captcha_response, 'secret':secret}
     response = requests.post("https://www.google.com/recaptcha/api/siteverify", payload)
     response_text = json.loads(response.text)
@@ -242,8 +242,8 @@ def allowed_file(filename):
 ##########################################
 #put this after @ decorator
 ##########################################
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY'))
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY'))
+#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SITE_KEY'))
+#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SECRET_KEY'))
 
 #request.method:              GET
 #request.url:                 http://127.0.0.1:5000/alert/dingding/test?x=y

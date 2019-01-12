@@ -7,6 +7,7 @@ class Config(object):
     # Put any configurations here that are common across all environments
     DEBUG = True
     EYECATCH = 'MYAPP'
+    #SERVER = 'MYSERVER'
 
     # mail accounts
     MAIL_SENDER = 'noreply@ganimides.com>'
@@ -73,7 +74,7 @@ class Config(object):
     #for upload files pictures avatars etc
     #############################################################################################
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024; #Ths code will limit the maximum allowed payload to 16 megabytes. If a larger file is transmitted, Flask will raise a RequestEntityTooLarge exception.
-    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp']);
+    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp'])
     ################################################
     # mail server
     ################################################
@@ -85,21 +86,13 @@ class Config(object):
     #############################################################################################
     #google recapcha
     #############################################################################################
-    #RECAPTCHA_SITE_KEY=os.environ["RECAPTCHA_SITE_KEY"]
-    #RECAPTCHA_SECRET_KEY=os.environ["RECAPTCHA_SECRET_KEY"]
-    #RECAPTCHA_INVISIBLE_SITE_KEY=os.environ["RECAPTCHA_INVISIBLE_SITE_KEY"]
-    #RECAPTCHA_INVISIBLE_SECRET_KEY=os.environ["RECAPTCHA_INVISIBLE_SECRET_KEY"]
-    #RECAPTCHA_PUBLIC_KEY=os.environ["RECAPTCHA_SITE_KEY"]
-    #RECAPTCHA_PRIVATE_KEY=os.environ["RECAPTCHA_SECRET_KEY"]
-    #GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY=os.environ["RECAPTCHA_SITE_KEY"]
-    #GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY=os.environ["RECAPTCHA_SECRET_KEY"]
-    #+config params
+    ##config params
     RECAPTCHA_PARAMETERS = {'hl': 'zh', 'render': 'explicit'}
     RECAPTCHA_DATA_ATTRS = {'theme': 'light'}
     # or RECAPTCHA_DATA_ATTRS = {'theme': 'dark','size':'compact'}
     #RECAPTCHA_ENABLED = True
-    #RECAPTCHA_SITE_KEY = GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY
-    #RECAPTCHA_SECRET_KEY = GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY
+    #RECAPTCHA_SITE_KEY = GOOGLE_RECAPTCHA_SITE_KEY
+    #RECAPTCHA_SECRET_KEY = GOOGLE_RECAPTCHA_SECRET_KEY
     #RECAPTCHA_THEME = "light"
     #RECAPTCHA_TYPE = "image"
     #RECAPTCHA_SIZE = "normal"
@@ -111,6 +104,13 @@ class Config(object):
     FLASKY_FOLLOWERS_PER_PAGE = 50
     FLASKY_COMMENTS_PER_PAGE = 30
     FLASKY_SLOW_DB_QUERY_TIME = 0.5
+
+    ################################################
+    # Secret key for signing cookies
+    ################################################
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'appconfig-aeiotheosomegasgeometreip9Bv<3Eid9%$i01'
+    SECURITY_PASSWORD_SALT = 'appconfig-aeiotheosomegasgeometreip9Bvtispaolas'
+
     #############################################################################################
     # other config
     #############################################################################################
@@ -118,10 +118,6 @@ class Config(object):
     WTF_CSRF_ENABLED = True
     DEBUG_TB_ENABLED = False
     DEBUG_TB_INTERCEPT_REDIRECTS = False
-    # Secret key for signing cookies
-    SECRET_KEY = 'p9Bv<3Eid9%$i01'
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'aeiotheosomegasgeometreip9Bv<3Eid9%$i01'
-    SECURITY_PASSWORD_SALT = 'aeiotheosomegasgeometreip9Bvtispaolas'
     BCRYPT_LOG_ROUNDS = 13
     WTF_CSRF_ENABLED = True
     DEBUG_TB_ENABLED = False
@@ -136,7 +132,6 @@ class Config(object):
 #    @staticmethod
 #    def init_app(app):
 #        pass
-
 
 class SandBoxConfig(Config):
     """Development configurations"""

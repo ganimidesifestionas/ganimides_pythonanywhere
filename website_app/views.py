@@ -24,8 +24,8 @@ from flask_login import current_user, login_required, login_user, logout_user
 ##########################################
 #put this after @ decorator
 ##########################################
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_CHECKBOX_SITE_KEY'))
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_CHECKBOX_SECRET_KEY'))
+#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SITE_KEY'))
+#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SECRET_KEY'))
 
 #request.method:              GET
 #request.url:                 http://127.0.0.1:5000/alert/dingding/test?x=y
