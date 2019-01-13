@@ -26,7 +26,7 @@ MAIL_SUBJECT_PREFIX = '[ganimides]'
 MAIL_DEFAULT_SENDER = 'noreply@ganimides.com'
 MAIL_ADMIN_SENDER = 'admin@ganimides.com'
 MAIL_SUPPORT_SENDER = 'support@ganimides.com'
-WEBSITE_ADMIN = os.environ.get('WEBSITE_ADMIN')
+WEBSITE_ADMIN = os.environ.get('WEBSITE_ADMIN','admin@ganimides.com')
 
 ################################################################
 ### database config
