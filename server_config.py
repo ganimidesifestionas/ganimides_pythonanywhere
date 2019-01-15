@@ -1,6 +1,6 @@
 # myServer/config.py
 import os
-# # #
+# # # #4
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 EYECATCH = 'SERVER'
