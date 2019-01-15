@@ -1,4 +1,4 @@
 {% if EXECUTION_MODE.upper()=='production'.upper() %}
 {% else %}
-{{SERVER.upper()}} |{{EXECUTION_MODE.upper()}} | active module:{{active_module}} | last page:{{lastpage}}|pages: {{pages}}|splash_form:{{splash_form}}|{{MAIL_SECRET_KEY}} | {{MAIL_SITE_KEY}} | {{content_page_template}} | {{language_page_content_file}}
+{{SERVER.upper()}} |{{EXECUTION_MODE.upper()}} |db:{{DATABASE_URI}} |active module:{{active_module}}| last page:{{lastpage}}|pages: {{pages}}|splash_form:{{splash_form}}|{{MAIL_SECRET_KEY}} | {{MAIL_SITE_KEY}} | {{content_page_template}} | {{language_page_content_file}}
 {% endif %}

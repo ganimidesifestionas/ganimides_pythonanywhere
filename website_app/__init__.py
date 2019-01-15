@@ -298,7 +298,7 @@ def inject_configuration_parameters_as_variables():
         ,SUPPORT_EMAIL=app.config['SUPPORT_EMAIL']
         ,INQUIRY_EMAIL=app.config['INQUIRY_EMAIL']
         ,WEBSITE_ADMIN_EMAIL=app.config['WEBSITE_ADMIN_EMAIL']
-        #,recaptcha = recaptcha
+        ,DATABASE_URI=app.config['SQLALCHEMY_DATABASE_URI']
 )
 
 @app.context_processor

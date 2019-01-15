@@ -56,7 +56,7 @@ if MAIL_SERVER_PROVIDER=='mailjet':
     MAIL_APIKEY_PUBLIC = mailjet_MAIL_APIKEY_PUBLIC
     MAIL_APIKEY_PRIVATE = mailjet_MAIL_APIKEY_PRIVATE
 else:
-    if MAIL_SERVER_PROVIDER=='yandex':
+    if MAIL_SERVER_PROVIDER =='yandex':
         MAIL_SERVER = yandex_MAIL_SERVER
         MAIL_PORT = yandex_MAIL_PORT
         MAIL_USE_TLS = yandex_MAIL_USE_TLS
