@@ -25,26 +25,21 @@ from logging.config import dictConfig
 ################################################################################
 print('#############################################################')
 print('###CREATE FLASK-APP###','app = Flask(__name__, instance_relative_config=True)')
-app = Flask(__name__, instance_relative_config=True) #--> important: the folders are relative to where the flask app is created
-################################################################################
-################################################################################
-################################################################################
-### variables
-################################################################################
-################################################################################
-################################################################################
-app.pages=''
-app.lastpage='homepage'
-app.lastpage_html='page_templates/landing_page.html'
-app.login_active=''
-app.register_active=''
-app.help_active=''
-app.splash_form=''
-app.loginform=None
-app.registrationform=None
-app.contactusform=None
-app.forgetpasswordform=None
-app.splashform=None
+app = Flask(__name__, instance_relative_config=True) 
+#--> important: the folders are relative to where the flask app is created
+# specifies the main template folder for the application
+#app = Flask(__name__,
+#            instance_path=get_instance_folder_path(),
+#            instance_relative_config=True,
+#            template_folder='templates') 
+print('###app###','app.instance_path = ',app.instance_path)
+print('###app###','app.template_folder =',app.template_folder)
+config_name = os.getenv('FLASK_CONFIGURATION', 'default')
+print('###app###','FLASK_CONFIGURATION =',config_name)
+
+# enable jinja2 extensions - i.e. continue in for loops
+#app.jinja_env.add_extension('jinja2.ext.loopcontrols')
+#... 
 ################################################################################
 ################################################################################
 ################################################################################
@@ -55,8 +50,8 @@ app.splashform=None
 print('')
 print('###CONFIGURE FLASK-APP###')
 #########################################################################################
-print('   CONFIG-1-FROM-SERVER','../config.py')
-app.config.from_pyfile('../config.py') #from the (server) root
+print('   CONFIG-1-FROM-SERVER','../server_config.py')
+app.config.from_pyfile('../server_config.py') #from the (server) root
 print('   (1-server) EYECATCH---',app.config['EYECATCH'])
 print('   (1-server) SERVER---',app.config['SERVER'])
 print('   (1-server) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
@@ -83,6 +78,27 @@ print('   (4-exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQ
 #########################################################################################
 print('   @@@check','RECAPTCHA_SITE_KEY---',app.config['RECAPTCHA_SITE_KEY'])
 print('   @@@check','RECAPTCHA_SECRET_KEY---',app.config['RECAPTCHA_SECRET_KEY'])
+################################################################################
+################################################################################
+################################################################################
+### variables
+################################################################################
+################################################################################
+################################################################################
+app.pages=''
+app.lastpage='homepage'
+app.lastpage_html='page_templates/landing_page.html'
+app.login_active=''
+app.register_active=''
+app.help_active=''
+app.splash_form=''
+app.loginform=None
+app.registrationform=None
+app.contactusform=None
+app.forgetpasswordform=None
+app.splashform=None
+print('   ###VARIABLES###','app.lastpage_html =',app.lastpage_html)
+print('   ###VARIABLES###','... many more...')
 ################################################################################
 ################################################################################
 ################################################################################
