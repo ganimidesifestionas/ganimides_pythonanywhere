@@ -79,6 +79,7 @@ else:
 ### database connection
 ################################################################
 localhost_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db'
+pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ifestionas:philea13@ifestionas.mysql.pythonanywhere-services.com/ifestionas$ganimides_db'
 pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
 SQLALCHEMY_DATABASE_URI = localhost_SQLALCHEMY_DATABASE_URI
 if EXECUTION_ENVIRONMENT=='pythonanywhere':
