@@ -2,7 +2,7 @@
 """
 This script creates defsult database entries
 """
-# # #
+# # # #
 from os import environ
 from website_app import app
 from website_app.module_authorization.models import User, Subscriber,Department,Role
