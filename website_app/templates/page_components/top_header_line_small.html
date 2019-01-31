@@ -39,7 +39,7 @@
                         <!-- option-1:Search -->
                         <li class="nav-item dropdown">
                             <a class="nav-link" Style="color:red" id="searchform" data-toggle="tooltip" title="search" data-placement="bottom" href="javascript:function(){document.getElementById('top-menu-search').show();}">
-                                <img class="menu_image" src="{{image_file('icon_search.gif')}}" alt="search" onmouseover="this.src = '../../static/images/icon_search_green.gif';" onmouseout="this.src = '../../static/images/icon_search.gif';" />
+                                <img class="menu_image" src="{{image_file('icon_search.gif')}}" alt="search" onmouseover="this.src = '/static/images/icon_search_green.gif';" onmouseout="this.src = '/static/images/icon_search.gif';" />
                             </a>
                             <div class="dropdown-menu p-0 m-0" aria-labelledby="searchform">
                                 <form class="xform-inline mt-0 mt-md-0 top-menu-navbar-search-form">
@@ -69,7 +69,7 @@
                             <a class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
                             <div class="dropdown-menu p-0 m-0 support_menu_dropdown_list" aria-labelledby="helpDropdownList">
                                 <a class="dropdown-item" href="/myBank">MyBank</a>
-                                <a class="dropdown-item" href="{{url_for('authorization.myGame')}}">MyGame</a>
+                                <a class="dropdown-item" href="{{url_for('myGame')}}">MyGame</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
                                 <a class="dropdown-item" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
@@ -152,7 +152,7 @@
                             {% else %}
                             <!--
                     <a class="nav-link dropdown-toggle" href="#" id="usermenu2" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <img class="menu_image rounded-circle" alt="" src="../../static/images/icon_user_not_loggedIn.png">
+                        <img class="menu_image rounded-circle" alt="" src="/static/images/icon_user_not_loggedIn.png">
                     </a>
                     <div class="dropdown-menu support_menu_dropdown_list" aria-labelledby="usermenu2">
                         <a class="dropdown-item" href="{x url_for('authorization.login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>

@@ -1,6 +1,6 @@
 {% set secure_text='Your information is secured and protected.' %}
 {% set include_mcafee='Y' %}
-<form class="authorization-form" id="ContactUsForm" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
+<form class="authorization-page" id="ContactUsForm" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
     <fieldset>
         {{ contactusform.hidden_tag() }}
         <div class="modal-header align-items-center">
@@ -8,7 +8,7 @@
             <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="authorization-page-line"></div>
 
         <div class="modal-body">
             <div class="d-flex flex-column">
@@ -111,7 +111,7 @@
             </div>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="authorization-page-line"></div>
 
         <div class="modal-footer d-flex justify-content-start">
             {% if not(current_user.is_authenticated) %}

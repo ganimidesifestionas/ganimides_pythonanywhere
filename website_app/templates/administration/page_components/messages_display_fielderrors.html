@@ -1,0 +1,16 @@
+<!--messages field errors only-->
+{% with messages = get_flashed_messages(with_categories=true,category_filter=['error','message']) %}
+{% if messages %}
+{% for message in messages %}
+{% if "Error in the".upper() in message[1].upper() %}
+{% if loop.first %}
+<div class="d-flex flex-column bg-transparent justify-content-center align-items-center">
+    <div class="d-flex bg-transparent justify-content-center align-items-center authorization_message_line">
+        {% endif %}
+        <p class="text-danger font-weight-bold small">{{message[1]}}</p>
+        {% if loop.last %}
+    </div>{% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}

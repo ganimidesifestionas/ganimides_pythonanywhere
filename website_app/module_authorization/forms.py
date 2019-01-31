@@ -162,6 +162,7 @@ class LoginForm(FlaskForm):
     recaptcha = RecaptchaField()
     submit = SubmitField('Login')
     forgetPassword = SubmitField('Forgot Your Password?')
+    eyecatch = StringField('eyecatch')
 
     def validate_email(self, field):
         if not(Subscriber.query.filter_by(email=field.data).first()):
@@ -275,6 +276,14 @@ class AvatarUploadForm(FlaskForm):
     def validate_photo(self, field,emptyAvatarType):
         if not(field.data) and emptyAvatarType not in (['F','M']):
             raise ValidationError('select an image file or an empty avatar')
+###########################################################################
+###########################################################################
+###########################################################################
+class CookiesConsentForm(FlaskForm):
+    """
+    Form for user to consent on our cookies policy
+    """
+    submit = SubmitField('Accept')
 ###########################################################################
 ###########################################################################
 ###########################################################################

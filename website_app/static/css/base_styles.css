@@ -6,13 +6,12 @@
     ****************************************************
     ****************************************************
 */
-
 html {
     width: 100%;
     height: 100%;
     color: red;
     background-color: black;
-    font-family: Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'ZCOOL QingKe HuangYou', cursive, Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: normal;
@@ -959,7 +958,7 @@ p {
     height: 30px;
     padding: 0px;
     margin: 0px;
-    /*background-image: url('../../static/images/home_icon_white.gif');*/
+    /*background-image: url('/static/images/home_icon_white.gif');*/
 }
 
 #GlobalMenuButton {
@@ -1605,6 +1604,28 @@ hr {
     border: 0px;
     padding: 0px;
 }
+.separation_line_form {
+    border: 0px;
+    border-top: 1px solid #005293;
+}
+
+.separation_line_orange {
+    border: 0px;
+    border-top: 1px solid orange;
+}
+
+.separation_line_blue {
+    border: 0px;
+    border-top: 1px solid blue;
+}
+
+.separation_line_black {
+    border: 0px;
+    border-top: 1px solid black;
+}
+
+
+
 /*
 .form-tabs {
     background-color:transparent !important;
@@ -2182,6 +2203,8 @@ hr {
     white-space: nowrap;
 }
 
+
+/*
 .button_learnmore {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
     background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
@@ -2235,6 +2258,8 @@ hr {
     position: relative;
     top: 1px;
 }
+
+*/
 
 .button_back {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
@@ -2295,7 +2320,7 @@ hr {
     font-weight: 900;
     white-space: nowrap;
 }
-
+/*
 .button_contactus_intext {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
     background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
@@ -2311,25 +2336,21 @@ hr {
     display: inline-block;
     cursor: pointer;
     font-family: Inconsolata, Verdana, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    /*font-size: 11pt*/
     ;
     padding: 2px 2px;
     color: black;
-    /*good blue*/
     font-weight: 900;
     white-space: nowrap;
 }
 
 .button_contactus_intext a {
     color: black;
-    /*good blue*/
     font-weight: 900;
     white-space: nowrap;
 }
 
 .button_contactus_intext a:link {
     color: black;
-    /*good blue*/
     font-weight: 900;
     white-space: nowrap;
 }
@@ -2354,6 +2375,7 @@ hr {
     top: 1px;
     white-space: nowrap;
 }
+*/
 
 .custom-toggler.navbar-toggler {
     border-color: black;/* rgb(255,102,203);*/
@@ -2417,3 +2439,447 @@ canvas{
     100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
   }
   /*=========================================*/
+  .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+  .red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
+  .blue-tooltip + .tooltip > .tooltip-inner {background-color: #00f;}
+  .blue-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#00f; }
+  
+  #cookie-notice {
+    display: block;
+    visibility: hidden;
+    position: fixed;
+    min-width: 100%;
+    height: auto;
+    z-index: 100000;
+    font-size: 13px;
+    line-height: 20px;
+    left: 0;
+    text-align: center;
+}
+
+.modal.fade.show .modal-dialog.modal-dialog-slideout {
+    -webkit-animation-name: bounce; 
+    animation-name: bounce;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s; 
+}
+ @keyframes bounce { 
+    0% {transform: translateY(-25%);}
+    20% {transform: translateY(15%);}
+    40% {transform: translateY(-15%);}
+    60% {transform: translateY(5%);}
+    80% {transform: translateY(-5%);}
+    100% {transform: translateY(0%);}
+}
+
+/*
+##############################################
+*/
+.btn{
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    transition: all .5s;
+  }
+  /* //// Default effect: Slide from Top  //// */
+  .btn:before,
+  .btn:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: -1;
+    transition: all .5s;
+  }
+  .btn:hover{
+      color: white;
+  }
+  .btn:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  .btn-primary:before{
+    background: #007bff; /* button default background color */
+  }
+  .btn-primary:after{
+    background: #0000005a;
+  }
+  .btn-primary:hover{
+    background: #025ec1;
+  }
+  .btn-secondary:before{
+    background: #6c757d;
+    z-index: -2;
+  }
+  .btn-secondary:after{
+    background: #5a6268;
+  }
+  .btn-secondary:hover{
+    background: #5a6268;
+  }
+  .btn-success:before{
+    background: #28a745;
+    z-index: -2;
+  }
+  .btn-success:after{
+    background: #218838;
+  }
+  .btn-success:hover{
+    background: #218838;
+  }
+  .btn-danger:before{
+    background: #dc3545;
+  }
+  .btn-danger:after{
+    background: #c82333;
+  }
+  .btn-danger:hover{
+    background: #c82333;
+  }
+  .btn-warning:before{
+    background: #ffc107;
+  }
+  .btn-warning:after{
+    background: #e0a800;
+  }
+  .btn-warning:hover{
+    background: #e0a800;
+  }
+  .btn-info:before{
+    background: #17a2b8;
+  }
+  .btn-info:after{
+    background: #138496;
+  }
+  .btn-info:hover{
+    background: #138496;
+  }
+  .btn-light:before{
+    background: #f8f9fa;
+  }
+  .btn-light:after{
+    background: #e2e6ea;
+    color:#212529;
+  }
+  .btn-light:hover{
+    background: #e2e6ea;
+    color:#212529;
+  }
+  .btn-dark:before{
+    background: #6c757d;
+  }
+  .btn-dark:after{
+    background: #23272b;
+  }
+  .btn-dark:hover{
+    background: #23272b;
+  }
+  .btn-link:hover{
+    color: #007bff;
+  }
+  /* //// Outline Buttons  //// */
+  .btn-outline-primary:after{
+    background: #007bff;
+  }
+  .btn-outline-primary:hover{
+    background: #007bff;
+  }
+  .btn-outline-secondary:after{
+    background: #6c757d;
+  }
+  .btn-outline-secondary:hover{
+    background: #6c757d;
+  }
+  .btn-outline-success:after{
+    background: #28a745;
+  }
+  .btn-outline-success:hover{
+    background: #28a745;
+  }
+  .btn-outline-danger:after{
+    background: #dc3545;
+  }
+  .btn-outline-danger:hover{
+    background: #dc3545;
+  }
+  .btn-outline-warning:after{
+    background: #ffc107;
+  }
+  .btn-outline-warning:hover{
+    background: #ffc107;
+  }
+  .btn-outline-info:after{
+    background: #17a2b8;
+  }
+  .btn-outline-info:hover{
+    background: #17a2b8;
+  }
+  .btn-outline-light{
+    color:#212529;
+  }
+  .btn-outline-light:after{
+    background: #e2e6ea;
+    color:#212529;
+  }
+  .btn-outline-light:hover{
+    background: #e2e6ea;
+    color:#212529;
+  }
+  .btn-outline-dark:after{
+    background: #343a40;
+  }
+  .btn-outline-dark:hover{
+    background: #343a40;
+  }
+  /* //// Slide Left  //// */
+  
+  .slideright:after{
+    top: 0;
+    z-index: -1;
+    transform: translate3D(-101%,0,0);
+  }
+  
+  .slideright:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  /* //// Slide Right  //// */
+  
+  .slideleft:after{
+    top: 0;
+    z-index: -1;
+    transform: translate3D(101%,0,0);
+  }
+  .slideleft:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  /* //// Slide Up  //// */
+  .slideup:after{
+    top: 0;
+    z-index: -1;
+        transform: translate3D(0,100%,0); /* move elements above button so they don't appear initially */
+    transition: all .5s;/* onhover background color */
+  }
+  
+  .slideup:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  /* //// Slide Down  //// */
+  .slidedown:after{
+    top: 0;
+    z-index: -1;
+        transform: translate3D(0,-100%,0); /* move elements above button so they don't appear initially */
+    transition: all .5s;/* onhover background color */
+  }
+  
+  .slidedown:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  /* //// Slide Top Left //// */
+  .slidetopleft:after{
+    transform: translate3D(100%,-100%,0);
+  }
+  .slidetopleft:hover:after{
+      transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  /* //// Slide Corner Right //// */
+  .slidetopright:after{
+    transform: translate3D(-100%,-100%,0);
+  }
+  .slidetopright:hover:after{
+      transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  
+  /* //// Slide Corner Left //// */
+  .slidebottomleft:after{
+    transform: translate3D(100%,100%,0);
+  }
+  .slidebottomleft:hover:after{
+      transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  /* //// Slide Corner Right //// */
+  .slidebottomright:after{
+    transform: translate3D(-100%,100%,0);
+  }
+  .slidebottomright:hover:after{
+      transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+
+  /*
+  ##################################
+  */
+.button_contactus_intext body {
+    margin:0;
+    padding:0;
+}
+.button_contactus_intext a {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:10px 30px;
+    background:#fff;
+    border:2px solid #262626;
+    font-family:sans-serif;
+    color:#262626;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-size:24px;
+    display:block;
+    overflow:hidden;
+}
+.button_contactus_intext a:before {
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#ff0ff0;
+    z-index:-1;
+    transform-origin: bottom left;
+    transform:rotate(-90deg);
+    transition:0.5s;
+}
+.button_contactus_intext a:hover:before {
+    transform:rotate(0deg);
+}
+/*
+==========================================
+*/
+.btn-purple-moon {
+    background: #4e54c8;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-ultra-voilet {
+    background: #654ea3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #eaafc8, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-pink-moon {
+    background: #ec008c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-cool-blues {
+    background: #2193b0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-dark-blue {
+    background: #7474BF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-green-moon {
+    background: #56ab2f;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-orange-moon {
+    background: #fc4a1a;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-dark-moon {
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-light-moon {
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #000;
+    border: 3px solid #eee;
+}
+
+.btn-funky-moon {
+    background: #A770EF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.btn-rounded {
+    border-radius: 35px;
+}
+
+.btn-fab {
+    height: 50px;
+    width: 53px;
+    border-radius: 50%;
+}
+
+.button_learnmore {
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #000;
+    border: 3px solid #eee;
+}
+
+.button_learnmore:hover {
+    background: #FFEFBA;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: gray !important;
+}
+
+.button_learnmore a {
+    color: black;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.button_learnmore a:link {
+    color: black;
+    font-weight: 900;
+    white-space: nowrap;
+}
+.button_learnmore:after{
+    top: 0;
+    z-index: -1;
+    transform: translate3D(-101%,0,0);
+  }
+  
+.button_learnmore:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }

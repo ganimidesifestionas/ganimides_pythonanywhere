@@ -11,15 +11,202 @@ from flask import redirect
 from flask import url_for
 from flask import session
 from flask import logging
+from flask import jsonify
+
+# Import the app object from the main app module __INIT__
 from . import app
+# Import the database object from the main app module
+from . import db
+
 # Import module forms
-from .module_authorization.forms import LoginForm, RegistrationForm,ContactUsForm,forgetPasswordForm
-#from flask import current_app as app
+from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsForm, forgetPasswordForm
+from .forms import CookiesConsentForm
+from .models import Visit, Visitor, Page_Visit
 from flask_login import current_user, login_required, login_user, logout_user
+from sqlalchemy import func
+from .external_services.log_services import *
 
 ###########################################################################
 ###########################################################################
 ###########################################################################
+### functions
+###########################################################################
+###########################################################################
+###########################################################################
+# def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_form=''):
+#     # if startNewRoute == 1:
+#     #     session['pages_history'] = pageName
+#     # else:
+#     #     session['pages_history'] = session['pages_history'] + ">"+ pageName
+#     session['lastpage'] = pageFunction
+#     session['lastpageURL'] = request.url
+#     if pageTemplate:
+#         session['lastpageHTML'] = pageTemplate
+#     session['pageID'] = pageName.upper()
+#     if not 'pages' in session:
+#         session['pages'] = []
+#     session['pages'].append(pageName)
+#     if len(session['pages']) > 9:
+#         session['pages'].pop(0)
+
+#     for p in range(1, len(session['pages'])):
+#         if p == 1:
+#             session['pages_history'] = session['pages'][p-1]
+#         else:
+#             session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+
+#     session.modified = True
+#     print(client_IP(), 'page', session['pageID'], request.method, request.url, '### '+__name__+' ###')
+#     log_page_visit(pageName, request.url, 'page', pageFunction, pageTemplate, pageTemplate_page, page_form)
+
+# def log_route(routeName, routeFunction='', routeTemplate='', routeTemplate_page='', route_form=''):
+#     session['routeID'] = routeName.upper()
+#     if not 'pages' in session:
+#         session['pages'] = []
+#     session['pages'].append(routeName)
+#     if len(session['pages']) > 9:
+#         session['pages'].pop(0)
+#     for p in range(1, len(session['pages'])):
+#         if p == 1:
+#             session['pages_history'] = session['pages'][p-1]
+#         else:
+#             session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+
+#     session.modified = True
+#     print(client_IP(), 'route', session['routeID'], request.method, request.url, '### '+__name__+' ###')
+#     log_page_visit(routeName, request.url, 'route', routeFunction, routeTemplate, routeTemplate_page, route_form)
+
+# def log_splash_page(pageName, pageFunction, pageTemplate='',pageTemplate_page='', page_form=''):
+#     #session['splashpage'] = pageFunction
+#     pageID = pageName.upper()
+#     if not 'pages' in session:
+#         session['pages'] = []
+
+#     session['pages'].append(pageName)
+#     if len(session['pages']) > 9:
+#         session['pages'].pop(0)
+
+#     for p in range(1, len(session['pages'])):
+#         if p == 1:
+#             session['pages_history'] = session['pages'][p-1]
+#         else:
+#             session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+
+#     session.modified = True
+#     print(client_IP(), 'splash-page, pageID', request.method, request.url, '#'+__name__+'#')
+#     log_page_visit(pageName, request.url, 'splash_page', pageFunction, pageTemplate, pageTemplate_page, page_form)
+
+# def log_info(msg):
+#     print('   ', msg)
+
+# def log_variable(name='', value=''):
+#     msg = '{0}={1}'.format(name, value)
+#     print('   ', msg)
+
+# def client_IP():
+#     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+#         clientip = request.environ['REMOTE_ADDR']
+#     else:
+#         clientip = request.environ['HTTP_X_FORWARDED_FOR']
+#     return clientip
+
+# def log_visit():
+#     ## visitor
+#     visitor = Visitor.query.filter_by(ipa=client_IP()).first()
+#     if not visitor:
+#         #find nextvisitorNum
+#         max_id = db.session.query(func.max(Visitor.id)).scalar()
+#         log_variable('last visitor id', max_id)
+#         nextvisitorNum = 1
+#         if max_id:
+#             last_visitor = Visitor.query.filter_by(id=max_id).first()
+#             log_variable('last visitor', last_visitor)
+#             if last_visitor:
+#                 log_variable('last visitor visitorNumber', last_visitor.visitorNumber)
+#                 if last_visitor.visitorNumber:
+#                     nextvisitorNum = last_visitor.visitorNumber + 1
+
+#         visitor = Visitor(
+#             ipa=client_IP()
+#             , visitDT=datetime.now()
+#             , visitorNumber=nextvisitorNum
+#             , visitsCount=1
+#             )
+#         # add visit to the database
+#         db.session.add(visitor)
+#         db.session.commit()
+#         visitor = Visitor.query.filter_by(ipa=client_IP()).first()
+#         session['VisitorID'] = visitor.id
+#         session.modified = True
+#         log_variable('new visitor', visitor)
+#     else:
+#         log_variable('visitor',visitor)
+#         if not 'VisitorID' in session:
+#             session['VisitorID'] = visitor.id
+    
+#     log_variable('VisitorID', session['VisitorID'])
+
+#     ## visit
+#     if not 'VisitNumber' in session and not 'VisitID' in session :
+#         max_id = db.session.query(func.max(Visit.id)).scalar()
+#         log_variable('last visit id', max_id)
+#         visitNum = 0
+#         if max_id:
+#             last_visit = Visit.query.filter_by(id=max_id).first()
+#             log_variable('last visit', last_visit)
+#             if last_visit:
+#                 log_variable('last visit visitNumber', last_visit.visitNumber)
+#                 if last_visit.visitNumber:
+#                     visitNum = last_visit.visitNumber
+
+#         visitNum = visitNum + 1
+
+#         visit = Visit(
+#             ipa=client_IP()
+#             , visitDT=datetime.now()
+#             , visitNumber=visitNum
+#             , visitor_ID=visitor.id
+#             #, session_ID=visitor.id
+#             )
+#         # add visit to the database
+#         visitor.visitsCount = visitor.visitsCount + 1
+#         db.session.add(visit)
+#         db.session.commit()
+#         vid = db.session.query(func.max(Visit.id)).filter_by(ipa=client_IP())
+#         visit = Visit.query.filter_by(id=vid).first()
+#         session['VisitNumber'] = visitNum
+#         session['VisitID'] = visit.id
+#         session.modified = True
+
+#         flash('You are Visitor # {0}. Thanks for visiting us!'.format(visitNum,),'success')
+#         log_variable('new visit', visit)
+
+#     log_variable('VisitID', session['VisitID'])
+
+# def log_page_visit(pageName, pageURL, pageType, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
+#     if 'language' in session:
+#         lang = session['language']
+#     else:
+#         lang = session.get('language',request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
+
+#     page_visit = Page_Visit(
+#         page=pageName
+#         , pageURL=pageURL
+#         , pageType=pageType
+#         , pageLanguage=lang
+#         , pageFunction=pageFunction
+#         , pageTemplate=pageTemplate
+#         , pageTemplate_page=pageTemplate_page
+#         , pageTemplate_form=pageTemplate_form
+#         )
+
+#     if 'VisitorID' in session:
+#         page_visit.visitor_ID = session['VisitorID']
+#     if 'VisitID' in session:
+#         page_visit.visit_ID = session['VisitID']
+
+#     db.session.add(page_visit)
+#     db.session.commit()
 
 ##########################################
 #put this after @ decorator
@@ -41,15 +228,9 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 #request.args:                ImmutableMultiDict([('x', 'y')])
 #request.args.get('x'):       y
-##########################################
-
 
 #varPageName = request.args.get('url')
 #alert(varPageName)
-#print('xxxrequestxxxxxxx',varPageName)
-#print('xxxqqqqxxxxxxx',e)
-#return render_template('404.html'), 404
-#print ('xxxx:',request)
 ###########################################################################
 ###########################################################################
 ###########################################################################
@@ -58,285 +239,273 @@ from flask_login import current_user, login_required, login_user, logout_user
 ###########################################################################
 ###########################################################################
 #app.secret_key = '/r/xd8}q/xde/x13/xe5F0/xe5/x8b/x96A64/xf2/xf8MK/xb1/xfdA7x8c'
+#############################################################
+#############################################################
+#############################################################
+@app.before_first_request
+def init_cookies():
+    print('##########################################')
+    print('##########################################')
+    print('##########################################')
+    print('##########################################')
+    print('###'+__name__+'###', 'before_first_request')
+    print('##########################################')
+    print('##########################################')
+    print('##########################################')
+    print('##########################################')
+    #this will make session cookies expired in 5 minutes
+    # set app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
+    session.permanent = True
 
-#@app.before_first_request
-#def logging_init():
-#    print('@@@@@app.before_first_request')
-#    logging.basicConfig(
-#        datefmt = '%Y-%m-%d %H:%M:%S',
-#        format = '%(asctime)s%%%(message)s',
-#        filename = 'home/ganimides/routing.log',
-#        level=logging.CRITICAL)
-#    session['urls']=[]
+    session['active_module'] = __name__
+    session['urls'] = []
+    session['pages'] = []
+    clientIPA = client_IP()
+    session['clientIPA'] = clientIPA
+
+    try:
+        session['lastpageHTML'] = app.homepage_html
+    except:
+        session['lastpageHTML'] = 'page_templates/landing_page.html'
+        
+    session.modified = True
+
+    ### import splash forms objects
+    app.loginform = LoginForm()
+    app.loginform.eyecatch.data = __name__
+    app.registrationform = RegistrationForm()
+    app.contactusform = ContactUsForm()
+    app.forgetpasswordform = forgetPasswordForm()
+    app.cookiesconsentform = CookiesConsentForm()
+    #print('   ', app.cookiesconsentform)
+    #print('   ', '!!! splash forms objects loaded in app. will be made avalaible from server...')
+    #log_visit()
 
 @app.before_request
-def init_vars():
-    app.loginform=LoginForm()
-    app.registrationform=RegistrationForm()
-    contactusform=ContactUsForm()
-    forgetpasswordform=forgetPasswordForm()
+def set_cookies():
+    #print('###'+__name__+'###', 'before_request')
+    session['active_module'] = __name__
+    if not 'urls' in session:
+        session['urls'] = []
+    session['urls'].append(request.url)
+    if len(session['urls']) > 9:
+        session['urls'].pop(0)
+    if not 'pages' in session:
+        session['pages'] = []
+    if not 'clientIPA' in session:
+        clientIPA = client_IP()
+        session['clientIPA'] = clientIPA
+
     if current_user.is_authenticated:
-        print('@@@@app.before_request','current_user','IS-AUTHENTICATED')
-        contactusform.firstName.data = current_user.firstName
-        contactusform.lastName.data = current_user.lastName
-        contactusform.company.data = current_user.company
-        contactusform.jobTitle.data = current_user.jobTitle
-        contactusform.email.data = current_user.email
-        forgetpasswordform.email.data = current_user.email
-    app.contactusform=contactusform
-    app.forgetpasswordform=forgetpasswordform
-    print('@@@@app.before_request','splash_form=',app.splash_form)
-app.after_request
-def init_vars_after_request(response):
-    #print('@@@@app.after_request','init_vars_after_request')
-#    try:
-#        lp=app.splash_form
-#    except:
-#        app.splash_form='#BOBBISTARR#'
-    print('@@@@app.after_request','splash_form=',app.splash_form)
-    return response 
+        if app.forgetpasswordform:
+            app.forgetpasswordform.email.data = current_user.email
+        if app.contactusform:
+            app.contactusform.firstName.data = current_user.firstName
+            app.contactusform.lastName.data = current_user.lastName
+            app.contactusform.company.data = current_user.company
+            app.contactusform.jobTitle.data = current_user.jobTitle
+            app.contactusform.email.data = current_user.email
+            app.contactusform.contact_message.data = 'xxxx'
+    session.modified = True
+    log_visit()
 
-#def store_visited_urls(self):
-    #self.session['urls'].append(request.url)
-    #if len(session['urls']) > 5:
-    #    session['urls'].pop(0)
-    #session.modified = True
-#    print('@@@@app.after_request',self.session['urls'])
+@app.after_request
+def set_cookies_after_request(response):
+    #print('###'+__name__+'###', 'after_request')
+    return response
 
+###########################################################################
+###########################################################################
+###########################################################################
+### module functions
+###########################################################################
+###########################################################################
+###########################################################################
+
+#############################################################
+#############################################################
+#############################################################
+### routes and pages
+#############################################################
+#############################################################
+#############################################################
 @app.route('/')
 def homepage():
-    app.pages='home'
-    app.lastpage='homepage'
-    app.lastpage_html='page_templates/landing_page.html'
-    print('HOME',request.method,request.url)
-    #logging.critical('a request!')
-    app.logger.info('%s logged in successfully', 'user.username')
-    #session['username'] = "someuser"
-    #session['urls'] = []
-    return render_template(
-        'page_templates/landing_page.html'
-        ,title='home'
-        #,pages=app.pages
-        #,loginform=LoginForm()
-        #,registrationform=RegistrationForm()
-        #,contactusform=ContactUsForm()
-        )
+    page_name = 'home'
+    page_function = 'homepage'
+    page_template = 'page_templates/landing_page.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/landing_page.html')
 
 @app.route('/landingpage')
 def landingpage():
-    app.pages='landing page'
-    app.lastpage='landingpage'
-    app.lastpage_html='page_templates/landing_page.html'
-    print('LANDINGPAGE',request.method,request.url)
-    #logging.critical('LANDINGPAGE')
-    #session['username'] = "someuser"
-    #session['urls'] = []
-    return render_template(
-        'page_templates/landing_page.html'
-        ,title='landing page'
-        ,pages=app.pages
-    )
-
-@app.route('/language/<language>')
-def set_language(language=None):
-    print('LANGUAGE',request.method,request.url)
-    session['language'] = language
-    return redirect(url_for('homepage'))
+    page_name = 'landingpage'
+    page_function = 'landingpage'
+    page_template = 'page_templates/landing_page.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/landing_page.html')
 
 @app.route('/contact')
 def contact():
-    app.pages='contact'
-    app.lastpage='contact'
-    app.lastpage_html='page_templates/contact.html'
-    print('CONTACT',request.method,request.url)
-    #data = []
-    #if 'urls' in session:
-    #    data = session['urls']
-
-    return render_template(
-        'page_templates/contact.html'
-        ,title='Contact Info'
-        ,pages=app.pages
-        
-    )
+    page_name = 'contact'
+    page_function = 'contact'
+    page_template = 'page_templates/contact.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/contact.html')
 
 @app.route('/about')
 def about():
-    app.pages='about'
-    app.lastpage='about'
-    app.lastpage_html='page_templates/about.html'
-    print('ABOUT',request.method,request.url)
-    return render_template(
-        'page_templates/about.html'
-        ,title='about Ganimides'
-        ,pages=app.pages
-        
-    )
-
+    page_name = 'about'
+    page_function = 'about'
+    page_template = 'page_templates/about.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/about.html')
 
 @app.route('/company')
 def company():
-    app.pages='company'
-    app.lastpage='company'
-    app.lastpage_html='page_templates/company.html'
-    print('COMPANY',request.method,request.url)
-    return render_template(
-        'page_templates/company.html'
-        ,title='the company'
-        ,pages=app.pages
-        
-    )
+    page_name = 'company'
+    page_function = 'company'
+    page_template = 'page_templates/company.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/company.html')
 
 @app.route('/services')
 def services():
-    app.pages='services'
-    app.lastpage='services'
-    app.lastpage_html='page_templates/services.html'
-    print('SERVICES',request.method,request.url)
-    return render_template(
-        'page_templates/services.html'
-        ,title='services'
-        ,pages=app.pages
-        
-    )
+    page_name = 'services'
+    page_function = 'services'
+    page_template = 'page_templates/services.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/services.html')
 
 @app.route('/why')
 def why():
-    app.pages='why'
-    app.lastpage='why'
-    app.lastpage_html='page_templates/why.html'
-    print('WHY',request.method,request.url)
-    return render_template(
-        'page_templates/why.html'
-        ,title='why ganimides'
-        ,pages=app.pages
-        
-    )
+    page_name = 'why'
+    page_function = 'why'
+    page_template = 'page_templates/why.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/why.html')
 
 @app.route('/research')
 def research():
-    app.pages='research'
-    app.lastpage='research'
-    app.lastpage_html='page_templates/research.html'
-    print('RESEARCH',request.method,request.url)
-    return render_template(
-        'page_templates/research.html'
-        #,loginform=LoginForm()
-        #,registrationform=RegistrationForm()
-        #,contactusform=ContactUsForm()
-        ,title='research'
-        ,pages=app.pages
-        
-    )
+    page_name = 'research'
+    page_function = 'research'
+    page_template = 'page_templates/research.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/research.html')
 
 @app.route('/academy')
 def academy():
-    app.pages='academy'
-    app.lastpage='academy'
-    app.lastpage_html='page_templates/academy.html'
-    print('ACADEMY',request.method,request.url)
-    return render_template(
-        'page_templates/academy.html'
-        #,loginform=LoginForm()
-        #,registrationform=RegistrationForm()
-        #,contactusform=ContactUsForm()
-        ,title='BUSTEC ACADEMY'
-        ,pages=app.pages
-        
-    )
+    page_name = 'academy'
+    page_function = 'academy'
+    page_template = 'page_templates/academy.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/academy.html')
 
 @app.route('/knowledge')
 def knowledge():
-    app.pages='knowledge'
-    app.lastpage='knowledge'
-    app.lastpage_html='page_templates/knowledge.html'
-    print('KNOWLEDGE',request.method,request.url)
-    return render_template(
-        'page_templates/knowledge.html'
-        #,loginform=LoginForm()
-        #,registrationform=RegistrationForm()
-        #,contactusform=ContactUsForm()
-        ,title='KNOWLEDGE CENTER'
-        ,pages=app.pages
-        
-    )
+    page_name = 'knowledge'
+    page_function = 'knowledge'
+    page_template = 'page_templates/knowledge.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/knowledge.html')
 
 @app.route('/prototypes')
 def prototypes():
-    app.pages='prototypes'
-    app.lastpage='prototypes'
-    app.lastpage_html='page_templates/prototypes.html'
-    print('PROTOTYPES',request.method,request.url)
-    return render_template(
-        'page_templates/prototypes.html'
-        ,title='prototypes'
-        ,pages=app.pages
-        
-    )
+    page_name = 'prototypes'
+    page_function = 'prototypes'
+    page_template = 'page_templates/prototypes.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/prototypes.html')
 
 @app.route('/cookies_policy')
 def cookies_policy():
-    app.pages='cookies policy'
-    app.lastpage='cookies_policy'
-    app.lastpage_html='page_templates/cookies_policy.html'
-    print('COOKIES',request.method,request.url)
-    return render_template(
-        'page_templates/cookies_policy.html'
-        ,title='cookies policy'
-        ,pages=app.pages
-        
-    )
+    page_name = 'cookies policy'
+    page_function = 'cookies_policy'
+    page_template = 'page_templates/cookies_policy.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/cookies_policy.html')
 
 @app.route('/privacy_policy')
 def privacy_policy():
-    app.pages='privacy policy'
-    app.lastpage='privacy_policy'
-    app.lastpage_html='page_templates/privacy_policy.html'
-    print('PRIVACY_POLICY',request.method,request.url)
-    return render_template(
-        'page_templates/privacy_policy.html'
-        ,title='privacy policy'
-        ,pages=app.pages
-        
-    )
+    page_name = 'privacy policy'
+    page_function = 'privacy_policy'
+    page_template = 'page_templates/privacy_policy.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/privacy_policy.html')
 
 @app.route('/terms_and_conditions')
 def terms_and_conditions():
-    app.pages='terms and conditions'
-    app.lastpage='terms_and_conditions'
-    app.lastpage_html='page_templates/terms_and_conditions.html'
-    print('TERMS_AND_CONDITIONS',request.method,request.url)
-    return render_template(
-        'page_templates/terms_and_conditions.html'
-        ,title='terms and conditions of use'
-        ,pages=app.pages        
-    )
+    page_name = 'terms and conditions'
+    page_function = 'terms_and_conditions'
+    page_template = 'page_templates/terms_and_conditions.html'
+    log_page(page_name, page_function, page_template)
+    return render_template('page_templates/terms_and_conditions.html')
 
+@app.route('/language/<language>')
+def set_language(language=None):
+    log_route('change language', 'set_language')
+    session['language'] = language
+    #log_variable('language', session['language'])
+    log_info('language set to {0}'.format(language))
+    return redirect(session['lastpageURL'])
+
+@app.route('/cookiesconsentform', methods=['GET', 'POST'])
+def cookiesconsentform():
+    page_name = 'cookiesconsentform-splash-form'
+    page_function = 'cookiesconsentform'
+    page_form = 'splash_form_cookiesconsent.html'
+    log_splash_page(page_name, page_function, '', '', page_form)
+
+    form = CookiesConsentForm()
+    if not(form.validate_on_submit()):
+        dummy = 1 
+    else:    
+        ## add contactmessage to the database
+        #db.session.add(contactmessage)
+        #db.session.commit()
+        session['cookies_consent'] = "YES"
+        flash('Thank You. Your data are protected','success')
+        #OK
+        return render_template(
+            session['lastpageHTML']
+            )
+    return render_template(
+        session['lastpageHTML']
+        , cookiesconsentform=form
+        , splash_form='cookiesconsent'
+        )
+
+#############################################################
+#############################################################
+#############################################################
+### prototypes: 
+#############################################################
+#############################################################
+#############################################################
 @app.route('/myBank')
-#@login_required
+@login_required
 def myBank():
-    app.pages=app.pages+" / " +"myBank"
-    app.lastpage='myBank'
-    app.lastpage_html='mybank/mybank_index.html'
-    print('MYBANK',request.method,request.url)
-    """Renders the app(myBank) home page."""
+    page_name = 'myBank-prototype'
+    page_function = 'myBank'
+    page_template = 'myBank/myBank_index.html'
+    page_form = ''
+    log_page(page_name, page_function, page_template,'',page_form)
     return render_template(
         'mybank/mybank_index.html'
         ,title='myBank'
-        ,pages=app.pages
         ,message='open banking prototype........'
     )
 
 @app.route('/myGame')
 def myGame():
-    app.pages=app.pages+" / " +"myGame"
-    app.lastpage='myGame'
-    app.lastpage_html='myGame/myGame.html'
-    print('MYGAME',request.method,request.url)
-    """Renders the app(myBank) home page."""
+    page_name = 'myGame-prototype'
+    page_function = 'myGame'
+    page_template = 'myGame/myGame.html'
+    page_form = ''
+    log_page(page_name, page_function, page_template,'',page_form)
     return render_template(
         'myGame/myGame.html'
         ,title='myGame'
-        ,pages=app.pages
         ,message='gaming prototype........'
     )
+

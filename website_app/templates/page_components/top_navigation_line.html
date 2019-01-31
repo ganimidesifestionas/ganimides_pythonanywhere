@@ -1,9 +1,19 @@
-<div class="d-flex bg-white w-100 justify-content-end p-0-m-0">
-    <div class="w-50 bg-white">
+<div class="d-flex bg-white w-100 justify-content-between p-0-m-0">
+    <div class="d-flex col-5 bg-white font-weight-light text-success text-left top_navigation_line justify-content-start">
+            <div class="bg-white font-weight-light text-warning text-left pr-1 xtop_navigation_line" style="border-bottom: 1px dotted orange;">
+                <!--some other info-->
+            </div>
+            <div class="flex-grow-1 bg-white font-weight-light text-success text-left top_navigation_line">
+            </div>
+        </div>
+    <div class="col-2 bg-white font-weight-light text-success text-center top_navigation_line">
+        visit# {{session['VisitNumber']}}
     </div>
-    <div class="w-25 bg-white">
-    </div>
-    <div class="w-25 bg-white font-weight-light text-warning text-right pr-1 top_navigation_line" style="border-bottom: 1px dotted orange;">
-        {{pages}}
+    <div class="d-flex col-5 bg-white justify-content-end">
+            <div class="bg-white font-weight-light text-success text-left top_navigation_line">
+            </div>
+        <div class="bg-white font-weight-light text-warning text-right pr-1 top_navigation_line" style="border-bottom: 1px dotted orange;">
+            {{session['pages_history']}}
+        </div>
     </div>
 </div>

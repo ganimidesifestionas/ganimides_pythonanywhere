@@ -1,0 +1,23 @@
+<div class="table-container text-black" style="overflow: auto; max-height: 80vh">
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-borderless  mb-0 pb-0" id="departments">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <td colspan="2" align="center"><a data-toggle="tooltip" title="add" data-placement="top" href="{{ url_for('administration.roleedit', action='add', id=0) }}"><i class="fas fa-plus-square"></a></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for department in departments %}
+                <tr id={{ department.id }}>
+                    <th scope="row">{{ department.name }}</th>
+                    <td> {{department.description }} </td>
+                    <td align="center"><a data-toggle="tooltip" title="edit" data-placement="top" href="{{ url_for('administration.departmentedit', action='edit', id=department.id) }}"><i class="fas fa-edit"></a></td>
+                    <td align="center"><a data-toggle="tooltip" title="delete" data-placement="top" href="{{ url_for('administration.departmentedit', action='delete', id=department.id) }}"><i class="fas fa-trash-alt"></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

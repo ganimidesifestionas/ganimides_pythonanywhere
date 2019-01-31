@@ -1,0 +1,94 @@
+<div class="d-flex flex-column administration-page" style="padding-left:10px;padding-right:10px;">
+    {#% include [language_fullpathfile('secure_info_general.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('secure_info_general.html','COMPONENT')] %#}
+    <div class="clearfix"></div>
+
+    <!--form is not validated locally on the browser (novalidate option) in order to use the forget password button-->
+    <form id="formProfileChange" action="{{ url_for('administration.useredit',id=1) }}" method="post" role="form" autocomplete="on" class="subscriber_form" validate>
+        <fieldset>
+            {{ userprofilechange_form.hidden_tag() }}
+            <div class="form-group d-flex flex-column">
+                    <div class="d-flex flex-row">
+                        <div>
+                            {{ userprofilechange_form.email.label }}
+                        </div>
+                        <div>
+                            <span style="color:red">{% if userprofilechange_form.email.flags.required %}*{% endif %}</span>
+                        </div>
+                    </div>
+                    {{ userprofilechange_form.email(size=60, class="form-control input-style") }}
+                    {% for error in userprofilechange_form.email.errors %}
+                    <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+    
+            <div class="form-group d-flex flex-column">
+                <div class="d-flex flex-row">
+                    <div>
+                        {{userprofilechange_form.firstName.label }}
+                    </div>
+                    <div>
+                        <span style="color:red">{% if userprofilechange_form.firstName.flags.required %}*{% endif %}</span>
+                    </div>
+                </div>
+                {{ userprofilechange_form.firstName(size=32, class="form-control input-style") }}
+                {% for error in userprofilechange_form.firstName.errors %}
+                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                <div class="d-flex flex-row">
+                    <div>
+                        {{ userprofilechange_form.lastName.label }}
+                    </div>
+                    <div>
+                        <span style="color:red">{% if userprofilechange_form.lastName.flags.required %}*{% endif %}</span>
+                    </div>
+                </div>
+                {{ userprofilechange_form.lastName(size=32, class="form-control input-style") }}
+                {% for error in userprofilechange_form.lastName.errors %}
+                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                    {{ userprofilechange_form.userName.label }}
+                    {{ userprofilechange_form.userName(size=60, class="form-control input-style") }}
+                    {% for error in userprofilechange_form.userName.errors %}
+                    <span class="text-note" style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                    {{ userprofilechange_form.mobile.label }}
+                    {{ userprofilechange_form.mobile(size=32, class="form-control input-style") }}
+                    {% for error in userprofilechange_form.mobile.errors %}
+                    <span class="text-note" style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                {{ userprofilechange_form.company.label }}<span style="color:red">{% if userprofilechange_form.company.flags.required %}*{% endif %}</span>
+                {{ userprofilechange_form.company(size=60, class="form-control input-style") }}
+                {% for error in userprofilechange_form.company.errors %}
+                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                {{ userprofilechange_form.jobTitle.label }}<span style="color:red">{% if userprofilechange_form.jobTitle.flags.required %}*{% endif %}</span>
+                {{ userprofilechange_form.jobTitle(size=60, class="form-control input-style") }}
+                {% for error in userprofilechange_form.company.errors %}
+                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group d-flex justify-content-start">
+                {{userprofilechange_form.submit(class="btn btn-warning btn-block")}}
+            </div>
+            {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT','authorization'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
+
+        </fieldset>
+
+    </form>
+</div>

@@ -1,4 +1,4 @@
-<form class="authorization-form" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
+<form class="authorization-page" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ avatarupload_form.hidden_tag() }}
         <div class="modal-header align-items-center">
@@ -6,7 +6,7 @@
             <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="authorization-page-line"></div>
 
         <div class="modal-body pb-0 pt-0">
             <div class="d-flex flex-column ">
@@ -14,7 +14,7 @@
                     {% if current_user.avatarImageFile %}
                     {% set avatarImageFile=current_user.avatarImageFile %}
                     {% else %}
-                    {% set avatarImageFile='../../static/images/icon_avatar_default.png' %}
+                    {% set avatarImageFile='/static/images/icon_avatar_default.png' %}
                     {% endif %}
                     <img class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
                 </div>
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="authorization-page-line"></div>
         <div class="modal-footer d-flex justify-content-end">
             <div class="mr-1">
                 <input class="btn btn-default btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>

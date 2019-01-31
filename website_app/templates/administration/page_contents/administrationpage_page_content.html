@@ -1,0 +1,69 @@
+{% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% set users_is_active='active' %}
+{% set users_show='active show' %}
+{% set roles_is_active='' %}
+{% set roles_show='' %}
+{% set departments_is_active='' %}
+{% set departments_show='' %}
+
+{% if activeTAB=='roles' %}
+    {% set roles_is_active='active' %}
+    {% set roles_show='active show' %}
+    {% set users_is_active='' %}
+    {% set users_show='' %}
+{%endif%}
+{% if activeTAB=='departments' %}
+    {% set departments_is_active='active' %}
+    {% set departments_show='active show' %}
+    {% set users_is_active='' %}
+    {% set users_show='' %}
+{%endif%}
+
+<div class="d-flex flex-column">
+    <div class="p-0">
+        <div class="p-0 left">
+
+            <!-- Nav tabs -->
+            <div class="left">
+                <ul class="nav nav-tabs " role="tablist">
+                    <li class="nav-item {{users_is_active}}"><a class="nav-link administration-page-nav-link {{users_show}}" href="#users" data-toggle="tab">Users</a></li>
+                    <li class="nav-item {{roles_is_active}}"><a class="nav-link administration-page-nav-link {{roles_show}}" href="#roles" data-toggle="tab">Roles</a></li>
+                    <li class="nav-item {{departemts_is_active}}"><a class="nav-link administration-page-nav-link {{departments_show}}" href="#departments" data-toggle="tab">Departments</a></li>
+                </ul>
+            </div>
+
+            <!-- Tab panes -->
+            <div class="tab-content left">
+
+                <!-- users table-readonly -->
+                <div id="users" class="tab-pane fade {{users_show}} left">
+                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('users_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('users_page_content.html','PAGE',active_module)] %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- roles table change-->
+                <div id="roles" class="tab-pane fade {{roles_show}} left">
+                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('roles_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('roles_page_content.html','PAGE',active_module)] %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- departments table-->
+                <div id="departments" class="tab-pane fade {{departments_show}} left">
+                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('departments_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('departments_page_content.html','PAGE',active_module)] %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

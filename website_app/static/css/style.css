@@ -550,7 +550,7 @@ td {
         height: 20px;
         padding: 0px;
         margin: 0px;
-        background-image: url('../../static/image/home_icon_grey.gif');
+        background-image: url('/static/image/home_icon_grey.gif');
             */
     }
     .top-menu-navbar-brand > img {
@@ -609,7 +609,7 @@ td {
     height: 30px;
     padding: 0px;
     margin: 0px;
-    /*background-image: url('../../static/images/home_icon_white.gif');*/
+    /*background-image: url('/static/images/home_icon_white.gif');*/
 }
 
 #xcontact_message {
@@ -617,7 +617,7 @@ td {
     height: 20px;
     padding: 0px;
     margin: 0px;
-    /*background-image: url('../../static/images/home_icon_white.gif');*/
+    /*background-image: url('/static/images/home_icon_white.gif');*/
 }
 form textarea#xcontact_message {
     width: 100px;

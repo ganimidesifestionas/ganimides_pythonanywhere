@@ -1,4 +1,8 @@
 <!--display all messages-->
+{% for category, message in get_flashed_messages(with_categories=true) %}
+    <p class="{{ category }}">{{ message }}</p>
+{% endfor %}
+
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         <div class="d-flex flex-column bg-transparent justify-content-center align-items-center">

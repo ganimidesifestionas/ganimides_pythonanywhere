@@ -1,0 +1,13 @@
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#contactus_modal_form">
+    Contact Us
+</button>
+-->
+<!-- Modal -->
+<div class="modal fade" id="contactus_modal_form" tabindex="-1" role="dialog" aria-labelledby="contactus_modal_form_Label">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content border border-light" style="xwidth:fit-content">
+            {% include [language_fullpathfile('form_contactus.html',CURRENT_LANGUAGE,'FORM',active_module), fullpathfile('form_contactus.html','FORM','authorization')] %}
+        </div>
+    </div>
+</div>

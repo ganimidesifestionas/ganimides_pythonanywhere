@@ -14,39 +14,11 @@ class Base(db.Model):
     date_created  = db.Column(db.DateTime,  default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(),onupdate=db.func.current_timestamp())
 
-# Define a User model
-class User(Base):
-    __tablename__ = 'auth_user'
-    # User Name
-    name    = db.Column(db.String(128),  nullable=False)
-    # Identification Data: email & password
-    #email    = db.Column(db.String(128),  nullable=False,unique=True)
-    #password = db.Column(db.String(192),  nullable=False)
-    email = db.Column(db.String(128), index=True, unique=True)
-    userName = db.Column(db.String(60), index=True, unique=True , default='')
-    firstName = db.Column(db.String(60), index=True , default='')
-    lastName = db.Column(db.String(60), index=True , default='')
-
-    # Authorisation Data: role & status
-    role     = db.Column(db.SmallInteger, nullable=False)
-    status   = db.Column(db.SmallInteger, nullable=False)
-
-    # New instance instantiation procedure
-    def __init__(self, name, email, password):
-
-        self.name     = name
-        self.email    = email
-        self.password = password
-
-    def __repr__(self):
-        return '<User %r>' % (self.name)                  
-
 ###########################################################################
 class Subscriber(UserMixin, db.Model):
     """
     Create a Subscriber table in mySQL
     """
-
     # Ensures table will be named in plural and not in singular, as is the name of the model
     __tablename__ = 'subscribers'
 
@@ -55,6 +27,7 @@ class Subscriber(UserMixin, db.Model):
     userName = db.Column(db.String(60), index=True, unique=True , default='')
     firstName = db.Column(db.String(60), index=True , default='')
     lastName = db.Column(db.String(60), index=True , default='')
+    roleX = db.Column(db.String(60), index=True , default='')
     mobile = db.Column(db.String(20), index=True , default='')
     company = db.Column(db.String(60), index=True , default='')
     jobTitle = db.Column(db.String(60), index=True , default='')
@@ -65,9 +38,6 @@ class Subscriber(UserMixin, db.Model):
     rememberMe = db.Column(db.Boolean, nullable=False, default=False)
     passwordHash = db.Column(db.String(128) , default='')
     passwordReset = db.Column(db.Boolean, nullable=False, default=False)
-    departmentID = db.Column(db.Integer, db.ForeignKey('departments.id'))
-    roleID = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    isAdmin = db.Column(db.Boolean, default=False)
     registeredDT = db.Column(db.DateTime, nullable=False)
     #confirmedDT = db.Column(db.DateTime, nullable=True)
     lastLoginDT = db.Column(db.DateTime, nullable=True)
@@ -78,14 +48,16 @@ class Subscriber(UserMixin, db.Model):
     mobileConfirmationCodeHash = db.Column(db.String(128), nullable=True,default='')
     mobileConfirmationCodeDT = db.Column(db.DateTime, nullable=True)
     avatarImageFile = db.Column(db.String(255), nullable=True)
-
+    accessModules = db.Column(db.String(255), nullable=True)
+    #departmentID = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    #roleID = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    isAdmin = db.Column(db.Boolean, default=False)
     @property
     def password(self):
         """
         Prevent pasword from being accessed
         """
         raise AttributeError('password is not a readable attribute.')
-
 
     @password.setter
     def password(self, password):
@@ -127,92 +99,88 @@ class Subscriber(UserMixin, db.Model):
     def json_view(self):
 
         if self.emailConfirmed:
-            emailconfirmatonString=str(self.emailConfirmedDT)
+            emailconfirmatonString = str(self.emailConfirmedDT)
         else:
-            emailconfirmatonString=''
+            emailconfirmatonString = ''
 
         if self.agreeTerms:
-            termsAgreeString=str(self.agreeTerms)
+            termsAgreeString = str(self.agreeTerms)
         else:
-            termsAgreeString=''
+            termsAgreeString = ''
 
         if self.rememberMe:
-            rememberMeString=str(self.rememberMe)
+            rememberMeString = str(self.rememberMe)
         else:
-            rememberMeString=''
+            rememberMeString = ''
 
         if self.mailingListSignUp:
-            mailingListSignUpString=str(self.mailingListSignUpDT)
+            mailingListSignUpString = str(self.mailingListSignUpDT)
         else:
-            mailingListSignUpString=''
+            mailingListSignUpString = ''
 
         if self.mobileConfirmed:
-            mobileconfirmatonString=str(self.mobileConfirmedDT)
+            mobileconfirmatonString = str(self.mobileConfirmedDT)
         else:
-            mobileconfirmatonString=''
+            mobileconfirmatonString = ''
 
         if self.lastLoginDT:
-            lastloginString=str(self.lastLoginDT)
+            lastloginString = str(self.lastLoginDT)
         else:
-            lastloginString=''
+            lastloginString = ''
 
-        registrationString=str(self.registeredDT)
+        registrationString = str(self.registeredDT)
 
-        rec={
-        'id':self.id
-        ,'userName':self.userName
-        ,'first name':self.firstName
-        ,'last name':self.lastName
-        ,'email':self.email
-        ,'mobile':self.mobile
-        ,'job title':self.jobTitle
-        ,'company':self.company
-        ,'registered':registrationString
-        #,'confirmed':confirmatonString
-        ,'email confirmed':emailconfirmatonString
-        ,'mobile confirmed':mobileconfirmatonString
-        ,'last login':lastloginString
-        ,'terms agreement':termsAgreeString
-        ,'remember me':rememberMeString
-        ,'mailing list signup':mailingListSignUpString
+        rec = {
+            'id':self.id
+            ,'userName':self.userName
+            ,'first name':self.firstName
+            ,'last name':self.lastName
+            ,'email':self.email
+            ,'mobile':self.mobile
+            ,'job title':self.jobTitle
+            ,'company':self.company
+            ,'registered':registrationString
+            #,'confirmed':confirmatonString
+            ,'email confirmed':emailconfirmatonString
+            ,'mobile confirmed':mobileconfirmatonString
+            ,'last login':lastloginString
+            ,'terms agreement':termsAgreeString
+            ,'remember me':rememberMeString
+            ,'mailing list signup':mailingListSignUpString
         }
 
         return rec
 
+# class Department(db.Model):
+#     """
+#     Create a Department table
+#     """
+#     # Ensures table will be named in plural and not in singular, as is the name of the model
+#     __tablename__ = 'departments'
 
-# Set up user_loader
-@login_manager.user_loader
-def load_user(user_id):
-    return Subscriber.query.get(int(user_id))
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(60), unique=True)
+#     description = db.Column(db.String(200))
+#     subscribers = db.relationship('Subscriber', backref='department',lazy='dynamic')
+#     employees = db.relationship('User', backref='department',lazy='dynamic')
 
-class Department(db.Model):
-    """
-    Create a Department table
-    """
-    # Ensures table will be named in plural and not in singular, as is the name of the model
-    __tablename__ = 'departments'
+#     def __repr__(self):
+#         return '<Department: {}>'.format(self.name)
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    employees = db.relationship('Subscriber', backref='department',lazy='dynamic')
+# class Role(db.Model):
+#     """
+#     Create a Role table
+#     """
+#     # Ensures table will be named in plural and not in singular, as is the name of the model
+#     __tablename__ = 'roles'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(60), unique=True)
+#     description = db.Column(db.String(200))
+#     subscribers = db.relationship('Subscriber', backref='role',lazy='dynamic')
+#     employees = db.relationship('User', backref='role',lazy='dynamic')
 
-    def __repr__(self):
-        return '<Department: {}>'.format(self.name)
-
-class Role(db.Model):
-    """
-    Create a Role table
-    """
-    # Ensures table will be named in plural and not in singular, as is the name of the model
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    employees = db.relationship('Subscriber', backref='role',lazy='dynamic')
-
-    def __repr__(self):
-        return '<Role: {}>'.format(self.name)
+#     def __repr__(self):
+#         return '<Role: {}>'.format(self.name)
 
 class ContactMessage(db.Model):
     """
@@ -220,7 +188,7 @@ class ContactMessage(db.Model):
     """
 
     # Ensures table will be named in plural and not in singular, as is the name of the model
-    __tablename__ = 'ContactMessages'
+    __tablename__ = 'contactmessages'
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(60), index=True)
@@ -252,17 +220,22 @@ class ContactMessage(db.Model):
 
         receivedString=str(self.receivedDT)
 
-        rec={
-        'id':self.id
-        ,'firstName':self.firstName
-        ,'lastName':self.lastName
-        ,'email':self.email
-        ,'company':self.company
-        ,'title':self.jobTitle
-        ,'mobile':self.mobile
-        ,'receivedDT':receivedString
-        ,'confirmed':confirmatonString
-        ,'repliedDT':repliedString
+        rec = {
+            'id':self.id
+            ,'firstName':self.firstName
+            ,'lastName':self.lastName
+            ,'email':self.email
+            ,'company':self.company
+            ,'title':self.jobTitle
+            ,'mobile':self.mobile
+            ,'receivedDT':receivedString
+            ,'confirmed':confirmatonString
+            ,'repliedDT':repliedString
         }
 
         return rec
+
+# Set up user_loader
+@login_manager.user_loader
+def load_user(user_id):
+    return Subscriber.query.get(int(user_id))

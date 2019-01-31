@@ -50,7 +50,7 @@
             {% if current_user.avatarImageFile %}
             {% set avatarImageFile=current_user.avatarImageFile %}
             {% else %}
-            {% set avatarImageFile='../../static/images/icon_avatar_default.png' %}
+            {% set avatarImageFile='/static/images/icon_avatar_default.png' %}
             {% endif %}
             <img class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
         </div>
@@ -66,17 +66,17 @@
             <!-- Nav tabs -->
             <div class="left">
                 <ul class="nav nav-tabs " role="tablist">
-                    <li class="nav-item {{userprofile_is_active}}"><a class="nav-link authorization-form-nav-link {{userprofile_show}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
-                    <li class="nav-item {{profilechange_is_active}}"><a class="nav-link authorization-form-nav-link {{profilechange_show}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
-                    <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link authorization-form-nav-link {{passwordchange_show}}" href="#passchange" data-toggle="tab">Change Password</a></li>
+                    <li class="nav-item {{userprofile_is_active}}"><a class="nav-link authorization-page-nav-link {{userprofile_show}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
+                    <li class="nav-item {{profilechange_is_active}}"><a class="nav-link authorization-page-nav-link {{profilechange_show}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
+                    <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link authorization-page-nav-link {{passwordchange_show}}" href="#passchange" data-toggle="tab">Change Password</a></li>
                     {% if avatarupload_is_active %}
-                    <li class="nav-item {{avatarupload_is_active}}"><a class="nav-link authorization-form-nav-link {{avatarupload_show}}" href="#uploadpicture" data-toggle="tab">Upload Your Picture</a></li>
+                    <li class="nav-item {{avatarupload_is_active}}"><a class="nav-link authorization-page-nav-link {{avatarupload_show}}" href="#uploadpicture" data-toggle="tab">Upload Your Picture</a></li>
                     {% endif %}
                     {% if mobileconfirmation_is_active %}
-                    <li class="nav-item {{mobileconfirmation_is_active}}"><a class="nav-link authorization-form-nav-link {{mobileconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
+                    <li class="nav-item {{mobileconfirmation_is_active}}"><a class="nav-link authorization-page-nav-link {{mobileconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
                     {% endif %}
                     {% if emailconfirmation_is_active %}
-                    <li class="nav-item {{emailconfirmation_is_active}}"><a class="nav-link authorization-form-nav-link {{emailconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
+                    <li class="nav-item {{emailconfirmation_is_active}}"><a class="nav-link authorization-page-nav-link {{emailconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -85,7 +85,7 @@
 
                 <!-- form 1 userprofile-readonly -->
                 <div id="userprofile" class="tab-pane fade {{userprofile_show}} left">
-                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                    <div class="d-flex justify-content-center authorization-page xtabform-borders">
                         <div class="">
                             {% include [language_fullpathfile('form_userprofile.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_userprofile.html','FORM','authorization')] %}
                         </div>
@@ -94,7 +94,7 @@
 
                 <!-- form 2 profile change-->
                 <div id="profilechange" class="tab-pane fade {{profilechange_show}} left">
-                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                    <div class="d-flex justify-content-center authorization-page xtabform-borders">
                         <div class="">
                             {% include [language_fullpathfile('form_userprofile_change.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_userprofile_change.html','FORM','authorization')] %}
                         </div>
@@ -103,7 +103,7 @@
 
                 <!-- form 3 password change-->
                 <div id="passchange" class="tab-pane fade {{passwordchange_show}}">
-                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                    <div class="d-flex justify-content-center authorization-page xtabform-borders">
                         <div class="">
                             {% include [language_fullpathfile('form_password_change.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_password_change.html','FORM','authorization')] %}
                         </div>
@@ -111,7 +111,7 @@
                 </div>
                 <!-- form 4 upload image-->
                 <div id="uploadpicture" class="tab-pane fade {{avatarupload_show}}">
-                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                    <div class="d-flex justify-content-center authorization-page xtabform-borders">
                         <div class="">
                             {% include [language_fullpathfile('form_avatar_upload.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_avatar_upload.html','FORM','authorization')] %}
                         </div>
@@ -119,7 +119,7 @@
                 </div>
                 <!-- form 9 upload image-->
                 <div id="mobileconfirmation" class="tab-pane fade {{mobileconfirmation_show}}">
-                    <div class="d-flex justify-content-center authorization-form xtabform-borders">
+                    <div class="d-flex justify-content-center authorization-page xtabform-borders">
                         <div class="">
                             {% include [language_fullpathfile('form_mobile_confirmation.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_mobile_confirmation.html','FORM','authorization')] %}
                         </div>

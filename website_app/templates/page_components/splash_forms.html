@@ -12,27 +12,35 @@
     Register
 </button>
 -->
-{% if contactusform %}
+
+<!--if config param SPLASHFORM_CONTACTUS html file set
+    and contactusform form object provided 
+    include the SPLASHFORM_CONTACTUS html file
+-->
+
+{% if SPLASHFORM_CONTACTUS and contactusform%}
 <div class="d-flex">
     <!--contactus splash form -->
-    {% include [language_fullpathfile('splashform_contactus.html',CURRENT_LANGUAGE,'FORM'), fullpathfile('splashform_contactus.html','FORM')] %}
+    {% include [language_fullpathfile(SPLASHFORM_CONTACTUS,CURRENT_LANGUAGE,'FORM'), fullpathfile(SPLASHFORM_CONTACTUS,'FORM')] %}
 </div>
 {% endif %}
-{% if loginform %}
+{% if SPLASHFORM_LOGIN and loginform %}
 <div class="d-flex">
     <!--login splash form -->
-    {% include [language_fullpathfile('splashform_login.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('splashform_login.html','FORM','authorization')] %}
+    {% include [language_fullpathfile(SPLASHFORM_LOGIN,CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile(SPLASHFORM_LOGIN,'FORM','authorization')] %}
 </div>
 {% endif %}
-{% if registrationform %}
+{% if SPLASHFORM_REGISTRATION and registrationform %}
 <div class="d-flex">
     <!--registration splash form -->
-    {% include [language_fullpathfile('splashform_registration.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('splashform_registration.html','FORM','authorization')] %}
+    {% include [language_fullpathfile(SPLASHFORM_REGISTRATION,CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile(SPLASHFORM_REGISTRATION,'FORM','authorization')] %}
 </div>
 {% endif %}
-{% if forgetpasswordform %}
+{% if SPLASHFORM_FORGETPASSWORD and forgetpasswordform %}
 <div class="d-flex">
     <!--forgetpassword splash form -->
-    {% include [language_fullpathfile('splashform_forgetpassword.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('splashform_forgetpassword.html','FORM','authorization')] %}
+    {% include [language_fullpathfile(SPLASHFORM_FORGETPASSWORD,CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile(SPLASHFORM_FORGETPASSWORD,'FORM','authorization')] %}
 </div>
 {% endif %}
+<!--cookies_splash form -->
+{% include [language_fullpathfile('splashform_cookiesconsent.html',CURRENT_LANGUAGE,'FORM',''), fullpathfile('splashform_cookiesconsent.html','FORM','')] %}

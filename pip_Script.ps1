@@ -12,3 +12,9 @@ pip install pymysql
 pip install requests
 pip install mailjet
 pip install mailjet_rest
+pip install pymsql
+pip install mysql-connector-python-rf
+#import pymysql
+#pymysql.install_as_MySQLdb()
+#import MySQLdb
+

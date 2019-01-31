@@ -1,0 +1,14 @@
+<!--BEGIN--page_template = "users_table_template"-->
+{% extends "webapppageslayout.html" %}
+{% set active_module = 'administration' %}
+{% set page_title = 'Users' %}
+{% set page_logo = "" %}
+{% set next_page = "" %}
+{% set previous_page = "" %}
+{% set content_page="users_table_page_content.html" %}
+
+{% set content_page_template="administrationpageslayout_pagecontenttemplate.html" %}
+{% block content %}
+{% include appfolder('MASTERLAYOUT',active_module)+version_file("administrationpageslayout.html",execution_mode,design_type,design_version) %}
+{% endblock %}
+<!--ENDOF--page_template = "users_table_template"-->

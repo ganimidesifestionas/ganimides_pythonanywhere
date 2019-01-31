@@ -1,5 +1,5 @@
 """
-Controllers (Routes) and views for the flask application.(authorization)
+Controllers (Routes) and views for the flask application module authorization
 """
 import os
 import requests
@@ -25,12 +25,13 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from .. external_services.email_services import send_email
 from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
+from .. external_services.log_services import *
 
 # Import module forms
-from . forms import LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm,emailConfirmationForm,PasswordReSetForm,forgetPasswordForm,ContactUsForm,AvatarUploadForm
+from . forms import LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm,emailConfirmationForm,PasswordReSetForm,forgetPasswordForm,ContactUsForm,AvatarUploadForm,CookiesConsentForm
 
 # Import module models (i.e. User)
-from . models import Subscriber,ContactMessage,User
+from . models import Subscriber, ContactMessage
 
 #from .. import db
 
@@ -70,35 +71,140 @@ from .. import db
 #app1=current_app.app_context()
 #app2=app1._get_current_object()
 #app1 = app._get_current_object()
+###########################################################################
+###########################################################################
+###########################################################################
+### standard functions and decorators
+###########################################################################
+###########################################################################
+###########################################################################
+@authorization.before_request
+def set_cookies():
+    print('###'+__name__+'###', 'before_request')
+    #session['active_module'] = __name__
+    session['urls'].append(request.url)
+    if len(session['urls']) > 9:
+        session['urls'].pop(0)
 
+    #session['splash_form']=''
+    #print('@@@@@INIT@@@@')
+    if current_user.is_authenticated:
+        if app.forgetpasswordform:
+            app.forgetpasswordform.email.data = current_user.email
+        if app.contactusform:
+            app.contactusform.firstName.data = current_user.firstName
+            app.contactusform.lastName.data = current_user.lastName
+            app.contactusform.company.data = current_user.company
+            app.contactusform.jobTitle.data = current_user.jobTitle
+            app.contactusform.email.data = current_user.email
+            app.contactusform.contact_message.data = '...'
 
+    # if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+    #     session['IPA'] = request.environ['REMOTE_ADDR']
+    #     #print(jsonify({'ip': request.environ['REMOTE_ADDR']}), 200)
+    # else:
+    #     #print (jsonify({'ip': request.environ['HTTP_X_FORWARDED_FOR']}), 200)
+    #     session['IPA'] = request.environ['HTTP_X_FORWARDED_FOR']
+    session.modified = True
 
-###########################################################################
-###########################################################################
-###########################################################################
-### functions used
-###########################################################################
-###########################################################################
-###########################################################################
+@authorization.after_request
+def set_cookies_after_request(response):
+    print('###'+__name__+'###', 'after_request')
+    return response
 
+def log_page(pageName, pageFunction, pageTemplate='', page_form=''):
+    # if startNewRoute == 1:
+    #     session['pages_history'] = pageName
+    # else:
+    #     session['pages_history'] = session['pages_history'] + ">"+ pageName
+    session['lastpage'] = pageFunction
+    session['lastpageURL'] = request.url
+    if pageTemplate:
+        session['lastpageHTML'] = pageTemplate
+    #session['pageID'] = pageName.upper()
+    pageID = pageName.upper()
+    session['pages'].append(pageName)
+    if len(session['pages']) > 9:
+        session['pages'].pop(0)
+
+    for p in range(1, len(session['pages'])):
+        if p == 1:
+            session['pages_history'] = session['pages'][p-1]
+        else:
+            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+
+    session.modified = True
+    print(client_IP(), 'page',pageID, request.method, request.url, '#'+__name__+'#')
+
+def log_route(routeName, routeFunction='', routeTemplate='', route_form=''):
+    routeID = routeName.upper()
+    session['pages'].append(routeName)
+    if len(session['pages']) > 9:
+        session['pages'].pop(0)
+    for p in range(1, len(session['pages'])):
+        if p == 1:
+            session['pages_history'] = session['pages'][p-1]
+        else:
+            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+
+    session.modified = True
+    print(client_IP(), 'route', routeID, request.method, request.url, '#'+__name__+'#')
+
+def log_splash_page(pageName, pageFunction, pageTemplate='',page_form=''):
+    #session['splashpage'] = pageFunction
+    pageID = pageName.upper()
+    session['pages'].append(pageName)
+    if len(session['pages']) > 9:
+        session['pages'].pop(0)
+
+    for p in range(1, len(session['pages'])):
+        if p == 1:
+            session['pages_history'] = session['pages'][p-1]
+        else:
+            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+
+    session.modified = True
+    print(client_IP(), 'splash-page, pageID', request.method, request.url, '#'+__name__+'#')
+
+def log_info(msg):
+    print('   ', msg)
+
+def log_variable(name='', value=''):
+    msg = '{0}={1}'.format(name, value)
+    print('   ', msg)
+
+def client_IP():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        clientip = request.environ['REMOTE_ADDR']
+    else:
+        clientip = request.environ['HTTP_X_FORWARDED_FOR']
+    return clientip
+###########################################################################
+###########################################################################
+###########################################################################
+### module functions
+###########################################################################
+###########################################################################
+###########################################################################
 def init_active_menuoptions():
-    app.login_active=''
-    app.register_active=''
-    app.help_active=''
+    session[login_active] = ''
+    session[register_active] = ''
+    session[help_active] = ''
 
 def init_form_options():
-    try:
-        dummy=app.lastpage
-    except:
-        app.lastpage='homepage'
-    try:
-        dummy=app.lastpage_html
-    except:
-        app.lastpage_html='page_templates/landing_page.html'
-    try:
-        dummy=app.pages
-    except:
-        app.pages='homepage'
+    print('xxxxxxxxxxxx')
+    # try:
+    #     dummy=app.lastpage
+    # except:
+    #     app.lastpage='homepage'
+    # try:
+    #     dummy=session['lastpageHTML']
+    # except:
+    #     session['lastpageHTML']='page_templates/landing_page.html'
+    # try:
+    #     dummy=app.pages
+    # except:
+    #     app.pages='homepage'
 
 def getConfig(key):
     with app.app_context():
@@ -111,7 +217,6 @@ def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
             flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error),'error')
-
 
 def send_mobileconfirmation_sms(code):
     """ Send a mobile confirmation Code via SMS
@@ -241,7 +346,7 @@ def fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailCo
     profileDisplayForm.lastLogin.data = str(subscriber.lastLoginDT)
     profileDisplayForm.mobileConfirmed.data = str(subscriber.mobileConfirmedDT)
     profileDisplayForm.emailConfirmed.data = str(subscriber.emailConfirmedDT)
-    print('   ---profileDisplayForm=',profileDisplayForm);
+    print('   ---profileDisplayForm=',profileDisplayForm)
 
     profileChangeForm.email.data = subscriber.email
     profileChangeForm.firstName.data = subscriber.firstName
@@ -270,9 +375,6 @@ def fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailCo
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
-###########################################################################
-###########################################################################
-###########################################################################
 
 ##########################################
 #put this after @ decorator
@@ -294,15 +396,9 @@ def allowed_file(filename):
 
 #request.args:                ImmutableMultiDict([('x', 'y')])
 #request.args.get('x'):       y
-##########################################
-
 
 #varPageName = request.args.get('url')
 #alert(varPageName)
-#print('xxxrequestxxxxxxx',varPageName)
-#print('xxxqqqqxxxxxxx',e)
-#return render_template('404.html'), 404
-#print ('xxxx:',request)
 ###########################################################################
 ###########################################################################
 ###########################################################################
@@ -310,30 +406,40 @@ def allowed_file(filename):
 ###########################################################################
 ###########################################################################
 ###########################################################################
-#@authorization.after_request
-#def store_visted_urls():
-#    session['urls'].append(request.url)
-#    if(len[session['urls']) > 5:
-#        session['urls'].pop(0)
-#    session.modified = True
+#app.secret_key = '/r/xd8}q/xde/x13/xe5F0/xe5/x8b/x96A64/xf2/xf8MK/xb1/xfdA7x8c'
+#############################################################
+#############################################################
+#############################################################
 
-#@authorization.after_request
-
+#############################################################
+#############################################################
+#############################################################
+### routes and pages
+#############################################################
+#############################################################
+#############################################################
 #@authorization.route('/pictures/<path:imagefile>')
 #def pathtoimage(imagefile):
     #print('request-/:',request.url)
 #    return request.url+'/'+imagefile
-#############################################################
-### basic 
-#############################################################
+
 @authorization.route('/', methods=['GET', 'POST'])
 def homepageredirect():
+    page_name = 'authorization-home'
+    page_function = 'homepageredirect'
+    page_template = ''
+    page_form = ''
+    log_page(page_name, page_function, page_template,page_form)
     return redirect(url_for('homepage'))
 
 @authorization.route('/register', methods=['GET', 'POST'])
 def register():
-    app.pages="register"
-    print('REGISTER',request.method,request.url)
+    page_name = 'register'
+    page_function = 'register'
+    page_template = 'authorization/page_templates/authorization_forms_template.html'
+    page_form = 'form_register.html'
+    log_page(page_name, page_function, page_template,page_form)
+
     form = RegistrationForm()
     if form.validate_on_submit():
         try:
@@ -407,18 +513,21 @@ def register():
 
 @authorization.route('/login', methods=['GET', 'POST'])
 def login():
-    init_active_menuoptions()
-    app.pages="login"
-    app.login_active='active'
-    print('LOGIN',request.method,request.url)
-    try:
-        dummy=app.lastpage
-    except:
-        app.lastpage='homepage'
-    print('LOGIN',request.method,'lastpage',app.lastpage)
-    print('LOGIN',request.method,'splash_form',app.splash_form)
+    page_name = 'login'
+    page_function = 'login'
+    page_template = 'authorization/page_templates/authorization_forms_template.html'
+    page_form = 'form_login.html'
+    log_page(page_name, page_function, page_template,page_form)
+    session[login_active] = 'active'
+    session[register_active] = ''
+    session[help_active] = ''
+
+    #print('LOGIN',request.method,'lastpage', session['lastpageURL'])
+    #print('LOGIN',request.method,'splash_form',session['splash_form'])
+
     #if request.method=='POST':
     #    app.splash_form='login'
+
     form = LoginForm()
     if form.validate_on_submit():
         print('LOGIN',request.method,'NO-ERRORS----')
@@ -462,7 +571,8 @@ def login():
                             return redirect(url_for('authorization.admin_dashboard'))
                         else:
                             # SUCCESS!!! send to the last page
-                            return redirect(url_for(app.lastpage))
+                            #return redirect(url_for(app.lastpage))
+                            return redirect(session['lastpageURL'])
                     else:
                         #form.email.errors.append("invalid email or password")
                         #form.password.errors.append("invalid email or password")
@@ -472,6 +582,7 @@ def login():
         #app.splash_form='login'
         #print('==============SPLASH_FORM= ',app.splash_form)
         #return redirect(url_for(app.lastpage))
+        #return redirect(session['lastpageURL'])
 
     #print('LOGIN',request.method,'splash_form',app.splash_form)
     #load login page
@@ -485,8 +596,12 @@ def login():
 
 @authorization.route('/login_or_register/<action_tab>', methods=['GET', 'POST'])
 def login_or_register(action_tab):
-    app.pages="login or register"
-    print('LOGIN_OR_REGISTER',request.method,'action_tab=',action_tab,request.url)
+    page_name = 'login_or_register'
+    page_function = 'login_or_register'
+    page_template = 'authorization/page_templates/authorization_forms_template.html'
+    page_form = 'login_or_register.html'
+    log_page(page_name, page_function, page_template,page_form)
+
     form = LoginForm()
     if form.validate_on_submit():
         subscriber = Subscriber.query.filter_by(email=form.email.data).first()
@@ -516,213 +631,17 @@ def login_or_register(action_tab):
                             ,formPage='login_or_register.html'
                            )
 
-@authorization.route('/logout')
-@login_required
-def logout():
-    app.pages="logout"
-    print('LOGOUT',request.method,request.url)
-    logout_user()
-    flash('You have successfully logged out.','success')
-    try:
-        dummy=app.lastpage
-    except:
-        app.lastpage='homepage'
-    # redirect to lastpage or login page
-    return redirect(url_for(app.lastpage))
-
 #############################################################
-### confirmation pages with email link, after send emal or sms
-#############################################################
-@authorization.route('/sendconfirmationemail', methods=['POST','GET'])
-def send_confirmation_email():
-    app.pages="send confirmation email"
-    print('SENDCONFIRMATIONEMAIL',request.method,request.url)
-    form = emailConfirmationForm()
-    subscriber = Subscriber.query.filter_by(email=form.email.data).first()
-    if subscriber is None:
-        form.email.errors.append("invalid email")
-        varTitle='User Profile : ???'
-    else:
-        form.email.data = subscriber.email
-        varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
-    if request.method == 'GET':
-        if subscriber.emailConfirmed:
-           flash('email already confirmed.', 'error')
-    #subscriber = Subscriber.query.filter_by(id=current_user.id).first()
-    subscriber.emailConfirmed=False
-    subscriber.emailConfirmedDT=None
-    db.session.commit()
-    result=send_emailconfirmation_email(subscriber.email)
-    if result=='OK':
-        flash('an activation link has been sent to {}'.format(subscriber.email),'warning')
-        flash('please open this email and click the provided link to activate Your new email','info')
-    else:
-        #error_text=result.dumps()
-        ErrorMsg='Failed to send confirmation email'
-        flash(ErrorMsg, 'error')
-
-    return redirect(url_for('authorization.login'))
-
-@authorization.route('/sendtestemail', methods=['POST','GET'])
-def sendtestemail():
-    app.pages="send test email"
-    print('SEND_TEST_EMAIL',request.method,request.url)
-    test_email='philippos.leandrou@gmail.com'
-    result=send_email_test(test_email)
-    if result=='OK':
-        flash('an activation link has been sent to {}'.format(test_email),'warning')
-        flash('please open this email and click the provided link to activate Your new email','info')
-    else:
-        #error_text=result.dumps()
-        ErrorMsg='Failed to send confirmation email'
-        flash(ErrorMsg, 'error')
-
-    return redirect(url_for('authorization.login'))
-
-@authorization.route('/sendconfirmationsms', methods=['POST','GET'])
-def send_confirmation_sms():
-    app.pages="send mobile verification sms"
-    print('SENDCONFIRMATIONSMS',request.method,request.url)
-    subscriber = Subscriber.query.filter_by(id=current_user.id).first()
-    code=generate_mobileconfirmation_code(subscriber.mobile)
-    subscriber.mobileConfirmationCode=code
-    subscriber.mobileConfirmationCodeDT=datetime.now()
-    subscriber.mobileConfirmed=False
-    subscriber.mobileConfirmedDT=None
-    db.session.commit()
-    result=send_mobileconfirmation_sms(code)
-    #token = generate_mobileconfirmation_token(subscriber.mobile)
-    ##print('   @@@token=',token)
-    #subscriber.mobileConfirmationCode=token
-    #subscriber.mobileConfirmationCodeDT=datetime.now()
-    #db.session.commit()
-    ##print('   @@@DB UPDATED')
-    #sms_message = render_template('page_templates/sms_mobile_confirmation.html', verification_code=token)
-    #smsfrom = 'Ganimides'
-    ##result=send_sms(subscriber.mobile,smsfrom,sms_message)
-    #subject = "please confirm your mobile"
-    #result=send_email(subscriber.email,subject,sms_message)
-    if result=='OK':
-        flash('a confirmation code has been sent via sms to {}. Use this code to confirm your mobile'.format(subscriber.mobile), 'success')
-        return redirect(url_for('authorization.mobileconfirm'))
-    else:
-        #error_text=result.dumps()
-        ErrorMsg='Failed to send confirmation code via sms. Request a new mobile confirmation Code'
-        flash(ErrorMsg, 'error')
-        return redirect(url_for('authorization.mobileconfirm'))
-
-@authorization.route('/confirm/<token>')
-def emailconfirm(token):
-    print('CONFIRM',request.method," token=",token,request.url)
-    try:
-        email = confirm_token(token,3600)
-    except:
-        flash('The confirmation link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.userprofile'))
-
-    if not(email):
-        flash('The confirmation link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.userprofile'))
-
-    user = Subscriber.query.filter_by(email=email).first_or_404()
-    if user.emailConfirmed:
-        flash('Email already confirmed. Please login.', 'info')
-    else:
-        user.emailConfirmed = True
-        user.emailConfirmedDT = datetime.now()
-        db.session.add(user)
-        db.session.commit()
-        flash('You have confirmed your Email. Thanks!', 'success')
-
-    return redirect(url_for('authorization.login'))
-
-@authorization.route('/passwordresetverification/<token>')
-def passwordresetverification(token):
-    print('PASSWORDRESETVERICATION',request.method," token=",token,request.url)
-    try:
-        email = confirm_token(token,3600)
-    except:
-        flash('The password reset link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.login'))
-
-    if not(email):
-        flash('The password reset link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.login'))
-
-    subscriber = Subscriber.query.filter_by(email=email).first_or_404()
-    if not(subscriber):
-        flash('The password reset link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('authorization.login'))
-
-    subscriber.passwordReset=True
-    db.session.commit()
-    flash('Your Password has been reset. Please define Your password.', 'success')
-    return redirect(url_for('authorization.password_reset',email=email))
-
-@authorization.route('/contactemailverification/<token>')
-def contactemailverification(token):
-    app.pages="email verification"
-    print('CONTACT-EMAIL-VERIFICATION',request.method," token=",token,request.url)
-    try:
-        tokenStr = confirm_token(token,3600)
-    except:
-        flash('The link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('homepage'))
-
-    if not(tokenStr):
-        flash('The link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('homepage'))
-
-    print('tokenStr',tokenStr)
-    x=tokenStr.split('-',1)
-    contactID=x[0]
-    print('CONTACT-ID',contactID)
-    contactmessage=ContactMessage.query.filter_by(id=contactID).first_or_404()
-    if not(contactmessage):
-        flash('The link is invalid or has expired.Retry', 'warning')
-        return redirect(url_for('homepage'))
-    contactmessage.confirmed=True
-    contactmessage.confirmedDT=datetime.now()
-    db.session.commit()
-    flash('Your Message has been received. We will contact You ASAP.', 'success')
-    subscriber = Subscriber.query.filter_by(email=contactmessage.email).first()
-    if subscriber is None:
-        # add as subscriber
-        subscriber = Subscriber(
-            email=contactmessage.email
-            ,firstName=contactmessage.firstName
-            ,lastName=contactmessage.lastName
-            ,jobTitle=contactmessage.jobTitle
-            ,company=contactmessage.company
-            ,registeredDT=datetime.now()
-            )
-        subscriber.mobile=''
-        subscriber.userName=''
-        subscriber.confirmed=None
-        subscriber.confirmedDT=None
-
-        db.session.add(subscriber)
-        db.session.commit()
-        flash('You email has been registered!','success')
-    else:
-        if not(subscriber.emailConfirmed):
-            #confirm the susbscriber
-            subscriber.emailConfirmed = True
-            subscriber.emailConfirmedDT = datetime.now()
-            #db.session.add(subscriber)
-            db.session.commit()
-            flash('You have confirmed your Email. Thanks!', 'success')
-
-    return redirect(url_for('homepage'))
-
-#############################################################
-### user profile forms (tab form)
+### user profile form(s) (tabbed form)
 #############################################################
 @authorization.route('/userprofile')
 @login_required
 def userprofile():
-    app.pages="user profile"
-    print('PROFILE',request.method,request.url)
+    page_name = 'userprofile'
+    page_function = 'userprofile'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = '*'
+    log_page(page_name, page_function, page_template,page_form)
 
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -750,7 +669,7 @@ def userprofile():
                             ,avatarupload_form=avatarUploadForm
                             ,activeTAB='userprofile'
                             ,title=varTitle
-                            ,pages=app.pages
+                            #,pages=app.pages
                             ,mobileconfirmed=mobileconfirmed
                             ,emailconfirmed=subscriber.emailConfirmed
                            )
@@ -758,8 +677,11 @@ def userprofile():
 @authorization.route('/userprofilechange', methods=['GET', 'POST'])
 @login_required
 def userprofilechange():
-    app.pages="user profile change"
-    print('PROFILECHANGE',request.method,request.url)
+    page_name = 'userprofile-change'
+    page_function = 'userprofilechange'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = ''
+    log_page(page_name, page_function, page_template,page_form)
 
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -905,14 +827,17 @@ def userprofilechange():
                             ,avatarupload_form=avatarUploadForm
                             ,activeTAB=varActiveTAB
                             ,title=varTitle
-                            ,pages=app.pages
                             )
 
 @authorization.route('/passwordchange', methods=['GET', 'POST'])
 @login_required
 def passwordchange():
-    app.pages="password change"
-    print('PASSWORDCHANGE',request.method,request.url)
+    page_name = 'password-change'
+    page_function = 'passwordchange'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = ''
+    log_page(page_name, page_function, page_template,page_form)
+
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
     profileChangeForm = UserProfileChangeForm()
@@ -954,14 +879,17 @@ def passwordchange():
                             ,avatarupload_form=avatarUploadForm
                             ,activeTAB=varActiveTAB
                             ,title=varTitle
-                            ,pages=app.pages
                             )
 
 @authorization.route('/upload_avatar', methods=['GET','POST'])
 @login_required
 def upload_avatar():
-    app.pages="upload avatar"
-    print('UPLOAD-AVATAR',request.method,request.url)
+    page_name = 'upload_avatar'
+    page_function = 'upload_avatar'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = 'form_avatar_upload.html'
+    log_page(page_name, page_function, page_template,page_form)
+
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
     varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
     varActiveTAB='avatarupload'
@@ -984,9 +912,9 @@ def upload_avatar():
         print('---photo=',form.photo.data)
         print('---files=',request.files)
         if 'photo' not in request.files and form.emptyAvatarType.data in (['M','F']):
-            subscriber.avatarImageFile='../../static/images/icon_user_woman.png'
+            subscriber.avatarImageFile='/static/images/icon_user_woman.png'
             if form.emptyAvatarType.data=='M':
-                subscriber.avatarImageFile='../../static/images/icon_user_man.png'
+                subscriber.avatarImageFile='/static/images/icon_user_man.png'
             db.session.commit()
             flash('Your Picture has been set to an empty {} avatar.'.format(form.emptyAvatarType.data),'success')
             #success redirect to userprofile
@@ -1029,7 +957,7 @@ def upload_avatar():
                     fullpathfile = os.path.join(app.root_path ,'static/avatars', filename)
                     print('   ','fullpathfile3=',fullpathfile)
                     file.save(fullpathfile)
-                    subscriber.avatarImageFile='../../static/avatars/'+filename
+                    subscriber.avatarImageFile='/static/avatars/'+filename
                     db.session.commit()
                     #success redirect to userprofile
                     return redirect(url_for('authorization.userprofile'))
@@ -1042,24 +970,15 @@ def upload_avatar():
         ,formPage='form_avatar_upload.html'
         )
 
-    # print('   ###activeTAB',varActiveTAB)
-    # return render_template('authorization/page_templates/userprofile_template.html'
-    #                         ,userprofiledisplay_form=profileDisplayForm
-    #                         ,userprofilechange_form=profileChangeForm
-    #                         ,passwordchange_form=passwordchangeForm
-    #                         ,mobileconfirmation_form=mobileConfirmForm
-    #                         ,emailconfirmation_form=emailConfirmForm
-    #                         ,avatarupload_form=form
-    #                         ,activeTAB=varActiveTAB
-    #                         ,title=varTitle
-    #                         ,pages=app.pages
-    #                         )
-
 @authorization.route('/mobileconfirm', methods=['GET', 'POST'])
 @login_required
 def mobileconfirm():
-    app.pages="mobile confirmation"
-    print('MOBILECONFIRM',request.method,request.url)
+    page_name = 'mobile-confirm'
+    page_function = 'mobileconfirm'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = 'form_mobile_confirmation.html'
+    log_page(page_name, page_function, page_template,page_form)
+
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
     profileChangeForm = UserProfileChangeForm()
@@ -1123,25 +1042,15 @@ def mobileconfirm():
         ,alreadyconfirmed=subscriber.mobileConfirmed
         )
 
-    #print('   ###activeTAB',varActiveTAB)
-    # load userprofile template
-    # return render_template('authorization/page_templates/userprofile_template.html'
-    #                         ,userprofiledisplay_form=profileDisplayForm
-    #                         ,userprofilechange_form=profileChangeForm
-    #                         ,passwordchange_form=passwordchangeForm
-    #                         ,mobileconfirmation_form=form
-    #                         ,emailconfirmation_form=emailConfirmForm
-    #                         ,avatarupload_form=avatarUploadForm
-    #                         ,activeTAB=varActiveTAB
-    #                         ,title=varTitle
-    #                         ,pages=app.pages
-    #                         )
-
 @authorization.route('/emailconfirmrequest/<email>', methods=['GET', 'POST'])
 #@login_required
 def emailconfirmrequest(email):
-    app.pages="email verification request"
-    print('EMAILCONFIRMREQUEST',request.method,request.url)
+    page_name = 'email-confirmation-request'
+    page_function = 'emailconfirmrequest'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = 'form_email_confirmation.html'
+    log_page(page_name, page_function, page_template,page_form)
+
     form = emailConfirmationForm()
     form.email.data = email
     #subscriber = Subscriber.query.filter_by(email=current_user.email).first()
@@ -1188,7 +1097,12 @@ def emailconfirmrequest(email):
 
 @authorization.route('/passwordreset/<email>', methods=['GET', 'POST'])
 def password_reset(email=''):
-    print('PASSWORDRESET',request.method,request.url,'email=',email)
+    page_name = 'password-reset-request'
+    page_function = 'passwordreset'
+    page_template = 'authorization/page_templates/userprofile_template.html'
+    page_form = 'form_password_reset.html'
+    log_page(page_name, page_function, page_template,page_form)
+
     form = PasswordReSetForm()
     varTitle='Password Reset'
     form.email.data=email
@@ -1217,298 +1131,186 @@ def password_reset(email=''):
                             ,passwordreset=subscriber.passwordReset
                             )
 
-###########################################################
-###################splash forms############################
-###########################################################
-@authorization.route('/loginForm', methods=['GET','POST'])
-def loginForm():
-    init_form_options()
-    init_active_menuoptions()
-    print('LOGIN-FORM',request.method,request.url)
-    print('LOGIN-FORM',request.method,'lastpage',app.lastpage)
-    print('LOGIN-FORM',request.method,'lastpage_html',app.lastpage_html)
-    form = LoginForm()
-    print('LOGIN-FORM',request.method,'form',form)
-    print('LOGIN-FORM',request.method,'email',form.email.data)
-    # if request.method=='POST':
-    #     print('LOGIN-FORM',request.method,'action',request.form['action'])
-    #     if request.form['action'] == 'forget_password':
-    #         print('LOGIN-FORM',request.method,'FORGET PASSWORD REQUESTED')
-    #         return redirect(url_for('authorization.forgetpassword',email=form.email.data))
-
-    if not(form.validate_on_submit()):
-        print('LOGIN-FORM',request.method,'FORM INPUT HAS ERRORS')
-    else:    
-        print('LOGIN-FORM',request.method,'FORM INPUT IS OK')
-        print('LOGIN-FORM',request.method,'SERVER SIDE VALIDATION START')
-        print('LOGIN-FORM',request.method,'buttons',form.forgetPassword.data,form.submit.data)
-        #check which sibmit button was pushed
-        if form.forgetPassword.data:
-            print('LOGIN-FORM',request.method,'FORGET PASSWORD REQUESTED')
-            #return redirect(url_for('authorization.forgetpassword',email=form.email.data))
-            return render_template(
-                app.lastpage_html
-                ,forgetpasswordform=forgetPasswordForm()
-                ,activeTAB='forgetpassword'
-                ,splash_form='forgetpassword'
-                )
-        else:
-            print('LOGIN-FORM',request.method,'LOGIN REQUESTED')
-
-        try:
-            captcha_response = request.form['g-recaptcha-response']
-        except:
-            captcha_response = '???'
-        if not(is_human(captcha_response)):
-            flash("Sorry ! Bots are not allowed.",'error')
-        else:
-            print('LOGIN-FORM',request.method,'RECAPTCHA OK. check subscriber')
-            #flash("Recaptcha OK, Login Details submitted successfully.",'success')
-            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
-            #print('   ###----',"Subscriber",subscriber)
-            if subscriber is None:
-                print('LOGIN-FORM',request.method,'subscriber NOT FOUND')
-                flash("invalid email or password",'error')
-            else:
-                print('LOGIN-FORM',request.method,'subscriber found')
-                if not(subscriber.emailConfirmed):
-                    print('LOGIN-FORM',request.method,'subscriber email NOT confirmed yet',subscriber.email)
-                    flash("please Activate Your Email before Login","error")
-                    return redirect(url_for('authorization.emailconfirmrequest', email=subscriber.email))
-                else:
-                    print('LOGIN-FORM',request.method,'subscriber email OK',subscriber.email)
-                    if not(subscriber.verify_password(form.password.data)):
-                        print('LOGIN-FORM',request.method,'subscriber password ERROR',subscriber.email)
-                        flash("invalid email or password",'error')
-                    else:
-                        print('LOGIN-FORM',request.method,'all OK',subscriber.email)
-                        subscriber.lastLoginDT=datetime.now()
-                        db.session.commit()
-                        print('LOGIN-FORM',request.method,'lastloginDT commit in DB')
-                        # login the user
-                        login_user(subscriber)
-                        print('LOGIN-FORM',request.method,'subscriber login')
-                        flash('You have successfully logged-in as {}.'.format(form.email.data),'success')
-                        # redirect to the appropriate dashboard page
-                        print('LOGIN-FORM',request.method,'OK redirect')
-                        if subscriber.isAdmin:
-                            print('LOGIN-FORM',request.method,'subscriber is Admin. goto admin_dashboard')
-                            # SUCCESS!!! send to the admin page
-                            return redirect(url_for('authorization.admin_dashboard'))
-                        else:
-                            print('LOGIN-FORM',request.method,'goto lastpage',app.lastpage)
-                            # SUCCESS!!! send to the last page
-                            return redirect(url_for(app.lastpage))
-
-    print('LOGIN-FORM','RETURN',app.lastpage_html,'with splash_form','login')
-    #flash("www=please login!!!",'warning')
-    #flash("sss=please login!!!",'success')
-    #flash("iii=please login!!!",'info')
-    #flash("eee=please login!!!",'error')
-    return render_template(
-        app.lastpage_html
-        ,loginform=form
-        ,activeTAB='login'
-        ,splash_form='login'
-        )
-
-@authorization.route('/registrationForm', methods=['GET','POST'])
-def registrationForm():
-    init_form_options()
-    init_active_menuoptions()
-    print('REGISTRATION-FORM',request.method,request.url)
-    print('REGISTRATION-FORM',request.method,'lastpage',app.lastpage)
-    print('REGISTRATION-FORM',request.method,'lastpage_html',app.lastpage_html)
-    form = RegistrationForm()
-    if not(form.validate_on_submit()):
-        print('REGISTRATION-FORM',request.method,'FORM INPUT HAS ERRORS')
-    else:    
-        print('REGISTRATION-FORM',request.method,'FORM INPUT IS OK')
-        print('REGISTRATION-FORM',request.method,'SERVER SIDE VALIDATION START')
-        try:
-            captcha_response = request.form['g-recaptcha-response']
-        except:
-            captcha_response = '???'
-        if not(is_human(captcha_response)):
-            flash("Sorry ! Bots are not allowed.",'error')
-        else:
-            print('REGISTRATION-FORM',request.method,'RECAPTCHA OK. check subscriber')
-            #flash("Recaptcha OK, Login Details submitted successfully.",'success')
-            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
-            if subscriber :
-                flash('You are already registered!','warning')
-                print('REGISTRATION-FORM',request.method,'subsrciber already registered. redirect to login')
-                return redirect(url_for('authorization.loginForm'))
-            
-            print('REGISTRATION-FORM',request.method,'subsrciber record build')
-            subscriber = Subscriber(
-                email=form.email.data
-                ,firstName=form.firstName.data
-                ,lastName=form.lastName.data
-                ,password=form.password.data
-                ,registeredDT=datetime.now()
-                ,userName=form.userName.data
-                ,mobile=form.mobile.data
-                )
-            if subscriber.userName:
-                if Subscriber.query.filter_by(userName=subscriber.userName).first():
-                    subscriber.userName=subscriber.userName+'01'
-                    print('REGISTRATION-FORM',request.method,'subsrciber username set to ',subscriber.userName)
-
-            # add subscriber to the database
-            db.session.add(subscriber)
-            print('REGISTRATION-FORM',request.method,'subsrciber added to DB')
-            db.session.commit()
-            print('REGISTRATION-FORM',request.method,'subsrciber added to DB. commit OK')
-            flash('You have successfully registered!','success')
-            print('REGISTRATION-FORM',request.method,'subsrciber added OK')
-
-            # genereate an email activation code
-            print('REGISTRATION-FORM',request.method,'send email to ',subscriber.email)
-            result=send_emailconfirmation_email(subscriber.email)
-            if result!='OK':
-                #error_text=result.dumps()
-                print('REGISTRATION-FORM',request.method,'send email FAILED',result)
-                ErrorMsg='Failed to send confirmation email. Request a New Confirmation Email'
-                flash(result, 'error')
-            else:
-                flash('an activation email has been sent to {}.'.format(subscriber.email),'warning')
-                flash('open this email and click the provided link in order to activate Your account','info')
-                print('REGISTRATION-FORM',request.method,'activation email send.redirect to login',result)
-                return redirect(url_for(app.lastpage))
-    
-    # flash the errors if not already registered
-    is_already_registered=False
-    for msg in form.email.errors:
-        if "is already in use" in msg:
-            is_already_registered=True
-    if not(is_already_registered):
-        flash_errors(form)
-
-    print('REGISTRATION-FORM','RETURN',app.lastpage_html,'with splash_form','registration')
-    return render_template(
-        app.lastpage_html
-        ,registrationform=form
-        ,activeTAB='registration'
-        ,splash_form='registration'
-        )
-
-@authorization.route('/contactForm', methods=['GET', 'POST'])
-def contactForm():
-    init_form_options()
-    print('CONTACT-FORM',request.method,request.url)
-    print('CONTACT-FORM',request.method,'lastpage',app.lastpage)
-    print('CONTACT-FORM',request.method,'lastpage_html',app.lastpage_html)
-    form = ContactUsForm()
-    if not(form.validate_on_submit()):
-        print('CONTACT-FORM',request.method,'FORM INPUT HAS ERRORS')
-    else:    
-        print('CONTACT-FORM',request.method,'FORM INPUT IS OK')
-        print('CONTACT-FORM',request.method,'SERVER SIDE VALIDATION START')
-        contactmessage = ContactMessage(
-                            email=form.email.data,
-                            message=form.contact_message.data,
-                            firstName=form.firstName.data,
-                            lastName=form.lastName.data,
-                            company=form.company.data,
-                            jobTitle=form.jobTitle.data,
-                            mobile="",
-                            receivedDT=datetime.now()
-                            )
-        ## add contactmessage to the database
-        db.session.add(contactmessage)
-        db.session.commit()
-        flash('Thank You. Your contact reference is {}'.format(contactmessage.id),'success')
-        result=send_messagereceiveconfirmation_email(form.email.data,contactmessage.id)
-        if result=='OK':
-            flash('a receive confirmation email has been sent to {}'.format(form.email.data), 'info')
-            flash('please open this email and click the provided link to confirm Your email','info')
-        else:
-            #error_text=result.dumps()
-            ErrorMsg='Failed to send message receive email. Retry'
-            flash(ErrorMsg, 'error')
-        return redirect(url_for(app.lastpage))
-
-    print('CONTACT-FORM','RETURN',app.lastpage_html,'with splash_form','contactus')
-    return render_template(
-        app.lastpage_html
-        ,contactusform=form
-        ,splash_form='contactus'
-        )
-
-@authorization.route('/forgetpassword/<email>', methods=['GET', 'POST'])
-def forgetpassword(email=''):
-    print('FORGETPASSWORD',request.method,request.url,'email',email)
-    form = forgetPasswordForm()
-    form.email.data=email
-    print('FORGETPASSWORD',request.method,form)
-    print('FORGETPASSWORD',request.method,'email',form.email.data)
-    print('---email=',form.email.data)
-    if form.validate_on_submit():
-        #print('recaptcha=',form.recaptcha)
-        # recaptcha method1 OK. thanks google
-        captcha_response = request.form['g-recaptcha-response']
-        #print('   captcha_response = ',captcha_response)
-        if not(is_human(captcha_response)):
-            # Log invalid attempts
-            flash("Sorry ! Bots are not allowed.",'error')
-        else:
-            # Process request here
-            #print('   ###',"Recaptcha OK, Login Details submitted successfully.")
-            #flash("Recaptcha OK, Login Details submitted successfully.",'success')
-            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
-            if subscriber is None:
-                flash("invalid email",'error')
-            else:
-                result=send_passwordreset_email(subscriber.email)
-                if result=='OK':
-                    flash('a password reset link has been sent to {}'.format(subscriber.email),'warning')
-                    flash('please open this email and click the provided link to reset Your Password','info')
-                else:
-                    #error_text=result.dumps()
-                    ErrorMsg='Failed to send password reset email. Retry'
-                    flash(ErrorMsg, 'error')
-
-    # load passsword_forget template
-    print('FORGETPASSWORD','RETURN',app.lastpage_html,'with splash_form','forgetpassword')
-    #return render_template('authorization/page_templates/authorization_forms_template.html'
-    #                        app.lastpage_html
-    #                        ,forgetpasswordform=form
-    #                        ,formPage='form_forget_splash.html'
-    #                        ,splashform='forgetpassword'
-    #                        )
-    return render_template(
-        app.lastpage_html
-        ,forgetpasswordform=form
-        ,splash_form='forgetpassword'
-        )
-
-###########################################################
-###################experimental forms######################
-###########################################################
-@authorization.route('/myBank')
+#############################################################
+#############################################################
+#############################################################
+### routes: confirmation pages with email link, after send emal or sms etc.
+#############################################################
+#############################################################
+#############################################################
+@authorization.route('/logout')
 @login_required
-def myBank():
-    app.pages=app.pages+" / " +"my Bank"
-    print('MYBANK',request.method,request.url)
-    """Renders the app(myBank) home page."""
-    return render_template(
-        'mybank/mybank_index.html'
-        ,title='myBank'
-        ,pages=app.pages
-        ,message='open banking prototype........'
-    )
+def logout():
+    log_route('logout', 'logout')
+    logout_user()
+    flash('You have successfully logged out.','success')
+    return redirect(session['lastpageURL'])
 
-@authorization.route('/myGame')
-def myGame():
-    print('MYGAME',request.method,request.url)
-    """Renders the app(myBank) home page."""
-    return render_template(
-        'myGame/myGame.html'
-        ,title='myGame'
-        ,pages=app.pages
-        ,message='gaming prototype........'
-    )
+@authorization.route('/sendconfirmationemail', methods=['POST','GET'])
+def send_confirmation_email():
+    log_route('send-confirmation-email', 'send_confirmation_email')
+    form = emailConfirmationForm()
+    subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+    if subscriber is None:
+        form.email.errors.append("invalid email")
+        varTitle='User Profile : ???'
+    else:
+        form.email.data = subscriber.email
+        varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
+    if request.method == 'GET':
+        if subscriber.emailConfirmed:
+           flash('email already confirmed.', 'error')
+    subscriber.emailConfirmed=False
+    subscriber.emailConfirmedDT=None
+    db.session.commit()
+    result=send_emailconfirmation_email(subscriber.email)
+    if result=='OK':
+        flash('an activation link has been sent to {}'.format(subscriber.email),'warning')
+        flash('please open this email and click the provided link to activate Your new email','info')
+    else:
+        #error_text=result.dumps()
+        ErrorMsg='Failed to send confirmation email'
+        flash(ErrorMsg, 'error')
+
+    return redirect(url_for('authorization.login'))
+
+@authorization.route('/sendtestemail', methods=['POST','GET'])
+def sendtestemail():
+    log_route('send-test-email', 'sendtestemail')
+    test_email='philippos.leandrou@gmail.com'
+    result=send_email_test(test_email)
+    if result=='OK':
+        flash('an activation link has been sent to {}'.format(test_email),'warning')
+        flash('please open this email and click the provided link to activate Your new email','info')
+    else:
+        #error_text=result.dumps()
+        ErrorMsg='Failed to send confirmation email'
+        flash(ErrorMsg, 'error')
+
+    return redirect(url_for('authorization.login'))
+
+@authorization.route('/sendconfirmationsms', methods=['POST','GET'])
+def send_confirmation_sms():
+    log_route('send-confirmation-sms', 'sendconfirmationsms')
+    subscriber = Subscriber.query.filter_by(id=current_user.id).first()
+    code=generate_mobileconfirmation_code(subscriber.mobile)
+    subscriber.mobileConfirmationCode=code
+    subscriber.mobileConfirmationCodeDT=datetime.now()
+    subscriber.mobileConfirmed=False
+    subscriber.mobileConfirmedDT=None
+    db.session.commit()
+    result=send_mobileconfirmation_sms(code)
+    if result=='OK':
+        flash('a confirmation code has been sent via sms to {}. Use this code to confirm your mobile'.format(subscriber.mobile), 'success')
+        return redirect(url_for('authorization.mobileconfirm'))
+    else:
+        #error_text=result.dumps()
+        ErrorMsg='Failed to send confirmation code via sms. Request a new mobile confirmation Code'
+        flash(ErrorMsg, 'error')
+        return redirect(url_for('authorization.mobileconfirm'))
+
+@authorization.route('/confirm/<token>')
+def emailconfirm(token):
+    log_route('confirm-email', 'emailconfirm')
+    try:
+        email = confirm_token(token,3600)
+    except:
+        flash('The confirmation link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.userprofile'))
+
+    if not(email):
+        flash('The confirmation link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.userprofile'))
+
+    user = Subscriber.query.filter_by(email=email).first_or_404()
+    if user.emailConfirmed:
+        flash('Email already confirmed. Please login.', 'info')
+    else:
+        user.emailConfirmed = True
+        user.emailConfirmedDT = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('You have confirmed your Email. Thanks!', 'success')
+
+    return redirect(url_for('authorization.login'))
+
+@authorization.route('/passwordresetverification/<token>')
+def passwordresetverification(token):
+    log_route('confirm-password-reset', 'passwordresetverification')
+    try:
+        email = confirm_token(token,3600)
+    except:
+        flash('The password reset link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.login'))
+
+    if not(email):
+        flash('The password reset link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.login'))
+
+    subscriber = Subscriber.query.filter_by(email=email).first_or_404()
+    if not(subscriber):
+        flash('The password reset link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('authorization.login'))
+
+    subscriber.passwordReset=True
+    db.session.commit()
+    flash('Your Password has been reset. Please define Your password.', 'success')
+    return redirect(url_for('authorization.password_reset',email=email))
+
+@authorization.route('/contactemailverification/<token>')
+def contactemailverification(token):
+    log_route('confirm-conatct-email', 'contactemailverification')
+    try:
+        tokenStr = confirm_token(token,3600)
+    except:
+        flash('The link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('homepage'))
+
+    if not(tokenStr):
+        flash('The link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('homepage'))
+
+    print('tokenStr',tokenStr)
+    x=tokenStr.split('-',1)
+    contactID=x[0]
+    print('CONTACT-ID',contactID)
+    contactmessage=ContactMessage.query.filter_by(id=contactID).first_or_404()
+    if not(contactmessage):
+        flash('The link is invalid or has expired.Retry', 'warning')
+        return redirect(url_for('homepage'))
+    contactmessage.confirmed=True
+    contactmessage.confirmedDT=datetime.now()
+    db.session.commit()
+    flash('Your Message has been received. We will contact You ASAP.', 'success')
+    subscriber = Subscriber.query.filter_by(email=contactmessage.email).first()
+    if subscriber is None:
+        # add as subscriber
+        subscriber = Subscriber(
+            email=contactmessage.email
+            ,firstName=contactmessage.firstName
+            ,lastName=contactmessage.lastName
+            ,jobTitle=contactmessage.jobTitle
+            ,company=contactmessage.company
+            ,registeredDT=datetime.now()
+            )
+        subscriber.mobile=''
+        subscriber.userName=''
+        subscriber.confirmed=None
+        subscriber.confirmedDT=None
+
+        db.session.add(subscriber)
+        db.session.commit()
+        flash('You email has been registered!','success')
+    else:
+        if not(subscriber.emailConfirmed):
+            #confirm the susbscriber
+            subscriber.emailConfirmed = True
+            subscriber.emailConfirmedDT = datetime.now()
+            #db.session.add(subscriber)
+            db.session.commit()
+            flash('You have confirmed your Email. Thanks!', 'success')
+
+    return redirect(url_for('homepage'))
 
 #@authorization.route('/fblogin')
 #def loginwithfb():
@@ -1534,10 +1336,268 @@ def myGame():
 #@facebook.tokengetter
 #def get_facebook_oauth_token():
 #    return session.get('oauth_token')
+###########################################################
+###########################################################
+###########################################################
+#splash forms 
+###########################################################
+###########################################################
+###########################################################
+@authorization.route('/loginForm', methods=['GET','POST'])
+def loginForm():
+    page_name = 'login-splash-form'
+    page_function = 'loginForm'
+    page_template = ''
+    page_form = 'splash_form_login.html'
+    log_splash_page(page_name, page_function, page_template, page_form)
+    log_variable('lastpageHTML',session['lastpageHTML'])
+    form = LoginForm()
+    log_info('form content is:')
+    log_variable('form.email.data',form.email.data)
+    log_variable('form.forgetPassword.data',form.forgetPassword.data)
+    log_variable('form.submit.data',form.submit.data)
 
-#@app.after_request
-#def store_visited_urls():
-#    session['urls'].append(request.url)
-#    if len(session['urls']) > 5:
-#        session['urls'].pop(0)
-#    session.modified = True
+    #check if forgetPassword submit button was pushed
+    if form.forgetPassword.data:
+        log_info('forgetPassword button pushed...')
+        log_info('return template [{0}] with splash_form={1} and forgetpasswordform=...'.format(session['lastpageHTML'],'forgetpassword'))
+        return render_template(
+            session['lastpageHTML']
+            ,forgetpasswordform=forgetPasswordForm()
+            ,activeTAB='forgetpassword'
+            ,splash_form='forgetpassword'
+            )
+
+    if not(form.validate_on_submit()):
+        log_info('form input has ERRORS...')
+    else:    
+        log_info('form input is OK...')
+        form.eyecatch.data = 'tispaolas'
+        log_info('start server side validations...')
+        try:
+            captcha_response = request.form['g-recaptcha-response']
+        except:
+            captcha_response = '???'
+        if not(is_human(captcha_response)):
+            flash("Sorry ! Bots are not allowed.",'error')
+        else:
+            log_info('RECAPTCHA is OK. check subscriber...')
+            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+            if subscriber is None:
+                log_info('subscriber Not Found:{0}'.format(form.email.data))
+                flash("invalid email or password",'error')
+            else:
+                log_info('subscriber Found:{0}'.format(form.email.data))
+                if not(subscriber.emailConfirmed):
+                    log_info('email NOT confirmed yet...{0}'.format(form.email.data))
+                    flash("please Activate Your Email before Login","error")
+                    log_info('redirect to authorization.emailconfirmrequest')
+                    return redirect(url_for('authorization.emailconfirmrequest', email=subscriber.email))
+                else:
+                    log_info('email OK. check the password...')
+                    if not(subscriber.verify_password(form.password.data)):
+                        log_info('password ERROR...'.format(form.email.data))
+                        flash("invalid email or password",'error')
+                    else:
+                        log_info('OK-server side validations passed...')
+                        log_info('set lastLoginDT, timesLogin, etc ')
+                        subscriber.lastLoginDT=datetime.now()
+                        db.session.commit()
+                        log_info('update database and commit')
+
+                        # login the user
+                        login_user(subscriber)
+                        log_info('user has been login...')
+                        flash('You have successfully logged-in as {}.'.format(form.email.data),'success')
+
+                        # redirect to the appropriate dashboard page
+                        print('LOGIN-FORM',request.method,'OK, redirect accordingly...')
+                        
+                        # SUCCESS!!! send to the last page
+                        if subscriber.isAdmin:
+                            log_info('subscriber isAdmin, redirect to administration.homepage')
+                            return redirect(url_for('administration.homepage'))
+                        else:
+                            log_info('subscriber is Not Admin, redirect to last page:{0}'.format(session['lastpageURL']))
+                            return redirect(session['lastpageURL'])
+    log_info('return template [{0}] with splash_form={1} and loginform=...'.format(session['lastpageHTML'],'login'))
+    return render_template(session['lastpageHTML']
+        ,splash_form='login'
+        ,loginform=form
+        )
+
+@authorization.route('/registrationForm', methods=['GET','POST'])
+def registrationForm():
+    page_name = 'registration-splash-form'
+    page_function = 'registrationForm'
+    page_template = ''
+    page_form = 'splash_form_register.html'
+    log_splash_page(page_name, page_function, page_template, page_form)
+
+    form = RegistrationForm()
+    if not(form.validate_on_submit()):
+        dummy=1
+    else:    
+        try:
+            captcha_response = request.form['g-recaptcha-response']
+        except:
+            captcha_response = '???'
+        if not(is_human(captcha_response)):
+            flash("Sorry ! Bots are not allowed.",'error')
+        else:
+            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+            if subscriber :
+                flash('You are already registered!','warning')
+                #return redirect(url_for('authorization.loginForm'))
+                loginform = LoginForm()
+                loginform.email.data = form.email.data
+                return render_template(session['lastpageHTML']
+                    ,splash_form='login'
+                    ,loginform=loginform
+                    )
+            
+            subscriber = Subscriber(
+                email=form.email.data
+                ,firstName=form.firstName.data
+                ,lastName=form.lastName.data
+                ,password=form.password.data
+                ,registeredDT=datetime.now()
+                ,userName=form.userName.data
+                ,mobile=form.mobile.data
+                )
+            if subscriber.userName:
+                if Subscriber.query.filter_by(userName=subscriber.userName).first():
+                    subscriber.userName=subscriber.userName+'01'
+                    print('REGISTRATION-FORM',request.method,'subsrciber username set to ',subscriber.userName)
+
+            # add subscriber to the database
+            db.session.add(subscriber)
+            db.session.commit()
+            flash('You have successfully registered!','success')
+
+            # genereate an email activation code
+            result=send_emailconfirmation_email(subscriber.email)
+            if result!='OK':
+                #error_text=result.dumps()
+                ErrorMsg='Failed to send confirmation email. Request a New Confirmation Email'
+                flash(result, 'error')
+            else:
+                flash('an activation email has been sent to {}.'.format(subscriber.email),'warning')
+                flash('open this email and click the provided link in order to activate Your account','info')
+                return render_template(session['lastpageHTML'])
+
+    # flash the errors if not already registered
+    # is_already_registered=False
+    # for msg in form.email.errors:
+    #     if "is already in use" in msg:
+    #         is_already_registered=True
+    # if not(is_already_registered):
+    #     flash_errors(form)
+
+    #print('REGISTRATION-FORM','RETURN',session['lastpageHTML'],'with splash_form','registration')
+    return render_template(session['lastpageHTML']
+        ,registrationform=form
+        ,splash_form='registration'
+        )
+
+@authorization.route('/contactForm', methods=['GET', 'POST'])
+def contactForm():
+    page_name = 'contactform-splash-form'
+    page_function = 'contactForm'
+    page_template = ''
+    page_form = 'splash_form_contactus.html'
+    log_splash_page(page_name, page_function, page_template, page_form)
+
+    form = ContactUsForm()
+    if not(form.validate_on_submit()):
+        dummy = 1 
+    else:    
+        contactmessage = ContactMessage(
+                            email=form.email.data,
+                            message=form.contact_message.data,
+                            firstName=form.firstName.data,
+                            lastName=form.lastName.data,
+                            company=form.company.data,
+                            jobTitle=form.jobTitle.data,
+                            mobile="",
+                            receivedDT=datetime.now()
+                            )
+        ## add contactmessage to the database
+        db.session.add(contactmessage)
+        db.session.commit()
+        flash('Thank You. Your contact reference is {}'.format(contactmessage.id),'success')
+        result=send_messagereceiveconfirmation_email(form.email.data,contactmessage.id)
+        if result=='OK':
+            flash('a receive confirmation email has been sent to {}'.format(form.email.data), 'info')
+            flash('please open this email and click the provided link to confirm Your email','info')
+        else:
+            ErrorMsg='Failed to send message receive email. Retry'
+            flash(ErrorMsg, 'error')
+        #OK
+        return render_template(
+            session['lastpageHTML']
+            )
+    print('CONTACT-FORM','RETURN',session['lastpageHTML'],'with splash_form','contactus')
+    return render_template(
+        session['lastpageHTML']
+        ,contactusform=form
+        ,splash_form='contactus'
+        )
+
+@authorization.route('/forgetpassword/<email>', methods=['GET', 'POST'])
+def forgetpassword(email=''):
+    page_name = 'forgetpassword-splash-form'
+    page_function = 'forgetpassword'
+    page_template = ''
+    page_form = 'splash_form_forgetpassword.html'
+    log_splash_page(page_name, page_function, page_template, page_form)
+
+    form = forgetPasswordForm()
+    form.email.data=email
+    if form.validate_on_submit():
+        captcha_response = request.form['g-recaptcha-response']
+        if not(is_human(captcha_response)):
+            flash("Sorry ! Bots are not allowed.",'error')
+        else:
+            subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+            if subscriber is None:
+                flash("invalid email",'error')
+            else:
+                result=send_passwordreset_email(subscriber.email)
+                if result=='OK':
+                    flash('a password reset link has been sent to {}'.format(subscriber.email),'warning')
+                    flash('please open this email and click the provided link to reset Your Password','info')
+                else:
+                    ErrorMsg='Failed to send password reset email. Retry'
+                    flash(ErrorMsg, 'error')
+
+    return render_template(session['lastpageHTML']
+        ,forgetpasswordform=form
+        ,splash_form='forgetpassword'
+        )
+# @authorization.route('/cookiesconsentform', methods=['GET', 'POST'])
+# def cookiesconsentform():
+#     page_name = 'cookiesconsentform-splash-form'
+#     page_function = 'cookiesconsentform'
+#     page_template = ''
+#     page_form = 'splash_form_cookiesconsent.html'
+#     log_splash_page(page_name, page_function, page_template, page_form)
+
+#     form = CookiesConsentForm()
+#     if not(form.validate_on_submit()):
+#         dummy = 1 
+#     else:    
+#         ## add contactmessage to the database
+#         #db.session.add(contactmessage)
+#         #db.session.commit()
+#         session['cookies_consent'] = "1"
+#         flash('Thank You. Your data are protected','success')
+#         #OK
+#         return render_template(
+#             session['lastpageHTML']
+#             )
+#     return render_template(
+#         session['lastpageHTML']
+#         ,cookiesconsentform=form
+#         ,splash_form='cookiesconsent'
+#         )

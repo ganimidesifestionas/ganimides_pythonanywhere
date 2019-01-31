@@ -854,9 +854,9 @@ def upload_avatar():
         #print('---emptyAvatarType=',form.emptyAvatarType.data)
         #print('---photo=',form.photo.data)
         if 'photo' not in request.files and form.emptyAvatarType.data in (['M','F']):
-            subscriber.avatarImageFile='../../static/images/icon_user_woman.png'
+            subscriber.avatarImageFile='/static/images/icon_user_woman.png'
             if form.emptyAvatarType.data=='M':
-                subscriber.avatarImageFile='../../static/images/icon_user_man.png'
+                subscriber.avatarImageFile='/static/images/icon_user_man.png'
             db.session.commit()
             flash('Your Picture has been set to an empty {} avatar.'.format(form.emptyAvatarType.data),'success')
             #success redirect to userprofile
@@ -895,7 +895,7 @@ def upload_avatar():
                     fullpathfile = os.path.join(app.root_path ,'static/avatars', filename)
                     #print('   ','fullpathfile3=',fullpathfile)
                     file.save(fullpathfile)
-                    subscriber.avatarImageFile='../../static/avatars/'+filename
+                    subscriber.avatarImageFile='/static/avatars/'+filename
                     db.session.commit()
                     #success redirect to userprofile
                     return redirect(url_for('home.userprofile'))

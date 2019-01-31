@@ -5,7 +5,7 @@
         {% if current_user.avatarImageFile %}
         {% set avatarImageFile=current_user.avatarImageFile %}
         {% else %}
-        {% set avatarImageFile='../../static/images/icon_avatar_default.png' %}
+        {% set avatarImageFile='/static/images/icon_avatar_default.png' %}
         {% endif %}
         <img class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
     </div>

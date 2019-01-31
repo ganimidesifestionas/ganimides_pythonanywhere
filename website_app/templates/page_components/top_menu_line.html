@@ -66,7 +66,7 @@
                         <li class="{{prototypes_is_active}} nav-item dropdown"><a title="our prototypes" class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Prototypes&nbsp;</a>
                             <div class="dropdown-menu header_menu_dropdown_list" aria-labelledby="ProtoTypesDropdownList">
                                 <a class="dropdown-item" href="/myBank">MyBank</a>
-                                <a class="dropdown-item" href="{{url_for('authorization.myGame')}}">MyGame</a>
+                                <a class="dropdown-item" href="{{url_for('myGame')}}">MyGame</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
                                 <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
                                 <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
@@ -123,7 +123,7 @@
                         <!-- option-1:Search -->
                         <li class="nav-item dropdown d-md-none">
                             <a class="nav-link" Style="color:red" id="searchform" data-toggle="tooltip" title="search" data-placement="bottom" href="javascript:function(){document.getElementById('top-menu-search').show();}">
-                                <img class="menu_image" src="{{image_file('icon_search.gif')}}" alt="search" onmouseover="this.src = '../../static/images/icon_search_green.gif';" onmouseout="this.src = '../../static/images/icon_search.gif';" />
+                                <img class="menu_image" src="{{image_file('icon_search.gif')}}" alt="search" onmouseover="this.src = '/static/images/icon_search_green.gif';" onmouseout="this.src = '/static/images/icon_search.gif';" />
                             </a>
                             <div class="dropdown-menu p-0 m-0" aria-labelledby="searchform">
                                 <form class="xform-inline mt-0 mt-md-0 top-menu-navbar-search-form">
@@ -153,7 +153,7 @@
                             <a class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
                             <div class="dropdown-menu p-0 m-0 support_menu_dropdown_list" aria-labelledby="helpDropdownList">
                                 <a class="dropdown-item" href="/myBank">MyBank</a>
-                                <a class="dropdown-item" href="{{url_for('authorization.myGame')}}">MyGame</a>
+                                <a class="dropdown-item" href="{{url_for('myGame')}}">MyGame</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
                                 <a class="dropdown-item" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
                                 <div class="dropdown-divider p-0 m-0"></div>

@@ -1,0 +1,68 @@
+<form class="administration-page" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
+    <fieldset>
+        {{ avatarupload_form.hidden_tag() }}
+        <div class="modal-header align-items-center">
+            <h1 class="modal-title mx-auto" id="login_modal_form_Label">Upload Your Avatar</h1>
+            <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="administration-page-line"></div>
+
+        <div class="modal-body pb-0 pt-0">
+            <div class="d-flex flex-column ">
+                <div class="d-flex justify-content-between p-1">
+                    {% if current_user.avatarImageFile %}
+                    {% set avatarImageFile=current_user.avatarImageFile %}
+                    {% else %}
+                    {% set avatarImageFile='/static/images/icon_avatar_default.png' %}
+                    {% endif %}
+                    <img class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
+                </div>
+                <div class="p-0">
+                    {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
+                    <div class="p-0 left">
+                        <!--===================================================-->
+                        <!-- empty avatar selection-->
+                        <div class="form-group form-check p-0 d-flex align-items-center h-100 w-100 justify-content-between">
+                            <div class="form-check-inline">
+                                <label class="form-check-label" for="radio1">
+                                    <input type="radio" class="form-check-input" id="radio1" name="emptyAvatarType" value="F">empty female avatar
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label" for="radio2">
+                                    <input type="radio" class="form-check-input" id="radio2" name="emptyAvatarType" value="M">empty male avatar
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- select a photo-->
+                        <div class="w-100 p-1 m-1" style="text-align:center;">
+                            {{ avatarupload_form.photo(class='upload_file') }}
+                            {% for error in avatarupload_form.photo.errors %}
+                            <span class="text-note" style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+
+                        <!-- moderate a photo with a 3rd party tool-->
+                        <div class="w-100 p-1 m-1" style="text-align:center;">
+                            <p class="text-note p-0 m-0 small">Image moderation with&nbsp;<a target="_blank" href="https://sightengine.com/">Sightengine</a></p>
+                        </div>
+
+                        <!--===================================================-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="administration-page-line"></div>
+        <div class="modal-footer d-flex justify-content-end">
+            <div class="mr-1">
+                <input class="btn btn-default btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
+            </div>
+            <div class="">
+                {{avatarupload_form.submit(class="btn btn-warning btn-block")}}
+            </div>
+        </div>
+    </fieldset>
+</form>

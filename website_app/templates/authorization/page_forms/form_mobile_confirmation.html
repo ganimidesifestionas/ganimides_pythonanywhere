@@ -1,7 +1,7 @@
 {% if alreadyconfirmed %}
 {% set alreadyconfirmedStr='disable' %}
 {% endif %}
-<form class="authorization-form" id="mobileconfirm" action="{{ url_for('authorization.mobileconfirm') }}" method="post" role="form" autocomplete="on" novalidate>
+<form class="authorization-page" id="mobileconfirm" action="{{ url_for('authorization.mobileconfirm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ mobileconfirmation_form.hidden_tag() }}
         <div class="modal-header align-items-center">
@@ -9,7 +9,7 @@
             <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="authorization-page-line"></div>
 
         <div class="modal-body">
             <div class="d-flex flex-column">
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="authorization-page-line"></div>
 
         <div class="modal-footer d-flex justify-content-end">
             {% if alreadyconfirmed %}

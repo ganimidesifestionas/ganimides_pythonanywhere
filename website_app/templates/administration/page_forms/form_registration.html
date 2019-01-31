@@ -1,0 +1,171 @@
+{% set secure_text='Your information is secured and protected.' %}
+{% set include_mcafee='Y' %}
+<form class="administration-page" id="RegistrationForm" action="{{ url_for('authorization.registrationForm') }}" method="post" role="form" autocomplete="on" novalidate>
+    <fieldset>
+        {{ registrationform.hidden_tag() }}
+        <div class="modal-header align-items-center">
+            <h1 class="modal-title mx-auto" id="registration_modal_form_Label">Registration</h1>
+            <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="administration-page-line"></div>
+        <div class="modal-body">
+            <div class="d-flex flex-column">
+                <div class="p-0">
+                    {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT','authorization'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
+                    <div class="p-0 left">
+                        <!--===================================================-->
+                        <div class="d-flex flex-row justify-content-between">
+                            <div class="form-group d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{registrationform.firstName.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if registrationform.firstName.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ registrationform.firstName(size=32, class="form-control input-style ") }}
+                                {% for error in registrationform.firstName.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group d-flex flex-column ml-1">
+                                <div class="d-flex flex-row">
+                                    <div>
+                                        {{ registrationform.lastName.label }}
+                                    </div>
+                                    <div>
+                                        <span style="color:red">{% if registrationform.lastName.flags.required %}*{% endif %}</span>
+                                    </div>
+                                </div>
+                                {{ registrationform.lastName(size=32, class="form-control input-style") }}
+                                {% for error in registrationform.lastName.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="form-group d-flex flex-column">
+                            {{ registrationform.company.label }}<span style="color:red">{% if registrationform.company.flags.required %}*{% endif %}</span>
+                            {{ registrationform.company(size=60, class="form-control input-style") }}
+                            {% for error in registrationform.company.errors %}
+                            <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            {{ registrationform.jobTitle.label }}<span style="color:red">{% if registrationform.jobTitle.flags.required %}*{% endif %}</span>
+                            {{ registrationform.jobTitle(size=60, class="form-control input-style") }}
+                            {% for error in registrationform.company.errors %}
+                            <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                <div>
+                                    {{ registrationform.email.label }}
+                                </div>
+                                <div>
+                                    <span style="color:red">{% if registrationform.email.flags.required %}*{% endif %}</span>
+                                </div>
+                            </div>
+                            {{ registrationform.email(size=60, class="form-control input-style") }}
+                            {% for error in registrationform.email.errors %}
+                            <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                <div>
+                                    {{ registrationform.password.label }}
+                                </div>
+                                <div>
+                                    <span style="color:red">{% if registrationform.password.flags.required %}*{% endif %}</span>
+                                </div>
+                            </div>
+                            {{ registrationform.password(size=32, class="form-control input-style") }}
+                            {% for error in registrationform.password.errors %}
+                            <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                <div>
+                                    {{ registrationform.confirm_password.label }}
+                                </div>
+                                <div>
+                                    <span style="color:red">{% if registrationform.confirm_password.flags.required %}*{% endif %}</span>
+                                </div>
+                            </div>
+                            {{ registrationform.confirm_password(size=32, class="form-control input-style") }}
+                            {% for error in registrationform.confirm_password.errors %}
+                            <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group d-flex flex-column justify-content-start mb-0">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex">
+                                    {{ registrationform.agreeTerms}}
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span style="color:red">{% if registrationform.agreeTerms.flags.required %}*{% endif %}</span>
+                                    <p class="checkbox-label">
+                                        by providing the above information, I agree to the <a href="{{url_for('terms_and_conditions')}}" target="_blank" rel="noopener">Terms of Use</a> and the <a href="{{url_for('privacy_policy')}}" target="_blank" rel="noopener">Privacy Policy</a> of {{WEBSITE_TITLE}}.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                {% for error in registrationform.agreeTerms.errors %}
+                                <span class="text-error-note font-weight-bold" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group d-flex flex-column justify-content-start mt-2">
+                            <div class="d-flex align-items-center">
+                                <div class="d-flex">
+                                    {{ registrationform.mailingListSignUp}}
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span style="color:red">{% if registrationform.mailingListSignUp.flags.required %}*{% endif %}</span>
+                                    <p class="checkbox-label">
+                                        <p class="checkbox-label">
+                                            Sign up for weekly industry insights, updates and perspectives from {{WEBSITE_TITLE}}.
+                                        </p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                {% for error in registrationform.mailingListSignUp.errors %}
+                                <span class="text-error-note font-weight-bold" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-center align-items-center">
+                            <div class="d-flex">
+                                {{ registrationform.recaptcha }}
+                                {% for error in registrationform.recaptcha.errors %}
+                                <span class="text-error-note" style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!--===================================================-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="administration-page-line"></div>
+
+        <div class="modal-footer d-flex justify-content-start">
+            <div class="justify-content-center align-items-center mt-0 mb-0 p-0">
+                Already Registered?&nbsp;<a class="" href="{{url_for('authorization.loginForm')}}">Log in.</a>
+            </div>
+            <div class="d-flex flex-grow-1 justify-content-end mt-0 mb-0 p-0">
+                <div class="mr-2">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-warning">Submit</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

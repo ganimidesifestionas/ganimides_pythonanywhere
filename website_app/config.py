@@ -1,13 +1,28 @@
 # application level config.py
 import os
+from datetime import timedelta
 basedir = os.path.abspath(os.path.dirname(__file__))
+filename = os.path.basename(__file__)
 
 class Config(object):
     """Common configurations"""
     # Put any configurations here that are common across all environments
+    #
+    # UPPER CASE
+    #
+    
     DEBUG = True
     EYECATCH = 'MYAPP'
     #SERVER = 'MYSERVER'
+
+    ################################################
+    # Secret key for signing cookies
+    ################################################
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'appconfig-aeiotheosomegasgeometreip9Bv<3Eid9%$i01'
+    SECURITY_PASSWORD_SALT = 'appconfig-aeiotheosomegasgeometreip9Bvtispaolas'
+
+    # session cookies expired in 5 minutes
+    PERMANENT_SESSION_LIFETIME =  timedelta(minutes=5)
 
     # mail accounts
     MAIL_SENDER = 'noreply@ganimides.com>'
@@ -39,24 +54,30 @@ class Config(object):
     WEBSITE_ADMIN_EMAIL="admin@ganimedes.com"
     LANGUAGES = {
         'en': ['English','uk.png']
-        ,'gr': ['Ελληνικά','greece.png']
-        ,'cy': ['Κυπριακά','cyprus.png']
+        , 'gr': ['Ελληνικά','greece.png']
+        , 'cy': ['Κυπριακά','cyprus.png']
     }
     FLAGS = {
         'en': 'uk.png'
-        ,'gr': 'greece.png'
-        ,'cy': 'cyprus.png'
+        , 'gr': 'greece.png'
+        , 'cy': 'cyprus.png'
     }
+
+    SPLASHFORM_LOGIN = 'splashform_login.html'
+    SPLASHFORM_REGISTRATION = 'splashform_registration.html'
+    SPLASHFORM_FORGETPASSWORD = 'splashform_forgetpassword.html'
+    SPLASHFORM_CONTACTUS = 'splashform_contactus.html'
+
     DEFAULT_LANGUAGE = 'cy'
     #############################################################################################
     #server app folders
     #############################################################################################
     #relative to mysite which is https://www.pythonanywhere.com/user/ganimides/files/home/ganimides/ganimides_website
-    PICTURES_FOLDER = '../../static/pictures/'
-    IMAGES_FOLDER = '../../static/images/'
-    FLAGS_FOLDER = '../../static/images/flags/'
-    ICONS_FOLDER = '../../static/images/icons/'
-    UPLOAD_FOLDER = '../../static/Uploads/'
+    PICTURES_FOLDER = '/static/pictures/'
+    IMAGES_FOLDER = '/static/images/'
+    FLAGS_FOLDER = '/static/images/flags/'
+    ICONS_FOLDER = '/static/images/icons/'
+    UPLOAD_FOLDER = '/static/Uploads/'
     TEMPLATES_ROOT_FOLDER = 'website_app/templates'
     #relative to flask templates which is https://www.pythonanywhere.com/user/ganimides/files/home/ganimides/ganimides_website/website_app/templates
     LAYOUTS_FOLDER = 'layout_components/'
@@ -104,12 +125,6 @@ class Config(object):
     FLASKY_FOLLOWERS_PER_PAGE = 50
     FLASKY_COMMENTS_PER_PAGE = 30
     FLASKY_SLOW_DB_QUERY_TIME = 0.5
-
-    ################################################
-    # Secret key for signing cookies
-    ################################################
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'appconfig-aeiotheosomegasgeometreip9Bv<3Eid9%$i01'
-    SECURITY_PASSWORD_SALT = 'appconfig-aeiotheosomegasgeometreip9Bvtispaolas'
 
     #############################################################################################
     # other config

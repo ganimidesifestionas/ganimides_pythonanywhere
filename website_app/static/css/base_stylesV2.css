@@ -1041,7 +1041,7 @@ p {
     height: 30px;
     padding: 0px;
     margin: 0px;
-    /*background-image: url('../../static/images/home_icon_white.gif');*/
+    /*background-image: url('/static/images/home_icon_white.gif');*/
 }
 
 #GlobalMenuButton {
