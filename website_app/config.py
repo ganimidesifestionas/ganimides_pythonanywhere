@@ -330,6 +330,7 @@ app_config = {
     ,'development' : DevelopmentConfig
     ,'testing' : TestingConfig
     ,'production' : ProductionConfig
+    ,'xproduction' : xProductionConfig
     ,'localhost' : LocalHostConfig
     ,'heroku' : HerokuConfig
     ,'pythonanywhere' : PythonAnyWhereConfig

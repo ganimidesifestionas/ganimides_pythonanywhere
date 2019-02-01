@@ -99,7 +99,7 @@ def create_subscribers():
     for user in users:
         email = user[0]
         if not Subscriber.query.filter_by(email=email).first():
-            #thisUser = Subscriber(email=user[0], firstName=user[1], lastName=user[2])
+            thisUser = Subscriber(email=user[0], firstName=user[1], lastName=user[2])
             #db.session.add(thisUser)
             created = created + 1
             print('   ', 'database-init', __name__, '   subscriber created:', thisUser)

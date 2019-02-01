@@ -16,7 +16,7 @@ EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT', 'localhost')
 SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
 SERVER = os.environ.get('SERVER')
 
-EYECATCH='INSTANCE'
+EYECATCH = 'INSTANCE'
 EXECUTION_MODE = 'sandbox'
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 
@@ -34,7 +34,7 @@ MAIL_SUBJECT_PREFIX = '[ganimides]'
 MAIL_DEFAULT_SENDER = 'noreply@ganimides.com'
 MAIL_ADMIN_SENDER = 'admin@ganimides.com'
 MAIL_SUPPORT_SENDER = 'support@ganimides.com'
-WEBSITE_ADMIN = os.environ.get('WEBSITE_ADMIN','admin@ganimides.com')
+WEBSITE_ADMIN = os.environ.get('WEBSITE_ADMIN', 'admin@ganimides.com')
 
 ################################################################
 ### database config
@@ -62,7 +62,7 @@ CSRF_SESSION_KEY = "aeiotheosomegasgeometrei"
 #############################################################################################
 # mail server
 #############################################################################################
-if MAIL_SERVER_PROVIDER=='mailjet':
+if MAIL_SERVER_PROVIDER == 'mailjet':
     MAIL_SERVER = os.environ.get('mailjet_MAIL_SERVER', 'smtp.googlemail.com')
     MAIL_PORT = int(os.environ.get('mailjet_MAIL_PORT', '587'))
     MAIL_USE_TLS = os.environ.get('mailjet_MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
@@ -72,7 +72,7 @@ if MAIL_SERVER_PROVIDER=='mailjet':
     MAIL_APIKEY_PUBLIC = os.environ.get('mailjet_MAIL_APIKEY_PUBLIC','...')
     MAIL_APIKEY_PRIVATE = os.environ.get('mailjet_MAIL_APIKEY_PRIVATE','...')
 else:
-    if MAIL_SERVER_PROVIDER=='yandex':
+    if MAIL_SERVER_PROVIDER == 'yandex':
         MAIL_SERVER = os.environ.get('yandex_MAIL_SERVER', 'smtp.googlemail.com')
         MAIL_PORT = int(os.environ.get('yandex_MAIL_PORT', '587'))
         MAIL_USE_TLS = os.environ.get('yandex_MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
