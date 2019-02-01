@@ -14,7 +14,7 @@ envdump = EnvironmentDump(app, "/environment",
                           include_python=True, include_os=False,
                           include_process=False, include_config=True)
 
-
+###############
 def sqlite_available():
     # add precise check against the database
     return True, "sqlite ok"
