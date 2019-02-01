@@ -11,6 +11,7 @@ from flask import session
 from flask import logging
 from flask import jsonify
 
+# Import the app from the parent folder (assumed to be the app)
 from .. import app
 # Import the database object from the main app module
 from .. import db
@@ -140,6 +141,13 @@ def log_variable(name='', value=''):
 def log_url_param(name='', value=''):
     msg = '{0}={1}'.format(name, value)
     print('   ', 'url-param',msg)
+
+def log_module_start(module_name):
+    print(app.modules_stack, 'start', module_name)
+    app.modules_stack.append(module_name)
+def log_module_finish(module_name):
+    print(app.modules_stack, 'finish', module_name)
+    app.modules_stack.pop(len(app.modules_stack))
 
 def get_next_visitorNumber():
     max_id = db.session.query(func.max(Visitor.id)).scalar()

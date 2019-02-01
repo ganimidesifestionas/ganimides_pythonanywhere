@@ -5,9 +5,9 @@ import smtplib
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from mailjet_rest import Client
 
 from .. import app
-from mailjet_rest import Client
 
 # using SendGrid's Python Library
 # https://github.com/sendgrid/sendgrid-python

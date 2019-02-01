@@ -16,7 +16,9 @@ from flask_migrate import Migrate, MigrateCommand
 from .config import app_config
 from logging.config import dictConfig
 
-#print(__name__,'###dictConfig###',dictConfig)
+#from .external_services.log_services import *
+
+#print('   ',__name__,'###dictConfig###',dictConfig)
 
 # def create_app():
 #     app = Flask(__name__)
@@ -29,8 +31,8 @@ from logging.config import dictConfig
 ################################################################################
 ################################################################################
 ################################################################################
-print(__name__,'#############################################################')
-print(__name__,'###CREATE FLASK-APP###','app = Flask(__name__, instance_relative_config=True)')
+print('   ',__name__,'#############################################################')
+print('   ',__name__,'###CREATE FLASK-APP###','app = Flask(__name__, instance_relative_config=True)')
 app = Flask(__name__, instance_relative_config=True) 
 #--> important: the folders are relative to where the flask app is created
 # specifies the main template folder for the application
@@ -38,10 +40,37 @@ app = Flask(__name__, instance_relative_config=True)
 #            instance_path=get_instance_folder_path(),
 #            instance_relative_config=True,
 #            template_folder='templates') 
-print(__name__,'###app###','app.instance_path = ',app.instance_path)
-print(__name__,'###app###','app.template_folder =',app.template_folder)
+################################################################################
+################################################################################
+################################################################################
+### app variables
+################################################################################
+################################################################################
+################################################################################
+#required for splash forms: will be set in @app.before_first_request
+app.loginform = None
+app.registrationform = None
+app.contactusform = None
+app.forgetpasswordform = None
+app.cookiesconsentform = None
+app.splashform = None
+app.homepage_html = 'page_templates/landing_page.html'
+app.modules_stack = []
+app.modules_stack.append(__name__)
+##-##-####-##-####-##-####-##-####-##-##
+print('   ',__name__,'Start')
+##-##-####-##-####-##-####-##-####-##-##
+################################################################################
+################################################################################
+################################################################################
+### app flask config
+################################################################################
+################################################################################
+################################################################################
+print('   ',__name__,'###app###','app.instance_path = ',app.instance_path)
+print('   ',__name__,'###app###','app.template_folder =',app.template_folder)
 config_name = os.getenv('FLASK_CONFIGURATION', 'default')
-print(__name__,'###app###','FLASK_CONFIGURATION =',config_name)
+print('   ',__name__,'###app###','FLASK_CONFIGURATION =',config_name)
 # enable jinja2 extensions - i.e. continue in for loops
 #app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 #... 
@@ -52,69 +81,41 @@ print(__name__,'###app###','FLASK_CONFIGURATION =',config_name)
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###CONFIGURE FLASK-APP###')
+#print('   ',__name__,'')
+print('   ',__name__,'###CONFIGURE FLASK-APP###')
 #########################################################################################
-print(__name__,'   CONFIG-1-FROM-SERVER','../server_config.py')
+print('   ',__name__,'   CONFIG-1-FROM-SERVER','../server_config.py')
 app.config.from_pyfile('../server_config.py') #from the (server) root
-print(__name__,'   (1-server) EYECATCH---',app.config['EYECATCH'])
-print(__name__,'   (1-server) SERVER---',app.config['SERVER'])
-print(__name__,'   (1-server) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   ',__name__,'   (1-server) EYECATCH---',app.config['EYECATCH'])
+print('   ',__name__,'   (1-server) SERVER---',app.config['SERVER'])
+print('   ',__name__,'   (1-server) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
-print(__name__,'   CONFIG-2-FROM-SERVER-INSTANCE','../instance/config.py')
+print('   ',__name__,'   CONFIG-2-FROM-SERVER-INSTANCE','../instance/config.py')
 app.config.from_pyfile('../instance/config.py') #from instance
-print(__name__,'   (2-instance) EYECATCH---',app.config['EYECATCH'])
-print(__name__,'   (2-instance) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   ',__name__,'   (2-instance) EYECATCH---',app.config['EYECATCH'])
+print('   ',__name__,'   (2-instance) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 config_name = app.config['EXECUTION_ENVIRONMENT']
-print(__name__,'   CONFIG-3-APP-ENVIRONMENT',config_name,'.config.py')
+print('   ',__name__,'   CONFIG-3-APP-ENVIRONMENT',config_name,'.config.py')
 app.config.from_object(app_config[config_name])
-print(__name__,'   (3-environment)',config_name,'EYECATCH---',app.config['EYECATCH'])
-print(__name__,'   (3-environment)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   ',__name__,'   (3-environment)',config_name,'EYECATCH---',app.config['EYECATCH'])
+print('   ',__name__,'   (3-environment)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 config_name = app.config['EXECUTION_MODE']
-print(__name__,'   CONFIG-4-APP-EXEC-MODE',config_name,'.config.py')
+print('   ',__name__,'   CONFIG-4-APP-EXEC-MODE',config_name,'.config.py')
 app.config.from_object(app_config[config_name])
-print(__name__,'   (4-exec-mode)',config_name,'EYECATCH---',app.config['EYECATCH'])
-print(__name__,'   (4-exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   ',__name__,'   (4-exec-mode)',config_name,'EYECATCH---',app.config['EYECATCH'])
+print('   ',__name__,'   (4-exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 
 
 #########################################################################################
-print(__name__,'   @@@check','RECAPTCHA_SITE_KEY---',app.config['RECAPTCHA_SITE_KEY'])
-print(__name__,'   @@@check','RECAPTCHA_SECRET_KEY---',app.config['RECAPTCHA_SECRET_KEY'])
-print(__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_LOGIN'])
-print(__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_REGISTRATION'])
-print(__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_FORGETPASSWORD'])
-print(__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_CONTACTUS'])
-################################################################################
-################################################################################
-################################################################################
-### variables
-################################################################################
-################################################################################
-################################################################################
-# app.pages=''
-# app.lastpage='homepage'
-# app.lastpage_html='page_templates/landing_page.html'
-# app.lastpage_URL=''
-# app.login_active=''
-# app.register_active=''
-# app.help_active=''
-# app.splash_form=''
-
-#required for splash forms: will be set in @app.before_first_request
-app.loginform = None
-app.registrationform = None
-app.contactusform = None
-app.forgetpasswordform = None
-app.cookiesconsentform = None
-app.splashform = None
-app.homepage_html = 'page_templates/landing_page.html'
-
-# app.moduleID=''
-# print(__name__,'   ###VARIABLES###','app.lastpage_html =',app.lastpage_html)
-# print(__name__,'   ###VARIABLES###','... many more...')
+print('   ',__name__,'   @@@check','RECAPTCHA_SITE_KEY---',app.config['RECAPTCHA_SITE_KEY'])
+print('   ',__name__,'   @@@check','RECAPTCHA_SECRET_KEY---',app.config['RECAPTCHA_SECRET_KEY'])
+print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_LOGIN'])
+print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_REGISTRATION'])
+print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_FORGETPASSWORD'])
+print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_CONTACTUS'])
 ################################################################################
 ################################################################################
 ################################################################################
@@ -122,8 +123,8 @@ app.homepage_html = 'page_templates/landing_page.html'
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###BOOTSTRAP APP###','Bootstrap(app)')
+#print('   ',__name__,'')
+print('   ',__name__,'###BOOTSTRAP APP###','Bootstrap(app)')
 Bootstrap(app)
 ################################################################################
 ################################################################################
@@ -132,8 +133,8 @@ Bootstrap(app)
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###DATABASE###','db = SQLAlchemy(app)')
+#print('   ',__name__,'')
+print('   ',__name__,'###DATABASE###','db = SQLAlchemy(app)')
 db = SQLAlchemy()
 db.init_app(app)
 db.create_all(app=app)
@@ -144,8 +145,8 @@ db.create_all(app=app)
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###LOGIN-MANAGER###','login_manager = LoginManager(application)')
+#print('   ',__name__,'')
+print('   ',__name__,'###LOGIN-MANAGER###','login_manager = LoginManager(application)')
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_message = "You must be logged in to access this page."
@@ -157,8 +158,8 @@ login_manager.login_view = "authorization.login"
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###Migration-MANAGER###')
+#print('   ',__name__,'')
+print('   ',__name__,'###Migration-MANAGER###')
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
@@ -170,11 +171,11 @@ manager.add_command('db', MigrateCommand)
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-#print(__name__,'###HOME_PAGE###',"render_template('page_templates/landing_page.html',title='landing page')")
+#print('   ',__name__,'')
+#print('   ',__name__,'###HOME_PAGE###',"render_template('page_templates/landing_page.html',title='landing page')")
 #@app.route('/')
 #def landingpage():
-#    print(__name__,'LANDINGPAGE',request.method,request.url)
+#    print('   ',__name__,'LANDINGPAGE',request.method,request.url)
 #    #session['username'] = "someuser"
 #    #session['urls'] = []
 #    return render_template('page_templates/landing_page.html',title='landing page'
@@ -186,20 +187,20 @@ manager.add_command('db', MigrateCommand)
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###ERROR_HANDLERS###')
-print(__name__,'   @app.errorhandler(403)','render_template(error_pages/403.html, title=Forbidden)')
+#print('   ',__name__,'')
+print('   ',__name__,'###ERROR_HANDLERS###')
+print('   ',__name__,'   @app.errorhandler(403)','render_template(error_pages/403.html, title=Forbidden)')
 @app.errorhandler(403)
 def forbidden(error):
     return render_template('error_pages/403.html', title='Forbidden'), 403
 
-print(__name__,'   @app.errorhandler(404)','render_template(error_pages/404.html, title=Page Not Found)')
+print('   ',__name__,'   @app.errorhandler(404)','render_template(error_pages/404.html, title=Page Not Found)')
 @app.errorhandler(404)
 def page_not_found(error):
     varPageName = str(request._get_current_object())
     return render_template('error_pages/404.html', title='Page Not Found',PageNotFound=varPageName), 404
 
-print(__name__,'   @app.errorhandler(500)','render_template(error_pages/500.html, title=Server Error)')
+print('   ',__name__,'   @app.errorhandler(500)','render_template(error_pages/500.html, title=Server Error)')
 @app.errorhandler(500)
 def internal_server_error(error):
     return render_template('error_pages/500.html', title='Server Error'), 500
@@ -211,7 +212,7 @@ def internal_server_error(error):
 ################################################################################
 ################################################################################
 ################################################################################
-print(__name__,'###HOME PAGES###')
+print('   ',__name__,'###HOME PAGES###')
 from . import views
 ################################################################################
 ################################################################################
@@ -220,24 +221,24 @@ from . import views
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###BLUEPRINTS (SUB-APPCOMPONENTS)###')
+#print('   ',__name__,'')
+print('   ',__name__,'###BLUEPRINTS (SUB-APPCOMPONENTS)###')
 # Import modules/components using their blueprint handler variable i.e module_authoroization
 
 ### authorization module
 from . module_authorization.routes import authorization as authorization_module
 app.register_blueprint(authorization_module, url_prefix='/authorization')
-print(__name__,'   authorization_module---','app.register_blueprint(authorization_module,url_prefix=''/authorization'')')
+print('   ',__name__,'   authorization_module---','app.register_blueprint(authorization_module,url_prefix=''/authorization'')')
 
 ### administration module
 from . module_administration.routes import administration as administration_module
 app.register_blueprint(administration_module, url_prefix='/administration')
-print(__name__,'   administration_module---','app.register_blueprint(administration_module,url_prefix=''/administration'')')
+print('   ',__name__,'   administration_module---','app.register_blueprint(administration_module,url_prefix=''/administration'')')
 
 ### protototypes page
 #from . module_prototypes.controllers import prototypes as prototypes_module
 #app.register_blueprint(prototypes_module,url_prefix='/prototypes')
-#print(__name__,'   prototypes_module---','app.register_blueprint(prototypes_module,url_prefix=''/prototypes'')')
+#print('   ',__name__,'   prototypes_module---','app.register_blueprint(prototypes_module,url_prefix=''/prototypes'')')
 
 #from app import models
 #from .admin import admin as admin_blueprint
@@ -252,8 +253,8 @@ print(__name__,'   administration_module---','app.register_blueprint(administrat
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###CREATE DATABASE###','db.create_all()')
+#print('   ',__name__,'')
+print('   ',__name__,'###CREATE DATABASE###','db.create_all()')
 db.create_all(app=app)
 ################################################################################
 ################################################################################
@@ -263,8 +264,8 @@ db.create_all(app=app)
 ################################################################################
 ################################################################################
 ################################################################################
-#print(__name__,'')
-print(__name__,'###FUNCTIONS & VARIABLES###')
+#print('   ',__name__,'')
+print('   ',__name__,'###FUNCTIONS & VARIABLES###')
 def get_time():
     now = datetime.now()
     time=now.strftime("%Y-%m-%dT%H:%M")
@@ -285,7 +286,7 @@ def write_to_disk(name, surname, email):
 ################################################################################
 @app.context_processor
 def inject_configuration_parameters_as_variables():
-    #print(__name__,'###SERVER_APP_RUNNING###','inject_configuration_parameters_as_variables:')
+    #print('   ',__name__,'###SERVER_APP_RUNNING###','inject_configuration_parameters_as_variables:')
     #print('   ', '!!! splash forms objects made available by the server...')
     return dict(
         EXECUTION_MODE=app.config['EXECUTION_MODE']
@@ -343,12 +344,12 @@ def inject_configuration_parameters_as_variables():
 
 @app.context_processor
 def inject_utility_functions():
-    #print(__name__,'###SERVER_RUNNING###','inject_utility_functions:')
-    #print(__name__,'###inject_utility_functions:format_price()')
+    #print('   ',__name__,'###SERVER_RUNNING###','inject_utility_functions:')
+    #print('   ',__name__,'###inject_utility_functions:format_price()')
     def format_price(amount, currency=u'€'):
         return u'{0:.2f}{1}'.format(amount, currency)
 
-    #print(__name__,'###inject_utility_functions:language_file()')
+    #print('   ',__name__,'###inject_utility_functions:language_file()')
     def language_file(file='',language='en'):
         nfile=file
         if (language not in app.config['LANGUAGES']):
@@ -357,7 +358,7 @@ def inject_utility_functions():
             nfile=file.replace('.html', '_'+language+'.html')
         return nfile
 
-    #print(__name__,'###inject_utility_functions:version_file()')
+    #print('   ',__name__,'###inject_utility_functions:version_file()')
     def version_file(file='',environment='',design='',version=''):
         nfile=file
         if (environment!=''):
@@ -399,7 +400,7 @@ def inject_utility_functions():
         return folder
 
 
-    #print(__name__,'###inject_utility_functions:fullpathfile()')
+    #print('   ',__name__,'###inject_utility_functions:fullpathfile()')
     def fullpathfile(file='',type='TEMPLATE',module=''):
         folder=appfolder(type,module)
         # folder=app.config['TEMPLATES_ROOT_FOLDER']
@@ -430,7 +431,7 @@ def inject_utility_functions():
             file2 = folder+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:image_file()')
+    #print('   ',__name__,'###inject_utility_functions:image_file()')
     def image_file(file=''):
         file1=file
         file2=file1
@@ -438,7 +439,7 @@ def inject_utility_functions():
             file2 = app.config['IMAGES_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:picture_file()')
+    #print('   ',__name__,'###inject_utility_functions:picture_file()')
     def picture_file(file=''):
         file1=file
         file2=file1
@@ -446,7 +447,7 @@ def inject_utility_functions():
             file2 = app.config['PICTURES_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:flag_file()')
+    #print('   ',__name__,'###inject_utility_functions:flag_file()')
     def flag_file(file=''):
         file1=file
         file2=file1
@@ -454,7 +455,7 @@ def inject_utility_functions():
             file2 = app.config['FLAGS_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:page_file()')
+    #print('   ',__name__,'###inject_utility_functions:page_file()')
     def page_file(file='',module=''):
         file1=file
         file2=file1
@@ -465,7 +466,7 @@ def inject_utility_functions():
                 file2 = app.config['PAGES_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:form_file()')
+    #print('   ',__name__,'###inject_utility_functions:form_file()')
     def form_file(file='',module=''):
         file1=file
         file2=file1
@@ -476,7 +477,7 @@ def inject_utility_functions():
                 file2 = app.config['FORMS_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:component_file()')
+    #print('   ',__name__,'###inject_utility_functions:component_file()')
     def component_file(file='',module=''):
         file1=file
         file2=file1
@@ -487,7 +488,7 @@ def inject_utility_functions():
                 file2 = app.config['COMPONENTS_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:template_file()')
+    #print('   ',__name__,'###inject_utility_functions:template_file()')
     def template_file(file='',module=''):
         file1=file
         file2=file1
@@ -498,7 +499,7 @@ def inject_utility_functions():
                 file2 = app.config['TEMPLATES_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:layout_file()')
+    #print('   ',__name__,'###inject_utility_functions:layout_file()')
     def layout_file(file='',module=''):
         file1=file
         file2=file1
@@ -507,7 +508,7 @@ def inject_utility_functions():
             file2 = folder+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:email_template_file()')
+    #print('   ',__name__,'###inject_utility_functions:email_template_file()')
     def email_template_file(file='',module=''):
         file1=file
         file2=file1
@@ -518,7 +519,7 @@ def inject_utility_functions():
                 file2 = app.config['EMAILS_FOLDER']+file1
         return file2
 
-    #print(__name__,'###inject_utility_functions:sms_template_file()')
+    #print('   ',__name__,'###inject_utility_functions:sms_template_file()')
     def sms_template_file(file='',module=''):
         file1=file
         file2=file1
@@ -530,7 +531,7 @@ def inject_utility_functions():
         return file2
 
 
-    #print(__name__,'###inject_utility_functions:language_page_file()')
+    #print('   ',__name__,'###inject_utility_functions:language_page_file()')
     def language_page_file(file='',language='en',module=''):
         nfile=page_file(file,module)
         if (language not in app.config['LANGUAGES']):
@@ -540,7 +541,7 @@ def inject_utility_functions():
         return nfile
 
 
-    #print(__name__,'###inject_utility_functions:language_fullpathfile()')
+    #print('   ',__name__,'###inject_utility_functions:language_fullpathfile()')
     def language_fullpathfile(file='',language='en',type='PAGE',module=''):
         nfile=fullpathfile(file,type,module)
         if (language not in app.config['LANGUAGES']):
@@ -549,7 +550,7 @@ def inject_utility_functions():
             nfile=nfile.replace('.html', '_'+language+'.html')
         return nfile
 
-    #print(__name__,'###inject_utility_functions:language_fullpathfile()')
+    #print('   ',__name__,'###inject_utility_functions:language_fullpathfile()')
     #def cookies_consent():
     #    return session.get('cookies_consent')
 
@@ -579,5 +580,8 @@ def inject_utility_functions():
 ## epiloque
 ################################################################################
 ################################################################################
-print(__name__,'###FINISHED: FLASK-APP-created&ready###')
-print(__name__,'#############################################################')
+print('   ',__name__,'###FINISHED: FLASK-APP-created&ready###')
+print('   ',__name__,'#############################################################')
+##-##-####-##-####-##-####-##-####-##-##
+print('   ',__name__,'Finish')
+##-##-####-##-####-##-####-##-####-##-##

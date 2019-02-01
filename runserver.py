@@ -1,7 +1,7 @@
 """
 This script runs the ganimides_website application using a development server.
 """
-# # # # # #
+# # # # # # #
 print(__name__, '######################################################')
 print(__name__, '###RUN APP ON SERVER###')
 print(__name__, '######################################################')
