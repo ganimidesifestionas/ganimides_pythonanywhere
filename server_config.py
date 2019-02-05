@@ -1,23 +1,36 @@
 # myServer/server_config.py
 import os
-# # #3 #4 #5
-print(__file__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-print(basedir)
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-#filename = os.path.basename(__file__)
-filename = __file__.replace(BASE_DIR, '').replace('\\..', '').replace('\\', '')
-print(filename)
-
+# # #3 #4 #5 #6
+################################################################
+#print('file =',__file__)
+config_file = os.path.abspath(__file__)
+config_filename = os.path.basename(__file__)
+config_path = os.path.abspath(os.path.dirname(__file__))
+config_base_folder = os.path.dirname(config_path)
+config_folder = os.path.basename(os.path.dirname(__file__))
+config_folder = __file__.replace(config_filename,'').replace(config_base_folder,'')
+################################################################
+print('__file__ =',__file__)
+print('config_file =', config_file)
+print('config_path =', config_path)
+print('config_folfer =', config_folder)
+print('config_filename =', config_filename)
+print('config_base_folder =', config_base_folder)
+#####################################################################
+SERVER_CONFIG_FILE = config_file
+SERVER_CONFIG_PATH = config_path
+SERVER_CONFIG_BASE_FOLDER = config_base_folder
+SERVER_CONFIG_FOLDER = config_folder
+SERVER_CONFIG_FILENAME = config_filename
+#####################################################################
 EYECATCH = 'SERVER'
-SERVER = 'localhost'
-BASE_DIR = basedir
 EXECUTION_MODE = 'development'
-
-EXECUTION_ENVIRONMENT = 'pythonanywhere'
 EXECUTION_ENVIRONMENT = 'localhost'
+#EXECUTION_ENVIRONMENT = 'pythonanywhere'
+SERVER = 'localhost'
+#SERVER = 'pythonanywhere-ganimedes'
+#SERVER = 'pythonanywhere-ifestionas'
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
-
 ################################################################
 ### mail servers
 ################################################################
@@ -89,21 +102,71 @@ DATABASE_NAME = 'ifestionas_db'
 DATABASE_SERVER_URI = 'mysql+pymysql://ganimedes:philea13@localhost'
 DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
 
-localhost_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db'
+DATABASE_HOST_ADDRESS = 'localhost'
+DATABASE_USER = 'ganimedes'
+DATABASE_PASS = 'philea13'
+DATABASE_NAME = 'ifestionas_db'
+DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
+DATABASE_SERVER = DATABASE_HOST_ADDRESS
+DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
+DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+localhost_SQLALCHEMY_DATABASE_URI = DATABASE_URI
+
+DATABASE_HOST_ADDRESS = 'ganimedes.mysql.pythonanywhere-services.com'
+DATABASE_USER = 'ganimedes'
+DATABASE_PASS = 'philea13'
+DATABASE_NAME = 'ganimedes$ganimides_db'
+DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
+DATABASE_SERVER = DATABASE_HOST_ADDRESS
+DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
+DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+pythonanywhere_ganimedes_SQLALCHEMY_DATABASE_URI = DATABASE_URI
+
+DATABASE_HOST_ADDRESS = 'ifestionas.mysql.pythonanywhere-services.com'
+DATABASE_USER = 'ifestionas'
+DATABASE_PASS = 'philea13'
+DATABASE_NAME = 'ifestionas$ganimides_db'
+DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
+DATABASE_SERVER = DATABASE_HOST_ADDRESS
+DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
+DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = DATABASE_URI
+
 pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ifestionas:philea13@ifestionas.mysql.pythonanywhere-services.com/ifestionas$ganimides_db'
 pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
-localhost_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ifestionas_db'
-localhost_SQLALCHEMY_TEST_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db_test'
+#localhost_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ifestionas_db'
+#localhost_SQLALCHEMY_TEST_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db_test'
 
-SQLALCHEMY_DATABASE_URI = localhost_SQLALCHEMY_DATABASE_URI
-SQLALCHEMY_TEST_DATABASE_URI = localhost_SQLALCHEMY_TEST_DATABASE_URI
+DATABASE_HOST_ADDRESS = 'localhost'
+DATABASE_USER = 'ganimedes'
+DATABASE_PASS = 'philea13'
+DATABASE_NAME = 'ifestionas_db'
+DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
+DATABASE_SERVER = DATABASE_HOST_ADDRESS
+DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
+DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+SQLALCHEMY_DATABASE_URI = DATABASE_URI
 SQLALCHEMY_DATABASE_URI = localhost_SQLALCHEMY_DATABASE_URI
 if EXECUTION_ENVIRONMENT == 'pythonanywhere':
-    DATABASE_SERVER = 'ganimides.mysql.pythonanywhere-services.com'
-    DATABASE_NAME = 'ganimides$ganimides_db'
-    DATABASE_SERVER_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com'
+    DATABASE_HOST_ADDRESS = 'ganimedes.mysql.pythonanywhere-services.com'
+    DATABASE_USER = 'ganimedes'
+    DATABASE_PASS = 'philea13'
+    DATABASE_NAME = 'ganimedes$ganimides_db'
+    DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
+    DATABASE_SERVER = DATABASE_HOST_ADDRESS
+    DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
     DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
-    SQLALCHEMY_DATABASE_URI = pythonanywhere_SQLALCHEMY_DATABASE_URI
+    SQLALCHEMY_DATABASE_URI = DATABASE_URI
+    if SERVER == 'pythonanywhere-ifestionas':
+        DATABASE_HOST_ADDRESS = 'ifestionas.mysql.pythonanywhere-services.com'
+        DATABASE_USER = 'ifestionas'
+        DATABASE_PASS = 'philea13'
+        DATABASE_NAME = 'ifestionas$ganimides_db'
+        DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
+        DATABASE_SERVER = DATABASE_HOST_ADDRESS
+        DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
+        DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+        SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
 # #SQLALCHEMY_DATABASE_URI = 'mysql://dt_admin:dt2016@localhost/dreamteam_db'
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db'
@@ -117,7 +180,7 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 # #}
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimides_db'
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
-# #print('      ', filename, __name__, '###instance### ###config.py### SQLALCHEMY_DATABASE_URI=',SQLALCHEMY_DATABASE_URI)
+# #print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILE, '###instance### ###config.py### SQLALCHEMY_DATABASE_URI=',SQLALCHEMY_DATABASE_URI)
 # username = "ganimides"
 # password = "philea13"
 # hostname = "ganimides.mysql.pythonanywhere-services.com"
@@ -190,10 +253,18 @@ SECURITY_PASSWORD_SALT = 'server-aeiotheosomegasgeometreip9Bvtispaolasbobbistarr
 ################################################################
 #store in os.environ in order to be used in instance or app_config
 ################################################################
-os.environ["SERVER"]=SERVER
 os.environ["EXECUTION_ENVIRONMENT"]=EXECUTION_ENVIRONMENT
-os.environ["MAIL_SERVER_PROVIDER"]=MAIL_SERVER_PROVIDER
+os.environ["EXECUTION_MODE"]=EXECUTION_MODE
 
+os.environ["SERVER"]=SERVER
+
+os.environ["DATABASE_SERVER"]=DATABASE_SERVER
+os.environ["DATABASE_NAME"]=DATABASE_NAME
+os.environ["DATABASE_SERVER_URI"]=DATABASE_SERVER_URI
+os.environ["DATABASE_URI"]=DATABASE_URI
+os.environ["SQLALCHEMY_DATABASE_URI"]=SQLALCHEMY_DATABASE_URI
+
+os.environ["MAIL_SERVER_PROVIDER"]=MAIL_SERVER_PROVIDER
 os.environ["mailjet_MAIL_SERVER"]=mailjet_MAIL_SERVER
 os.environ["mailjet_MAIL_PORT"]=mailjet_MAIL_PORT
 os.environ["mailjet_MAIL_USE_TLS"]=mailjet_MAIL_USE_TLS
@@ -232,6 +303,7 @@ os.environ["MAIL_APIKEY_PRIVATE"]=MAIL_APIKEY_PRIVATE
 
 os.environ["localhost_SQLALCHEMY_DATABASE_URI"]=localhost_SQLALCHEMY_DATABASE_URI
 os.environ["pythonanywhere_SQLALCHEMY_DATABASE_URI"]=pythonanywhere_SQLALCHEMY_DATABASE_URI
+
 os.environ["SQLALCHEMY_DATABASE_URI"]=SQLALCHEMY_DATABASE_URI
 
 os.environ["localhost_google_RECAPTCHA_SITE_KEY"]=localhost_google_RECAPTCHA_SITE_KEY
@@ -249,33 +321,37 @@ os.environ["RECAPTCHA_SECRET_KEY"]=RECAPTCHA_SECRET_KEY
 os.environ["RECAPTCHA_INVISIBLE_SITE_KEY"]=RECAPTCHA_INVISIBLE_SITE_KEY
 os.environ["RECAPTCHA_INVISIBLE_SECRET_KEY"]=RECAPTCHA_INVISIBLE_SECRET_KEY
 
-
-# ################################################################
-# ### print
-# ################################################################
-print('      ', filename, __name__, EYECATCH, '### BASE_DIR =', BASE_DIR)
-print('      ', filename, __name__, EYECATCH, '### SERVER =', SERVER)
-print('      ', filename, __name__, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
-print('      ', filename, __name__, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### SQLALCHEMY_DATABASE_URI =',SQLALCHEMY_DATABASE_URI)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
-print('      ', filename, __name__, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
-print('      ', filename, __name__, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
-print('      ', filename, __name__, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
-print('      ', filename, __name__, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
-print('      ', filename, __name__, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
-print('      ', filename, __name__, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
-print('      ', filename, __name__, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
+# print
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '# server configuration')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, 'base folder =', SERVER_CONFIG_BASE_FOLDER)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SERVER =', SERVER)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER =', DATABASE_SERVER)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_NAME =', DATABASE_NAME)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER_URI =', DATABASE_SERVER_URI)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_URI =', DATABASE_URI)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SQLALCHEMY_DATABASE_URI =', SQLALCHEMY_DATABASE_URI)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
+print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
 #############################################################################################

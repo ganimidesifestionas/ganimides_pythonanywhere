@@ -1,15 +1,15 @@
 """
 Routes and views for the flask application.
 """
-
 from datetime import datetime
-from flask import Flask
+#from flask import Flask
 from flask import flash
-from flask import render_template
+#from flask import render_template
 from flask import request
 from flask import session
 from flask import logging
 from flask import jsonify
+from sqlalchemy import func
 
 # Import the app from the parent folder (assumed to be the app)
 from .. import app
@@ -20,16 +20,13 @@ from .. import db
 #from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsForm, forgetPasswordForm
 #from .forms import CookiesConsentForm
 from .. models import Visit, Visitor, Page_Visit
-from flask_login import current_user, login_required, login_user, logout_user
-from sqlalchemy import func
-
+#from flask_login import current_user#, login_required#, login_user, logout_user
 
 def client_IP():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
         clientipa = request.environ['REMOTE_ADDR']
     else:
         clientipa = request.environ['HTTP_X_FORWARDED_FOR']
-    
     session['clientIPA'] = clientipa
     return clientipa
 ###########################################################################
@@ -46,7 +43,7 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
     session['lastpageURL'] = request.url
     if pageTemplate:
         session['lastpageHTML'] = pageTemplate
-    if not 'pages' in session:
+    if 'pages' not in session:
         session['pages'] = []
     session['pages'].append(pageName)
     if len(session['pages']) > 9:
@@ -61,12 +58,12 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
     session.modified = True
 
     print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '### '+__name__+' ###')
-    log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    #log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
 
 def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', page_template_form=''):
-    pageID = pageName.upper().replace('_','-').replace(' ','-')
+    pageID = pageName.upper().replace('_', '-').replace(' ', '-')
     session['routeID'] = pageID
-    if not 'pages' in session:
+    if 'pages' not in session:
         session['pages'] = []
     session['pages'].append(pageName)
     if len(session['pages']) > 9:
@@ -80,11 +77,11 @@ def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', 
     session.modified = True
 
     print(session['clientIPA'], 'route', session['routeID'], request.method, request.url, '### '+__name__+' ###')
-    log_page_visit('route', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    #log_page_visit('route', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
 
 def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
-    pageID = pageName.upper().replace('_','-').replace(' ','-')
-    if not 'pages' in session:
+    pageID = pageName.upper().replace('_', '-').replace(' ', '-')
+    if 'pages' not in session:
         session['pages'] = []
     session['pages'].append(pageName)
     if len(session['pages']) > 9:
@@ -99,14 +96,13 @@ def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='
     session.modified = True
 
     print(session['clientIPA'], 'splash-page, pageID', request.method, request.url, '#'+__name__+'#')
-    log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    #log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
 
 def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
     if 'language' in session:
         lang = session['language']
     else:
-        lang = session.get('language',request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
-
+        lang = session.get('language', request.accept_languages.best_match(app.config['LANGUAGES'].keys()))
     page_visit = Page_Visit(
         pageID=pageID
         , request_method=request.method
@@ -120,27 +116,27 @@ def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', 
         , clientIPA=session['clientIPA']
         )
 
-    if not 'VisitorID' in session:
+    if 'VisitorID' not in session:
         visitor = log_visitor()
     page_visit.visitor_ID = session['VisitorID']
-    
-    if not 'VisitID' in session:
+    if 'VisitID' not in session:
         visit = log_visit(visitor)
     page_visit.visit_ID = session['VisitID']
 
     db.session.add(page_visit)
     db.session.commit()
+    session['page_visit_id'] = page_visit.id
 
 def log_info(msg):
     print('   ', msg)
 
 def log_variable(name='', value=''):
     msg = '{0}={1}'.format(name, value)
-    print('   ', 'var',msg)
+    print('   ', 'var', msg)
 
 def log_url_param(name='', value=''):
     msg = '{0}={1}'.format(name, value)
-    print('   ', 'url-param',msg)
+    print('   ', 'url-param', msg)
 
 def log_module_start(module_name):
     print(app.modules_stack, 'start', module_name)
@@ -160,8 +156,8 @@ def get_next_visitorNumber():
             #log_variable('last visitor visitorNumber', last_visitor.visitorNumber)
             if last_visitor.visitorNumber:
                 nextvisitorNum = last_visitor.visitorNumber + 1
-    log_variable('next visitor Number', nextvisitorNum)
-    return(nextvisitorNum)
+    #log_variable('next visitor Number', nextvisitorNum)
+    return nextvisitorNum
 
 def get_next_visitNumber():
     max_id = db.session.query(func.max(Visit.id)).scalar()
@@ -174,9 +170,8 @@ def get_next_visitNumber():
             #log_variable('last visit visitNumber', last_visit.visitNumber)
             if last_visit.visitNumber:
                 nextvisitNum = last_visit.visitNumber + 1
-
-    log_variable('next visit Number', nextvisitNum)
-    return(nextvisitNum)
+    #log_variable('next visit Number', nextvisitNum)
+    return nextvisitNum
 
 def log_visitor():
     visitor = Visitor.query.filter_by(ipa=session['clientIPA']).first()
@@ -195,18 +190,17 @@ def log_visitor():
         session.modified = True
         log_variable('***new visitor', visitor)
     else:
-        log_variable('visitor', visitor)
-        if not 'VisitorID' in session:
+        #log_variable('visitor', visitor)
+        if 'VisitorID' not in session:
             session['VisitorID'] = visitor.id
             session.modified = True
-    
     #log_variable('VisitorID', session['VisitorID'])
-    return(visitor)
+    return visitor
 
 def log_visit(visitor=None):
     if not visitor:
         visitor = log_visitor()
-    if not 'VisitID' in session:
+    if 'VisitID' not in session:
         nextvisitNum = get_next_visitNumber()
         visit = Visit(
             ipa=session['clientIPA']
@@ -222,17 +216,15 @@ def log_visit(visitor=None):
         session['VisitNumber'] = nextvisitNum
         session['VisitID'] = visit.id
         session.modified = True
-
-        flash('You are Visitor # {0}. Thanks for visiting us!'.format(nextvisitNum,),'success')
+        flash('You are Visitor # {0}/{1}. Thanks for visiting us!'.format(visitor.visitorNumber, visit.visitNumber,), 'success')
         log_variable('***new visit', visit)
     else:
         visit = Visit.query.filter_by(id=session['VisitID']).first()
-        if not 'VisitNumber' in session:
+        if 'VisitNumber' not in session:
             session['VisitNumber'] = visit.visitNumber
-    
-    return(visit)
+    return visit
 
 if __name__ == '__main__':
     log_info('test.....')
-    log_variable('test','test')
+    log_variable('test', 'test')
     

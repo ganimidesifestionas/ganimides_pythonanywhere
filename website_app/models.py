@@ -59,7 +59,7 @@ class Visitor(Base):
     #isAdmin = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<visitor: {0} ipa:{1}>'.format(self.id,self.ipa)
+        return '<visitor: {0}({1}) ipa:{1}>'.format(self.id, self.visitorNumber, self.ipa)
 ###########################################################################
 class Visit(Base):
     """
@@ -75,7 +75,7 @@ class Visit(Base):
     visitor_ID = db.Column(db.Integer, db.ForeignKey('visitors.id'))
 
     def __repr__(self):
-        return '<visit: {}>'.format(self.id)
+        return '<visit: {0}({1}) {2}>'.format(self.id, self.visitNumber, self.visitDT)
 
 class Page_Visit(Base):
     """

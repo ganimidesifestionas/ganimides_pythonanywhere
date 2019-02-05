@@ -22,7 +22,7 @@ class Config(object):
     SECURITY_PASSWORD_SALT = 'appconfig-aeiotheosomegasgeometreip9Bvtispaolas'
 
     # session cookies expired in 5 minutes
-    PERMANENT_SESSION_LIFETIME =  timedelta(minutes=5)
+    #PERMANENT_SESSION_LIFETIME =  timedelta(minutes=5)
 
     # mail accounts
     MAIL_SENDER = 'noreply@ganimides.com>'

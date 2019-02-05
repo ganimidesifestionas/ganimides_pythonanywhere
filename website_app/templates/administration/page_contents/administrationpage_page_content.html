@@ -7,6 +7,8 @@
 {% set roles_show='' %}
 {% set departments_is_active='' %}
 {% set departments_show='' %}
+{% set visitors_is_active='' %}
+{% set visitors_show='' %}
 
 {% if activeTAB=='roles' %}
     {% set roles_is_active='active' %}
@@ -30,7 +32,8 @@
                 <ul class="nav nav-tabs " role="tablist">
                     <li class="nav-item {{users_is_active}}"><a class="nav-link administration-page-nav-link {{users_show}}" href="#users" data-toggle="tab">Users</a></li>
                     <li class="nav-item {{roles_is_active}}"><a class="nav-link administration-page-nav-link {{roles_show}}" href="#roles" data-toggle="tab">Roles</a></li>
-                    <li class="nav-item {{departemts_is_active}}"><a class="nav-link administration-page-nav-link {{departments_show}}" href="#departments" data-toggle="tab">Departments</a></li>
+                    <li class="nav-item {{departments_is_active}}"><a class="nav-link administration-page-nav-link {{departments_show}}" href="#departments" data-toggle="tab">Departments</a></li>
+                    <li class="nav-item {{visitors_is_active}}"><a class="nav-link administration-page-nav-link {{visitors_show}}" href="#visitors" data-toggle="tab">Visitors</a></li>
                 </ul>
             </div>
 
@@ -63,6 +66,16 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- visitors table-->
+                <div id="visitors" class="tab-pane fade {{visitors_show}} left">
+                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                        <div class="">
+                            {% include [language_fullpathfile('visitors_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visitors_page_content.html','PAGE',active_module)] %}
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

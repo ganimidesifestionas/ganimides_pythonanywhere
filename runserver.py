@@ -1,13 +1,13 @@
 """
 This script runs the ganimides_website application using a development server.
 """
-# # # # # # #
+# # # # # # # # #
+from os import environ
 print(__name__, '######################################################')
 print(__name__, '###RUN APP ON SERVER###')
 print(__name__, '######################################################')
 print(__name__, '### INIT START----------------------------------------')
 # # # # #
-from os import environ
 from website_app import app
 from database import init_database as init_application_database
 from website_app.module_authorization.database import init_database as init_authorization_database

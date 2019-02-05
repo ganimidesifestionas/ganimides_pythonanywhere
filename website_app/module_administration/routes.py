@@ -32,6 +32,7 @@ from . forms import UserAdminForm, RoleForm, DepartmentForm, SetPasswordForm, Lo
 # Import module models (i.e. User)
 from . models import User, Role, Department #,ContactMessage
 from ..module_authorization.models import Subscriber
+from ..models import Visitor
 
 # Define the blueprint: 'administration', set its url prefix: app.url/administration
 administration = Blueprint('administration', __name__, url_prefix='/administration')
@@ -276,18 +277,20 @@ def adminpage(action_tab='users'):
     page_template_page = ''
     page_form = ''
     log_page(page_name, page_function, page_template, page_template_page, page_form)
-    log_variable('action_tab',action_tab)
+    log_url_param('action_tab',action_tab)
     if not action_tab or action_tab == '*':
         action_tab = 'users'
     users = User.query.all()
     roles = Role.query.all()
     departments = Department.query.all()
+    visitors = Visitor.query.all()
     return render_template('administration/page_templates/administrationpage_template.html'
-        ,users = users
-        ,roles = roles
-        ,departments = departments
-        ,title = "administration"
-        ,activeTAB = action_tab
+        , users = users
+        , roles = roles
+        , departments = departments
+        , visitors = visitors
+        , title = "administration"
+        , activeTAB = action_tab
         )
 
 @administration.route('/useredit/<action>/<int:id>', methods = ['GET', 'POST'])

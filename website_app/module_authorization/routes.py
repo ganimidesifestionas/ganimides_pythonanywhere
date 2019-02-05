@@ -81,7 +81,7 @@ from .. import db
 @authorization.before_request
 def set_cookies():
     print('###'+__name__+'###', 'before_request')
-    #session['active_module'] = __name__
+    session['active_module'] = __name__
     session['urls'].append(request.url)
     if len(session['urls']) > 9:
         session['urls'].pop(0)
@@ -187,9 +187,10 @@ def client_IP():
 ###########################################################################
 ###########################################################################
 def init_active_menuoptions():
-    session[login_active] = ''
-    session[register_active] = ''
-    session[help_active] = ''
+    #session[login_active] = ''
+    #session[register_active] = ''
+    #session[help_active] = ''
+    dummy=1
 
 def init_form_options():
     print('xxxxxxxxxxxx')
@@ -438,7 +439,8 @@ def register():
     page_function = 'register'
     page_template = 'authorization/page_templates/authorization_forms_template.html'
     page_form = 'form_register.html'
-    log_page(page_name, page_function, page_template,page_form)
+    #like splashform
+    log_splash_page(page_name, page_function, page_template,page_form)
 
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -517,10 +519,13 @@ def login():
     page_function = 'login'
     page_template = 'authorization/page_templates/authorization_forms_template.html'
     page_form = 'form_login.html'
-    log_page(page_name, page_function, page_template,page_form)
-    session[login_active] = 'active'
-    session[register_active] = ''
-    session[help_active] = ''
+    #like splashform
+    log_splash_page(page_name, page_function, page_template,page_form)
+    #if session['lastpageURL'] = request.url
+
+    #session[login_active] = 'active'
+    #session[register_active] = ''
+    #session[help_active] = ''
 
     #print('LOGIN',request.method,'lastpage', session['lastpageURL'])
     #print('LOGIN',request.method,'splash_form',session['splash_form'])
@@ -600,7 +605,8 @@ def login_or_register(action_tab):
     page_function = 'login_or_register'
     page_template = 'authorization/page_templates/authorization_forms_template.html'
     page_form = 'login_or_register.html'
-    log_page(page_name, page_function, page_template,page_form)
+    #like splashform
+    log_splash_page(page_name, page_function, page_template,page_form)
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -1049,7 +1055,7 @@ def emailconfirmrequest(email):
     page_function = 'emailconfirmrequest'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = 'form_email_confirmation.html'
-    log_page(page_name, page_function, page_template,page_form)
+    log_route(page_name, page_function, page_template,page_form)
 
     form = emailConfirmationForm()
     form.email.data = email
@@ -1101,7 +1107,7 @@ def password_reset(email=''):
     page_function = 'passwordreset'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = 'form_password_reset.html'
-    log_page(page_name, page_function, page_template,page_form)
+    log_route(page_name, page_function, page_template,page_form)
 
     form = PasswordReSetForm()
     varTitle='Password Reset'
