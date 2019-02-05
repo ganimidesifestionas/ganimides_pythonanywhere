@@ -28,8 +28,7 @@ class Visitor(Base):
     visitsCount = db.Column(db.Integer, nullable=True, default=1)
     visitDT = db.Column(db.DateTime, nullable=False)
     visits = db.relationship("Visit", backref='visitor')
-
-    #email = db.Column(db.String(60), index=True, unique=True)
+    #email = db.Column(db.String(120), index=True, unique=True)
     #userName = db.Column(db.String(60), index=True, unique=True , default='')
     #firstName = db.Column(db.String(60), index=True , default='')
     #lastName = db.Column(db.String(60), index=True , default='')
