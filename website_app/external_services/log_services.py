@@ -28,6 +28,11 @@ def client_IP():
     else:
         clientipa = request.environ['HTTP_X_FORWARDED_FOR']
     session['clientIPA'] = clientipa
+    #app.logger.debug('this is a DEBUG message')
+    app.logger.info('client IPA is {}'.format(clientipa))
+    #app.logger.warning('this is a WARNING message')
+    #app.logger.error('this is an ERROR message')
+    #app.logger.critical('this is a CRITICAL message')
     return clientipa
 ###########################################################################
 ###########################################################################
@@ -56,9 +61,9 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
             session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
 
     session.modified = True
-
     print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '### '+__name__+' ###')
     #log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    app.logger.info('--%s page:%s %s %s %s', session['clientIPA'], session['pageID'], request.method, request.url, '### '+__name__+' ###')
 
 def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', page_template_form=''):
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')
@@ -78,6 +83,7 @@ def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', 
 
     print(session['clientIPA'], 'route', session['routeID'], request.method, request.url, '### '+__name__+' ###')
     #log_page_visit('route', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    app.logger.info('--%s route:%s %s %s %s', session['clientIPA'], session['routeID'], request.method, request.url, '### '+__name__+' ###')
 
 def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')

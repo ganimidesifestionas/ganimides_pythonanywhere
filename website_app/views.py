@@ -1,7 +1,7 @@
 """
 Routes and views for the flask application.
 """
-
+#import logging
 from datetime import datetime
 #from datetime import timedelta
 #import time
@@ -70,14 +70,14 @@ from .external_services.log_services import client_IP, log_visit, log_page, log_
 @app.before_first_request
 def init_cookies_etc_before_first_request():
     print('##########################################')
-    print('##########################################')
-    print('##########################################')
-    print('##########################################')
     print('###'+__name__+'###', 'before_first_request')
     print('##########################################')
-    print('##########################################')
-    print('##########################################')
-    print('##########################################')
+    # test the logger
+    app.logger.debug('this is a DEBUG message')
+    app.logger.info('this is an INFO message')
+    app.logger.warning('this is a WARNING message')
+    app.logger.error('this is an ERROR message')
+    app.logger.critical('this is a CRITICAL message')
 
     #this will make session cookies expired in 5 minutes
     # set app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
@@ -89,7 +89,7 @@ def init_cookies_etc_before_first_request():
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
-
+    app.logger.critical('this is a CRITICAL message')
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
@@ -105,6 +105,7 @@ def init_cookies_etc_before_first_request():
     app.forgetpasswordform = forgetPasswordForm()
     app.cookiesconsentform = CookiesConsentForm()
     #3. log_visit()
+    print('##########################################')
 
 @app.before_request
 def set_cookies_etc_before_request():

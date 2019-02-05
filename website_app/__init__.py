@@ -14,11 +14,31 @@ from flask_migrate import Migrate, MigrateCommand
 
 # local imports
 from .config import app_config
-from logging.config import dictConfig
 
+#from logging.config import dictConfig
 #from .external_services.log_services import *
+#print('   ',__name__,'###dictConfig###', dictConfig)
 
-#print('   ',__name__,'###dictConfig###',dictConfig)
+#################logging#######
+#logging config
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.INFO)
+
+# create a file handler
+handler = logging.FileHandler('hello.log')
+handler.setLevel(logging.DEBUG)
+
+# create a logging format
+formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
+handler.setFormatter(formatter)
+
+# add the handlers to the logger
+logger.addHandler(handler)
+
+# test the logger
+logger.info('Hello World!!!')
 
 # def create_app():
 #     app = Flask(__name__)
