@@ -10,12 +10,12 @@ config_base_folder = os.path.dirname(config_path)
 config_folder = os.path.basename(os.path.dirname(__file__))
 config_folder = __file__.replace(config_filename,'').replace(config_base_folder,'')
 ################################################################
-print('__file__ =',__file__)
-print('config_file =', config_file)
-print('config_path =', config_path)
-print('config_folfer =', config_folder)
-print('config_filename =', config_filename)
-print('config_base_folder =', config_base_folder)
+print('      ', '__file__ =',__file__)
+print('      ', 'config_file =', config_file)
+print('      ', 'config_path =', config_path)
+print('      ', 'config_folfer =', config_folder)
+print('      ', 'config_filename =', config_filename)
+print('      ', 'config_base_folder =', config_base_folder)
 #####################################################################
 SERVER_CONFIG_FILE = config_file
 SERVER_CONFIG_PATH = config_path

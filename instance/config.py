@@ -2,9 +2,27 @@
 
 import os
 
-print(__file__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-print(basedir)
+config_file = os.path.abspath(__file__)
+config_filename = os.path.basename(__file__)
+config_path = os.path.abspath(os.path.dirname(__file__))
+config_base_folder = os.path.dirname(config_path)
+config_folder = os.path.basename(os.path.dirname(__file__))
+config_folder = __file__.replace(config_filename,'').replace(config_base_folder,'')
+################################################################
+print('      ', '__file__ =',__file__)
+print('      ', 'config_file =', config_file)
+print('      ', 'config_path =', config_path)
+print('      ', 'config_folfer =', config_folder)
+print('      ', 'config_filename =', config_filename)
+print('      ', 'config_base_folder =', config_base_folder)
+#####################################################################
+INSTANCE_CONFIG_FILE = config_file
+INSTANCE_CONFIG_PATH = config_path
+INSTANCE_CONFIG_BASE_FOLDER = config_base_folder
+INSTANCE_CONFIG_FOLDER = config_folder
+INSTANCE_CONFIG_FILENAME = config_filename
+#####################################################################
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 #filename = os.path.basename(__file__)
 filename = __file__.replace(BASE_DIR, '').replace('\\..', '').replace('\\', '')
