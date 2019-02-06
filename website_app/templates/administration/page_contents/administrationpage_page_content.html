@@ -9,6 +9,8 @@
 {% set departments_show='' %}
 {% set visitors_is_active='' %}
 {% set visitors_show='' %}
+{% set visits_is_active='' %}
+{% set visits_show='' %}
 
 {% if activeTAB=='roles' %}
     {% set roles_is_active='active' %}
@@ -34,6 +36,7 @@
                     <li class="nav-item {{roles_is_active}}"><a class="nav-link administration-page-nav-link {{roles_show}}" href="#roles" data-toggle="tab">Roles</a></li>
                     <li class="nav-item {{departments_is_active}}"><a class="nav-link administration-page-nav-link {{departments_show}}" href="#departments" data-toggle="tab">Departments</a></li>
                     <li class="nav-item {{visitors_is_active}}"><a class="nav-link administration-page-nav-link {{visitors_show}}" href="#visitors" data-toggle="tab">Visitors</a></li>
+                    <li class="nav-item {{visits_is_active}}"><a class="nav-link administration-page-nav-link {{visits_show}}" href="#visits" data-toggle="tab">Visits</a></li>
                 </ul>
             </div>
 
@@ -76,6 +79,15 @@
                     </div>
                 </div>
 
+                <!-- visits table-->
+                <div id="visits" class="tab-pane fade {{visits_show}} left">
+                        <div class="d-flex justify-content-center administration-page xtabform-borders">
+                            <div class="">
+                                {% include [language_fullpathfile('visits_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visits_page_content.html','PAGE',active_module)] %}
+                            </div>
+                        </div>
+                    </div>
+    
             </div>
         </div>
     </div>
