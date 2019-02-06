@@ -132,6 +132,8 @@ class Config(object):
     SQLALCHEMY_POOL_RECYCLE = 280
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_RECORD_QUERIES = True
+    SQLALCHEMY_RECORD_QUERIES = False
+    
     #SQLALCHEMY_POOL_SIZE = 5
     #SQLALCHEMY_POOL_TIMEOUT = 360
     #SQLALCHEMY_MAX_OVERFLOW = 
@@ -163,17 +165,8 @@ class SandBoxConfig(Config):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_ECHO = True
-    SQLALCHEMY_TRACK_MODIFICATIONS=True
-    #globalDebugLevel = 1
-    #globalDebugLevelStartFinish = 1
-    #globalDebugLevelSection = 1
-    #globalDebugLevelError = 1
-    #globalDebugLevelMessage = 1
-    #globalDebugLevelInputParam = 1
-    #globalDebugLevelValue = 1
-    #globalDebugLevelResults = 1
-    #globalDebugLevelHttp = 1
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 class DevelopmentConfig(Config):
     """Development configurations"""
@@ -181,17 +174,8 @@ class DevelopmentConfig(Config):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS=True
-    #globalDebugLevel = 1
-    #globalDebugLevelStartFinish = 1
-    #globalDebugLevelSection = 1
-    #globalDebugLevelError = 1
-    #globalDebugLevelMessage = 1
-    #globalDebugLevelInputParam = 1
-    #globalDebugLevelValue = 1
-    #globalDebugLevelResults = 1
-    #globalDebugLevelHttp = 1
 
 class TestingConfig(Config):
     """Testing configurations"""
@@ -199,17 +183,8 @@ class TestingConfig(Config):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_ECHO = True
-    SQLALCHEMY_TRACK_MODIFICATIONS=True
-    #globalDebugLevel = 1
-    #globalDebugLevelStartFinish = 1
-    #globalDebugLevelSection = 1
-    #globalDebugLevelError = 1
-    #globalDebugLevelMessage = 1
-    #globalDebugLevelInputParam = 1
-    #globalDebugLevelValue = 1
-    #globalDebugLevelResults = 1
-    #globalDebugLevelHttp = 1
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 class ProductionConfig(Config):
     """Production configurations """
@@ -218,16 +193,7 @@ class ProductionConfig(Config):
     TESTING = False
     WTF_CSRF_ENABLED = True
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
-    #globalDebugLevel = 1
-    #globalDebugLevelStartFinish = 1
-    #globalDebugLevelSection = 1
-    #globalDebugLevelError = 1
-    #globalDebugLevelMessage = 1
-    #globalDebugLevelInputParam = 1
-    #globalDebugLevelValue = 1
-    #globalDebugLevelResults = 1
-    #globalDebugLevelHttp = 1
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class xProductionConfig(Config):
