@@ -28,11 +28,9 @@ def client_IP():
     else:
         clientipa = request.environ['HTTP_X_FORWARDED_FOR']
     session['clientIPA'] = clientipa
-    #app.logger.debug('this is a DEBUG message')
     app.logger.info('client IPA is {}'.format(clientipa))
-    #app.logger.warning('this is a WARNING message')
-    #app.logger.error('this is an ERROR message')
-    #app.logger.critical('this is a CRITICAL message')
+    realclientipa = request.headers['X-Real-IP'] 
+    app.logger.info('###real client IPA is {}'.format(realclientipa))
     return clientipa
 ###########################################################################
 ###########################################################################
