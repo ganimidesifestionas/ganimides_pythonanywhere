@@ -32,7 +32,7 @@ def cls():
 def create_database():
     #print('   ', 'database-init', __name__, 'create the database if not exists')
     #print('   ', 'database-init', __name__, '   DATABASE_SERVER_URI =',DATABASE_SERVER_URI)
-    dbserver_engine = sqlalchemy.create_engine(DATABASE_SERVER_URI, pool_recycle=280) # connect to server
+    dbserver_engine = sqlalchemy.create_engine(DATABASE_SERVER_URI, pool_recycle=180) # connect to server
     existing_databases = dbserver_engine.execute("SHOW DATABASES;")
     existing_databases = [d[0] for d in existing_databases]
     # for database in existing_databases:
@@ -50,7 +50,7 @@ def create_database():
 def create_all_tables_auto():
     #print('   ', 'database-init', __name__, 'create all tables in database if not exists(auto)')
     #print('   ', 'database-init', __name__, '   DATABASE_URI =',DATABASE_URI)
-    db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=280) # connect to database
+    db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
     existing_tables_before = db_engine.execute('SHOW TABLES;')
     existing_tables_before = [d[0] for d in existing_tables_before]
     #print('   ', 'database-init', __name__, 'tables before')
@@ -69,7 +69,7 @@ def create_all_tables_auto():
 def create_all_tables_manually():
     #print('   ', 'database-init', __name__, 'create tables in database if not exists (manually)')
     #print('   ', 'database-init', __name__, '   DATABASE_URI =', DATABASE_URI)
-    db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=280) # connect to database
+    db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
     existing_tables = db_engine.execute('SHOW TABLES;')
     existing_tables = [d[0].lower() for d in existing_tables]
 
