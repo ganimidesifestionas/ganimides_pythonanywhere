@@ -60,6 +60,7 @@ app = Flask(__name__, instance_relative_config=True)
 #            instance_path=get_instance_folder_path(),
 #            instance_relative_config=True,
 #            template_folder='templates') 
+#print('   ',__name__,'###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
 ################################################################################
 ################################################################################
 ################################################################################
@@ -600,6 +601,7 @@ def inject_utility_functions():
 ## epiloque
 ################################################################################
 ################################################################################
+print('   ',__name__,'###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
 print('   ',__name__,'###FINISHED: FLASK-APP-created&ready###')
 print('   ',__name__,'#############################################################')
 ##-##-####-##-####-##-####-##-####-##-##

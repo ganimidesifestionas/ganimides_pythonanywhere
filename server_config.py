@@ -97,6 +97,8 @@ else:
 ################################################################
 ### database connection
 ################################################################
+#dialect+driver://username:password@host:port/database
+
 DATABASE_SERVER = 'localhost'
 DATABASE_NAME = 'ifestionas_db'
 DATABASE_SERVER_URI = 'mysql+pymysql://ganimedes:philea13@localhost'

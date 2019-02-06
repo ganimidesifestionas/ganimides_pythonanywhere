@@ -126,6 +126,15 @@ class Config(object):
     FLASKY_COMMENTS_PER_PAGE = 30
     FLASKY_SLOW_DB_QUERY_TIME = 0.5
 
+    ################################################
+    # SQLALCHEMY
+    ################################################
+    SQLALCHEMY_POOL_RECYCLE = 280
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_RECORD_QUERIES = True
+    #SQLALCHEMY_POOL_SIZE = 5
+    #SQLALCHEMY_POOL_TIMEOUT = 360
+    #SQLALCHEMY_MAX_OVERFLOW = 
     #############################################################################################
     # other config
     #############################################################################################
@@ -154,8 +163,8 @@ class SandBoxConfig(Config):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_ECHO = False
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
     #globalDebugLevel = 1
     #globalDebugLevelStartFinish = 1
     #globalDebugLevelSection = 1
@@ -172,8 +181,8 @@ class DevelopmentConfig(Config):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_ECHO = False
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
     #globalDebugLevel = 1
     #globalDebugLevelStartFinish = 1
     #globalDebugLevelSection = 1
@@ -190,8 +199,8 @@ class TestingConfig(Config):
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_ECHO = False
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
+    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_TRACK_MODIFICATIONS=True
     #globalDebugLevel = 1
     #globalDebugLevelStartFinish = 1
     #globalDebugLevelSection = 1
