@@ -27,15 +27,15 @@ logger.setLevel(logging.DEBUG)
 #logger.setLevel(logging.INFO)
 
 # create a file handler
-handler = logging.FileHandler('hello.log')
-handler.setLevel(logging.DEBUG)
+# handler = logging.FileHandler('hello.log')
+# handler.setLevel(logging.DEBUG)
 
-# create a logging format
-formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
-handler.setFormatter(formatter)
+# # create a logging format
+# formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
+# handler.setFormatter(formatter)
 
-# add the handlers to the logger
-logger.addHandler(handler)
+# # add the handlers to the logger
+# logger.addHandler(handler)
 
 # test the logger
 logger.info('Hello World!!!')
