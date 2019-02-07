@@ -1,6 +1,10 @@
 # myServer/server_config.py
 import os
+<<<<<<< HEAD
 # # #3 #4 #5 #6 #7 #8
+=======
+# # #3 #4 #5 #6 #7 #8 #9 #10 #11
+>>>>>>> a6b3e8c3c98e25458d2c62af5b4284a3fd76b68a
 ################################################################
 #print('file =',__file__)
 config_file = os.path.abspath(__file__)

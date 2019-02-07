@@ -28,6 +28,6 @@ if __name__ == '__main__':
     except ValueError:
         PORT = 5555
     print(__name__, '   app.run','host =', HOST, 'port =', PORT)
-    app.logger.info('app started!!!-!!!')
+    app.logger.info('@@@app started!!!-!!!')
     app.run(HOST, PORT, debug=False)
     print(__name__, '### APP FINISH-----------------------------------------')
