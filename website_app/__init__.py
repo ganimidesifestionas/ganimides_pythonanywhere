@@ -603,5 +603,6 @@ def inject_utility_functions():
 ################################################################################
 print('   ',__name__,'###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
 print('   ',__name__,'###SQLALCHEMY_POOL_TIMEOUT####', app.config['SQLALCHEMY_POOL_TIMEOUT'])
+print('   ',__name__,'###SQLALCHEMY_POOL_SIZE####', app.config['SQLALCHEMY_POOL_SIZE'])
 print('   ',__name__,'###FINISHED: FLASK-APP-created&ready###')
 print('   ',__name__,'#############################################################')

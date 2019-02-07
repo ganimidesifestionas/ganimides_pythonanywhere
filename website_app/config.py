@@ -129,8 +129,6 @@ class Config(object):
     ################################################
     # SQLALCHEMY
     ################################################
-    SQLALCHEMY_POOL_RECYCLE = 90
-    SQLALCHEMY_POOL_TIMEOUT = 9
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_RECORD_QUERIES = False
