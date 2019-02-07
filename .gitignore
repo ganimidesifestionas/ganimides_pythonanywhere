@@ -1,3 +1,15 @@
+# Application staff
+
+# server staff
+**/server_config.*
+server_config.*
+
+#test
+
+# vscode files
+**vscode/
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -103,8 +115,3 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#server level config
-**server_config.*
-
-#vscode staff
-**vscode/
