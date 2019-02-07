@@ -89,7 +89,7 @@ def init_cookies_etc_before_first_request():
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
-    app.logger.critical('this is a CRITICAL message')
+    app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!SITE FIRST REQUEST')
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
