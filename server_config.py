@@ -170,6 +170,12 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
         DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
         SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
+################################################
+# SQLALCHEMY
+################################################
+SQLALCHEMY_POOL_RECYCLE = 90
+################################################
+
 # #SQLALCHEMY_DATABASE_URI = 'mysql://dt_admin:dt2016@localhost/dreamteam_db'
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db'
 # #{
@@ -180,6 +186,16 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 # #    "sql_engine": "mysql+pymysql",
 # #    "charset": "utf8"
 # #}
+# import pymysql
+# connection = pymysql.connect(host='***',
+#                                  user='***',
+#                                  password='***',
+#                                  db='***',
+#                                  charset='utf8mb4',
+#                                  cursorclass=pymysql.cursors.DictCursor
+#                                  )
+
+
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimides_db'
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
 # #print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILE, '###instance### ###config.py### SQLALCHEMY_DATABASE_URI=',SQLALCHEMY_DATABASE_URI)

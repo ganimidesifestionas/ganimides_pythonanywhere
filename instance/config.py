@@ -57,7 +57,7 @@ WEBSITE_ADMIN = os.environ.get('WEBSITE_ADMIN', 'admin@ganimides.com')
 ################################################################
 ### database config
 ################################################################
-SQLALCHEMY_POOL_RECYCLE = 299
+SQLALCHEMY_POOL_RECYCLE = 90
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_ECHO = False
 SQLALCHEMY_RECORD_QUERIES = True
