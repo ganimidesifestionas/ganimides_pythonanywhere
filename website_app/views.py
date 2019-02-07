@@ -72,12 +72,6 @@ def init_cookies_etc_before_first_request():
     print('##########################################')
     print('###'+__name__+'###', 'before_first_request')
     print('##########################################')
-    # test the logger
-    # app.logger.debug('this is a DEBUG message')
-    # app.logger.info('this is an INFO message')
-    # app.logger.warning('this is a WARNING message')
-    # app.logger.error('this is an ERROR message')
-    # app.logger.critical('this is a CRITICAL message')
 
     #this will make session cookies expired in 5 minutes
     # set app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
@@ -89,7 +83,7 @@ def init_cookies_etc_before_first_request():
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
-    app.logger.critical('!!! SITE FIRST REQUEST !!!')
+    app.logger.critical('!!! SITE FIRST REQUEST !!! IP:{0}'.format(clientIPA))
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
