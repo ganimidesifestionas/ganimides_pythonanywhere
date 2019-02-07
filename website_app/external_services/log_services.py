@@ -34,7 +34,8 @@ def client_IP():
     else:
         realclientipa = request.headers.get('X-Real-IP')
         app.logger.info('###real client IPA is {}'.format(realclientipa))
-    return clientipa
+    session['clientIPA'] = realclientipa
+    return realclientipa
 ###########################################################################
 ###########################################################################
 ###########################################################################
