@@ -194,12 +194,14 @@ def log_visitor():
         db.session.commit()
         visitor = Visitor.query.filter_by(ipa=session['clientIPA']).first()
         session['VisitorID'] = visitor.id
+        session['VisitorNumber'] = visitor.visitorNumber
         session.modified = True
         log_variable('***new visitor', visitor)
     else:
         #log_variable('visitor', visitor)
-        if 'VisitorID' not in session:
+        if 'VisitorID' not in session or 'VisitorNumber' not in session:
             session['VisitorID'] = visitor.id
+            session['VisitorNumber'] = visitor.visitorNumber
             session.modified = True
     #log_variable('VisitorID', session['VisitorID'])
     return visitor
