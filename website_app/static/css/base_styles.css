@@ -2883,3 +2883,94 @@ canvas{
     transform: translate3D(0,0,0);
     transition: all .5s;
   }
+
+  .cookies-consent-page {
+    color: black;
+    background-color: #f8f9fa;
+    height: auto;
+    line-height: unset;
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+}
+.cookies-consent-page h1{
+    font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14pt;
+    font-style: normal;
+    font-weight: 900;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+.cookies-consent-page h2, h3, h4 {
+    font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13pt;
+    font-style: normal;
+    font-weight: 900;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.cookies-consent-page button {
+    color: black;
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.cookies-consent-page a {
+    color: orange;
+    background-color: transparent;
+    font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 2px;
+    border: 1px solid transparent;
+}
+
+.cookies-consent-page a:visited {
+    color: orange;
+    background-color: transparent;
+    font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.cookies-consent-page a:link {
+    color: orange;
+    background-color: transparent;
+    font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 2px;
+    border: 1px solid transparent;
+}
+
+.cookies-consent-page a:hover {
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    background-color: lightgray;
+    color: white;
+    border: 1px solid orange;
+    border-radius: 4px;
+}
+.cookies-consent-page-line {
+    border: 0px;
+    border-top: 1px solid #005293;
+}

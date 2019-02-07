@@ -39,7 +39,7 @@ class CookiesConsentForm(FlaskForm):
     """
     Form for user to consent on our cookies policy
     """
-    submit = SubmitField('Accept')
+    submit = SubmitField('Agree and Proceed')
 ###########################################################################
 ###########################################################################
 ###########################################################################
