@@ -173,12 +173,6 @@ def log_variable(name='', value=''):
     msg = '{0}={1}'.format(name, value)
     print('   ', msg)
 
-def client_IP():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        clientip = request.environ['REMOTE_ADDR']
-    else:
-        clientip = request.environ['HTTP_X_FORWARDED_FOR']
-    return clientip
 ###########################################################################
 ###########################################################################
 ###########################################################################
