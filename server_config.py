@@ -1,6 +1,6 @@
 # myServer/server_config.py
 import os
-# # #3 #4 #5 #6 #7 #8 #9
+# # #3 #4 #5 #6 #7 #8
 ################################################################
 #print('file =',__file__)
 config_file = os.path.abspath(__file__)
@@ -25,11 +25,11 @@ SERVER_CONFIG_FILENAME = config_filename
 #####################################################################
 EYECATCH = 'SERVER'
 EXECUTION_MODE = 'development'
-EXECUTION_ENVIRONMENT = 'localhost'
-#EXECUTION_ENVIRONMENT = 'pythonanywhere'
-SERVER = 'localhost'
+#EXECUTION_ENVIRONMENT = 'localhost'
+EXECUTION_ENVIRONMENT = 'pythonanywhere'
+#SERVER = 'localhost'
 #SERVER = 'pythonanywhere-ganimedes'
-#SERVER = 'pythonanywhere-ifestionas'
+SERVER = 'pythonanywhere-ifestionas'
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 ################################################################
 ### mail servers
