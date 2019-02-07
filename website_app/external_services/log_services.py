@@ -28,13 +28,14 @@ def client_IP():
     else:
         clientipa = request.environ['HTTP_X_FORWARDED_FOR']
     session['clientIPA'] = clientipa
-    app.logger.info('client IPA is {}'.format(clientipa))
+    #app.logger.info('client IPA is {}'.format(clientipa))
     if request.headers.get('X-Real-IP') is None:
         realclientipa = clientipa
     else:
         realclientipa = request.headers.get('X-Real-IP')
-        app.logger.info('###real client IPA is {}'.format(realclientipa))
+        #app.logger.info('###real client IPA is {}'.format(realclientipa))
     session['clientIPA'] = realclientipa
+    app.logger.info('###real client IPA is {0}/{1}'.format(clientipa, realclientipa))
     return realclientipa
 ###########################################################################
 ###########################################################################
