@@ -104,9 +104,16 @@ venv.bak/
 .mypy_cache/
 
 #server level config
+<<<<<<< HEAD
 **server_config.py
 server_config.*
 
 #vscode staff
 .vscode/
 **/vscode/
+=======
+**server_config.*
+
+#vscode staff
+**vscode/
+>>>>>>> e479d8389f94d960e7b7ae0d99cc240a9ee9efc1
