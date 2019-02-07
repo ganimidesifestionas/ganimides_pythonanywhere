@@ -140,7 +140,7 @@ existing_tables = [d[0] for d in existing_tables]
 for table in existing_databases:
     print("table {0} exists in database {1}".format(table,DBURI))
 
-print('')
+print('########################')
 
 
 # engine = create_engine(db_uri)
