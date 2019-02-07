@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 #import logging
 from datetime import datetime
-#from datetime import timedelta
+from datetime import timedelta
 #import time
 #from flask import Flask
 from flask import flash
@@ -73,11 +73,11 @@ def init_cookies_etc_before_first_request():
     print('###'+__name__+'###', 'before_first_request')
     print('##########################################')
     # test the logger
-    app.logger.debug('this is a DEBUG message')
-    app.logger.info('this is an INFO message')
-    app.logger.warning('this is a WARNING message')
-    app.logger.error('this is an ERROR message')
-    app.logger.critical('this is a CRITICAL message')
+    # app.logger.debug('this is a DEBUG message')
+    # app.logger.info('this is an INFO message')
+    # app.logger.warning('this is a WARNING message')
+    # app.logger.error('this is an ERROR message')
+    # app.logger.critical('this is a CRITICAL message')
 
     #this will make session cookies expired in 5 minutes
     # set app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
@@ -123,6 +123,7 @@ def set_cookies_etc_before_request():
     if 'clientIPA' not in session:
         clientIPA = client_IP()
         session['clientIPA'] = clientIPA
+
     #force get
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
@@ -135,8 +136,8 @@ def set_cookies_etc_before_request():
         duration = t2 - t1
         duration_sec = duration.total_seconds()
         duration_min = divmod(duration_sec, 60)[0]
-        #print('XXXX-check-duration',duration_sec,duration_min)
-        if duration_min >= 1:
+        #print('XXXX-check-duration',duration_sec, duration_min)
+        if duration_sec >= 0:
             session['cookies_consent'] = 'EXPIRED'
         else:
             session['cookies_consent'] = 'YES'
@@ -298,32 +299,53 @@ def set_language(language=None):
     log_info('language set to {0}'.format(language))
     return redirect(session['lastpageURL'])
 
-@app.route('/cookiesconsentform', methods=['GET', 'POST'])
-def cookiesconsentform():
+@app.route('/cookiesconsentform/<answer>', methods=['GET', 'POST'])
+def cookiesconsentform(answer):
     page_name = 'cookiesconsentform-splash-form'
     page_function = 'cookiesconsentform'
     page_form = 'splash_form_cookiesconsent.html'
     log_splash_page(page_name, page_function, '', '', page_form)
-
-    form = CookiesConsentForm()
-    if not form.validate_on_submit():
-        dummy = 1 #form has input errors
+    #print('xxxxxxx   ',answer)
+    if answer.upper() == 'AGREE':
+        dt = datetime.now() + timedelta(days=31)
     else:
-        # set the session cookie 'cookies_consent_time' to current datetime
-        dt = datetime.now()
-        strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
-        session['cookies_consent_time'] = strdt
-        session['cookies_consent'] = 'YES'
-        flash('Thank You. Your data are protected', 'success')
-        # OK
-        return render_template(
-            session['lastpageHTML']
-            )
+        dt = datetime.now() + timedelta(seconds=3*60)
+        #dt = datetime.now() + timedelta(days=1)
+    strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+    session['cookies_consent_time'] = strdt
+    session['cookies_consent'] = 'YES'
+    flash('Thank You. Your data are protected', 'success')
     return render_template(
         session['lastpageHTML']
-        , cookiesconsentform=form
-        , splash_form='cookiesconsent'
         )
+
+    # form = CookiesConsentForm()
+    # if not form.validate_on_submit():
+    #     dummy = 1 #form has input errors
+    #     print('xxxxxxx   xxxxx',answer)
+    # else:
+    #     print('xxxxxxx   xxxxxxxxxxxxxxxxxxxxxx',answer)
+    #     if answer.upper() == 'AGREE':
+    #         # set the session cookie 'cookies_consent_time' to current datetime
+    #         dt = datetime.now() + timedelta(days=31)
+    #     else:
+    #         dt = datetime.now() + timedelta(seconds=3*60)
+    #         #dt = datetime.now() + timedelta(days=1)
+
+    #     strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+    #     session['cookies_consent_time'] = strdt
+    #     session['cookies_consent'] = 'YES'
+    #     flash('Thank You. Your data are protected', 'success')
+    #     return render_template(
+    #         session['lastpageHTML']
+    #         )
+
+    # print('xxxxxxx  zzzzzzzzzzz',answer)
+    # return render_template(
+    #     session['lastpageHTML']
+    #     , cookiesconsentform=form
+    #     , splash_form='cookiesconsent'
+    #     )
 
 #############################################################
 #############################################################

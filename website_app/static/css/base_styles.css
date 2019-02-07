@@ -2883,9 +2883,11 @@ canvas{
     transform: translate3D(0,0,0);
     transition: all .5s;
   }
-
+/*
+******************************
+*/
   .cookies-consent-page {
-    color: black;
+    color: blue;
     background-color: #f8f9fa;
     height: auto;
     line-height: unset;
@@ -2893,7 +2895,7 @@ canvas{
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 10px;
     padding-left: 1px;
     padding-right: 1px;
     padding-top: 1px;
@@ -2905,7 +2907,7 @@ canvas{
 }
 .cookies-consent-page h1{
     font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14pt;
+    font-size: 12pt;
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
