@@ -103,8 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-#server
+#server level config
 server_config.py
 
-#vscode
+#vscode staff
 .vscode/
