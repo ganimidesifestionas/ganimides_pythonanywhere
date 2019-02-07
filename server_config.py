@@ -174,6 +174,7 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 # SQLALCHEMY
 ################################################
 SQLALCHEMY_POOL_RECYCLE = 90
+SQLALCHEMY_POOL_TIMEOUT = 9
 ################################################
 
 # #SQLALCHEMY_DATABASE_URI = 'mysql://dt_admin:dt2016@localhost/dreamteam_db'
