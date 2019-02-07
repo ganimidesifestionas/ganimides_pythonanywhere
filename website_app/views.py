@@ -123,6 +123,9 @@ def set_cookies_etc_before_request():
     if 'clientIPA' not in session:
         clientIPA = client_IP()
         session['clientIPA'] = clientIPA
+    #force get
+    clientIPA = client_IP()
+    session['clientIPA'] = clientIPA
 
     if 'cookies_consent_time' in session:
         strdt = session['cookies_consent_time']
