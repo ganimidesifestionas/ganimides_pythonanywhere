@@ -83,7 +83,7 @@ def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', 
 
     session.modified = True
 
-    print(session['clientIPA'], 'route', session['routeID'], request.method, request.url, '### '+__name__+' ###')
+    print(session['clientIPA'], 'route', pageID, request.method, request.url, '### '+__name__+' ###')
     #log_page_visit('route', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     app.logger.info('--%s route:%s %s %s %s', session['clientIPA'], session['routeID'], request.method, request.url, '### '+__name__+' ###')
 
@@ -103,7 +103,7 @@ def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='
 
     session.modified = True
 
-    print(session['clientIPA'], 'splash-page, pageID', request.method, request.url, '#'+__name__+'#')
+    print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '#'+__name__+'#')
     #log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
 
 def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
@@ -237,4 +237,3 @@ def log_visit(visitor=None):
 if __name__ == '__main__':
     log_info('test.....')
     log_variable('test', 'test')
-    

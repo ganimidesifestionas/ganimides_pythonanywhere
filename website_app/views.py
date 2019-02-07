@@ -89,7 +89,6 @@ def init_cookies_etc_before_first_request():
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
-    app.logger.critical('this is a CRITICAL message')
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
@@ -126,6 +125,7 @@ def set_cookies_etc_before_request():
     #force get
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
+    print('###'+__name__+'###', 'client IP :',session['clientIPA'])
 
     if 'cookies_consent_time' in session:
         strdt = session['cookies_consent_time']
