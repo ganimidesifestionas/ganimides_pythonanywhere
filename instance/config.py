@@ -129,6 +129,12 @@ if EXECUTION_ENVIRONMENT=='pythonanywhere':
     GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY = os.environ.get('pythonanywhere_google_RECAPTCHA_INVISIBLE_SITE_KEY','...')
     GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY = os.environ.get('pythonanywhere_google_RECAPTCHA_INVISIBLE_SECRET_KEY','...')
 
+################################################################
+### ipstack access key
+################################################################
+IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
+IPSTACK_URL = 'http://api.ipstack.com/'
+IPSTACK_URL_CMD = 'http://api.ipstack.com/{0}?access_key={1}'
 # ################################################################
 # ### print
 # ################################################################

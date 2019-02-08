@@ -269,7 +269,11 @@ RECAPTCHA_INVISIBLE_PRIVATE_KEY = RECAPTCHA_INVISIBLE_SECRET_KEY
 ################################################################
 SECRET_KEY = 'server-aeiotheosomegasgeometreip9Bv<3Eid9%$i01bobbistarr'
 SECURITY_PASSWORD_SALT = 'server-aeiotheosomegasgeometreip9Bvtispaolasbobbistarr'
-
+################################################################
+### ipstack access key
+################################################################
+IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
+IPSTACK_URL = 'http://api.ipstack.com/'
 ################################################################
 #store in os.environ in order to be used in instance or app_config
 ################################################################
