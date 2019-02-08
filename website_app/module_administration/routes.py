@@ -24,7 +24,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from .. external_services.email_services import send_email
 from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
-from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
+from .. external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
 
 # Import module forms
 from . forms import UserAdminForm, RoleForm, DepartmentForm, SetPasswordForm, LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm, emailConfirmationForm, PasswordReSetForm, forgetPasswordForm, ContactUsForm, AvatarUploadForm
