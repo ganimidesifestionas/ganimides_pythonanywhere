@@ -247,6 +247,7 @@ def log_visit(visitor=None):
         flash('You are Visitor # {0}/{1}. Thanks for visiting us!'.format(visitor.visitorNumber, visit.visitNumber,), 'success')
         log_variable('***new visit', visit)
     else:
+        log_variable('***visitID is', session.get('VisitID')
         visit = Visit.query.filter_by(id=session['VisitID']).first()
         if 'VisitNumber' not in session:
             session['VisitNumber'] = visit.visitNumber
