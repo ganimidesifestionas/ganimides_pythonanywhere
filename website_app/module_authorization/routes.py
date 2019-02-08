@@ -25,7 +25,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from .. external_services.email_services import send_email
 from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
-from .. external_services.log_services import *
+from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
 
 # Import module forms
 from . forms import LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm,emailConfirmationForm,PasswordReSetForm,forgetPasswordForm,ContactUsForm,AvatarUploadForm,CookiesConsentForm
@@ -80,14 +80,12 @@ from .. import db
 ###########################################################################
 @authorization.before_request
 def set_cookies():
-    print('###'+__name__+'###', 'before_request')
+    #print('###'+__name__+'###', 'before_request')
     session['active_module'] = __name__
     session['urls'].append(request.url)
     if len(session['urls']) > 9:
         session['urls'].pop(0)
 
-    #session['splash_form']=''
-    #print('@@@@@INIT@@@@')
     if current_user.is_authenticated:
         if app.forgetpasswordform:
             app.forgetpasswordform.email.data = current_user.email
@@ -99,79 +97,12 @@ def set_cookies():
             app.contactusform.email.data = current_user.email
             app.contactusform.contact_message.data = '...'
 
-    # if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-    #     session['IPA'] = request.environ['REMOTE_ADDR']
-    #     #print(jsonify({'ip': request.environ['REMOTE_ADDR']}), 200)
-    # else:
-    #     #print (jsonify({'ip': request.environ['HTTP_X_FORWARDED_FOR']}), 200)
-    #     session['IPA'] = request.environ['HTTP_X_FORWARDED_FOR']
     session.modified = True
 
 @authorization.after_request
 def set_cookies_after_request(response):
-    print('###'+__name__+'###', 'after_request')
+    #print('###'+__name__+'###', 'after_request')
     return response
-
-def log_page(pageName, pageFunction, pageTemplate='', page_form=''):
-    # if startNewRoute == 1:
-    #     session['pages_history'] = pageName
-    # else:
-    #     session['pages_history'] = session['pages_history'] + ">"+ pageName
-    session['lastpage'] = pageFunction
-    session['lastpageURL'] = request.url
-    if pageTemplate:
-        session['lastpageHTML'] = pageTemplate
-    #session['pageID'] = pageName.upper()
-    pageID = pageName.upper()
-    session['pages'].append(pageName)
-    if len(session['pages']) > 9:
-        session['pages'].pop(0)
-
-    for p in range(1, len(session['pages'])):
-        if p == 1:
-            session['pages_history'] = session['pages'][p-1]
-        else:
-            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
-
-    session.modified = True
-    print(client_IP(), 'page',pageID, request.method, request.url, '#'+__name__+'#')
-
-def log_route(routeName, routeFunction='', routeTemplate='', route_form=''):
-    routeID = routeName.upper()
-    session['pages'].append(routeName)
-    if len(session['pages']) > 9:
-        session['pages'].pop(0)
-    for p in range(1, len(session['pages'])):
-        if p == 1:
-            session['pages_history'] = session['pages'][p-1]
-        else:
-            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
-
-    session.modified = True
-    print(client_IP(), 'route', routeID, request.method, request.url, '#'+__name__+'#')
-
-def log_splash_page(pageName, pageFunction, pageTemplate='',page_form=''):
-    #session['splashpage'] = pageFunction
-    pageID = pageName.upper()
-    session['pages'].append(pageName)
-    if len(session['pages']) > 9:
-        session['pages'].pop(0)
-
-    for p in range(1, len(session['pages'])):
-        if p == 1:
-            session['pages_history'] = session['pages'][p-1]
-        else:
-            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
-
-    session.modified = True
-    print(client_IP(), 'splash-page, pageID', request.method, request.url, '#'+__name__+'#')
-
-def log_info(msg):
-    print('   ', msg)
-
-def log_variable(name='', value=''):
-    msg = '{0}={1}'.format(name, value)
-    print('   ', msg)
 
 ###########################################################################
 ###########################################################################
@@ -361,7 +292,7 @@ def fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailCo
 
     passwordchangeForm.email.data = subscriber.email
     print('   ---passwordchangeForm=',passwordchangeForm);
-    
+
     avatarUploadForm.photo.data=subscriber.avatarImageFile
     print('   ---avatarUploadForm=',avatarUploadForm);
 
@@ -453,7 +384,7 @@ def register():
             if subscriber :
                 flash('You are already registered!','warning')
                 return redirect(url_for('authorization.login'))
-            
+
             subscriber = Subscriber(
                 email=form.email.data
                 ,firstName=form.firstName.data
@@ -576,7 +507,7 @@ def login():
                         #form.email.errors.append("invalid email or password")
                         #form.password.errors.append("invalid email or password")
                         flash("invalid email or password",'error')
-    else:    
+    else:
         print('LOGIN',request.method,'--ERRORS--')
         #app.splash_form='login'
         #print('==============SPLASH_FORM= ',app.splash_form)
@@ -1339,7 +1270,7 @@ def contactemailverification(token):
 ###########################################################
 ###########################################################
 ###########################################################
-#splash forms 
+#splash forms
 ###########################################################
 ###########################################################
 ###########################################################
@@ -1370,7 +1301,7 @@ def loginForm():
 
     if not(form.validate_on_submit()):
         log_info('form input has ERRORS...')
-    else:    
+    else:
         log_info('form input is OK...')
         form.eyecatch.data = 'tispaolas'
         log_info('start server side validations...')
@@ -1411,8 +1342,8 @@ def loginForm():
                         flash('You have successfully logged-in as {}.'.format(form.email.data),'success')
 
                         # redirect to the appropriate dashboard page
-                        print('LOGIN-FORM',request.method,'OK, redirect accordingly...')
-                        
+                        log_info('LOGIN-FORM '+request.method+' OK, redirect accordingly...')
+
                         # SUCCESS!!! send to the last page
                         if subscriber.isAdmin:
                             log_info('subscriber isAdmin, redirect to administration.homepage')
@@ -1437,7 +1368,7 @@ def registrationForm():
     form = RegistrationForm()
     if not(form.validate_on_submit()):
         dummy=1
-    else:    
+    else:
         try:
             captcha_response = request.form['g-recaptcha-response']
         except:
@@ -1455,7 +1386,7 @@ def registrationForm():
                     ,splash_form='login'
                     ,loginform=loginform
                     )
-            
+
             subscriber = Subscriber(
                 email=form.email.data
                 ,firstName=form.firstName.data
@@ -1510,8 +1441,8 @@ def contactForm():
 
     form = ContactUsForm()
     if not(form.validate_on_submit()):
-        dummy = 1 
-    else:    
+        dummy = 1
+    else:
         contactmessage = ContactMessage(
                             email=form.email.data,
                             message=form.contact_message.data,
@@ -1585,8 +1516,8 @@ def forgetpassword(email=''):
 
 #     form = CookiesConsentForm()
 #     if not(form.validate_on_submit()):
-#         dummy = 1 
-#     else:    
+#         dummy = 1
+#     else:
 #         ## add contactmessage to the database
 #         #db.session.add(contactmessage)
 #         #db.session.commit()

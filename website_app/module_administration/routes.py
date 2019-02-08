@@ -24,7 +24,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from .. external_services.email_services import send_email
 from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
-from .. external_services.log_services import *
+from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
 
 # Import module forms
 from . forms import UserAdminForm, RoleForm, DepartmentForm, SetPasswordForm, LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm, emailConfirmationForm, PasswordReSetForm, forgetPasswordForm, ContactUsForm, AvatarUploadForm
@@ -79,13 +79,6 @@ def set_cookies():
 
     #app.contactusform = contactusform
     #app.forgetpasswordform = forgetpasswordform
-    #print('   ip = ', request.environ['REMOTE_ADDR'])
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        session['IPA'] = request.environ['REMOTE_ADDR']
-        #print(jsonify({'ip': request.environ['REMOTE_ADDR']}), 200)
-    else:
-        #print (jsonify({'ip': request.environ['HTTP_X_FORWARDED_FOR']}), 200)
-        session['IPA'] = request.environ['HTTP_X_FORWARDED_FOR']
     session.modified = True
 
 @administration.after_request
@@ -103,14 +96,14 @@ def set_cookies_after_request(response):
 def auto_assigned_userName(userid, username):
     if not username:
         username = 'User'
-    
+
     trialusername = username
     exists = 1
     while exists > 0 and exists < 100:
         u = User.query.filter(User.userName == trialusername, User.id != userid).first()
         if u:
             suffix = '000' + str(exists)
-            suffix = suffix[-2:] #right(suffix,2) 
+            suffix = suffix[-2:] #right(suffix,2)
             trialusername = username+suffix
             exists = exists + 1
         else:
@@ -351,8 +344,8 @@ def useredit(action, id):
             #form input has errors
             log_info('form input has errors')
             dummy = 1
-        else: 
-            #copy url_parameters to form (not passed from post)               
+        else:
+            #copy url_parameters to form (not passed from post)
             form.action.data = action
             form.id.data = id
 
@@ -376,7 +369,7 @@ def useredit(action, id):
                 r = User.query.filter_by(email = form.email.data).first()
                 if r :
                     form.email.errors.append("user already exists")
-                else:                              
+                else:
                     r = User.query.filter_by(email = form.email.data).first()
                     if r :
                         form.email.errors.append("user already exists")
@@ -394,7 +387,7 @@ def useredit(action, id):
                         ,user_roles = form.roles.data
                             )
                         #changed_by
-                        #user = User.query.filter_by(id = current_user.id).first()                        
+                        #user = User.query.filter_by(id = current_user.id).first()
                         # add to the database
                         db.session.add(user)
                         # add user to subscribers
@@ -516,8 +509,8 @@ def roleedit(action,id):
             #form input has errors
             log_info('form input has errors')
             dummy = 1
-        else: 
-            #copy url_parameters to form (not passed from post)               
+        else:
+            #copy url_parameters to form (not passed from post)
             form.action.data = action
             form.id.data = id
 
@@ -538,7 +531,7 @@ def roleedit(action,id):
                 r = Role.query.filter_by(name = form.name.data).first()
                 if r :
                     form.name.errors.append("role already exists")
-                else:                              
+                else:
                     r = Role.query.filter_by(description = form.description.data).first()
                     if r :
                         form.description.errors.append("role [{role}] already exists with this description".format(role = r.name))
@@ -551,7 +544,7 @@ def roleedit(action,id):
                         db.session.commit()
                         flash("role [{name}] added".format(name = role.name),'success')
                         return redirect(url_for('administration.adminpage',action_tab = 'roles'))
-            
+
             #update record
             #if action.lower() not in ['add','delete','']:
             action = 'Update'
@@ -648,8 +641,8 @@ def departmentedit(action,id):
             #form input has errors
             log_info('form input has errors')
             dummy = 1
-        else: 
-            #copy url_parameters to form (not passed from post)               
+        else:
+            #copy url_parameters to form (not passed from post)
             form.action.data = action
             form.id.data = id
             #delete record
@@ -669,7 +662,7 @@ def departmentedit(action,id):
                 r = Department.query.filter_by(name = form.name.data).first()
                 if r :
                     form.name.errors.append("department already exists")
-                else:                              
+                else:
                     r = Department.query.filter_by(description = form.description.data).first()
                     if r :
                         form.description.errors.append("department [{0}] already exists with this description".format(r.name))
