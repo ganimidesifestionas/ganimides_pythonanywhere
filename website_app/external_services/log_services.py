@@ -217,7 +217,8 @@ def log_visitor():
         session.modified = True
         log_variable('***new visitor', visitor)
     else:
-        #log_variable('visitor', visitor)
+        log_variable('@visitor', visitor)
+        log_variable('@visit', session.get('visitID'))
         if 'VisitorID' not in session or 'VisitorNumber' not in session:
             session['VisitorID'] = visitor.id
             session['VisitorNumber'] = visitor.visitorNumber
@@ -226,6 +227,7 @@ def log_visitor():
     return visitor
 
 def log_visit(visitor=None):
+    log_variable('oolog_visitoo', session.get('visitID'))
     if not visitor or 'VisitorID' not in session or not session.get('VisitorID'):
         visitor = log_visitor()
     if 'VisitID' not in session or not session.get('VisitID'):
