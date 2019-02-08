@@ -123,12 +123,11 @@ def set_cookies_etc_before_request():
             strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
             session['identityDT'] = strdt
             print('###'+__name__+'###', '***session expired after 1 min')
-            session.pop('visitID', None) # delete visitID
-            session.pop('visitNumber', None) # delete visitNumber
-            session.pop('visitorID', None) # delete visitorID
-            session.pop('visitorNumber', None) # delete visitorNumber
+            session.pop('VisitID', None) # delete visitID
+            session.pop('VisitNumber', None) # delete visitNumber
+            session.pop('VisitorID', None) # delete visitorID
+            session.pop('VisitorNumber', None) # delete visitorNumber
             session.pop('clientIPA', None) # delete clientIPA
-            print('###'+__name__+'###', '***session delete ',session.get('visitID'))
 
     if 'urls' not in session:
         session['urls'] = []
