@@ -45,7 +45,7 @@ html, body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
     min-height:100%;
     }
-    
+
 header {
     color: red;
     background-color: green;
@@ -764,7 +764,7 @@ p {
     .subscriber_menu_navbar a:visited {
         color: #800080 ;
     }
-    
+
 
 .subscriber_menu_navbar a:link, subscriber_menu_navbar a:visited {
     color: #005782;
@@ -822,7 +822,7 @@ p {
     margin: 0;
     padding: 0;
 }
-    
+
 /*============================================================*/
 /* Style the tab */
 .xnav-link
@@ -847,19 +847,19 @@ p {
     transition: 0.3s;
     font-size: 17px;
   }
-  
+
   /* Change background color of buttons on hover */
   .form-tabs button:hover {
     background-color: #ddd;
     color:blue;
   }
-  
+
   /* Create an active/current tablink class */
   .form-tabs button.active {
     background-color: #ccc;
     color:orange;
   }
-  
+
   /* Style the tab content */
   .form-tabscontent {
     display: none;
@@ -867,13 +867,13 @@ p {
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
   }
-  
+
   /* Fade in tabs */
   @-webkit-keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
   }
-  
+
   @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
@@ -896,20 +896,20 @@ p {
     /*Add this, to prevent clicking dropdown's default click function*/
 }
 
-.input-style { 
-    xpadding: 9px; 
-    xborder: solid 1px #0077B0; 
-    xoutline: 0; 
-    xbackground: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #f8f9fa), to(#FFFFFF)); 
-    xbackground: -moz-linear-gradient(top, #FFFFFF, #C6ECFF 1px, #FFFFFF 25px); 
-    xbox-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    x-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    x-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px; 
-    } 
+.input-style {
+    xpadding: 9px;
+    xborder: solid 1px #0077B0;
+    xoutline: 0;
+    xbackground: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #f8f9fa), to(#FFFFFF));
+    xbackground: -moz-linear-gradient(top, #FFFFFF, #C6ECFF 1px, #FFFFFF 25px);
+    xbox-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    x-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    x-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    }
 
     .vertical-middle {
         vertical-align: middle;
-    }   
+    }
 /*
     ****************************************************
     ****************************************************
@@ -989,7 +989,7 @@ p {
 .captcha iframe {
     position: relative;
     box-shadow: none !important;
-  }    
+  }
 /*
     ****************************************************
     ****************************************************
@@ -2389,7 +2389,7 @@ canvas{
     background-image: -o-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
     background-image: -moz-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
     background-image: -webkit-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
-    background-image: -ms-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);    
+    background-image: -ms-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
     background-image: -webkit-gradient(
         linear,
         left bottom,
@@ -2408,7 +2408,7 @@ canvas{
     xbottom:0;
     xheight:100vh;
     xbackground: none;
-    background-image: 
+    background-image:
         url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png')
         ,url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png')
         ,url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
@@ -2443,7 +2443,7 @@ canvas{
   .red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
   .blue-tooltip + .tooltip > .tooltip-inner {background-color: #00f;}
   .blue-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#00f; }
-  
+
   #cookie-notice {
     display: block;
     visibility: hidden;
@@ -2458,12 +2458,12 @@ canvas{
 }
 
 .modal.fade.show .modal-dialog.modal-dialog-slideout {
-    -webkit-animation-name: bounce; 
+    -webkit-animation-name: bounce;
     animation-name: bounce;
     -webkit-animation-duration: 1s;
-    animation-duration: 1s; 
+    animation-duration: 1s;
 }
- @keyframes bounce { 
+ @keyframes bounce {
     0% {transform: translateY(-25%);}
     20% {transform: translateY(15%);}
     40% {transform: translateY(-15%);}
@@ -2635,19 +2635,19 @@ canvas{
     background: #343a40;
   }
   /* //// Slide Left  //// */
-  
+
   .slideright:after{
     top: 0;
     z-index: -1;
     transform: translate3D(-101%,0,0);
   }
-  
+
   .slideright:hover:after{
     transform: translate3D(0,0,0);
     transition: all .5s;
   }
   /* //// Slide Right  //// */
-  
+
   .slideleft:after{
     top: 0;
     z-index: -1;
@@ -2664,7 +2664,7 @@ canvas{
         transform: translate3D(0,100%,0); /* move elements above button so they don't appear initially */
     transition: all .5s;/* onhover background color */
   }
-  
+
   .slideup:hover:after{
     transform: translate3D(0,0,0);
     transition: all .5s;
@@ -2676,7 +2676,7 @@ canvas{
         transform: translate3D(0,-100%,0); /* move elements above button so they don't appear initially */
     transition: all .5s;/* onhover background color */
   }
-  
+
   .slidedown:hover:after{
     transform: translate3D(0,0,0);
     transition: all .5s;
@@ -2697,7 +2697,7 @@ canvas{
       transform: translate3D(0,0,0);
     transition: all .5s;
   }
-  
+
   /* //// Slide Corner Left //// */
   .slidebottomleft:after{
     transform: translate3D(100%,100%,0);
@@ -2878,7 +2878,7 @@ canvas{
     z-index: -1;
     transform: translate3D(-101%,0,0);
   }
-  
+
 .button_learnmore:hover:after{
     transform: translate3D(0,0,0);
     transition: all .5s;
@@ -2905,6 +2905,17 @@ canvas{
     border: 1px solid #f8f9fa;
     border-radius: 4px;
 }
+
+.cookies-consent-page p {
+    font-size: 10pt;
+    font-style: normal;
+    font-weight: normal;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
 .cookies-consent-page h1{
     font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12pt;
