@@ -125,7 +125,7 @@ def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='
     #log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
 
 def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
-    print('xx log_page_visit xx')
+    #print('xx log_page_visit xx')
     if 'language' in session:
         lang = session['language']
     else:
@@ -216,7 +216,7 @@ def log_visitor():
         session['VisitorID'] = visitor.id
         session['VisitorNumber'] = visitor.visitorNumber
         session.modified = True
-        log_variable('***new visitor', visitor)
+        print('###'+___name__+'###', '***new visitor', visitor)
     else:
         if 'VisitorID' not in session or 'VisitorNumber' not in session:
             session['VisitorID'] = visitor.id
@@ -245,7 +245,7 @@ def log_visit(visitor=None):
         session['VisitID'] = visit.id
         session.modified = True
         flash('You are Visitor # {0}/{1}. Thanks for visiting us!'.format(visitor.visitorNumber, visit.visitNumber,), 'success')
-        log_variable('***new visit', visit)
+        print('###'+___name__+'###', '***new visit', visit)
     else:
         visit = Visit.query.filter_by(id=session['VisitID']).first()
         if 'VisitNumber' not in session:
