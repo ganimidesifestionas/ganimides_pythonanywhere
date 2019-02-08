@@ -139,7 +139,6 @@ def init_database():
     #create_all_tables_manually()
     #create_subscribers()
     print('   ', 'database-init', __name__, '######################################################')
-    print('')
 
 if __name__ == '__main__':
     cls()# now, to clear the screen

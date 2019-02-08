@@ -160,6 +160,7 @@ def tables_list(db_engine):
     return tables_list
 
 def init_database():
+    print('')
     print('   ', 'database-init', __name__, '######################################################')
     create_database()
     create_all_tables_auto()
@@ -167,7 +168,6 @@ def init_database():
     create_departments()
     create_users()
     print('   ', 'database-init', __name__, '######################################################')
-    print('')
 
 if __name__ == '__main__':
     cls()# now, to clear the screen

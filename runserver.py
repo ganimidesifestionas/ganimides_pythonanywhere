@@ -17,6 +17,7 @@ print(__name__, '### INIT DATABASES START--------------------------------')
 init_administration_database()
 init_authorization_database()
 init_application_database()
+print('')
 print(__name__, '### INIT DATABASES FINISH-------------------------------')
 print(__name__, '### INIT END--------------------------------------------')
 
