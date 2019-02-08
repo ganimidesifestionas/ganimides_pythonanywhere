@@ -128,6 +128,7 @@ def set_cookies_etc_before_request():
             session.pop('visitorID', None) # delete visitorID
             session.pop('visitorNumber', None) # delete visitorNumber
             session.pop('clientIPA', None) # delete clientIPA
+            print('###'+__name__+'###', '***session delete ',session.get('visitID'))
 
     if 'urls' not in session:
         session['urls'] = []
