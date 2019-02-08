@@ -216,7 +216,7 @@ def log_visitor():
         session['VisitorID'] = visitor.id
         session['VisitorNumber'] = visitor.visitorNumber
         session.modified = True
-        print('###'+___name__+'###', '***new visitor', visitor)
+        print('###'+__name__+'###', '***new visitor', visitor)
     else:
         if 'VisitorID' not in session or 'VisitorNumber' not in session:
             session['VisitorID'] = visitor.id
@@ -245,7 +245,7 @@ def log_visit(visitor=None):
         session['VisitID'] = visit.id
         session.modified = True
         flash('You are Visitor # {0}/{1}. Thanks for visiting us!'.format(visitor.visitorNumber, visit.visitNumber,), 'success')
-        print('###'+___name__+'###', '***new visit', visit)
+        print('###'+__name__+'###', '***new visit', visit)
     else:
         visit = Visit.query.filter_by(id=session['VisitID']).first()
         if 'VisitNumber' not in session:
