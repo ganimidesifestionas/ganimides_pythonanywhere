@@ -5,6 +5,10 @@ Routes and views for the flask application.
 from datetime import datetime
 from datetime import timedelta
 #import time
+
+import requests
+#import json
+
 #from flask import Flask
 from flask import flash
 from flask import render_template
@@ -148,78 +152,12 @@ def set_cookies_etc_before_request():
         session['clientIPA'] = RealClientIPA()
         #print('###'+__name__+'###', '***changed clientIPA session cookie : ',session['clientIPA'])
 
-    from mod_python import apache
-    print('###'+__name__+'###1', session['clientIPA'], request.get_remote_host(apache.REMOTE_NOLOOKUP))
-    print('###'+__name__+'###2', session['clientIPA'], request.environ.get('HTTP_X_REAL_IP'))
-    print('###'+__name__+'###3', session['clientIPA'], request.environ.get('REMOTE_ADDR'))
-    print('###'+__name__+'###4', session['clientIPA'], request.remote_addr)
-    ################################################################
-    ### ipstack access key
-    ################################################################
-    #IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
-    #IPSTACK_URL = 'http://api.ipstack.com/'
-    #IPSTACK_URL_CMD = 'http://api.ipstack.com/{0}?access_key={1}'
-    path = 'http://api.ipstack.com/{0}?access_key={1}'.format(session['clientIPA'], '4022cfd2249c3431953ecf599152892e')
-    response = session.get(path)
-    #for key, value in response.json().items():
-    #	print(key, value)
-    res = response.json()
-    print(res)
+    #from mod_python import apache
+    #print('###'+__name__+'###1', session['clientIPA'], request.get_remote_host(apache.REMOTE_NOLOOKUP))
 
-    # def ip(self):
-    # 	return self.res['ip']
-
-    # def hostname(self):
-    # 	return self.res['hostname']
-
-    # def type(self):
-    # 	return self.res['type']
-
-    # def continent_code(self):
-    # 	return self.res['continent_code']
-
-    # def continent_name(self):
-    # 	return self.res['continent_name']
-
-    # def country_code(self):
-    # 	return self.res['country_code']
-
-    # def country_name(self):
-    # 	return self.res['country_name']
-
-    # def region_code(self):
-    # 	return self.res['region_code']
-
-    # def region_name(self):
-    # 	return self.res['region_name']
-
-    # def city(self):
-    # 	return self.res['city']
-
-    # def zip(self):
-    # 	return self.res['zip']
-
-    # def latitude(self):
-    # 	return self.res['latitude']
-
-    # def longitude(self):
-    # 	return self.res['longitude']
-
-    # def location(self):
-    # 	return self.res['location'].json()
-
-    # def timezone(self):
-    # 	return self.res['timezone'].json()
-
-    # def currency(self):
-    # 	return self.res['currency'].json()
-
-    # def connection(self):
-    # 	return self.res['connection'].json()
-
-    # def security(self):
-    # 	return self.res['security'].json()
-
+    # print('###'+__name__+'###1', session['clientIPA'], request.environ.get('HTTP_X_REAL_IP'))
+    # print('###'+__name__+'###2', session['clientIPA'], request.environ.get('REMOTE_ADDR'))
+    # print('###'+__name__+'###3', session['clientIPA'], request.remote_addr)
 
     #force get
     #clientIPA = client_IP()

@@ -2,13 +2,17 @@
 Routes and views for the flask application.
 """
 from datetime import datetime
+
+import requests
+
+
 #from flask import Flask
 from flask import flash
 #from flask import render_template
 from flask import request
 from flask import session
-from flask import logging
-from flask import jsonify
+#from flask import logging
+#from flask import jsonify
 from sqlalchemy import func
 
 # Import the app from the parent folder (assumed to be the app)
@@ -53,6 +57,108 @@ def client_IP():
     session['clientIPA'] = realclientipa
     #app.logger.info('###client IPA is {0}/{1}'.format(clientipa, realclientipa))
     return realclientipa
+
+
+
+def get_client_info(clientip):
+    ################################################################
+    ### ipstack access key
+    ################################################################
+    #IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
+    #IPSTACK_URL = 'http://api.ipstack.com/'
+    #IPSTACK_URL_CMD = 'http://api.ipstack.com/{0}?access_key={1}'
+    path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
+    log_variable('apistack geolocation path', path)
+    r = requests.post(path)
+    #print(r)
+    #reply_code=r.status_code
+    # if not r.status_code == requests.codes.ok:
+    #response = {}
+    if r:
+        response = r.json()
+        log_variable('apistack geolocation result', response)
+        for key, value in response.items():
+            log_variable('---'+key, value)
+        return response
+    else:
+        return None
+    #res = response.json()
+        #print(res)
+    #headers = {
+    #    'accept': 'application/json'
+    #}
+    #payload = {
+    #    'code': authorization_code,
+    #    'client_id': api_params['client_id'],
+    #    'client_secret': api_params['client_secret'],
+    #    'grant_type': 'authorization_code',
+    #    'scope': 'UserOAuth2Security'
+    #}
+
+    #r = requests.post(api_url,headers=headers,data=payload)
+    #reply_code=r.status_code
+
+    # if not r.status_code == requests.codes.ok:
+    #     authorization_token=None
+    #     error_text=r.text
+    #     error_code=1
+    # else:
+    #     authorization_token = response['access_token']
+
+    # def ip(self):
+    # 	return self.res['ip']
+
+    # def hostname(self):
+    # 	return self.res['hostname']
+
+    # def type(self):
+    # 	return self.res['type']
+
+    # def continent_code(self):
+    # 	return self.res['continent_code']
+
+    # def continent_name(self):
+    # 	return self.res['continent_name']
+
+    # def country_code(self):
+    # 	return self.res['country_code']
+
+    # def country_name(self):
+    # 	return self.res['country_name']
+
+    # def region_code(self):
+    # 	return self.res['region_code']
+
+    # def region_name(self):
+    # 	return self.res['region_name']
+
+    # def city(self):
+    # 	return self.res['city']
+
+    # def zip(self):
+    # 	return self.res['zip']
+
+    # def latitude(self):
+    # 	return self.res['latitude']
+
+    # def longitude(self):
+    # 	return self.res['longitude']
+
+    # def location(self):
+    # 	return self.res['location'].json()
+
+    # def timezone(self):
+    # 	return self.res['timezone'].json()
+
+    # def currency(self):
+    # 	return self.res['currency'].json()
+
+    # def connection(self):
+    # 	return self.res['connection'].json()
+
+    # def security(self):
+    # 	return self.res['security'].json()
+    #return response
 ###########################################################################
 ###########################################################################
 ###########################################################################
@@ -210,6 +316,8 @@ def log_visitor():
             , visitorNumber=nextvisitorNum
             , visitsCount=1
             )
+
+        get_client_info(session['clientIPA'])
         db.session.add(visitor)
         db.session.commit()
         visitor = Visitor.query.filter_by(ipa=session['clientIPA']).first()
@@ -222,6 +330,8 @@ def log_visitor():
             session['VisitorID'] = visitor.id
             session['VisitorNumber'] = visitor.visitorNumber
             session.modified = True
+            get_client_info(session['clientIPA'])
+
     return visitor
 
 def log_visit(visitor=None):
