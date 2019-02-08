@@ -26,7 +26,7 @@ from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsFo
 from .forms import CookiesConsentForm
 #from .models import Visit, Visitor, Page_Visit
 #from sqlalchemy import func
-from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info
+from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
 
 ###########################################################################
 ###########################################################################
