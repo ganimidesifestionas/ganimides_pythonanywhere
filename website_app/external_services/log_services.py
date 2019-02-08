@@ -22,6 +22,22 @@ from .. import db
 from .. models import Visit, Visitor, Page_Visit
 #from flask_login import current_user#, login_required#, login_user, logout_user
 
+def RealClientIPA():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        clientipa = request.environ['REMOTE_ADDR']
+    else:
+        clientipa = request.environ['HTTP_X_FORWARDED_FOR']
+    #session['clientIPA'] = clientipa
+    #app.logger.info('client IPA is {}'.format(clientipa))
+    if request.headers.get('X-Real-IP') is None:
+        realclientipa = clientipa
+    else:
+        realclientipa = request.headers.get('X-Real-IP')
+        #app.logger.info('###real client IPA is {}'.format(realclientipa))
+    #session['clientIPA'] = realclientipa
+    #app.logger.info('###client IPA is {0}/{1}'.format(clientipa, realclientipa))
+    return realclientipa
+
 def client_IP():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
         clientipa = request.environ['REMOTE_ADDR']
