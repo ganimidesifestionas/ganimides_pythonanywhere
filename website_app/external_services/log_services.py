@@ -27,32 +27,27 @@ def RealClientIPA():
         clientipa = request.environ['REMOTE_ADDR']
     else:
         clientipa = request.environ['HTTP_X_FORWARDED_FOR']
+    if request.headers.get('X-Real-IP') is None:
+        realclientipa = clientipa
+    else:
+        realclientipa = request.headers.get('X-Real-IP')
+    return realclientipa
+
+def client_IP():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        clientipa = request.environ['REMOTE_ADDR']
+        #print('clientIP from request.environ[REMOTE_ADDR]', clientipa)
+    else:
+        clientipa = request.environ['HTTP_X_FORWARDED_FOR']
+        #print('clientIP from request.environ[HTTP_X_FORWARDED_FOR]', clientipa)
+
     #session['clientIPA'] = clientipa
     #app.logger.info('client IPA is {}'.format(clientipa))
     if request.headers.get('X-Real-IP') is None:
         realclientipa = clientipa
     else:
         realclientipa = request.headers.get('X-Real-IP')
-        #app.logger.info('###real client IPA is {}'.format(realclientipa))
-    #session['clientIPA'] = realclientipa
-    #app.logger.info('###client IPA is {0}/{1}'.format(clientipa, realclientipa))
-    return realclientipa
-
-def client_IP():
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        clientipa = request.environ['REMOTE_ADDR']
-        print('clientIP from request.environ[REMOTE_ADDR]', clientipa)
-    else:
-        clientipa = request.environ['HTTP_X_FORWARDED_FOR']
-        print('clientIP from request.environ[HTTP_X_FORWARDED_FOR]', clientipa)
-
-    session['clientIPA'] = clientipa
-    #app.logger.info('client IPA is {}'.format(clientipa))
-    if request.headers.get('X-Real-IP') is None:
-        realclientipa = clientipa
-    else:
-        realclientipa = request.headers.get('X-Real-IP')
-        print('clientIP from request.headers.get(X-Real-IP)(pythonanywhere)', realclientipa)
+        #print('clientIP from request.headers.get(X-Real-IP)(pythonanywhere)', realclientipa)
         #app.logger.info('###real client IPA is {}'.format(realclientipa))
 
     session['clientIPA'] = realclientipa

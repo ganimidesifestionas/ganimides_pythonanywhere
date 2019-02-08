@@ -141,12 +141,12 @@ def set_cookies_etc_before_request():
     if 'clientIPA' not in session:
         clientIPA = client_IP()
         session['clientIPA'] = clientIPA
-        print('###'+__name__+'###', 'new clientIPA session cookie : ',session['clientIPA'])
+        print('###'+__name__+'###', '***new clientIPA session cookie : ',session['clientIPA'])
 
     if session['clientIPA'] !=  RealClientIPA():
         clientIPA = RealClientIPA()
         session['clientIPA'] = RealClientIPA()
-        print('###'+__name__+'###', 'changed clientIPA session cookie : ',session['clientIPA'])
+        print('###'+__name__+'###', '***changed clientIPA session cookie : ',session['clientIPA'])
 
     #force get
     #clientIPA = client_IP()
