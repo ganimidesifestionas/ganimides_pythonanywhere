@@ -228,7 +228,7 @@ def log_visitor():
 def log_visit(visitor=None):
     if not visitor or 'VisitorID' not in session or not session.get('VisitorID'):
         visitor = log_visitor()
-    if 'VisitID' not in session not session.get('VisitID'):
+    if 'VisitID' not in session or not session.get('VisitID'):
         nextvisitNum = get_next_visitNumber()
         visit = Visit(
             ipa=session['clientIPA']
