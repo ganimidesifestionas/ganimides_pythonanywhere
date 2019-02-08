@@ -41,15 +41,20 @@ def RealClientIPA():
 def client_IP():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
         clientipa = request.environ['REMOTE_ADDR']
+        print('clientIP from request.environ[REMOTE_ADDR]', clientipa)
     else:
         clientipa = request.environ['HTTP_X_FORWARDED_FOR']
+        print('clientIP from request.environ[HTTP_X_FORWARDED_FOR]', clientipa)
+
     session['clientIPA'] = clientipa
     #app.logger.info('client IPA is {}'.format(clientipa))
     if request.headers.get('X-Real-IP') is None:
         realclientipa = clientipa
     else:
         realclientipa = request.headers.get('X-Real-IP')
+        print('clientIP from request.headers.get(X-Real-IP)(pythonanywhere)', realclientipa)
         #app.logger.info('###real client IPA is {}'.format(realclientipa))
+
     session['clientIPA'] = realclientipa
     #app.logger.info('###client IPA is {0}/{1}'.format(clientipa, realclientipa))
     return realclientipa
@@ -79,8 +84,9 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
         else:
             session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
 
+
     session.modified = True
-    print(session['clientIPA'], 'page', session['pageID'], request.method, request.url)
+    print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '<--'+session.get('active_module'))
     #log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s page:%s %s %s %s', session['clientIPA'], session['pageID'], request.method, request.url, '### '+__name__+' ###')
 
@@ -100,7 +106,7 @@ def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', 
 
     session.modified = True
 
-    print(session['clientIPA'], 'route', session['routeID'], request.method, request.url)
+    print(session['clientIPA'], 'route', session['routeID'], request.method, request.url, '<--'+session.get('active_module'))
     #log_page_visit('route', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s route:%s %s %s %s', session['clientIPA'], session['routeID'], request.method, request.url, '### '+__name__+' ###')
 
@@ -120,7 +126,7 @@ def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='
 
     session.modified = True
 
-    print(session['clientIPA'], 'splash-page, pageID', request.method, request.url)
+    print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '<--'+session.get('active_module'))
     #log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
 
 def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
@@ -227,7 +233,7 @@ def log_visitor():
 def log_visit(visitor=None):
     if not visitor:
         visitor = log_visitor()
-    if 'VisitID' not in session:
+    if 'VisitID' not in session :
         nextvisitNum = get_next_visitNumber()
         visit = Visit(
             ipa=session['clientIPA']

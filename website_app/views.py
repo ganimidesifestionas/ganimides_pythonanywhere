@@ -98,20 +98,43 @@ def init_cookies_etc_before_first_request():
     app.contactusform = ContactUsForm()
     app.forgetpasswordform = forgetPasswordForm()
     app.cookiesconsentform = CookiesConsentForm()
-    #3. log_visit()
     print('##########################################')
 
 @app.before_request
 def set_cookies_etc_before_request():
     #print('###'+__name__+'###', 'before_request')
 
-    #1. set some session cookies
+    #1. set session cookies
     session['active_module'] = __name__
+
+    if 'identityDT' not in session:
+        dt = datetime.now()
+        strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+        session['identityDT'] = strdt
+        print('###'+__name__+'###', '***New session started')
+    else:
+        strdt = session['identityDT']
+        t1 = datetime.strptime(strdt, "%Y-%m-%d %H:%M:%S")
+        t2 = datetime.now()
+        duration = t2 - t1
+        duration_sec = duration.total_seconds()
+        if duration_sec >= 1*60:
+            dt = datetime.now()
+            strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+            session['identityDT'] = strdt
+            print('###'+__name__+'###', '***session expired after 1 min')
+            session.pop('visitID', None) # delete visitID
+            session.pop('visitNumber', None) # delete visitNumber
+            session.pop('visitorID', None) # delete visitorID
+            session.pop('visitorNumber', None) # delete visitorNumber
+            session.pop('clientIPA', None) # delete clientIPA
+
     if 'urls' not in session:
         session['urls'] = []
     session['urls'].append(request.url)
     if len(session['urls']) > 9:
         session['urls'].pop(0)
+
     if 'pages' not in session:
         session['pages'] = []
 
@@ -136,7 +159,7 @@ def set_cookies_etc_before_request():
         t2 = datetime.now()
         duration = t2 - t1
         duration_sec = duration.total_seconds()
-        duration_min = divmod(duration_sec, 60)[0]
+        #duration_min = divmod(duration_sec, 60)[0]
         #print('XXXX-check-duration',duration_sec, duration_min)
         if duration_sec >= 0:
             session['cookies_consent'] = 'EXPIRED'
