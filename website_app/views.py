@@ -121,7 +121,7 @@ def set_cookies_etc_before_request():
     #force get
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
-    print('###'+__name__+'###', 'client IP :',session['clientIPA'])
+    #print('###'+__name__+'###', 'client IP :',session['clientIPA'])
 
     if 'cookies_consent_time' in session:
         strdt = session['cookies_consent_time']
