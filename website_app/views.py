@@ -118,11 +118,11 @@ def set_cookies_etc_before_request():
         t2 = datetime.now()
         duration = t2 - t1
         duration_sec = duration.total_seconds()
-        if duration_sec >= 1*60:
+        if duration_sec >= 60*60:
             dt = datetime.now()
             strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
             session['identityDT'] = strdt
-            print('###'+__name__+'###', '***session expired after 1 min')
+            print('###'+__name__+'###', '***session expired after 1 hour')
             session.pop('VisitID', None) # delete visitID
             session.pop('VisitNumber', None) # delete visitNumber
             session.pop('VisitorID', None) # delete visitorID
@@ -141,12 +141,12 @@ def set_cookies_etc_before_request():
     if 'clientIPA' not in session:
         clientIPA = client_IP()
         session['clientIPA'] = clientIPA
-        print('###'+__name__+'###', '***new clientIPA session cookie : ',session['clientIPA'])
+        #print('###'+__name__+'###', '***new clientIPA session cookie : ',session['clientIPA'])
 
     if session['clientIPA'] !=  RealClientIPA():
         clientIPA = RealClientIPA()
         session['clientIPA'] = RealClientIPA()
-        print('###'+__name__+'###', '***changed clientIPA session cookie : ',session['clientIPA'])
+        #print('###'+__name__+'###', '***changed clientIPA session cookie : ',session['clientIPA'])
 
     #force get
     #clientIPA = client_IP()
