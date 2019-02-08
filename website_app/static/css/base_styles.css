@@ -2918,7 +2918,7 @@ canvas{
 
 .cookies-consent-page h1{
     font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12pt;
+    font-size: 10pt;
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
@@ -2928,7 +2928,7 @@ canvas{
 }
 .cookies-consent-page h2, h3, h4 {
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 13pt;
+    font-size: 10pt;
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
@@ -2949,19 +2949,9 @@ canvas{
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
-    padding: 2px;
+    font-size: 12px;
+    padding: 3px;
     border: 1px solid transparent;
-}
-
-.cookies-consent-page a:visited {
-    color: orange;
-    background-color: transparent;
-    font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
-    font-feature-settings: "liga";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
 }
 
 .cookies-consent-page a:link {
@@ -2971,9 +2961,8 @@ canvas{
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     padding: 2px;
-    border: 1px solid transparent;
 }
 
 .cookies-consent-page a:hover {
