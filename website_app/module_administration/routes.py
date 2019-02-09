@@ -8,6 +8,10 @@ import time
 import inspect
 from datetime import datetime
 
+# Import the database object from the main app module
+from .. import db
+#from app import db
+
 # Import flask dependencies
 from flask import Flask
 from flask import flash
@@ -15,13 +19,12 @@ from flask import render_template
 from flask import request, make_response, jsonify, redirect, url_for
 from flask import g, session, abort, Response
 from flask import Blueprint
-
 from flask import current_app as app
 from flask_login import current_user, login_required, login_user, logout_user
-
 # Import password / encryption helper tools
 #from werkzeug import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
+
 from .. external_services.email_services import send_email
 from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
 from .. external_services.log_services import *
@@ -38,9 +41,6 @@ from ..models import Visitor, Visit
 administration = Blueprint('administration', __name__, url_prefix='/administration')
 #from . import module_administration as administration
 
-# Import the database object from the main app module
-from .. import db
-#from app import db
 
 ###########################################################################
 ###########################################################################

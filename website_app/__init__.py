@@ -53,13 +53,13 @@ logger.info('Hello World!!!')
 ################################################################################
 print('   ',__name__,'#############################################################')
 print('   ',__name__,'###CREATE FLASK-APP###','app = Flask(__name__, instance_relative_config=True)')
-app = Flask(__name__, instance_relative_config=True) 
+app = Flask(__name__, instance_relative_config=True)
 #--> important: the folders are relative to where the flask app is created
 # specifies the main template folder for the application
 #app = Flask(__name__,
 #            instance_path=get_instance_folder_path(),
 #            instance_relative_config=True,
-#            template_folder='templates') 
+#            template_folder='templates')
 #print('   ',__name__,'###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
 ################################################################################
 ################################################################################
@@ -94,7 +94,7 @@ config_name = os.getenv('FLASK_CONFIGURATION', 'default')
 print('   ',__name__,'###app###','FLASK_CONFIGURATION =',config_name)
 # enable jinja2 extensions - i.e. continue in for loops
 #app.jinja_env.add_extension('jinja2.ext.loopcontrols')
-#... 
+#...
 ################################################################################
 ################################################################################
 ################################################################################
@@ -159,6 +159,9 @@ print('   ',__name__,'###DATABASE###','db = SQLAlchemy(app)')
 db = SQLAlchemy()
 db.init_app(app)
 db.create_all(app=app)
+
+#from yourapplication.database import db_session
+
 ################################################################################
 ################################################################################
 ################################################################################
@@ -305,6 +308,12 @@ def write_to_disk(name, surname, email):
 ################################################################################
 ################################################################################
 ################################################################################
+#from yourapplication.database import db_session
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    print('   ',__name__,'###SERVER_APP_RUNNING###','@app.teardown_appcontext:','db_session.remove()')
+    #db.db_session.remove()
+
 @app.context_processor
 def inject_configuration_parameters_as_variables():
     #print('   ',__name__,'###SERVER_APP_RUNNING###','inject_configuration_parameters_as_variables:')
@@ -417,7 +426,7 @@ def inject_utility_functions():
         # if module:
         #     if (type.upper()=='LAYOUT_COMPONENT' or type.upper()=='TEMPLATE' or not(type)):
         #         folder=module+'/'
-        
+
         return folder
 
 

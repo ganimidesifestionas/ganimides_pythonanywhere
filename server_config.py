@@ -174,8 +174,37 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 # SQLALCHEMY
 ################################################
 SQLALCHEMY_POOL_RECYCLE = 90
-SQLALCHEMY_POOL_TIMEOUT = 9
-SQLALCHEMY_POOL_SIZE = 5
+#SQLALCHEMY_POOL_TIMEOUT = 9
+#SQLALCHEMY_POOL_SIZE = 5
+#SQLALCHEMY_POOL_RECYCLE = -1
+#SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+# mysql> show global variables like "wait_timeout";
+# +---------------+-------+
+# | Variable_name | Value |
+# +---------------+-------+
+# | wait_timeout  | 300   |
+# +---------------+-------+
+# 1 row in set (0.00 sec)
+# mysql> show global variables like "%timeout%";
+# +-----------------------------+----------+
+# | Variable_name               | Value    |
+# +-----------------------------+----------+
+# | connect_timeout             | 10       |
+# | delayed_insert_timeout      | 300      |
+# | have_statement_timeout      | YES      |
+# | innodb_flush_log_at_timeout | 1        |
+# | innodb_lock_wait_timeout    | 50       |
+# | innodb_rollback_on_timeout  | OFF      |
+# | interactive_timeout         | 28800    |
+# | lock_wait_timeout           | 31536000 |
+# | net_read_timeout            | 30       |
+# | net_write_timeout           | 60       |
+# | rpl_stop_slave_timeout      | 31536000 |
+# | slave_net_timeout           | 60       |
+# | wait_timeout                | 300      |
+# +-----------------------------+----------+
+# 13 rows in set (0.01 sec)
+SQLALCHEMY_POOL_RECYCLE = 150
 ################################################
 
 # #SQLALCHEMY_DATABASE_URI = 'mysql://dt_admin:dt2016@localhost/dreamteam_db'

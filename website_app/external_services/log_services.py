@@ -58,8 +58,6 @@ def client_IP():
     #app.logger.info('###client IPA is {0}/{1}'.format(clientipa, realclientipa))
     return realclientipa
 
-
-
 def get_client_info(clientip):
     ################################################################
     ### ipstack access key

@@ -8,6 +8,10 @@ import time
 import inspect
 from datetime import datetime
 
+from .. import db
+# Import the database object from the main app module
+#from app import db
+
 # Import flask dependencies
 from flask import Flask
 from flask import flash
@@ -15,7 +19,6 @@ from flask import render_template
 from flask import request, make_response, jsonify, redirect, url_for
 from flask import g, session, abort, Response
 from flask import Blueprint
-
 from flask import current_app as app
 from flask_login import current_user, login_required, login_user, logout_user
 #from flask import after_request
@@ -39,9 +42,6 @@ from . models import Subscriber, ContactMessage
 authorization = Blueprint('authorization', __name__, url_prefix='/authorization')
 #from . import module_authorization as authorization
 
-from .. import db
-# Import the database object from the main app module
-#from app import db
 
 
 #from flask_recaptcha import ReCaptcha
