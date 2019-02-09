@@ -1,13 +1,13 @@
 # myServer/instance/config.py
 
 import os
-
+DISPLAY_CONFIGURATION = False
+APPLICATION_BASEFOLDER = os.environ["APPLICATION_BASEFOLDER"]
 config_file = os.path.abspath(__file__)
 config_filename = os.path.basename(__file__)
 config_path = os.path.abspath(os.path.dirname(__file__))
 config_base_folder = os.path.dirname(config_path)
-config_folder = os.path.basename(os.path.dirname(__file__))
-config_folder = __file__.replace(config_filename,'').replace(config_base_folder,'')
+config_folder = config_file.replace(config_filename, '').replace(APPLICATION_BASEFOLDER, '')
 ################################################################
 print('      ', '__file__ =',__file__)
 print('      ', 'config_file =', config_file)
@@ -22,13 +22,6 @@ INSTANCE_CONFIG_BASE_FOLDER = config_base_folder
 INSTANCE_CONFIG_FOLDER = config_folder
 INSTANCE_CONFIG_FILENAME = config_filename
 #####################################################################
-
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-#filename = os.path.basename(__file__)
-filename = __file__.replace(BASE_DIR, '').replace('\\..', '').replace('\\', '')
-print(filename)
-
-
 #from the server config
 EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT', 'localhost')
 SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
@@ -138,35 +131,36 @@ IPSTACK_URL_CMD = 'http://api.ipstack.com/{0}?access_key={1}'
 # ################################################################
 # ### print
 # ################################################################
-print('      ', filename, __name__, EYECATCH, '### BASE_DIR =', BASE_DIR)
-print('      ', filename, __name__, EYECATCH, '### SERVER =', SERVER)
-print('      ', filename, __name__, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
-print('      ', filename, __name__, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### SQLALCHEMY_DATABASE_URI =',SQLALCHEMY_DATABASE_URI)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
-print('      ', filename, __name__, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
-print('      ', filename, __name__, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
-print('      ', filename, __name__, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
-print('      ', filename, __name__, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
-print('      ', filename, __name__, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
-print('      ', filename, __name__, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-print('      ', filename, __name__, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
-print('      ', filename, __name__, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
-print('      ', filename, __name__, EYECATCH, '### MAIL_SENDER =',MAIL_SENDER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_SUBJECT_PREFIX =',MAIL_SUBJECT_PREFIX)
-print('      ', filename, __name__, EYECATCH, '### MAIL_DEFAULT_SENDER =',MAIL_DEFAULT_SENDER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_ADMIN_SENDER =',MAIL_ADMIN_SENDER)
-print('      ', filename, __name__, EYECATCH, '### MAIL_SUPPORT_SENDER =',MAIL_SUPPORT_SENDER)
-print('      ', filename, __name__, EYECATCH, '### WEBSITE_ADMIN =',WEBSITE_ADMIN)
-print('      ', filename, __name__, EYECATCH, '--------------------------------------------------')
+if DISPLAY_CONFIGURATION :
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### BASE_DIR =', BASE_DIR)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### SERVER =', SERVER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '--------------------------------------------------')
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### SQLALCHEMY_DATABASE_URI =',SQLALCHEMY_DATABASE_URI)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '--------------------------------------------------')
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '--------------------------------------------------')
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '--------------------------------------------------')
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '--------------------------------------------------')
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_SENDER =',MAIL_SENDER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_SUBJECT_PREFIX =',MAIL_SUBJECT_PREFIX)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_DEFAULT_SENDER =',MAIL_DEFAULT_SENDER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_ADMIN_SENDER =',MAIL_ADMIN_SENDER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### MAIL_SUPPORT_SENDER =',MAIL_SUPPORT_SENDER)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '### WEBSITE_ADMIN =',WEBSITE_ADMIN)
+    print('      ', INSTANCE_CONFIG_FOLDER, INSTANCE_CONFIG_FILENAME, EYECATCH, '--------------------------------------------------')

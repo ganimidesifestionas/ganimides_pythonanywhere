@@ -10,24 +10,79 @@ from .import login_manager
 # Define a reusable base model for other database tables to inherit (will be part of all defined tables)
 class Base(db.Model):
     __abstract__  = True
-    date_modified = db.Column(db.DateTime,  default=db.func.current_timestamp(),onupdate=db.func.current_timestamp())
-    date_created  = db.Column(db.DateTime,  default=db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),onupdate=db.func.current_timestamp())
+    date_created  = db.Column(db.DateTime, default=db.func.current_timestamp())
     id            = db.Column(db.Integer, primary_key=True)
 
 ###########################################################################
-class Visitor(Base):
+class VisitPoint(Base):
     """
     Create a Visitors table in mySQL
     """
     # Ensures table will be named in plural and not in singular, as is the name of the model
-    __tablename__ = 'visitors'
+    __tablename__ = 'visitpoints'
 
     id = db.Column(db.Integer, primary_key=True)
-    ipa = db.Column(db.String(60), index=True, unique=True, nullable=True,default='')
-    visitorNumber = db.Column(db.Integer, nullable=True, default=1)
+    visitpointNumber = db.Column(db.Integer, nullable=True, default=1)
     visitsCount = db.Column(db.Integer, nullable=True, default=1)
     visitDT = db.Column(db.DateTime, nullable=False)
-    visits = db.relationship("Visit", backref='visitor')
+    firstvisitDT = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+    lastvisitDT = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    visits = db.relationship('Visit', backref='visitpoint')
+
+    ip = db.Column(db.String(60), index=True, unique=True, nullable=True, default='')
+    iptype = db.Column(db.String(60), nullable=True, default='')
+    continent_code = db.Column(db.String(10), nullable=True, default='')
+    continent_name = db.Column(db.String(60), nullable=True, default='')
+    country_code = db.Column(db.String(10), nullable=True, default='')
+    country_name = db.Column(db.String(60), nullable=True, default='')
+    region_code = db.Column(db.String(10), nullable=True, default='')
+    region_name = db.Column(db.String(60), nullable=True, default='')
+    city = db.Column(db.String(60), nullable=True, default='')
+    zip = db.Column(db.String(60), nullable=True, default='')
+    latitude = db.Column(db.Numeric(10,6), nullable=True, default='')
+    longitude = db.Column(db.Numeric(10,6), nullable=True, default='')
+    location = db.Column(db.PickleType, nullable=True, default=None) # this is a blob datatype to add dictionary, json etc
+    #timezone = db.Column(db.String(60), nullable=True, default='')
+    #currency = db.Column(db.String(10), nullable=True, default='')
+    #connection = db.Column(db.String(60), nullable=True, default='')
+    #security = db.Column(db.String(60), nullable=True, default='')
+
+    # Just set the attribute to save it
+    #s = SomeEntity(attributes={'baked': 'beans', 'spam': 'ham'})
+    #session.add(s)
+    #session.commit()
+
+    # If mutable=True on PickleType (the default) SQLAlchemy automatically
+    # notices modifications.
+    #s.attributes['parrot'] = 'dead'
+    #session.commit()
+    # var apistack geolocation result={'ip': '213.149.173.194', 'type': 'ipv4', 'continent_code': 'EU', 
+    # 'continent_name': 'Europe', 
+    # 'country_code': 'CY', 'country_name': 'Cyprus', 'region_code': '02', 
+    # 'region_name': 'Limassol', 'city': 'Limassol', 'zip': None, 'latitude': 34.6841, 'longitude': 33.0379, 
+    # 'location': {'geoname_id': 146384, 'capital': 'Nicosia', 
+    # 'languages': [{'code': 'el', 'name': 'Greek', 'native': 'Ελληνικά'}, 
+    # {'code': 'tr', 'name': 'Turkish', 'native': 'Türkçe'}, 
+    # {'code': 'hy', 'name': 'Armenian', 'native': 'Հայերեն'}], 
+    # 'country_flag': 'http://assets.ipstack.com/flags/cy.svg', 
+    # 'country_flag_emoji': '🇨🇾', 'country_flag_emoji_unicode': 'U+1F1E8 U+1F1FE', 
+    # 'calling_code': '357', 
+    # 'is_eu': True}}
+    # 2019-02-09 07:40:47     var ---ip=213.149.173.194
+    # 2019-02-09 07:40:47     var ---type=ipv4
+    # 2019-02-09 07:40:47     var ---continent_code=EU
+    # 2019-02-09 07:40:47     var ---continent_name=Europe
+    # 2019-02-09 07:40:47     var ---country_code=CY
+    # 2019-02-09 07:40:47     var ---country_name=Cyprus
+    # 2019-02-09 07:40:47     var ---region_code=02
+    # 2019-02-09 07:40:47     var ---region_name=Limassol
+    # 2019-02-09 07:40:47     var ---city=Limassol
+    # 2019-02-09 07:40:47     var ---zip=None
+    # 2019-02-09 07:40:47     var ---latitude=34.6841
+    # 2019-02-09 07:40:47     var ---longitude=33.0379
+    # 2019-02-09 07:40:47     var ---location={'geoname_id': 146384, 'capital': 'Nicosia', 'languages': [{'code': 'el', 'name': 'Greek', 'native': 'Ελληνικά'}, {'code': 'tr', 'name': 'Turkish', 'native': 'Türkçe'}, {'code': 'hy', 'name': 'Armenian', 'native': 'Հայերեն'}], 'country_flag': 'http://assets.ipstack.com/flags/cy.svg', 'country_flag_emoji': '🇨🇾', 'country_flag_emoji_unicode': 'U+1F1E8 U+1F1FE', 'calling_code': '357', 'is_eu': True}
+
     #email = db.Column(db.String(120), index=True, unique=True)
     #userName = db.Column(db.String(60), index=True, unique=True , default='')
     #firstName = db.Column(db.String(60), index=True , default='')
@@ -58,7 +113,7 @@ class Visitor(Base):
     #isAdmin = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<visitor: {0}({1}) ipa:{1}>'.format(self.id, self.visitorNumber, self.ipa)
+        return '<visitpoint: {0}({1}) ip:{2}>'.format(self.id, self.visitpointNumber, self.ip)
 ###########################################################################
 class Visit(Base):
     """
@@ -70,11 +125,13 @@ class Visit(Base):
     id = db.Column(db.Integer, primary_key=True)
     visitNumber = db.Column(db.Integer, nullable=True, default=0)
     visitDT = db.Column(db.DateTime, nullable=False)
-    ipa = db.Column(db.String(60), nullable=True, default='')
-    visitor_ID = db.Column(db.Integer, db.ForeignKey('visitors.id'))
+    ip = db.Column(db.String(60), nullable=True, default='')
+    visitpoint_ID = db.Column(db.Integer, db.ForeignKey('visitpoints.id'))
 
     def __repr__(self):
         return '<visit: {0}({1}) {2}>'.format(self.id, self.visitNumber, self.visitDT)
+    def __str__(self):
+        return '{0}'.format(self.visitDT)
 
 class Page_Visit(Base):
     """
@@ -83,7 +140,7 @@ class Page_Visit(Base):
     __tablename__ = 'page_visits'
 
     id = db.Column(db.Integer, primary_key=True)
-    clientIPA = db.Column(db.String(60), nullable=True, default='')
+    #clientIPA = db.Column(db.String(60), nullable=True, default='')
     pageID = db.Column(db.String(60), nullable=True, default='')
     pageType = db.Column(db.String(60), nullable=True, default='')
     pageLanguage = db.Column(db.String(60), nullable=True, default='')
@@ -93,7 +150,7 @@ class Page_Visit(Base):
     pageTemplate = db.Column(db.String(1024), nullable=True, default='')
     pageTemplate_page = db.Column(db.String(1024), nullable=True, default='')
     pageTemplate_form = db.Column(db.String(1024), nullable=True, default='')
-    visitor_ID = db.Column(db.Integer, db.ForeignKey('visitors.id'))
+    #visitpoint_ID = db.Column(db.Integer, db.ForeignKey('visitpoints.id'))
     visit_ID = db.Column(db.Integer, db.ForeignKey('visits.id'))
 
     def __repr__(self):
