@@ -361,18 +361,10 @@ def write_to_disk(name, surname, email):
 ################################################################################
 ################################################################################
 #from yourapplication.database import db_session
-<<<<<<< HEAD
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     print('   ',__name__,'###SERVER_APP_RUNNING###','@app.teardown_appcontext:','db_session.remove()')
     #db.db_session.remove()
-=======
-#from app.database import db_session
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    print('   ',__name__,'###SERVER_APP_RUNNING###','@app.teardown_appcontext:','db_session.remove()')
-    #db_session.remove()
->>>>>>> fc6b3b0d968a1e2fecc76d02bfc7d3ea188b8ded
 
 @app.context_processor
 def inject_configuration_parameters_as_variables():
