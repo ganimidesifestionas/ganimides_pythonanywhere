@@ -2,6 +2,10 @@
     <div class="d-flex col-5 bg-white font-weight-light text-success text-left top_navigation_line justify-content-start">
             <div class="bg-white font-weight-light text-warning text-left pr-1 xtop_navigation_line" style="border-bottom: 1px dotted orange;">
                 <!--some other info-->
+                {{session.get('continent_name')}} {{session.get('country_name')}}
+                {{session.get('region_name')}} {{session.get('city')}}
+                {{session.get('latitude')}},{{session.get('longitude')}}
+        
             </div>
             <div class="flex-grow-1 bg-white font-weight-light text-success text-left top_navigation_line">
             </div>

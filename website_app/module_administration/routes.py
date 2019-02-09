@@ -35,7 +35,7 @@ from . forms import UserAdminForm, RoleForm, DepartmentForm, SetPasswordForm, Lo
 # Import module models (i.e. User)
 from . models import User, Role, Department #,ContactMessage
 from ..module_authorization.models import Subscriber
-from ..models import Visitor, Visit
+from ..models import VisitPoint, Visit
 
 # Define the blueprint: 'administration', set its url prefix: app.url/administration
 administration = Blueprint('administration', __name__, url_prefix='/administration')
@@ -276,17 +276,30 @@ def adminpage(action_tab='users'):
     users = User.query.all()
     roles = Role.query.all()
     departments = Department.query.all()
-    visitors = Visitor.query.all()
-    visits = Visit.query.all()
+    visitpoints = VisitPoint.query.all()
+    visitpoints = VisitPoint.query.order_by(VisitPoint.lastvisitDT.desc()).limit(100).all()
+    #visits = Visit.query.all()
+    # visits = Visit.query
+    #                 # .filter_by(party_id=form.party.data)
+    #                 # .filter_by(topic_id=form.topic.data)
+    #                 .join('visitpoint')
+    #                 .all()
+    visits = Visit.query.join('visitpoint').order_by(Visit.visitDT.desc()).limit(15).all()
+    #print(users)
+    #print(roles)
+    #print(departments)
+    #print(visitpoints)
+    #print(visits)
+
     return render_template('administration/page_templates/administrationpage_template.html'
-        , users = users
-        , roles = roles
-        , departments = departments
-        , visitors = visitors
-        , visits=visits
-        , title = "administration"
-        , activeTAB = action_tab
-        )
+    , users=users
+    , roles=roles
+    , departments=departments
+    , visitpoints=visitpoints
+    , visits=visits
+    , title="administration"
+    , activeTAB=action_tab
+    )
 
 @administration.route('/useredit/<action>/<int:id>', methods = ['GET', 'POST'])
 def useredit(action, id):
@@ -304,9 +317,9 @@ def useredit(action, id):
         user = User.query.filter_by(id = id).first()
         if not(user):
             user = User(
-                id = 0
-                ,firstName = "first name"
-                ,lastName = "last name"
+                id=0
+                ,firstName="first name"
+                ,lastName="last name"
                 )
         # handle nulls
         if not(user.id):
@@ -451,10 +464,10 @@ def useredit(action, id):
 
     #load user edit page
     return render_template('administration/page_templates/administration_forms_template.html'
-                            ,title = 'User'
-                            ,formPage = 'form_user_edit.html'
-                            ,useredit_form = form
-                            )
+            , title='User'
+            , formPage='form_user_edit.html'
+            , useredit_form=form
+            )
 
 #tispaolas
 @administration.route('/roleedit/<action>/<int:id>', methods = ['GET', 'POST'])
@@ -583,10 +596,10 @@ def roleedit(action,id):
 
     #load role edit page
     return render_template('administration/page_templates/administration_forms_template.html'
-                            ,title = 'Role'
-                            ,formPage = 'form_role_edit.html'
-                            ,roleedit_form = form
-                            )
+        , title='Role'
+        , formPage='form_role_edit.html'
+        , roleedit_form=form
+        )
 
 @administration.route('/departmentedit/<action>/<int:id>', methods = ['GET', 'POST'])
 def departmentedit(action,id):
@@ -714,10 +727,10 @@ def departmentedit(action,id):
 
     #load department edit page
     return render_template('administration/page_templates/administration_forms_template.html'
-                            ,title = 'Department'
-                            ,formPage = 'form_department_edit.html'
-                            ,departmentedit_form = form
-                            )
+        , title='Department'
+        , formPage='form_department_edit.html'
+        , departmentedit_form=form
+        )
 
 @administration.route('/setpassword/<email>', methods = ['GET', 'POST'])
 def setpassword(email = ''):
@@ -750,10 +763,10 @@ def setpassword(email = ''):
 
     # load passsword set template
     return render_template('administration/page_templates/administration_forms_template.html'
-                            ,form = form
-                            ,title = varTitle
-                            ,formPage = 'form_password_set.html'
-                            )
+        , form=form
+        , title=varTitle
+        , formPage='form_password_set.html'
+        )
 #############################################################
 #############################################################
 #############################################################
@@ -792,4 +805,4 @@ def emailconfirm(token):
     db.session.commit()
     flash('You have confirmed your Email. Thanks!', 'success')
 
-    return redirect(url_for('administration.setpassword',email = email))
+    return redirect(url_for('administration.setpassword',email=email))

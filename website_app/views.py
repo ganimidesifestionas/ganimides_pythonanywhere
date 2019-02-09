@@ -28,7 +28,7 @@ from . import app
 # Import module forms
 from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsForm, forgetPasswordForm
 from .forms import CookiesConsentForm
-#from .models import Visit, Visitor, Page_Visit
+#from .models import Visit, VisitPoint, Page_Visit
 #from sqlalchemy import func
 from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
 
@@ -129,8 +129,8 @@ def set_cookies_etc_before_request():
             print('###'+__name__+'###', '***session expired after 1 hour')
             session.pop('VisitID', None) # delete visitID
             session.pop('VisitNumber', None) # delete visitNumber
-            session.pop('VisitorID', None) # delete visitorID
-            session.pop('VisitorNumber', None) # delete visitorNumber
+            session.pop('VisitorID', None) # delete visitpointID
+            session.pop('VisitorNumber', None) # delete visitpointNumber
             session.pop('clientIPA', None) # delete clientIPA
 
     if 'urls' not in session:

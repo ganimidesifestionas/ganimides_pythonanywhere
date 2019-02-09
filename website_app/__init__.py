@@ -3,6 +3,7 @@
 The flask application package.
 """
 import os
+import sqlalchemy
 from datetime import datetime
 # third-party imports
 from flask import Flask, render_template, request, session
@@ -107,36 +108,42 @@ print('   ',__name__,'###CONFIGURE FLASK-APP###')
 #########################################################################################
 print('   ',__name__,'   CONFIG-1-FROM-SERVER','../server_config.py')
 app.config.from_pyfile('../server_config.py') #from the (server) root
-print('   ',__name__,'   (1-server) EYECATCH---',app.config['EYECATCH'])
-print('   ',__name__,'   (1-server) SERVER---',app.config['SERVER'])
-print('   ',__name__,'   (1-server) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+#print('   ',__name__,'   (1-server) EYECATCH---',app.config['EYECATCH'])
+#print('   ',__name__,'   (1-server) SERVER---',app.config['SERVER'])
+#print('   ',__name__,'   (1-server) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 print('   ',__name__,'   CONFIG-2-FROM-SERVER-INSTANCE','../instance/config.py')
 app.config.from_pyfile('../instance/config.py') #from instance
-print('   ',__name__,'   (2-instance) EYECATCH---',app.config['EYECATCH'])
-print('   ',__name__,'   (2-instance) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+#print('   ',__name__,'   (2-instance) EYECATCH---',app.config['EYECATCH'])
+#print('   ',__name__,'   (2-instance) SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 config_name = app.config['EXECUTION_ENVIRONMENT']
 print('   ',__name__,'   CONFIG-3-APP-ENVIRONMENT',config_name,'.config.py')
 app.config.from_object(app_config[config_name])
 print('   ',__name__,'   (3-environment)',config_name,'EYECATCH---',app.config['EYECATCH'])
-print('   ',__name__,'   (3-environment)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+#print('   ',__name__,'   (3-environment)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 config_name = app.config['EXECUTION_MODE']
 print('   ',__name__,'   CONFIG-4-APP-EXEC-MODE',config_name,'.config.py')
 app.config.from_object(app_config[config_name])
 print('   ',__name__,'   (4-exec-mode)',config_name,'EYECATCH---',app.config['EYECATCH'])
-print('   ',__name__,'   (4-exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+#print('   ',__name__,'   (4-exec-mode)',config_name,'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
 
-
 #########################################################################################
-print('   ',__name__,'   @@@check','RECAPTCHA_SITE_KEY---',app.config['RECAPTCHA_SITE_KEY'])
-print('   ',__name__,'   @@@check','RECAPTCHA_SECRET_KEY---',app.config['RECAPTCHA_SECRET_KEY'])
-print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_LOGIN'])
-print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_REGISTRATION'])
-print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_FORGETPASSWORD'])
-print('   ',__name__,'   @@@check','SPLASH FORM---',app.config['SPLASHFORM_CONTACTUS'])
+print('   ',__name__,'   @@@check', 'SERVER---',app.config['SERVER'])
+print('   ',__name__,'   @@@check', 'DATABASE_SERVER---',app.config['DATABASE_SERVER'])
+print('   ',__name__,'   @@@check', 'DATABASE_NAME---',app.config['DATABASE_NAME'])
+print('   ',__name__,'   @@@check', 'DATABASE_SERVER_URI---',app.config['DATABASE_SERVER_URI'])
+print('   ',__name__,'   @@@check', 'DATABASE_URI---',app.config['DATABASE_URI'])
+print('   ',__name__,'   @@@check', 'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   ',__name__,'   @@@check', 'SQLALCHEMY_DATABASE_URI---',app.config['SQLALCHEMY_DATABASE_URI'])
+print('   ',__name__,'   @@@check', 'RECAPTCHA_SITE_KEY---',app.config['RECAPTCHA_SITE_KEY'])
+print('   ',__name__,'   @@@check', 'RECAPTCHA_SECRET_KEY---',app.config['RECAPTCHA_SECRET_KEY'])
+print('   ',__name__,'   @@@check', 'SPLASH FORM---',app.config['SPLASHFORM_LOGIN'])
+print('   ',__name__,'   @@@check', 'SPLASH FORM---',app.config['SPLASHFORM_REGISTRATION'])
+print('   ',__name__,'   @@@check', 'SPLASH FORM---',app.config['SPLASHFORM_FORGETPASSWORD'])
+print('   ',__name__,'   @@@check', 'SPLASH FORM---',app.config['SPLASHFORM_CONTACTUS'])
 ################################################################################
 ################################################################################
 ################################################################################
@@ -154,14 +161,9 @@ Bootstrap(app)
 ################################################################################
 ################################################################################
 ################################################################################
-#print('   ',__name__,'')
-print('   ',__name__,'###DATABASE###','db = SQLAlchemy(app)')
+print('   ',__name__,'###DATABASE###','define database:db = SQLAlchemy(app)')
 db = SQLAlchemy()
 db.init_app(app)
-db.create_all(app=app)
-
-#from yourapplication.database import db_session
-
 ################################################################################
 ################################################################################
 ################################################################################
@@ -277,9 +279,59 @@ print('   ',__name__,'   administration_module---','app.register_blueprint(admin
 ################################################################################
 ################################################################################
 ################################################################################
-#print('   ',__name__,'')
-print('   ',__name__,'###CREATE DATABASE###','db.create_all()')
+print('   ')
+print('   ',__name__,'###DATABASE###','create database if not exists')
+#create the database if not exists
+SERVER = app.config['SERVER'] # application server
+DATABASE_SERVER = app.config['DATABASE_SERVER']
+DATABASE_NAME = app.config['DATABASE_NAME']
+DATABASE_URI=app.config['SQLALCHEMY_DATABASE_URI']
+DATABASE_SERVER_URI=app.config['DATABASE_SERVER_URI']
+DB_URI=app.config['DATABASE_URI']
+
+dbserver_engine = sqlalchemy.create_engine(DATABASE_SERVER_URI,pool_recycle=180) # connect to server
+existing_databases = dbserver_engine.execute("SHOW DATABASES;")
+existing_databases = [d[0] for d in existing_databases]
+# for database in existing_databases:
+#     print("...database {0} on dbserver {1}".format(database, DATABASE_SERVER_URI))
+if DATABASE_NAME not in existing_databases:
+    dbserver_engine.execute("CREATE DATABASE {db}".format(db=DATABASE_NAME))
+    print('   ',__name__,'###DATABASE###',"   {0} database CREATED on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
+else:
+    print('   ',__name__,'###DATABASE###',"   database {0} already exists on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
+# -or-
+# dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
+# dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
+#dbserver_engine.dispose()
+dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
+print('   ',__name__,'###DATABASE###','create tables if not exists')
+from .module_administration.models import User, Department, Role
+from .module_authorization.models import Subscriber, ContactMessage
+from .models import Visit, VisitPoint, Page_Visit
+
+# recreate tables etc
+print('   ',__name__,'###DATABASE###','db.create_all(app=app)')
+db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
+existing_tables_before = db_engine.execute('SHOW TABLES;')
+existing_tables_before = [d[0] for d in existing_tables_before]
+#print('   ', 'database-init', __name__, 'tables before')
+#list_tables(db_engine)
+
 db.create_all(app=app)
+#db.session.commit()
+
+existing_tables_after = db_engine.execute('SHOW TABLES;')
+existing_tables_after = [d[0] for d in existing_tables_after]
+created = 0
+for table in existing_tables_after:
+    if table not in existing_tables_before:
+        created = created + 1
+
+#db_engine.dispose()
+print('   ',__name__,'###DATABASE###',"   {0} tables created in database {1}".format(created,DATABASE_NAME))
+
+################################################################################
+################################################################################
 ################################################################################
 ################################################################################
 ################################################################################
@@ -309,10 +361,18 @@ def write_to_disk(name, surname, email):
 ################################################################################
 ################################################################################
 #from yourapplication.database import db_session
+<<<<<<< HEAD
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     print('   ',__name__,'###SERVER_APP_RUNNING###','@app.teardown_appcontext:','db_session.remove()')
     #db.db_session.remove()
+=======
+#from app.database import db_session
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    print('   ',__name__,'###SERVER_APP_RUNNING###','@app.teardown_appcontext:','db_session.remove()')
+    #db_session.remove()
+>>>>>>> fc6b3b0d968a1e2fecc76d02bfc7d3ea188b8ded
 
 @app.context_processor
 def inject_configuration_parameters_as_variables():

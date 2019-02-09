@@ -7,8 +7,8 @@
 {% set roles_show='' %}
 {% set departments_is_active='' %}
 {% set departments_show='' %}
-{% set visitors_is_active='' %}
-{% set visitors_show='' %}
+{% set visitpoints_is_active='' %}
+{% set visitpoints_show='' %}
 {% set visits_is_active='' %}
 {% set visits_show='' %}
 
@@ -35,7 +35,7 @@
                     <li class="nav-item {{users_is_active}}"><a class="nav-link administration-page-nav-link {{users_show}}" href="#users" data-toggle="tab">Users</a></li>
                     <li class="nav-item {{roles_is_active}}"><a class="nav-link administration-page-nav-link {{roles_show}}" href="#roles" data-toggle="tab">Roles</a></li>
                     <li class="nav-item {{departments_is_active}}"><a class="nav-link administration-page-nav-link {{departments_show}}" href="#departments" data-toggle="tab">Departments</a></li>
-                    <li class="nav-item {{visitors_is_active}}"><a class="nav-link administration-page-nav-link {{visitors_show}}" href="#visitors" data-toggle="tab">Visitors</a></li>
+                    <li class="nav-item {{visitpoints_is_active}}"><a class="nav-link administration-page-nav-link {{visitpoints_show}}" href="#visitpoints" data-toggle="tab">Visitors</a></li>
                     <li class="nav-item {{visits_is_active}}"><a class="nav-link administration-page-nav-link {{visits_show}}" href="#visits" data-toggle="tab">Visits</a></li>
                 </ul>
             </div>
@@ -70,11 +70,11 @@
                     </div>
                 </div>
 
-                <!-- visitors table-->
-                <div id="visitors" class="tab-pane fade {{visitors_show}} left">
+                <!-- visitpoints table-->
+                <div id="visitpoints" class="tab-pane fade {{visitpoints_show}} left">
                     <div class="d-flex justify-content-center administration-page xtabform-borders">
                         <div class="">
-                            {% include [language_fullpathfile('visitors_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visitors_page_content.html','PAGE',active_module)] %}
+                            {% include [language_fullpathfile('visitpoints_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visitpoints_page_content.html','PAGE',active_module)] %}
                         </div>
                     </div>
                 </div>

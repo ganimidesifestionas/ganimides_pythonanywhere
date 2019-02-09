@@ -23,7 +23,7 @@ from .. import db
 # Import module forms
 #from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsForm, forgetPasswordForm
 #from .forms import CookiesConsentForm
-from .. models import Visit, Visitor, Page_Visit
+from .. models import Visit, VisitPoint, Page_Visit
 #from flask_login import current_user#, login_required#, login_user, logout_user
 
 def RealClientIPA():
@@ -65,6 +65,9 @@ def get_client_info(clientip):
     #IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
     #IPSTACK_URL = 'http://api.ipstack.com/'
     #IPSTACK_URL_CMD = 'http://api.ipstack.com/{0}?access_key={1}'
+    if clientip=='127.0.0.1':
+        clientip = '213.149.173.194'
+
     path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
     log_variable('apistack geolocation path', path)
     r = requests.post(path)
@@ -77,6 +80,11 @@ def get_client_info(clientip):
         log_variable('apistack geolocation result', response)
         for key, value in response.items():
             log_variable('---'+key, value)
+        
+        loc = response['location']
+        for key, value in loc.items():
+            log_variable('--- ---'+key, value)
+
         return response
     else:
         return None
@@ -102,7 +110,6 @@ def get_client_info(clientip):
     #     error_code=1
     # else:
     #     authorization_token = response['access_token']
-
     # def ip(self):
     # 	return self.res['ip']
 
@@ -192,16 +199,16 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
 def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', page_template_form=''):
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')
     session['routeID'] = pageID
-    if 'pages' not in session:
-        session['pages'] = []
-    session['pages'].append(pageName)
-    if len(session['pages']) > 9:
-        session['pages'].pop(0)
-    for p in range(1, len(session['pages'])):
-        if p == 1:
-            session['pages_history'] = session['pages'][p-1]
-        else:
-            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+    # if 'pages' not in session:
+    #     session['pages'] = []
+    # session['pages'].append(pageName)
+    # if len(session['pages']) > 9:
+    #     session['pages'].pop(0)
+    # for p in range(1, len(session['pages'])):
+    #     if p == 1:
+    #         session['pages_history'] = session['pages'][p-1]
+    #     else:
+    #         session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
 
     session.modified = True
 
@@ -211,19 +218,19 @@ def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', 
 
 def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')
-    if 'pages' not in session:
-        session['pages'] = []
-    session['pages'].append(pageName)
-    if len(session['pages']) > 9:
-        session['pages'].pop(0)
+    # if 'pages' not in session:
+    #     session['pages'] = []
+    # session['pages'].append(pageName)
+    # if len(session['pages']) > 9:
+    #     session['pages'].pop(0)
 
-    for p in range(1, len(session['pages'])):
-        if p == 1:
-            session['pages_history'] = session['pages'][p-1]
-        else:
-            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+    # for p in range(1, len(session['pages'])):
+    #     if p == 1:
+    #         session['pages_history'] = session['pages'][p-1]
+    #     else:
+    #         session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
 
-    session.modified = True
+    # session.modified = True
 
     print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '<--'+session.get('active_module'))
     #log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
@@ -244,14 +251,13 @@ def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', 
         , pageTemplate=pageTemplate
         , pageTemplate_page=pageTemplate_page
         , pageTemplate_form=pageTemplate_form
-        , clientIPA=session['clientIPA']
+        #, clientIPA=session['clientIPA']
         )
-
-    if 'VisitorID' not in session:
-        visitor = log_visitor()
-    page_visit.visitor_ID = session['VisitorID']
+    #if 'VisitorID' not in session:
+    #    visitpoint = log_visitpoint()
+    #page_visit.visitpoint_ID = session['VisitorID']
     if 'VisitID' not in session:
-        visit = log_visit(visitor)
+        visit = log_visit()
     page_visit.visit_ID = session['VisitID']
 
     db.session.add(page_visit)
@@ -276,19 +282,19 @@ def log_module_finish(module_name):
     print(app.modules_stack, 'finish', module_name)
     app.modules_stack.pop(len(app.modules_stack))
 
-def get_next_visitorNumber():
-    max_id = db.session.query(func.max(Visitor.id)).scalar()
-    #log_variable('last visitor id', max_id)
-    nextvisitorNum = 1
+def get_next_visitpointNumber():
+    max_id = db.session.query(func.max(VisitPoint.id)).scalar()
+    #log_variable('last visitpoint id', max_id)
+    nextvisitpointNum = 1
     if max_id:
-        last_visitor = Visitor.query.filter_by(id=max_id).first()
-        #log_variable('last visitor', last_visitor)
-        if last_visitor:
-            #log_variable('last visitor visitorNumber', last_visitor.visitorNumber)
-            if last_visitor.visitorNumber:
-                nextvisitorNum = last_visitor.visitorNumber + 1
-    #log_variable('next visitor Number', nextvisitorNum)
-    return nextvisitorNum
+        last_visitpoint = VisitPoint.query.filter_by(id=max_id).first()
+        #log_variable('last visitpoint', last_visitpoint)
+        if last_visitpoint:
+            #log_variable('last visitpoint visitpointNumber', last_visitpoint.visitpointNumber)
+            if last_visitpoint.visitpointNumber:
+                nextvisitpointNum = last_visitpoint.visitpointNumber + 1
+    #log_variable('next visitpoint Number', nextvisitpointNum)
+    return nextvisitpointNum
 
 def get_next_visitNumber():
     max_id = db.session.query(func.max(Visit.id)).scalar()
@@ -304,55 +310,87 @@ def get_next_visitNumber():
     #log_variable('next visit Number', nextvisitNum)
     return nextvisitNum
 
-def log_visitor():
-    visitor = Visitor.query.filter_by(ipa=session['clientIPA']).first()
-    if not visitor:
-        nextvisitorNum = get_next_visitorNumber()
-        visitor = Visitor(
-            ipa=session['clientIPA']
+def log_visitpoint():
+    visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
+    if not visitpoint:
+        nextvisitpointNum = get_next_visitpointNumber()
+        visitpoint = VisitPoint(
+            ip=session['clientIPA']
             , visitDT=datetime.now()
-            , visitorNumber=nextvisitorNum
+            , visitpointNumber=nextvisitpointNum
             , visitsCount=1
             )
 
-        get_client_info(session['clientIPA'])
-        db.session.add(visitor)
+        res = get_client_info(session['clientIPA'])
+        print('###'+__name__+'###', '***client info***', res)
+        if res:
+            visitpoint.iptype = res['type']
+            visitpoint.continent_code = res['continent_code']
+            visitpoint.continent_name = res['continent_name']
+            visitpoint.country_code = res['country_code']
+            visitpoint.country_name = res['country_name']
+            visitpoint.region_code = res['region_code']
+            visitpoint.region_name = res['region_name']
+            visitpoint.city = res['city']
+            visitpoint.zip = res['zip']
+            visitpoint.latitude = res['latitude']
+            visitpoint.longitude = res['longitude']
+            visitpoint.location = res['location'] # this is a dictinary in json format
+            # visitpoint.timezone = res['timezone']
+            # visitpoint.currency = res['currency']
+            # visitpoint.connection = res['connection']
+            # visitpoint.security = res['security']
+        db.session.add(visitpoint)
         db.session.commit()
-        visitor = Visitor.query.filter_by(ipa=session['clientIPA']).first()
-        session['VisitorID'] = visitor.id
-        session['VisitorNumber'] = visitor.visitorNumber
+        visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
+        session['VisitorID'] = visitpoint.id
+        session['VisitorNumber'] = visitpoint.visitpointNumber
+        session['continent_name'] = visitpoint.continent_name
+        session['country_name'] = visitpoint.country_name
+        session['region_name'] = visitpoint.region_name
+        session['city'] = visitpoint.city
+        session['latitude'] = str(visitpoint.latitude)
+        session['longitude'] = str(visitpoint.longitude)
         session.modified = True
-        print('###'+__name__+'###', '***new visitor', visitor)
+        print('###'+__name__+'###', '***new visitpoint', visitpoint)
     else:
         if 'VisitorID' not in session or 'VisitorNumber' not in session:
-            session['VisitorID'] = visitor.id
-            session['VisitorNumber'] = visitor.visitorNumber
+            session['VisitorID'] = visitpoint.id
+            session['VisitorNumber'] = visitpoint.visitpointNumber
+            session['VisitorID'] = visitpoint.id
+            session['VisitorNumber'] = visitpoint.visitpointNumber
+            session['continent_name'] = visitpoint.continent_name
+            session['country_name'] = visitpoint.country_name
+            session['region_name'] = visitpoint.region_name
+            session['city'] = visitpoint.city
+            session['latitude'] = str(visitpoint.latitude)
+            session['longitude'] = str(visitpoint.longitude)
             session.modified = True
             get_client_info(session['clientIPA'])
 
-    return visitor
+    return visitpoint
 
-def log_visit(visitor=None):
-    if not visitor or 'VisitorID' not in session or not session.get('VisitorID'):
-        visitor = log_visitor()
+def log_visit(visitpoint=None):
+    if not visitpoint or 'VisitorID' not in session or not session.get('VisitorID'):
+        visitpoint = log_visitpoint()
 
     if 'VisitID' not in session or not session.get('VisitID'):
         nextvisitNum = get_next_visitNumber()
         visit = Visit(
-            ipa=session['clientIPA']
+            ip=session['clientIPA']
             , visitDT=datetime.now()
             , visitNumber=nextvisitNum
-            , visitor_ID=visitor.id
+            , visitpoint_ID=visitpoint.id
             )
-        visitor.visitsCount = visitor.visitsCount + 1
+        visitpoint.visitsCount = visitpoint.visitsCount + 1
         db.session.add(visit)
         db.session.commit()
-        visitid = db.session.query(func.max(Visit.id)).filter_by(ipa=session['clientIPA'])
+        visitid = db.session.query(func.max(Visit.id)).filter_by(ip=session['clientIPA'])
         visit = Visit.query.filter_by(id=visitid).first()
         session['VisitNumber'] = nextvisitNum
         session['VisitID'] = visit.id
         session.modified = True
-        flash('You are Visitor # {0}/{1}. Thanks for visiting us!'.format(visitor.visitorNumber, visit.visitNumber,), 'success')
+        flash('You are VisitPoint # {0}/{1}. Thanks for visiting us!'.format(visitpoint.visitpointNumber, visit.visitNumber,), 'success')
         print('###'+__name__+'###', '***new visit', visit)
     else:
         visit = Visit.query.filter_by(id=session['VisitID']).first()

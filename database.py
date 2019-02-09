@@ -18,7 +18,7 @@ app.app_context().push()
 
 from website_app.module_administration.models import User, Department, Role
 from website_app.module_authorization.models import Subscriber, ContactMessage
-from website_app.models import Visit, Visitor, Page_Visit
+from website_app.models import Visit, VisitPoint, Page_Visit
 
 DATABASE_SERVER = app.config['DATABASE_SERVER']
 DATABASE_SERVER_URI = app.config['DATABASE_SERVER_URI']

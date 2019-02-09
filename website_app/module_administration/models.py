@@ -46,7 +46,10 @@ class User(Base):
 
     department_ID = db.Column(db.Integer, db.ForeignKey('departments.id'))
     #one-to-one relationship
-    #user_department = db.relationship("Department", back_populates="department_users", uselist=False) 
+    # Use cascade='delete,all' to propagate the deletion of a Department onto its Employees
+    user_department = db.relationship("Department", back_populates="department_users", uselist=False, cascade='delete,all') 
+ 
+    hired_on = db.Column(db.DateTime, default=db.func.now())
 
     role_ID = db.Column(db.Integer, db.ForeignKey('roles.id'))
     #many-to-one relationship
@@ -153,7 +156,7 @@ class Department(Base):
     description = db.Column(db.String(200))
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
-    #department_users = db.relationship("User", back_populates='user_department', cascade="all, delete, delete-orphan")
+    department_users = db.relationship("User", back_populates='user_department', cascade="all, delete, delete-orphan")
     
     #department_users = db.relationship('User', backref='user_department',lazy='dynamic')
     #subscribers = db.relationship('Subscriber', backref='department',lazy='dynamic')

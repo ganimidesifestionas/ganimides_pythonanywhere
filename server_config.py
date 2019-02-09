@@ -2,13 +2,14 @@
 import os
 #1 #2 #3 #4 #5 #6 #7 #8 #9 #10 #11
 ################################################################
-#print('file =',__file__)
+DISPLAY_CONFIGURATION = False
+################################################################
 config_file = os.path.abspath(__file__)
 config_filename = os.path.basename(__file__)
 config_path = os.path.abspath(os.path.dirname(__file__))
+APPLICATION_BASEFOLDER = config_path
 config_base_folder = os.path.dirname(config_path)
-config_folder = os.path.basename(os.path.dirname(__file__))
-config_folder = __file__.replace(config_filename,'').replace(config_base_folder,'')
+config_folder = config_file.replace(config_filename, '').replace(APPLICATION_BASEFOLDER, '')
 ################################################################
 print('      ', '__file__ =',__file__)
 print('      ', 'config_file =', config_file)
@@ -17,6 +18,8 @@ print('      ', 'config_folfer =', config_folder)
 print('      ', 'config_filename =', config_filename)
 print('      ', 'config_base_folder =', config_base_folder)
 #####################################################################
+APPLICATION_BASEFOLDER = config_path #will be used in other configs as the base
+os.environ["APPLICATION_BASEFOLDER"] = APPLICATION_BASEFOLDER
 SERVER_CONFIG_FILE = config_file
 SERVER_CONFIG_PATH = config_path
 SERVER_CONFIG_BASE_FOLDER = config_base_folder
@@ -25,11 +28,11 @@ SERVER_CONFIG_FILENAME = config_filename
 #####################################################################
 EYECATCH = 'SERVER'
 EXECUTION_MODE = 'development'
-#EXECUTION_ENVIRONMENT = 'localhost'
-EXECUTION_ENVIRONMENT = 'pythonanywhere'
-#SERVER = 'localhost'
+EXECUTION_ENVIRONMENT = 'localhost'
+#EXECUTION_ENVIRONMENT = 'pythonanywhere'
+SERVER = 'localhost'
 #SERVER = 'pythonanywhere-ganimedes'
-SERVER = 'pythonanywhere-ifestionas'
+#SERVER = 'pythonanywhere-ifestionas'
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 ################################################################
 ### mail servers
@@ -206,15 +209,16 @@ SQLALCHEMY_POOL_RECYCLE = 90
 # 13 rows in set (0.01 sec)
 SQLALCHEMY_POOL_RECYCLE = 150
 ################################################
-
-# #SQLALCHEMY_DATABASE_URI = 'mysql://dt_admin:dt2016@localhost/dreamteam_db'
-# SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db'
-# #{
-# #    "host": "localhost",
-# #    "user": "root",
-# #    "password": "philea13",
-# #    "database": "db",
-# #    "sql_engine": "mysql+pymysql",
+# '''
+# pool_recycle=-1: this setting causes the pool to recycle
+#     connections after the given number of seconds has passed. It
+#     defaults to -1, or no timeout. For example, setting to 3600
+#     means connections will be recycled after one hour. Note that
+#     MySQL in particular will disconnect automatically if no
+#     activity is detected on a connection for eight hours (although
+#     this is configurable with the MySQLDB connection itself and the
+#     server configuration as well).
+# '''
 # #    "charset": "utf8"
 # #}
 # import pymysql
@@ -374,37 +378,40 @@ os.environ["RECAPTCHA_SECRET_KEY"]=RECAPTCHA_SECRET_KEY
 os.environ["RECAPTCHA_INVISIBLE_SITE_KEY"]=RECAPTCHA_INVISIBLE_SITE_KEY
 os.environ["RECAPTCHA_INVISIBLE_SECRET_KEY"]=RECAPTCHA_INVISIBLE_SECRET_KEY
 
+#############################################################################################
 # print
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '# server configuration')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, 'base folder =', SERVER_CONFIG_BASE_FOLDER)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SERVER =', SERVER)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER =', DATABASE_SERVER)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_NAME =', DATABASE_NAME)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER_URI =', DATABASE_SERVER_URI)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_URI =', DATABASE_URI)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SQLALCHEMY_DATABASE_URI =', SQLALCHEMY_DATABASE_URI)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
-print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+#############################################################################################
+if DISPLAY_CONFIGURATION :
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '# server configuration')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, 'base folder =', SERVER_CONFIG_BASE_FOLDER)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SERVER =', SERVER)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER =', DATABASE_SERVER)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_NAME =', DATABASE_NAME)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER_URI =', DATABASE_SERVER_URI)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_URI =', DATABASE_URI)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SQLALCHEMY_DATABASE_URI =', SQLALCHEMY_DATABASE_URI)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
+    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
 #############################################################################################
