@@ -208,6 +208,9 @@ SQLALCHEMY_POOL_RECYCLE = 90
 # +-----------------------------+----------+
 # 13 rows in set (0.01 sec)
 SQLALCHEMY_POOL_RECYCLE = 150
+SQLALCHEMY_POOL_RECYCLE = 280
+SQLALCHEMY_POOL_SIZE = 20
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 ################################################
 # '''
 # pool_recycle=-1: this setting causes the pool to recycle

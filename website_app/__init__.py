@@ -304,6 +304,8 @@ else:
 # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
 #dbserver_engine.dispose()
 dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
+dbserver_engine.dispose()
+
 print('   ',__name__,'###DATABASE###','create tables if not exists')
 from .module_administration.models import User, Department, Role
 from .module_authorization.models import Subscriber, ContactMessage
@@ -327,7 +329,7 @@ for table in existing_tables_after:
     if table not in existing_tables_before:
         created = created + 1
 
-#db_engine.dispose()
+db_engine.dispose()
 print('   ',__name__,'###DATABASE###',"   {0} tables created in database {1}".format(created,DATABASE_NAME))
 
 ################################################################################

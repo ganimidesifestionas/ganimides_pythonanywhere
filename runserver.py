@@ -14,9 +14,9 @@ from website_app.module_authorization.database import init_database as init_auth
 from website_app.module_administration.database import init_database as init_administration_database
 
 print(__name__, '### INIT DATABASES START--------------------------------')
-init_administration_database()
-init_authorization_database()
-init_application_database()
+#init_administration_database()
+#init_authorization_database()
+#init_application_database()
 print('')
 print(__name__, '### INIT DATABASES FINISH-------------------------------')
 print(__name__, '### INIT END--------------------------------------------')
