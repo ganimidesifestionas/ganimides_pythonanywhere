@@ -45,6 +45,16 @@ logger.info('Hello World!!!')
 #     app = Flask(__name__)
 #     db.init_app(app)
 #     return app
+
+################################################################################
+################################################################################
+################################################################################
+### Define the WSGI application object
+################################################################################
+################################################################################
+################################################################################
+# db variable initialization
+db = SQLAlchemy()
 ################################################################################
 ################################################################################
 ################################################################################
@@ -154,7 +164,7 @@ print('   ',__name__,'   @@@check', 'SPLASH FORM---',app.config['SPLASHFORM_CONT
 #print('   ',__name__,'')
 print('   ',__name__,'###BOOTSTRAP APP###','Bootstrap(app)')
 Bootstrap(app)
-################################################################################
+#####################################################################
 ################################################################################
 ################################################################################
 ### Define the database object which is imported by modules and controllers
@@ -162,7 +172,6 @@ Bootstrap(app)
 ################################################################################
 ################################################################################
 print('   ',__name__,'###DATABASE###','define database:db = SQLAlchemy(app)')
-db = SQLAlchemy()
 db.init_app(app)
 ################################################################################
 ################################################################################
@@ -302,7 +311,6 @@ else:
 # -or-
 # dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
 # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
-#dbserver_engine.dispose()
 dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
 dbserver_engine.dispose()
 
@@ -312,7 +320,7 @@ from .module_authorization.models import Subscriber, ContactMessage
 from .models import Visit, VisitPoint, Page_Visit
 
 # recreate tables etc
-print('   ',__name__,'###DATABASE###','db.create_all(app=app)')
+print('   ',__name__,'###DATABASE###','   db.create_all(app=app)')
 db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
 existing_tables_before = db_engine.execute('SHOW TABLES;')
 existing_tables_before = [d[0] for d in existing_tables_before]
@@ -321,6 +329,7 @@ existing_tables_before = [d[0] for d in existing_tables_before]
 
 db.create_all(app=app)
 #db.session.commit()
+#print(db.__dir__.__name__)
 
 existing_tables_after = db_engine.execute('SHOW TABLES;')
 existing_tables_after = [d[0] for d in existing_tables_after]
@@ -329,8 +338,8 @@ for table in existing_tables_after:
     if table not in existing_tables_before:
         created = created + 1
 
+print('   ',__name__,'###DATABASE###',"      {0} tables created in database {1}".format(created,DATABASE_NAME))
 db_engine.dispose()
-print('   ',__name__,'###DATABASE###',"   {0} tables created in database {1}".format(created,DATABASE_NAME))
 
 ################################################################################
 ################################################################################
