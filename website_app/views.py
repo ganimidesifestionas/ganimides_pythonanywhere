@@ -223,7 +223,9 @@ def homepage():
     page_name = 'home'
     page_function = 'homepage'
     page_template = 'page_templates/landing_page.html'
+    print('###'+__name__+'###homepage-1')
     log_page(page_name, page_function, page_template)
+    print('###'+__name__+'###homepage-2')
     return render_template('page_templates/landing_page.html')
 
 @app.route('/landingpage')
@@ -231,7 +233,9 @@ def landingpage():
     page_name = 'landingpage'
     page_function = 'landingpage'
     page_template = 'page_templates/landing_page.html'
+    print('###'+__name__+'###landingpage-1')
     log_page(page_name, page_function, page_template)
+    print('###'+__name__+'###landingpage-2')
     return render_template('page_templates/landing_page.html')
 
 @app.route('/contact')
@@ -255,7 +259,9 @@ def company():
     page_name = 'company'
     page_function = 'company'
     page_template = 'page_templates/company.html'
+    print('###'+__name__+'###company-1')
     log_page(page_name, page_function, page_template)
+    print('###'+__name__+'###company-2')
     return render_template('page_templates/company.html')
 
 @app.route('/services')
