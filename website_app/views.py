@@ -106,12 +106,13 @@ def init_cookies_etc_before_first_request():
 
 @app.before_request
 def set_cookies_etc_before_request():
-    if session.get('request_started') == 'YES':
-        return
     print('##########################################')
     print('###'+__name__+'###', 'before_request')
     print('##########################################-start')
-
+    #print(request.url)
+    #print(request.base_url)
+    if request.base_url.lower().find('/static/) < 0 :
+        return
     #1. set session cookies
     session['active_module'] = __name__
 
@@ -203,9 +204,9 @@ def set_cookies_etc_before_request():
 
 @app.after_request
 def set_cookies_after_request(response):
-    print('###'+__name__+'###', 'after_request')
-    session['request_started'] = 'NO'
-    print('##########################################--finished')
+    #print('###'+__name__+'###', 'after_request')
+    #session['request_started'] = 'NO'
+    #print('##########################################--finished')
     return response
 
 ###########################################################################
