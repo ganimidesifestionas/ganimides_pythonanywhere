@@ -59,10 +59,14 @@ def client_IP():
     return realclientipa
 
 def get_client_info(clientip):
-    print('###'+__name__+'###', 'get_client_info', 'session clientIPA=',session.get('clientIPA'))
+    print('###'+__name__+'###', 'get_client_info1', 'session clientIPA=',session.get('clientIPA'))
+    print('###'+__name__+'###', 'get_client_info2', 'clientip =',clientip)
+    if not clientip:
+        clientip=client_IP()
+        print('###'+__name__+'###', 'get_client_info3', 'session clientIPA(recalc)=',session.get('clientIPA'))
     if not session.get('clientIPA'):
         clientip=client_IP()
-        print('###'+__name__+'###', 'get_client_info', 'session clientIPA(recalc)=',session.get('clientIPA'))
+        print('###'+__name__+'###', 'get_client_info4', 'session clientIPA(recalc)=',session.get('clientIPA'))
     ################################################################
     ### ipstack access key
     ################################################################
@@ -72,6 +76,7 @@ def get_client_info(clientip):
     if clientip=='127.0.0.1':
         clientip = '213.149.173.194'
 
+    print('###'+__name__+'###', 'get_client_info5', 'clientip =',clientip)
     path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
     log_variable('apistack geolocation path', path)
     r = requests.post(path)
@@ -334,7 +339,8 @@ def log_visitpoint():
             )
         print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
 
-        res = get_client_info(session['clientIPA'])
+        res = get_client_info(session.get('clientIPA'))
+
         print('###'+__name__+'###', '***client info***', res)
         if res:
             visitpoint.iptype = res['type']
