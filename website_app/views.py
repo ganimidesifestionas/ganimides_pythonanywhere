@@ -106,6 +106,8 @@ def init_cookies_etc_before_first_request():
 
 @app.before_request
 def set_cookies_etc_before_request():
+    if session['request_started'] != 'YES':
+        return
     print('##########################################')
     print('###'+__name__+'###', 'before_request')
     print('##########################################-start')
@@ -196,11 +198,13 @@ def set_cookies_etc_before_request():
 
     #3. log the visit in db
     log_visit()
+    session['request_started'] = 'YES'
     print('##########################################--finished')
 
 @app.after_request
 def set_cookies_after_request(response):
     print('###'+__name__+'###', 'after_request')
+    session['request_started'] = 'NO'
     print('##########################################--finished')
     return response
 
