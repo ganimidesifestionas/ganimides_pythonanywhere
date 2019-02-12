@@ -321,7 +321,8 @@ def log_visitpoint():
         print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA(recalc)=',session.get('clientIPA'))
 
     print('###'+__name__+'###', 'log_visitpoint2', 'session clientIPA=',session.get('clientIPA'))
-    visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
+    visitpoint = VisitPoint.query.filter_by(ip=session.get('clientIPA')).first()
+    print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
 
     if not visitpoint:
         nextvisitpointNum = get_next_visitpointNumber()
@@ -331,6 +332,7 @@ def log_visitpoint():
             , visitpointNumber=nextvisitpointNum
             , visitsCount=1
             )
+    print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
 
         res = get_client_info(session['clientIPA'])
         print('###'+__name__+'###', '***client info***', res)
