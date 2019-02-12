@@ -332,7 +332,7 @@ def log_visitpoint():
             , visitpointNumber=nextvisitpointNum
             , visitsCount=1
             )
-    print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
+        print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
 
         res = get_client_info(session['clientIPA'])
         print('###'+__name__+'###', '***client info***', res)
@@ -367,6 +367,7 @@ def log_visitpoint():
         session.modified = True
         print('###'+__name__+'###', '***new visitpoint', visitpoint)
     else:
+        print('###'+__name__+'###', 'log_visitpoint4', 'session clientIPA=',session.get('clientIPA'))
         if 'VisitorID' not in session or 'VisitorNumber' not in session:
             session['VisitorID'] = visitpoint.id
             session['VisitorNumber'] = visitpoint.visitpointNumber
