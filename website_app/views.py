@@ -102,11 +102,13 @@ def init_cookies_etc_before_first_request():
     app.contactusform = ContactUsForm()
     app.forgetpasswordform = forgetPasswordForm()
     app.cookiesconsentform = CookiesConsentForm()
-    print('##########################################')
+    print('##########################################--finished')
 
 @app.before_request
 def set_cookies_etc_before_request():
-    #print('###'+__name__+'###', 'before_request')
+    print('##########################################')
+    print('###'+__name__+'###', 'before_request')
+    print('##########################################-start')
 
     #1. set session cookies
     session['active_module'] = __name__
@@ -194,6 +196,7 @@ def set_cookies_etc_before_request():
 
     #3. log the visit in db
     log_visit()
+    print('##########################################--finished')
 
 @app.after_request
 def set_cookies_after_request(response):
