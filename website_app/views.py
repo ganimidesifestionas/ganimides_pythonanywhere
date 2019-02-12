@@ -200,7 +200,8 @@ def set_cookies_etc_before_request():
 
 @app.after_request
 def set_cookies_after_request(response):
-    #print('###'+__name__+'###', 'after_request')
+    print('###'+__name__+'###', 'after_request')
+    print('##########################################--finished')
     return response
 
 ###########################################################################
