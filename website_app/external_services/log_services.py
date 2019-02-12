@@ -59,6 +59,10 @@ def client_IP():
     return realclientipa
 
 def get_client_info(clientip):
+    print('###'+__name__+'###', 'get_client_info', 'session clientIPA=',session.get('clientIPA'))
+    if not session.get('clientIPA'):
+        clientip=client_IP()
+        print('###'+__name__+'###', 'get_client_info', 'session clientIPA(recalc)=',session.get('clientIPA'))
     ################################################################
     ### ipstack access key
     ################################################################
@@ -78,12 +82,12 @@ def get_client_info(clientip):
     if r:
         response = r.json()
         log_variable('apistack geolocation result', response)
-        for key, value in response.items():
-            log_variable('---'+key, value)
-        
-        loc = response['location']
-        for key, value in loc.items():
-            log_variable('--- ---'+key, value)
+        # for key, value in response.items():
+        #     log_variable('---'+key, value)
+
+        # loc = response['location']
+        # for key, value in loc.items():
+        #     log_variable('--- ---'+key, value)
 
         return response
     else:
@@ -311,6 +315,12 @@ def get_next_visitNumber():
     return nextvisitNum
 
 def log_visitpoint():
+    print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA=',session.get('clientIPA'))
+    if not session.get('clientIPA'):
+        clientip=client_IP()
+        print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA(recalc)=',session.get('clientIPA'))
+
+    print visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
     visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
     if not visitpoint:
         nextvisitpointNum = get_next_visitpointNumber()
@@ -371,7 +381,10 @@ def log_visitpoint():
     return visitpoint
 
 def log_visit(visitpoint=None):
-    if not visitpoint or 'VisitorID' not in session or not session.get('VisitorID'):
+    print('###'+__name__+'###', 'log_visit','session visitorid= [',session.get('VisitorID'),']')
+    if not visitpoint
+    or ('VisitorID' not in session)
+    or not session.get('VisitorID'):
         visitpoint = log_visitpoint()
 
     if 'VisitID' not in session or not session.get('VisitID'):
