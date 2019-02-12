@@ -320,7 +320,7 @@ def get_next_visitNumber():
     return nextvisitNum
 
 def log_visitpoint():
-    print('###'+__name__+'###', self.__name__, 'log_visitpoint1', 'session clientIPA=',session.get('clientIPA'))
+    print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA=',session.get('clientIPA'))
     if not session.get('clientIPA'):
         clientip=client_IP()
         #print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA(recalc)=',session.get('clientIPA'))
@@ -388,6 +388,7 @@ def log_visitpoint():
             session.modified = True
             get_client_info(session['clientIPA'])
 
+    print('###'+__name__+'###','log_visitpoint finish', 'session visitpoint number= [ ',session.get('VisitorNumber'),']')
     return visitpoint
 
 def log_visit(visitpoint=None):
@@ -417,6 +418,7 @@ def log_visit(visitpoint=None):
         visit = Visit.query.filter_by(id=session['VisitID']).first()
         if 'VisitNumber' not in session:
             session['VisitNumber'] = visit.visitNumber
+    print('###'+__name__+'###', 'log_visit_finish','session visitNumber= [',session.get('VisitNumber'),']')
     return visit
 
 if __name__ == '__main__':
