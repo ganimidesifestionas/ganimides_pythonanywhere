@@ -110,9 +110,9 @@ def set_cookies_etc_before_request():
     print('###'+__name__+'###', 'before_request')
     print('##########################################-start')
     #print(request.url)
-    print(request.base_url)
-    print(request.base_url.lower().find('/static/'))
-    if request.base_url.lower().find('/static/') < 0 :
+    #print(request.base_url)
+    #print(request.base_url.lower().find('/static/'))
+    if request.base_url.lower().find('/static/') >= 0 :
         return
     #1. set session cookies
     session['active_module'] = __name__
