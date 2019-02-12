@@ -320,14 +320,14 @@ def get_next_visitNumber():
     return nextvisitNum
 
 def log_visitpoint():
-    print('###'+__name__+'###', 'log_visitpoint1', 'session clientIPA=',session.get('clientIPA'))
+    print('###'+__name__+'###', self.__name__, 'log_visitpoint1', 'session clientIPA=',session.get('clientIPA'))
     if not session.get('clientIPA'):
         clientip=client_IP()
-        print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA(recalc)=',session.get('clientIPA'))
+        #print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA(recalc)=',session.get('clientIPA'))
 
-    print('###'+__name__+'###', 'log_visitpoint2', 'session clientIPA=',session.get('clientIPA'))
+    #print('###'+__name__+'###', 'log_visitpoint2', 'session clientIPA=',session.get('clientIPA'))
     visitpoint = VisitPoint.query.filter_by(ip=session.get('clientIPA')).first()
-    print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
+    #print('###'+__name__+'###', 'log_visitpoint3', 'session clientIPA=',session.get('clientIPA'))
 
     if not visitpoint:
         nextvisitpointNum = get_next_visitpointNumber()
@@ -337,7 +337,7 @@ def log_visitpoint():
             , visitpointNumber=nextvisitpointNum
             , visitsCount=1
             )
-        print('###'+__name__+'###', 'log_visitpoint33', 'session clientIPA=',session.get('clientIPA'))
+        #print('###'+__name__+'###', 'log_visitpoint33', 'session clientIPA=',session.get('clientIPA'))
 
         res = get_client_info(session.get('clientIPA'))
 
@@ -373,7 +373,7 @@ def log_visitpoint():
         session.modified = True
         print('###'+__name__+'###', '***new visitpoint', visitpoint)
     else:
-        print('###'+__name__+'###', 'log_visitpoint4', 'session clientIPA=',session.get('clientIPA'))
+        #print('###'+__name__+'###', 'log_visitpoint4', 'session clientIPA=',session.get('clientIPA'))
         if 'VisitorID' not in session or 'VisitorNumber' not in session:
             session['VisitorID'] = visitpoint.id
             session['VisitorNumber'] = visitpoint.visitpointNumber
