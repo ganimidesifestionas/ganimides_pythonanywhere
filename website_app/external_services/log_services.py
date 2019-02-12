@@ -320,7 +320,6 @@ def log_visitpoint():
         clientip=client_IP()
         print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA(recalc)=',session.get('clientIPA'))
 
-    print visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
     visitpoint = VisitPoint.query.filter_by(ip=session['clientIPA']).first()
     if not visitpoint:
         nextvisitpointNum = get_next_visitpointNumber()
@@ -376,7 +375,7 @@ def log_visitpoint():
             session['latitude'] = str(visitpoint.latitude)
             session['longitude'] = str(visitpoint.longitude)
             session.modified = True
-            get_client_info(session['clientIPA'])
+            get_client_info(session['clihttp://ifestionas.pythonanywhere.com/entIPA'])
 
     return visitpoint
 
