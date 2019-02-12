@@ -106,7 +106,7 @@ def init_cookies_etc_before_first_request():
 
 @app.before_request
 def set_cookies_etc_before_request():
-    if session['request_started'] != 'YES':
+    if session.get('request_started') != 'YES':
         return
     print('##########################################')
     print('###'+__name__+'###', 'before_request')
