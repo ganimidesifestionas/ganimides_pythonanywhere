@@ -24,7 +24,7 @@ from .config import app_config
 #logging config
 import logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 #logger.setLevel(logging.INFO)
 
 # create a file handler
@@ -39,8 +39,18 @@ logger.setLevel(logging.DEBUG)
 # logger.addHandler(handler)
 
 # test the logger
-logger.info('Hello World!!!')
+logger.info('#################################################Hello World################################')
 
+# CRITICAL	50
+# ERROR	40
+# WARNING	30
+# INFO	20
+# DEBUG	10
+# NOTSET	0
+
+logging.getLogger('sqlalchemy.engine').setLevel(logging.ERROR)
+logging.basicConfig(level=logging.ERROR)
+logging.Formatter('%(asctime)s | %(name)s | %(levelname)s |:: %(message)s ::')
 # def create_app():
 #     app = Flask(__name__)
 #     db.init_app(app)
@@ -54,7 +64,7 @@ logger.info('Hello World!!!')
 ################################################################################
 ################################################################################
 # db variable initialization
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={"expire_on_commit": False})
 ################################################################################
 ################################################################################
 ################################################################################

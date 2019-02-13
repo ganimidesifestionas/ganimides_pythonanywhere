@@ -207,9 +207,10 @@ SQLALCHEMY_POOL_TIMEOUT = 90
 # | wait_timeout                | 300      |
 # +-----------------------------+----------+
 # 13 rows in set (0.01 sec)
-SQLALCHEMY_POOL_RECYCLE = 150
+SQLALCHEMY_POOL_RECYCLE = 60
 SQLALCHEMY_POOL_RECYCLE = 10
 SQLALCHEMY_POOL_SIZE = 5
+SQLALCHEMY_POOL_TIMEOUT = 90
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 ################################################
 # '''

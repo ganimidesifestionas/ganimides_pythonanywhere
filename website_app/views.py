@@ -87,7 +87,7 @@ def init_cookies_etc_before_first_request():
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
-    app.logger.critical('!!! SITE FIRST REQUEST !!! IP:{0}'.format(clientIPA))
+    app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SITE FIRST REQUEST !!! IP:{0}'.format(session.get('clientIPA')))
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
@@ -120,6 +120,7 @@ def set_cookies_etc_before_request():
         dt = datetime.now()
         strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
         session['identityDT'] = strdt
+        session['session_expiry'] = 60
         print('###'+__name__+'###', '***New session started')
     else:
         strdt = session['identityDT']
@@ -127,11 +128,14 @@ def set_cookies_etc_before_request():
         t2 = datetime.now()
         duration = t2 - t1
         duration_sec = duration.total_seconds()
-        if duration_sec >= 60*60:
+        session['session_expiry'] = duration_sec
+        if duration_sec >= 60:
             dt = datetime.now()
             strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
             session['identityDT'] = strdt
+            session['session_expiry'] = 60
             print('###'+__name__+'###', '***session expired after 1 hour')
+            app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SESSION EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
             session.pop('VisitID', None) # delete visitID
             session.pop('VisitNumber', None) # delete visitNumber
             session.pop('VisitorID', None) # delete visitpointID
@@ -179,6 +183,7 @@ def set_cookies_etc_before_request():
         #print('XXXX-check-duration',duration_sec, duration_min)
         if duration_sec >= 0:
             session['cookies_consent'] = 'EXPIRED'
+            app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! COOKIES CONSENT EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
         else:
             session['cookies_consent'] = 'YES'
     else:
@@ -359,7 +364,7 @@ def cookiesconsentform(answer):
     if answer.upper() == 'AGREE':
         dt = datetime.now() + timedelta(days=31)
     else:
-        dt = datetime.now() + timedelta(seconds=3*60)
+        dt = datetime.now() + timedelta(seconds=60)
         #dt = datetime.now() + timedelta(days=1)
     strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
     session['cookies_consent_time'] = strdt
