@@ -9,6 +9,8 @@ from website_app import db
 from website_app import app as application
 from website_app.module_administration.models import User, Department, Role
 from website_app.module_authorization.models import Subscriber, ContactMessage
+from website_app.models import Visit, VisitPoint, Page_Visit
+
 app = application
 app.app_context().push()
 DATABASE_SERVER = app.config['DATABASE_SERVER']

@@ -179,6 +179,7 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 SQLALCHEMY_POOL_RECYCLE = 90
 SQLALCHEMY_POOL_TIMEOUT = 9
 SQLALCHEMY_POOL_SIZE = 5
+SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 ################################################
 # '''
 # pool_recycle=-1: this setting causes the pool to recycle
