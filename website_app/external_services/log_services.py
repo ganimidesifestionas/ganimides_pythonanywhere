@@ -85,11 +85,9 @@ def get_client_info(clientip):
         log_variable('apistack geolocation result', response)
         # for key, value in response.items():
         #     log_variable('---'+key, value)
-
         # loc = response['location']
         # for key, value in loc.items():
         #     log_variable('--- ---'+key, value)
-
         return response
     else:
         return None

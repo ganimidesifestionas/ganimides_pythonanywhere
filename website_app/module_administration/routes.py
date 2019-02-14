@@ -42,6 +42,13 @@ administration = Blueprint('administration', __name__, url_prefix='/administrati
 #from . import module_administration as administration
 
 
+
+def check_admin():
+	"""
+	Prevent a non admin access
+	"""
+	if not current_user.is_admin:
+		abort(403)
 ###########################################################################
 ###########################################################################
 ###########################################################################
