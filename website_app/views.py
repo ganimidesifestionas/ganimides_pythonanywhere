@@ -87,6 +87,7 @@ def init_cookies_etc_before_first_request():
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
+    session['visit'] = 0
     app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SITE FIRST REQUEST !!! IP:{0}'.format(session.get('clientIPA')))
     try:
         session['lastpageHTML'] = app.homepage_html
@@ -113,6 +114,10 @@ def set_cookies_etc_before_request():
     print('##########################################')
     print('###'+__name__+'###', 'before_request')
     print('##########################################-start')
+    if not session.get('visit'):
+        session['visit'] = 100
+    session['visit'] = session.get('visit') + 1
+
     #1. set session cookies
     session['active_module'] = __name__
 

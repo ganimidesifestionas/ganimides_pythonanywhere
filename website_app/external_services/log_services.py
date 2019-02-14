@@ -124,7 +124,7 @@ def get_next_visitNumber():
     return nextvisitNum
 
 def log_visitpoint():
-    app.logger.info('!!!{0}!!! --session[clientIPA]={1}'.format('log_visitpoint', session.get('clientIPA')))
+    app.logger.info('####################{0}#####!!!{1}!!! --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
     print('###'+__name__+'###', 'log_visitpoint', 'session clientIPA=',session.get('clientIPA'))
     if not session.get('clientIPA'):
         clientip = client_IP()
@@ -132,14 +132,13 @@ def log_visitpoint():
         clientip = session.get('clientIPA')
 
     print('###'+__name__+'###', 'log_visitpoint_before_1stquery')
-    app.logger.info('!!!{0}!!!before_1stquery --clientip={1}'.format('log_visitpoint', clientip))
+    app.logger.info('####################{0}#####!!!{1}!!!before_1stquery --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
     #try:
     visitpoint = VisitPoint.query.filter_by(ip=clientip).first()
     #except (sqlalchemy.exc.SQLAlchemyError, sqlalchemy.exc.DBAPIError) as e:
         # handle exception "e", or re-raise appropriately.
     #print('###'+__name__+'###', '%%%%%DATABASE ERROR%%%%%')
-
-    app.logger.info('!!!{0}!!!after_1stquery --clientip={1}'.format('log_visitpoint', clientip))
+    app.logger.info('####################{0}#####!!!{1}!!!after_1stquery --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
     print('###'+__name__+'###', 'log_visitpoint_after_1stquery')
 
     if not visitpoint:
