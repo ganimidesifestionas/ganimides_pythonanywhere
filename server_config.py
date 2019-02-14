@@ -212,6 +212,7 @@ SQLALCHEMY_POOL_RECYCLE = 10
 SQLALCHEMY_POOL_SIZE = 5
 SQLALCHEMY_POOL_TIMEOUT = 90
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 ################################################
 # '''
 # pool_recycle=-1: this setting causes the pool to recycle
