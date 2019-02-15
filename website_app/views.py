@@ -117,6 +117,7 @@ def set_cookies_etc_before_request():
     if not session.get('visit'):
         session['visit'] = 100
     session['visit'] = session.get('visit') + 1
+    session['visitpoint_try'] = 0
 
     #1. set session cookies
     session['active_module'] = __name__

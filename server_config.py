@@ -176,8 +176,8 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 ################################################
 # SQLALCHEMY
 ################################################
-SQLALCHEMY_POOL_RECYCLE = 90
-SQLALCHEMY_POOL_TIMEOUT = 90
+#SQLALCHEMY_POOL_RECYCLE = 90
+#SQLALCHEMY_POOL_TIMEOUT = 90
 #SQLALCHEMY_POOL_SIZE = 5
 #SQLALCHEMY_POOL_RECYCLE = -1
 #SQLALCHEMY_COMMIT_ON_TEARDOWN = True
@@ -207,12 +207,12 @@ SQLALCHEMY_POOL_TIMEOUT = 90
 # | wait_timeout                | 300      |
 # +-----------------------------+----------+
 # 13 rows in set (0.01 sec)
-SQLALCHEMY_POOL_SIZE = 5
-SQLALCHEMY_POOL_TIMEOUT = 60
-SQLALCHEMY_POOL_RECYCLE = 100
+#SQLALCHEMY_POOL_SIZE = 5
+#SQLALCHEMY_POOL_TIMEOUT = 60
+SQLALCHEMY_POOL_RECYCLE = 10
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-SQLALCHEMY_MAX_OVERFLOW = 5
+#SQLALCHEMY_MAX_OVERFLOW = 5
 ################################################
 # '''
 # pool_recycle=-1: this setting causes the pool to recycle
