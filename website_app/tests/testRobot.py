@@ -1,27 +1,6 @@
 # """
 # Initialising Automagica
 # """"
-
-# from automagica import *
-
-# """
-# Browser Automation - Opening
-# """"
-
-# from automagica import *
-# browser = ChromeBrowser()
-
-# """
-# Browser Automation - Opening Google.com
-# """"
-
-# from automagica import *
-# browser = ChromeBrowser()
-# browser.get('https://google.com')
-
-# """
-# Browser Automation - Opening Google.com and showing title
-# """"
 import time
 from datetime import datetime
 from datetime import timedelta
@@ -43,6 +22,7 @@ def test_with_robot():
             print('FAILED!!!!!!!!!!!!!')
             #//*[@id="id_ifestionas_pythonanywhere_com"]/form/div[1]/div/button
             exit(0)
+        waitsec=1
         while ii < 13:
             ii = ii + 1
             ct = datetime.now()
@@ -56,7 +36,8 @@ def test_with_robot():
             e_minutes =  divmod(e_seconds, 60)[0]
             print('   ', ii, datetime.now(), e_seconds, e_minutes, title)
             print('      ', browser.current_url, browser.session_id)
-            #Wait(seconds=1)
+            Wait(seconds=waitsec)
+            waitsec = waitsec * 2
             try:
                 askmelater = browser.find_element_by_id('askmelater')
                 askmelater.click()
