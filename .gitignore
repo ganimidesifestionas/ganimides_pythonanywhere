@@ -107,7 +107,7 @@ venv.bak/
 
 **__pycache__/
 
-*.pyc 
+*.pyc
 
 #server level config
 **server_config.py
@@ -121,3 +121,9 @@ server_config.*
 #vscode staff
 **vscode/
 **test.py
+
+**/*.pyc
+
+website_app/__pycache__/__init__.cpython-36.pyc
+website_app/__pycache__/views.cpython-36.pyc
+website_app/module_authorization/__pycache__/routes.cpython-36.pyc
