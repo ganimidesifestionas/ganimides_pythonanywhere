@@ -133,9 +133,12 @@ def log_visitpoint():
 
     print('###'+__name__+'###', 'log_visitpoint_before_1stquery')
     app.logger.info('####################{0}#####!!!{1}!!!before_1stquery --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
-    #try:
-    visitpoint = VisitPoint.query.filter_by(ip=clientip).first()
-    #except (sqlalchemy.exc.SQLAlchemyError, sqlalchemy.exc.DBAPIError) as e:
+    try:
+        ok=1
+        visitpoint = VisitPoint.query.filter_by(ip=clientip).first()
+    except (sqlalchemy.exc.SQLAlchemyError, sqlalchemy.exc.DBAPIError) as e:
+        ok=0
+        db.session.remove()  
         # handle exception "e", or re-raise appropriately.
     #print('###'+__name__+'###', '%%%%%DATABASE ERROR%%%%%')
     app.logger.info('####################{0}#####!!!{1}!!!after_1stquery --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))

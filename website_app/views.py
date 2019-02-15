@@ -22,8 +22,6 @@ from flask_login import current_user, login_required #, login_user, logout_user
 
 # Import the app object from the main app module __INIT__
 from . import app
-# Import the database object from the main app module
-#from . import db
 
 # Import module forms
 from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsForm, forgetPasswordForm
@@ -39,7 +37,6 @@ from .external_services.log_services import client_IP, log_visit, log_page, log_
 ###########################################################################
 ###########################################################################
 ###########################################################################
-
 ##########################################
 #put this after @ decorator
 ##########################################
@@ -378,35 +375,6 @@ def cookiesconsentform(answer):
     return render_template(
         session['lastpageHTML']
         )
-
-    # form = CookiesConsentForm()
-    # if not form.validate_on_submit():
-    #     dummy = 1 #form has input errors
-    #     print('xxxxxxx   xxxxx',answer)
-    # else:
-    #     print('xxxxxxx   xxxxxxxxxxxxxxxxxxxxxx',answer)
-    #     if answer.upper() == 'AGREE':
-    #         # set the session cookie 'cookies_consent_time' to current datetime
-    #         dt = datetime.now() + timedelta(days=31)
-    #     else:
-    #         dt = datetime.now() + timedelta(seconds=3*60)
-    #         #dt = datetime.now() + timedelta(days=1)
-
-    #     strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
-    #     session['cookies_consent_time'] = strdt
-    #     session['cookies_consent'] = 'YES'
-    #     flash('Thank You. Your data are protected', 'success')
-    #     return render_template(
-    #         session['lastpageHTML']
-    #         )
-
-    # print('xxxxxxx  zzzzzzzzzzz',answer)
-    # return render_template(
-    #     session['lastpageHTML']
-    #     , cookiesconsentform=form
-    #     , splash_form='cookiesconsent'
-    #     )
-
 #############################################################
 #############################################################
 #############################################################
