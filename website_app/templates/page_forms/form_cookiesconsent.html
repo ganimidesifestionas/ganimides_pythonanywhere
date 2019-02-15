@@ -2,7 +2,7 @@
     <fieldset>
         {{ cookiesconsentform.hidden_tag() }}
         <div class="modal-header align-items-center">
-            <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">cookies</h1>
+            <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">Please accept our cookies! 🍪</h1>
             <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
 
@@ -11,19 +11,10 @@
         <div class="modal-body">
             <div class="d-flex flex-column">
                 <p>
-                We use <strong>cookies</strong> to provide social media features and to analyse our traffic.
-                We also share information about your use of our site with our social media and analytics partners.
+                We use <strong>cookies</strong> to gather statistics and offer you personalized content and experience.
+                We also share information about your use of our site with our social media and analytics partners.Read about how we use cookies and how to withdraw your consent in our Cookie Policy.
                 <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our
                   <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
-
-                <strong>Cookies</strong> are important to the proper functioning of a site.
-                To improve your experience, we use cookies to remember log-in details and provide secure log-in,
-                collect statistics to optimize site functionality, and deliver content tailored to your interests.
-                Click <strong>Agree and Proceed</strong> to accept cookies and go directly to the site or click on <strong>More Information</strong> to see detailed descriptions of the types of cookies and choose whether to accept certain cookies while on the site.
-                Selecting <strong>"Ask me later"</strong> will enable cookies for the next 24 hours.
-                <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our
-                        <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
-
                 </p>
             </div>
         </div>
@@ -36,8 +27,19 @@
                     <a id="askmelater" href="{{ url_for('cookiesconsentform', answer='ASK-ME-LATER') }}">Ask me later</a>
                 </div>
             <div class="d-flex flex-grow-1 justify-content-end mt-0 mb-0 p-0">
-                    {{cookiesconsentform.submit(class="btn btn-warning")}}
+                    {{cookiesconsentform.submit(class="btn btn-danger")}}
             </div>
         </div>
     </fieldset>
 </form>
+<!--
+
+                <strong>Cookies</strong> are important to the proper functioning of a site.
+                To improve your experience, we use cookies to remember log-in details and provide secure log-in,
+                collect statistics to optimize site functionality, and deliver content tailored to your interests.
+                Click <strong>Agree and Proceed</strong> to accept cookies and go directly to the site or click on <strong>More Information</strong> to see detailed descriptions of the types of cookies and choose whether to accept certain cookies while on the site.
+                Selecting <strong>"Ask me later"</strong> will enable cookies for the next 24 hours.
+                <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our
+                        <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
+
+-->

@@ -205,9 +205,8 @@ print('   ',__name__,'###DATABASE###','   sqlalchemy.create_engine')
 from sqlalchemy import exc
 from sqlalchemy import event
 from sqlalchemy import select
-#DATABASE_URI = app.config['DATABASE_URI']
+DATABASE_URI = app.config['DATABASE_URI']
 some_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=80) # connect to database
-db.engine = some_engine
 @event.listens_for(some_engine, "engine_connect")
 def ping_connection(connection, branch):
     print('@@@@@@@@@@@@@@@@@@@ping_connection')
@@ -425,7 +424,7 @@ print('   ',__name__,'###DATABASE###','   sqlalchemy.create_engine')
 from sqlalchemy import exc
 from sqlalchemy import event
 from sqlalchemy import select
-
+DATABASE_URI=app.config['SQLALCHEMY_DATABASE_URI']
 some_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=80) # connect to database
 
 @event.listens_for(some_engine, "engine_connect")
