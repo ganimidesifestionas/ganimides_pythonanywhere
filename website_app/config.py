@@ -75,6 +75,7 @@ class Config(object):
     #relative to mysite which is https://www.pythonanywhere.com/user/ganimides/files/home/ganimides/ganimides_website
     PICTURES_FOLDER = '/static/pictures/'
     IMAGES_FOLDER = '/static/images/'
+    VIDEOS_FOLDER = '/static/videos/'
     FLAGS_FOLDER = '/static/images/flags/'
     ICONS_FOLDER = '/static/images/icons/'
     UPLOAD_FOLDER = '/static/Uploads/'
@@ -87,6 +88,9 @@ class Config(object):
     COMPONENTS_FOLDER = 'page_components/'
     EMAILS_FOLDER = 'email_templates/'
     SMS_FOLDER = 'sms_templates/'
+    IMAGE_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp'])
+    PICTURE_EXTENSIONS = set(['pdf', 'png', 'jpg', 'jpeg', 'gif', 'bmp'])
+    VIDEO_EXTENSIONS = set(['mp4', 'mp5'])
     #############################################################################################
     #components folders: authorization etc
     #############################################################################################

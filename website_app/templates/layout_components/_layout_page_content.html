@@ -15,9 +15,17 @@
 {% set page_content_design="" %}
 {%endif%}
 
-
 {% set page_content_file = page_file(content_page) %}
 {% set language_page_content_file=language_file(page_content_file,CURRENT_LANGUAGE) %}
+
+{% if content_page_right %}
+<!--{{content_page_right}}|{{active_module}}|{{CURRENT_LANGUAGE}}|-->
+{#% set page_content_right_file = page_file(content_page_right) %#}
+{#% set language_page_content_right_file = language_file(page_content_right_file,CURRENT_LANGUAGE) %#}
+{#% set page_content_right = [language_page_content_right_file, page_content_right_file] %#}
+{% set page_content_right = include_files(content_page_right,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) %}
+{% else %}
+{%endif%}
 
 {% set page_image = '' %}
 {% if page_logo %}
@@ -108,8 +116,6 @@
 {% if previous_page %}
 {% set link_pages=link_pages+1 %}
 {% endif %}
-
-
 <div class="d-flex flex-column w-100 bg-white">
     <div class="d-flex flex-row w-100 text-black">
             <div class="d-flex flex-column justify-content-start bg-white">

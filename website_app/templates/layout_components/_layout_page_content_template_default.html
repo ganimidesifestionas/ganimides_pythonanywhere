@@ -7,18 +7,19 @@
 <!---
 <canvas id="canvas"></canvas>
 -->
-<div class="d-flex flex-column justify-content-center">
+<div class="d-flex flex-column justify-content-start">
     <!--0:page-top-navigation-line-->
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-center">
         {% include [language_fullpathfile('top_navigation_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('top_navigation_line.html','COMPONENT')] %}
     </div>
 
-    <div class="d-flex justify-content-center col-md-10 mx-auto mb-2">
+    <div class="d-flex justify-content-center mx-auto mb-2">
         <div class="d-flex flex-column justify-content-center">
             <!--3:messages-->
             <div class="d-flex justify-content-center align-items-center message_line p-1">
                 {% include [language_fullpathfile('messages_display_excepterrors.html',CURRENT_LANGUAGE,'COMPONENT'),fullpathfile('messages_display_excepterrors.html','COMPONENT')] %}
             </div>
+
             <!--1:page-top-image-or-carousel-->
             <div class="d-flex justify-content-center">
                 {% if page_top_image_file %}
@@ -48,9 +49,8 @@
 
             <!--5:page-content-->
             <div class="d-flex justify-content-center content-page">
-                <div class="d-flex">
-                    <div class="">
-                    </div>
+                <div class="d-flex w-100">
+                    <!--5L:page-content-left-->
                     <div class="">
                         {% if page_inpage_image_left %}
                         {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage_left.html",execution_mode,design_type,design_version) %}
@@ -59,15 +59,14 @@
                         {% include [language_page_inpage_carousel_file_left, page_inpage_carousel_file_left] %}
                         {% endif %}
                     </div>
+                    <!--5C:page-content-center-->
                     <div class="flex-grow-1">
                         {% include [language_page_file(content_page,CURRENT_LANGUAGE,active_module), page_file(content_page,active_module)] %}
                     </div>
-                    <div class="">
-                        {% if page_inpage_image %}
-                        {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage.html",execution_mode,design_type,design_version) %}
-                        {% endif %}
-                        {% if language_page_inpage_carousel_file or page_inpage_carousel_file %}
-                        {% include [language_page_inpage_carousel_file, page_inpage_carousel_file] %}
+                    <!--5R:page-content-right-->
+                    <div class="justify-content-start">
+                        {% if page_content_right %}
+                        {% include page_content_right ignore missing %}
                         {% endif %}
                     </div>
                 </div>

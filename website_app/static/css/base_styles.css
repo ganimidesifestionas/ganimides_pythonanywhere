@@ -2909,7 +2909,7 @@ canvas{
         position: fixed;
         bottom: 32px;
         left: 32px;
-        width: 300px;
+        width: 400px;
         border-radius: 6px;
         box-shadow: 0 4px 20px 0 rgba(0,0,0,0.4);
         background-color: #ffffff;
@@ -2918,10 +2918,8 @@ canvas{
         padding: 22px;
         overflow: hidden;
     }
-
-}
-
 .cookies-consent-page p {
+    text-align: justify;
     font-size: 10pt;
     font-style: normal;
     font-weight: normal;

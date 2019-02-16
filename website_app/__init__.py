@@ -605,6 +605,8 @@ def inject_utility_functions():
             folder=folder+app.config['IMAGES_FOLDER']
         if (type.upper()=='PICTURE'):
             folder=folder+app.config['PICTURES_FOLDER']
+        if (type.upper()=='VIDEO'):
+            folder=folder+app.config['VIDEOS_FOLDER']
         if (type.upper()=='FORM'):
             folder=folder+app.config['FORMS_FOLDER']
         # if module:
@@ -617,33 +619,47 @@ def inject_utility_functions():
     #print('   ',__name__,'###inject_utility_functions:fullpathfile()')
     def fullpathfile(file='',type='TEMPLATE',module=''):
         folder=appfolder(type,module)
-        # folder=app.config['TEMPLATES_ROOT_FOLDER']
-        # if (type.upper()=='LAYOUT_COMPONENT'):
-        #     folder=app.config['LAYOUTS_FOLDER']
-        # if (type.upper()=='TEMPLATE'):
-        #     folder=app.config['TEMPLATES_FOLDER']
-        # if (type.upper()=='PAGE'):
-        #     folder=app.config['PAGES_FOLDER']
-        # if (type.upper()=='COMPONENT'):
-        #     folder=app.config['COMPONENTS_FOLDER']
-        # if (type.upper()=='IMAGE'):
-        #     folder=app.config['IMAGES_FOLDER']
-        # if (type.upper()=='PICTURE'):
-        #     folder=app.config['PICTURES_FOLDER']
-        # if (type.upper()=='FORM'):
-        #     folder=app.config['FORMS_FOLDER']
-
-        # if module:
-        #     if (type.upper()=='LAYOUT_COMPONENT'):
-        #         folder=module+'/'
-        #     else:
-        #         folder=module+'/'+folder
-
         file1=file
         file2=file1
         if (file1.find('/')<0):
             file2 = folder+file1
         return file2
+
+    #print('   ',__name__,'###inject_utility_functions:include_files()')
+    def include_files(file='',type='TEMPLATE',module='',language='en'):
+        print('tispaolas')
+        file_extension = os.path.splitext(file)[1]
+        file_extension = file_extension.lower()
+        print('tispaolas',file_extension)
+        
+        if file_extension not in ['.html']:
+            if file_extension in ['.bmp','.png','.gif','.tiff']:
+                type = 'IMAGES'
+            if file_extension in ['.mp4']:
+                type = 'VIDEOS'
+        #folder from type,module
+        folder=appfolder(type,module)
+        print('tispaolas',folder)
+
+        file1=file
+        if not os.path.dirname(file1):
+            file1 = folder+file1
+        print('tispaolas',file1)
+        file2=file1    
+        if (language not in app.config['LANGUAGES']):
+            language=app.config['DEFAULT_LANGUAGE']
+        if (language!=app.config['DEFAULT_LANGUAGE']):
+            filename=os.path.basename(file1)
+            justfile=os.path.splitext(filename)[0]
+            justext=os.path.splitext(filename)[1]
+            Njustfile=justfile+'_'+language
+            Nfilename=Njustfile+justext
+            file2x=os.path.join(os.path.dirname(file1),Nfilename)
+            file2=os.path.normpath(file2x)
+        print('tispaolas',file2)
+        x=[file2, file1]
+        print('tispaolas',x)
+        return x
 
     #print('   ',__name__,'###inject_utility_functions:image_file()')
     def image_file(file=''):
@@ -786,7 +802,7 @@ def inject_utility_functions():
         ,form_file=form_file
         ,email_template_file=email_template_file
         ,sms_template_file=sms_template_file
-        #,cookies_consent=cookies_consent
+        ,include_files=include_files
 )
 ################################################################################
 ################################################################################
