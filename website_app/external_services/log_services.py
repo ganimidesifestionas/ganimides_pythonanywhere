@@ -139,6 +139,7 @@ def log_visitpoint():
 
     app.logger.info('####################{0}-{1}#####!!!{2}!!!before_1stquery --session[clientIPA]={3}'.format(session.get('visit'),session.get('visitpoint_try'),'log_visitpoint', session.get('clientIPA')))
     db.session.remove()
+    app.logger.info('######cccccccc##############{0}-{1}#####!!!{2}!!!before_1stquery --session[clientIPA]={3}'.format(session.get('visit'),session.get('visitpoint_try'),'log_visitpoint', session.get('clientIPA')))
     try:
         ok=1
         visitpoint = VisitPoint.query.filter_by(ip=clientip).first()
@@ -149,6 +150,7 @@ def log_visitpoint():
         app.logger.info('####################{0}#####!!!{1}!!!EEEEEEERRRRRRRRRRROOOOOOOOORRRRRRRRRR --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
         #db.session.rollback()
         db.session.remove()
+        app.logger.info('######xxxxxxxxxx##############{0}#####!!!{1}!!!EEEEEEERRRRRRRRRRROOOOOOOOORRRRRRRRRR --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
         raise
     app.logger.info('####################{0}#####!!!{1}!!!after_1stquery --session[clientIPA]={2}'.format(session.get('visit'),'log_visitpoint', session.get('clientIPA')))
     print('###'+__name__+'###', 'log_visitpoint_after_1stquery')
@@ -297,21 +299,21 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
 
     session.modified = True
     print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '<--'+session.get('active_module'))
-    #log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s page:%s %s %s %s', session['clientIPA'], session['pageID'], request.method, request.url, '### '+__name__+' ###')
     app.logger.info('***page={0}***ip={1}***visit={2}***'.format(pageID, session.get('clientIPA'), session.get('VisitNumber')))
 
 def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', page_template_form=''):
     routeID = pageName.upper().replace('_', '-').replace(' ', '-')
     print(session['clientIPA'], 'route', routeID, request.method, request.url, '<--'+session.get('active_module'))
-    #log_page_visit('route', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    log_page_visit('route', routeID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s route:%s %s %s %s', session['clientIPA'], session['routeID'], request.method, request.url, '### '+__name__+' ###')
     app.logger.info('***route={0}***ip={1}***visit={2}***'.format(routeID, session.get('clientIPA'), session.get('VisitNumber')))
 
 def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')
     print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '<--'+session.get('active_module'))
-    #log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     app.logger.info('***splash={0}***ip={1}***visit={2}***'.format(pageID, session.get('clientIPA'), session.get('VisitNumber')))
 
 def log_info(msg):
