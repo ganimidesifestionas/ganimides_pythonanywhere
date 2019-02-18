@@ -116,7 +116,10 @@ server_config.*
 #vscode staff
 .vscode/
 **/vscode/
+
 **server_config.*
+server_config.py
+**/server_config.*
 
 #vscode staff
 **vscode/
