@@ -669,6 +669,15 @@ def inject_utility_functions():
             file2 = app.config['IMAGES_FOLDER']+file1
         return file2
 
+    #print('   ',__name__,'###inject_utility_functions:video_file()')
+    def video_file(file=''):
+        file1=file
+        file2=file1
+        if (file1.find('/')<0):
+            file2 = app.config['VIDEOS_FOLDER']+file1
+        #print('shalimar---',file2)
+        return file2
+
     #print('   ',__name__,'###inject_utility_functions:picture_file()')
     def picture_file(file=''):
         file1=file
@@ -793,6 +802,7 @@ def inject_utility_functions():
         ,version_file=version_file
         ,image_file=image_file
         ,picture_file=picture_file
+        ,video_file=video_file
         ,flag_file=flag_file
         ,layout_file=layout_file
         ,template_file=template_file

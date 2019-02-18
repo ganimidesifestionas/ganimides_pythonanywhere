@@ -2011,12 +2011,32 @@ hr {
     font-weight: 600;
     font-size: 12px;
 }
-.splash_form_close_button {
-    font-weight: 600 !important;
+
+.splash_form_close_button2 {
+    font-weight: 900 !important;
     font-size: 1.5rem !important;
     padding:0px !important;
     margin:0px !important;
 }
+.splash_form_close_button {
+    backface-visibility: hidden;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    background: lightgray;
+    border-radius: 100px;
+    border: 0px solid gray ; /* #444;*/
+    padding: 4px 4px 4px 4px;
+    color: black;
+    font-weight: 900 !important;
+    font-size: 1rem !important;
+    font-family: Helvetica Neue;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+  }
 
 .contactus-form a {
     color: orange;
@@ -2475,15 +2495,15 @@ canvas{
 /*
 ##############################################
 */
-.btn{
+.mybutton{
     background: transparent;
     position: relative;
     overflow: hidden;
     transition: all .5s;
   }
   /* //// Default effect: Slide from Top  //// */
-  .btn:before,
-  .btn:after{
+  .mybutton:before,
+  .mybutton:after{
     content: '';
     position: absolute;
     left: 0;
@@ -2494,144 +2514,147 @@ canvas{
     z-index: -1;
     transition: all .5s;
   }
-  .btn:hover{
+
+  .mybutton:hover{
       color: white;
   }
-  .btn:hover:after{
+  .mybutton:hover:after{
     transform: translate3D(0,0,0);
     transition: all .5s;
   }
-  .btn-primary:before{
+  .mybutton-primary:before{
     background: #007bff; /* button default background color */
   }
-  .btn-primary:after{
+  .mybutton-primary:after{
     background: #0000005a;
   }
-  .btn-primary:hover{
+  .mybutton-primary:hover{
     background: #025ec1;
   }
-  .btn-secondary:before{
+  .mybutton-secondary:before{
     background: #6c757d;
     z-index: -2;
   }
-  .btn-secondary:after{
+  .mybutton-secondary:after{
     background: #5a6268;
   }
-  .btn-secondary:hover{
+  .mybutton-secondary:hover{
     background: #5a6268;
   }
-  .btn-success:before{
+  .mybutton-success:before{
     background: #28a745;
     z-index: -2;
   }
-  .btn-success:after{
+  .mybutton-success:after{
     background: #218838;
   }
-  .btn-success:hover{
+  .mybutton-success:hover{
     background: #218838;
   }
-  .btn-danger:before{
+  .mybutton-danger:before{
     background: #dc3545;
   }
-  .btn-danger:after{
+  .mybutton-danger:after{
     background: #c82333;
   }
-  .btn-danger:hover{
+  .mybutton-danger:hover{
     background: #c82333;
   }
-  .btn-warning:before{
+  
+  .mybutton-warning:before{
     background: #ffc107;
   }
-  .btn-warning:after{
+  .mybutton-warning:after{
     background: #e0a800;
   }
-  .btn-warning:hover{
+  .mybutton-warning:hover{
     background: #e0a800;
   }
-  .btn-info:before{
+  .mybutton-info:before{
     background: #17a2b8;
   }
-  .btn-info:after{
+  .mybutton-info:after{
     background: #138496;
   }
-  .btn-info:hover{
+  .mybutton-info:hover{
     background: #138496;
   }
-  .btn-light:before{
+  .mybutton-light:before{
     background: #f8f9fa;
   }
-  .btn-light:after{
+  .mybutton-light:after{
     background: #e2e6ea;
     color:#212529;
   }
-  .btn-light:hover{
+  .mybutton-light:hover{
     background: #e2e6ea;
     color:#212529;
   }
-  .btn-dark:before{
+  .mybutton-dark:before{
     background: #6c757d;
   }
-  .btn-dark:after{
+  .mybutton-dark:after{
     background: #23272b;
   }
-  .btn-dark:hover{
+  .mybutton-dark:hover{
     background: #23272b;
   }
-  .btn-link:hover{
+  .mybutton-link:hover{
     color: #007bff;
   }
+
   /* //// Outline Buttons  //// */
-  .btn-outline-primary:after{
+  .mybutton-outline-primary:after{
     background: #007bff;
   }
-  .btn-outline-primary:hover{
+  .mybutton-outline-primary:hover{
     background: #007bff;
   }
-  .btn-outline-secondary:after{
+  .mybutton-outline-secondary:after{
     background: #6c757d;
   }
-  .btn-outline-secondary:hover{
+  .mybutton-outline-secondary:hover{
     background: #6c757d;
   }
-  .btn-outline-success:after{
+  .mybutton-outline-success:after{
     background: #28a745;
   }
-  .btn-outline-success:hover{
+  .mybutton-outline-success:hover{
     background: #28a745;
   }
-  .btn-outline-danger:after{
+  .mybutton-outline-danger:after{
     background: #dc3545;
   }
-  .btn-outline-danger:hover{
+  .mybutton-outline-danger:hover{
     background: #dc3545;
   }
-  .btn-outline-warning:after{
+  .mybutton-outline-warning:after{
     background: #ffc107;
   }
-  .btn-outline-warning:hover{
+  .mybutton-outline-warning:hover{
     background: #ffc107;
   }
-  .btn-outline-info:after{
+  .mybutton-outline-info:after{
     background: #17a2b8;
   }
-  .btn-outline-info:hover{
+  .mybutton-outline-info:hover{
     background: #17a2b8;
   }
-  .btn-outline-light{
+  .mybutton-outline-light{
     color:#212529;
   }
-  .btn-outline-light:after{
+  .mybutton-outline-light:after{
     background: #e2e6ea;
     color:#212529;
   }
-  .btn-outline-light:hover{
+  .mybutton-outline-light:hover{
     background: #e2e6ea;
     color:#212529;
   }
-  .btn-outline-dark:after{
+  .mybutton-outline-dark:after{
     background: #343a40;
   }
-  .btn-outline-dark:hover{
+  .mybutton-outline-dark:hover{
     background: #343a40;
   }
   /* //// Slide Left  //// */
@@ -2757,7 +2780,7 @@ canvas{
 /*
 ==========================================
 */
-.btn-purple-moon {
+.mybutton-purple-moon {
     background: #4e54c8;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2765,7 +2788,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-ultra-voilet {
+.mybutton-ultra-voilet {
     background: #654ea3;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #eaafc8, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2773,7 +2796,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-pink-moon {
+.mybutton-pink-moon {
     background: #ec008c;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2781,7 +2804,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-cool-blues {
+.mybutton-cool-blues {
     background: #2193b0;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2789,7 +2812,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-dark-blue {
+.mybutton-dark-blue {
     background: #7474BF;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2797,7 +2820,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-green-moon {
+.mybutton-green-moon {
     background: #56ab2f;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2805,7 +2828,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-orange-moon {
+.mybutton-orange-moon {
     background: #fc4a1a;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2813,7 +2836,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-dark-moon {
+.mybutton-dark-moon {
     background: #141E30;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2821,7 +2844,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-light-moon {
+.mybutton-light-moon {
     background: #FFEFBA;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2829,7 +2852,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-funky-moon {
+.mybutton-funky-moon {
     background: #A770EF;  /* fallback for old browsers */
     background: -webkit-linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2837,15 +2860,16 @@ canvas{
     border: 3px solid #eee;
 }
 
-.btn-rounded {
+.mybutton-rounded {
     border-radius: 35px;
 }
 
-.btn-fab {
+.mybutton-fab {
     height: 50px;
     width: 53px;
     border-radius: 50%;
 }
+
 
 .button_learnmore {
     background: #FFEFBA;  /* fallback for old browsers */
@@ -2886,7 +2910,7 @@ canvas{
 /*
 ******************************
 */
-  .cookies-consent-page {
+.cookies-consent-page {
     color: black;
     background-color: #f8f9fa;
     height: auto;
@@ -2896,26 +2920,25 @@ canvas{
     font-style: normal;
     font-weight: 500;
     font-size: 10px;
-    padding-left: 1px;
-    padding-right: 1px;
-    padding-top: 1px;
-    padding-bottom: 1px;
+    #padding-left: 1px;
+    #padding-right: 1px;
+    #padding-top: 1px;
+    #padding-bottom: 1px;
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
+
 /*
-    border: 1px solid #f8f9fa;
-    border-radius: 4px;
-*/
         position: fixed;
         bottom: 32px;
         left: 32px;
+*/
         width: 400px;
         border-radius: 6px;
         box-shadow: 0 4px 20px 0 rgba(0,0,0,0.4);
         background-color: #ffffff;
         border: solid 1px #e6e6e6;
-        color: #003648;
-        padding: 22px;
+        #color: #003648;
+        #padding: 22px;
         overflow: hidden;
     }
 .cookies-consent-page p {
@@ -2975,7 +2998,7 @@ canvas{
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
-    padding: 2px;
+    padding: 5px;
 }
 
 .cookies-consent-page a:hover {
@@ -2985,7 +3008,8 @@ canvas{
     border: 1px solid orange;
     border-radius: 4px;
 }
+
 .cookies-consent-page-line {
     border: 0px;
-    border-top: 1px solid #005293;
+    border-top: 1px solid black;
 }
