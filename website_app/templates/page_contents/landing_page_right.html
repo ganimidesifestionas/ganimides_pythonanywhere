@@ -1,11 +1,12 @@
 {% set video_file = video_file('Did_You_Know_2016.mp4') %}
-<div class="d-flex flex-column justify-content-start">
-    <video id="video1" width="420" autoplay>
+<div class="d-flex flex-column justify-content-start ">
+    <video id="video1" width="420" xautoplay class="d-none d-sm-none d-md-block d-lg-block">
         <source src="{{video_file}}" type="video/mp4">
         <source src="mov_bbb.ogg" type="video/ogg">
         Your browser does not support HTML5 video.
     </video>
-    <div>
+    <!--hide on sm-->
+    <div class="d-none d-sm-none d-md-none d-lg-block">
     <button class="btn btn-sm btn-light" onclick="playPause()">Play/Pause</button>
     <button class="btn btn-sm btn-light" onclick="makeBig()">Big</button>
     <button class="btn btn-sm btn-light" onclick="makeSmall()">Small</button>

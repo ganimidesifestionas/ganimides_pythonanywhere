@@ -1,6 +1,7 @@
 <div class="d-flex bg-white w-100 justify-content-between p-0 m-0">
     <div class="d-flex col-5 bg-white font-weight-light text-success text-left top_navigation_line justify-content-start p-0 m-0">
-        <div class="bg-white font-weight-light text-warning text-left" style="border-bottom: 1px dotted orange;">
+        <!--d-none d-lg-block display only on large screens-->
+        <div class="bg-white font-weight-light text-warning text-left d-none d-lg-block" style="border-bottom: 1px dotted orange;">
             <!--some other info-->
             {{session.get('continent_name')}} {{session.get('country_name')}}
             {{session.get('region_name')}} {{session.get('city')}}
@@ -10,12 +11,14 @@
         </div>
     </div>
     <div class="col-2 bg-white font-weight-light text-success text-center top_navigation_line p-0 m-0">
-        visit# {{session['VisitNumber']}}({{session['VisitorNumber']}}-{{session['clientIPA']}})
+        visit# {{session.get('VisitNumber')}}
+        <!--({{session['VisitorNumber']}}-{{session['clientIPA']}})-->
     </div>
     <div class="d-flex col-5 bg-white justify-content-end p-0 m-0">
         <div class="bg-white font-weight-light text-success text-left top_navigation_line">
         </div>
-        <div class="bg-white font-weight-light text-warning text-right pr-1 top_navigation_line" style="border-bottom: 1px dotted orange;">
+        <!--d-none d-lg-block display only on large screens-->
+        <div class="bg-white font-weight-light text-warning text-right pr-1 top_navigation_line d-none d-lg-block" style="border-bottom: 1px dotted orange;">
             {{session['pages_history']}}
         </div>
     </div>
