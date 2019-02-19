@@ -1,3 +1,18 @@
+**/__pycache__/
+*.pyc
+**server_config.py
+server_config.*
+.vscode/
+**/vscode/
+**server_config.*
+server_config.py
+
+#vscode staff
+**vscode/
+**test.py
+**/*.pyc
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -103,36 +118,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-
-
-**__pycache__/
-
-*.pyc
-
-#server level config
-**server_config.py
-server_config.*
-
-#vscode staff
-.vscode/
-**/vscode/
-
-**server_config.*
-server_config.py
-**/server_config.*
-
-#vscode staff
-**vscode/
-**test.py
-**/*.pyc
-website_app/__pycache__/__init__.cpython-36.pyc
-website_app/__pycache__/views.cpython-36.pyc
-website_app/module_authorization/__pycache__/routes.cpython-36.pyc
-server_config.py
-website_app/__pycache__/__init__.cpython-36.pyc
-website_app/__pycache__/views.cpython-36.pyc
-website_app/module_authorization/__pycache__/routes.cpython-36.pyc
-server_config.py
-server_config.py
-server_config.py
-website_app/__pycache__/views.cpython-36.pyc

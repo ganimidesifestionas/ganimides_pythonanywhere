@@ -132,11 +132,11 @@ def set_cookies_etc_before_request():
         duration = t2 - t1
         duration_sec = duration.total_seconds()
         session['session_expiry'] = duration_sec
-        if duration_sec >= 60:
+        if duration_sec >= 60*60:
             dt = datetime.now()
             strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
             session['identityDT'] = strdt
-            session['session_expiry'] = 60
+            session['session_expiry'] = 60*60
             print('###'+__name__+'###', '***session expired after 1 hour')
             app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SESSION EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
             session.pop('VisitID', None) # delete visitID
@@ -363,19 +363,16 @@ def cookiesconsentform(answer):
     page_function = 'cookiesconsentform'
     page_form = 'splash_form_cookiesconsent.html'
     log_splash_page(page_name, page_function, '', '', page_form)
-    #print('xxxxxxx   ',answer)
     if answer.upper() == 'AGREE':
         dt = datetime.now() + timedelta(days=31)
     else:
-        dt = datetime.now() + timedelta(seconds=60)
-        #dt = datetime.now() + timedelta(days=1)
+        #dt = datetime.now() + timedelta(seconds=60)
+        dt = datetime.now() + timedelta(days=1)
     strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
     session['cookies_consent_time'] = strdt
     session['cookies_consent'] = 'YES'
     flash('Thank You. Your data are protected', 'success')
-    return render_template(
-        session['lastpageHTML']
-        )
+    return redirect(session.get('lastpageURL'))
 #############################################################
 #############################################################
 #############################################################

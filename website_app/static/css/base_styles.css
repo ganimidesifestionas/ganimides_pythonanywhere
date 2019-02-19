@@ -507,6 +507,7 @@ p {
 .header_menu a {
     color: rgba(0, 0, 0, 0.6);
     background-color: transparent;
+
 }
 
 .header_menu a:link {
@@ -2012,13 +2013,13 @@ hr {
     font-size: 12px;
 }
 
-.splash_form_close_button2 {
+.splash_form_close_button1 {
     font-weight: 900 !important;
     font-size: 1.5rem !important;
     padding:0px !important;
     margin:0px !important;
 }
-.splash_form_close_button {
+.splash_form_close_button2 {
     backface-visibility: hidden;
     position: relative;
     width: 30px;
@@ -2037,6 +2038,24 @@ hr {
     text-align: center;
     margin: 0px 0px 0px 0px;
   }
+
+  .splash_form_close_button {
+    font-weight: 900 !important;
+    font-size: 24px !important;
+    color:lightgray !important;
+    background:transparent !important;
+    border:0px solid transparent !important;
+    text-decoration: none;
+  }
+  .splash_form_close_button:hover {
+    background:transparent !important;
+    border:0px solid transparent !important;
+    color:red !important;
+    opacity: 1.5;
+    text-decoration: none;
+    text-shadow: none; /* 2px 2px 3px rgba(0, 0, 0, 0.6);*/
+
+}
 
 .contactus-form a {
     color: orange;
@@ -2828,12 +2847,25 @@ canvas{
     border: 3px solid #eee;
 }
 
-.mybutton-orange-moon {
+.mybutton-orange-moonX {
     background: #fc4a1a;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
+}
+
+.mybutton-orange-moon {
+    background: orange;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, orange, orange);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, orange, orange); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+    border: 3px solid #eee;
+}
+
+.mybutton-orange-moon a, a:link {
+    color:black !important;
+    text-decoration:none !important;
 }
 
 .mybutton-dark-moon {
@@ -2871,7 +2903,7 @@ canvas{
 }
 
 
-.button_learnmore {
+.button_learnmorex {
     background: #FFEFBA;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2879,31 +2911,31 @@ canvas{
     border: 3px solid #eee;
 }
 
-.button_learnmore:hover {
+.button_learnmorex:hover {
     background: #FFEFBA;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: gray !important;
 }
 
-.button_learnmore a {
+.button_learnmorex a {
     color: black;
     font-weight: 900;
     white-space: nowrap;
 }
 
-.button_learnmore a:link {
+.button_learnmorex a:link {
     color: black;
     font-weight: 900;
     white-space: nowrap;
 }
-.button_learnmore:after{
+.button_learnmorex:after{
     top: 0;
     z-index: -1;
     transform: translate3D(-101%,0,0);
   }
 
-.button_learnmore:hover:after{
+.button_learnmorex:hover:after{
     transform: translate3D(0,0,0);
     transition: all .5s;
   }
@@ -3013,3 +3045,53 @@ canvas{
     border: 0px;
     border-top: 1px solid black;
 }
+/*=========================*/
+.button_learnmore{
+    background: orange !important;
+    color: black !important;
+    text-decoration:None !important;
+    position: relative;
+    overflow: hidden;
+    padding:4px !important;
+    border-radius:4px !important;
+    opacity:1.5;
+  }
+  .button_learnmore:hover{
+    color: white !important;
+    background:blue !important;
+}
+  .button_learnmore a{
+    color: black !important;
+    text-decoration:None !important;
+  }
+
+    /* //// Default effect: Slide from Top  //// */
+    /*
+  .button_learnmore:before,
+  .button_learnmore:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: -1;
+    transition: all .5s;
+  }
+*/
+/*
+  .button_learnmore:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  .button_learnmore:before{
+    background: #007bff; 
+  }
+  .button_learnmore:after{
+    background: #0000005a;
+  }
+  .button_learnmore:hover{
+    background: #025ec1;
+  }
+*/
