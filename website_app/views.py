@@ -5,7 +5,7 @@ Routes and views for the flask application.
 from datetime import datetime
 from datetime import timedelta
 #import time
-import googlemaps
+#import googlemaps
 from datetime import datetime
 
 import requests
@@ -384,7 +384,7 @@ def test_google_api():
     log_page(page_name, page_function, page_template)
     clientip = '213.149.173.194'
     GOOGLE_MAPS_API_KEY='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
-    lat = 34.684100	
+    lat = 34.684100
     lon = 33.037900
     # api_url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
@@ -404,23 +404,23 @@ def test_google_api():
         # loc = response['location']
         # for key, value in loc.items():
         #     log_variable('--- ---'+key, value)
-    
-    gmaps = googlemaps.Client(key='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY')
-    # Geocoding an address
-    geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-    log_variable('geocode_result', geocode_result)
 
-    # Look up an address with reverse geocoding
-    reverse_geocode_result = gmaps.reverse_geocode((34.6841, 33.0379))
-    log_variable('reverse_geocode_result', reverse_geocode_result)
+    # gmaps = googlemaps.Client(key='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY')
+    # # Geocoding an address
+    # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+    # log_variable('geocode_result', geocode_result)
 
-    # Request directions via public transit
-    now = datetime.now()
-    directions_result = gmaps.directions("Sydney Town Hall",
-                                        "Parramatta, NSW",
-                                        mode="transit",
-                                        departure_time=now)
-    log_variable('directions_result', directions_result)
+    # # Look up an address with reverse geocoding
+    # reverse_geocode_result = gmaps.reverse_geocode((34.6841, 33.0379))
+    # log_variable('reverse_geocode_result', reverse_geocode_result)
+
+    # # Request directions via public transit
+    # now = datetime.now()
+    # directions_result = gmaps.directions("Sydney Town Hall",
+    #                                     "Parramatta, NSW",
+    #                                     mode="transit",
+    #                                     departure_time=now)
+    # log_variable('directions_result', directions_result)
     return render_template('page_templates/terms_and_conditions.html')
 #############################################################
 #############################################################
