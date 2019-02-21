@@ -14,7 +14,9 @@
                     <th scope="col">City</th>
                     <th scope="col">latitude</th>
                     <th scope="col">longitude</th>
+                    <!--
                     <th scope="col">Visits</th>
+                    -->
                 </tr>
             </thead>
             <tbody>
@@ -23,16 +25,17 @@
                     <th scope="row">{{ visitpoint.ip }}</th>
                     <td>{{ visitpoint.visitpointNumber }}</td>
                     <td> {{ visitpoint.visitsCount }} </td>
-                    <td> {{ visitpoint.firstvisitDT }} </td>                   
-                    <td> {{ visitpoint.lastvisitDT }} </td>                   
+                    <td> {{ visitpoint.firstvisitDT }} </td>
+                    <td> {{ visitpoint.lastvisitDT }} </td>
                     <td> {{ visitpoint.continent_name }} </td>
                     <td> {{ visitpoint.country_name }} </td>
                     <td> {{ visitpoint.region_name }} </td>
                     <td> {{ visitpoint.city }} </td>
                     <td> {{ visitpoint.latitude }} </td>
                     <td> {{ visitpoint.longitude }} </td>
+                    <!--
                     <td> {{ visitpoint.visits }} </td>
-                    
+                    -->
                 </tr>
                 {% endfor %}
             </tbody>
