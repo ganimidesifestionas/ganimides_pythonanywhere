@@ -22,40 +22,41 @@
             <span>
             {% endif %}
             {% if link_pages > 0 %}
-                    <nav class="navbar navbar-expand bg-transparent align-items-center pt-0 pb-0 pr-0 links_menu">
-                        <ul class="navbar-nav">
-                            {% for pageLink in LinkPagesArray %}
-                            {% if pageLink[0] %}
-                            {% if pageLink[3]=='button' %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url_for(pageLink[0])}}" class="button_intext">{{pageLink[1]}}&raquo;
-                                </a>
-                            </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
-                                </a>
-                            </li>
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
-
-                            <!--page top button links
-                            {% if previous_page %}
-                            <li class="xnav-item mr-2">
-                                <a data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}" class="button_back">&laquo; previous</a>
-                            </li>
-                            {% endif %}
-                            -->
-                            {% if next_page %}
-                            <li class="nav-item" style="color:black">
-                                <!--<a id="learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}" class="mybutton mybutton-orange-moon">learn more &raquo;</a>-->
-                                <a id="learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}" class="button_learnmore">learn more &raquo;</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
+            <nav class="navbar navbar-expand bg-transparent align-items-center pt-0 pb-0 pr-0 mb-2 links_menu">
+                <ul class="navbar-nav">
+                    {% for pageLink in LinkPagesArray %}
+                    {% if pageLink[0] %}
+                    {% if pageLink[3]=='button' %}
+                    <!-- d-none d-sm-block: display from small screens and up -->
+                    <li class="nav-item d-none d-sm-block">
+                        <a class="nav-link button_nextpage" href="{{url_for(pageLink[0])}}" class="button_intext">{{pageLink[1]}}&raquo;
+                        </a>
+                    </li>
+                    {% else %}
+                    <!-- d-none d-sm-block: display from small screens and up -->
+                    <li class="nav-item d-none d-sm-block">
+                        <a class="nav-link button_linkpage" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
+                        </a>
+                    </li>
                     {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    <!-- d-none d-sm-block: display from small screens and up -->
+                    {% if previous_page %}
+                    <li class="nav-item d-none d-sm-block">
+                        <a id="prevpage" class="nav-link button_previouspage" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
+                    </li>
+                    {% endif %}
+
+                    {% if next_page %}
+                    <li class="nav-item">
+                        <a id="learnmore" class="nav-link button_learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+            {% endif %}
 
             </span>
         </div>

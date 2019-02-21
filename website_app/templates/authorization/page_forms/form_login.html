@@ -1,20 +1,22 @@
 <form class="authorization-page" id="LoginForm" action="{{ url_for('authorization.loginForm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ loginform.hidden_tag() }}
-        <div class="modal-header align-items-center">
+        <!--header-->
+        <div class="modal-header align-items-center p-1">
             <h1 class="modal-title mx-auto" id="login_modal_form_Label">Login</h1>
-            <!--<button type="button button-info" class="float-right xclose splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-            <a class="float-right splash_form_close_button" data-dismiss="modal" aria-label="Close"><span class="far fa-times-circle"></span></a>
+            {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
         <div class="authorization-page-line"></div>
 
+        <!--body-->
         <div class="modal-body">
             <div class="d-flex flex-column">
                 <div class="p-0">
                     {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
                     <div class="p-0 left">
                         <!--===================================================-->
+                        <!--
                         <div class="form-group d-flex flex-column">
                             {{ loginform.eyecatch.label }}
                             {{ loginform.eyecatch(size=32, class="form-control input-style") }}
@@ -22,7 +24,7 @@
                             <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                             {% endfor %}
                         </div>
-
+                    -->
                         <div class="form-group d-flex flex-column">
                             {{ loginform.email.label }}
                             {{ loginform.email(size=32, class="form-control input-style") }}
@@ -48,10 +50,7 @@
                                 </div>
                             </div>
                             <div class="ml-auto d-flex align-items-center">
-                                <!--
-                                                <button name="action" type="submit" value="forget_password" class="btn btn-warning p-1">Forget Your Password?</button>
-                                                -->
-                                {{loginform.forgetPassword(class="btn btn-warning p-1")}}
+                                {{loginform.forgetPassword(class="btn btn-sm mybtn-orange mybtn-submit p-1 mybtn-submit")}}
                             </div>
                             {% for error in loginform.rememberMe.errors %}
                             <span class="text-error-note" style="color: red;">[{{ error }}]</span>
@@ -74,22 +73,20 @@
 
         <div class="authorization-page-line"></div>
 
-        <div class="modal-footer d-flex justify-content-start">
-            <div class="justify-content-center align-items-center mt-0 mb-0 p-0">
-                Don't have an account yet?&nbsp;
-                <a class="" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a>
+        <!--footer-->
+        <div class="modal-footer d-flex justify-content-start p-1">
+            <div class="">
+                Don't have an account yet?&nbsp;<a class="btn btn-default btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a>
             </div>
-            <div class="d-flex flex-grow-1 justify-content-end mt-0 mb-0 p-0">
+            <div class="d-flex flex-grow-1 justify-content-end">
                 <div class="mr-2">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-sm btn-default mybtn-close" data-dismiss="modal">Close</button>
                 </div>
-                <div>
-                    <!--
-                    <button name="action" type="submit" value="login" class="btn btn-warning p-1">Login</button>
-                    -->
-                    {{loginform.submit(class="btn btn-warning")}}
+                <div class=''>
+                    {{loginform.submit(class="btn btn-sm mybtn-orange mybtn-submit")}}
                 </div>
             </div>
         </div>
+
     </fieldset>
 </form>

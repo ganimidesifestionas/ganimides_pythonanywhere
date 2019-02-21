@@ -1,13 +1,9 @@
-<!-- Button trigger modal
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#contactus_modal_form">
-    Contact Us
-</button>
--->
-<!-- Modal -->
-<div class="modal fade" id="contactus_modal_form" tabindex="-1" role="dialog" aria-labelledby="contactus_modal_form_Label">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border border-light" style="xwidth:fit-content">
-            {% include [language_fullpathfile('form_contactus.html',CURRENT_LANGUAGE,'FORM',active_module), fullpathfile('form_contactus.html','FORM','authorization')] %}
-        </div>
-    </div>
-</div>
+<!-- BEGIN:splashform_contactus.html -->
+{% set splashform_divid='contactus_modal_form' %}
+{% set splashform_aria_labelledby='contactus_modal_form_data' %}
+{% set splashform_module='' %}
+{% set splashform_form='form_contactus.html' %}
+{% set splashform_class='cookies-consent-page' %}
+{% set splashform_component = include_files('splashform_component.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) %}
+{% include splashform_component ignore missing%}
+<!-- END:splashform_contactus.html -->

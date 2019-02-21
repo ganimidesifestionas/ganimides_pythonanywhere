@@ -1,68 +1,63 @@
-<table class="design_table form-page" width="100%">
-    <tr>
-        <td>
-            <div class="d-flex justify-content-center p-1">
-                <table class="design_table">
-                    <!--1:page header-->
-                    <tr>
-                        <td width="1%" class="page-image-cell">
-                            <!--page image id-->
-                            <img src={{page_image}} class="page-image_icon rounded-circle" />
-                        </td>
-                        <td class="cell-middle" width="100%">
-                            <table class="design_table" width="100%">
-                                <tr>
-                                    <td>
-                                        <!--page title-->
-                                        <div class="p-2">
-                                            <h1 class="page_title">{{page_title}}</h1>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
+<div class="d-flex col-sm-12 m-0 p-0 m-0">
+    <div class="d-flex flex-column ml-auto flex-grow-1">
+        <div class="d-flex align-self-center">
+            <div class="d-flex p-0 m-0">
+                {% if page_image %}
+                <img src={{page_image}} class="page-image_icon" />
+                {% endif %}
             </div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <div class="d-flex justify-content-end">
-                <!-- A grey horizontal navbar that becomes vertical on small screens -->
-                <nav class="navbar navbar-expand bg-transparent links_menu">
-                    <!-- Links -->
-                    <ul class="navbar-nav">
-                        {% for pageLink in LinkPagesArray %}
-                        {% if pageLink[0] %}
-                        {% if pageLink[3]=='button' %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for(pageLink[0])}}" class="button_back">{{pageLink[1]}}&raquo;
-                            </a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% endif %}
-                        {% endfor %}
-                        <!--page top button links-->
-                        {% if previous_page %}
-                        <li class="nav-item">
-                            <a class="nav-link button_back" href="{{url_for(previous_page)}}">&laquo;
-                                previous</a>
-                        </li>
-                        {% endif %}
-                        {% if next_page %}
-                        <li class="nav-item">
-                            <a  id="learnmore" class="nav-link button_learnmore" href="{{url_for(next_page)}}">learn more &raquo;</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </nav>
+            <div class="d-flex">
+                {% if page_title %}
+                <div class="align-self-center">
+                    <h1 class="page_title">{{page_title}}</h1>
+                </div>
+                {% endif %}
             </div>
-        </td>
-    </tr>
-</table>
+        </div>
+        
+        <div class="d-flex ml-auto align-items-center align-self-end">
+            {% if page_image or page_title%}
+            <span style="margin-top:-30px">
+            {% else %}
+            <span>
+            {% endif %}
+            {% if link_pages > 0 %}
+                    <nav class="navbar navbar-expand bg-transparent align-items-center pt-0 pb-0 pr-0 mb-2 links_menu border border-danger">
+                        <ul class="navbar-nav">
+                            {% for pageLink in LinkPagesArray %}
+                            {% if pageLink[0] %}
+                            {% if pageLink[3]=='button' %}
+                            <!-- d-none d-sm-block: display from small screens and up -->
+                            <li class="nav-item d-none d-sm-block">
+                                <a class="nav-link button_nextpage" href="{{url_for(pageLink[0])}}" class="button_intext">{{pageLink[1]}}&raquo;
+                                </a>
+                            </li>
+                            {% else %}
+                            <!-- d-none d-sm-block: display from small screens and up -->
+                            <li class="nav-item d-none d-sm-block">
+                                <a class="nav-link button_linkpage" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            <!-- d-none d-sm-block: display from small screens and up -->
+                            {% if previous_page %}
+                            <li class="nav-item d-none d-sm-block">
+                                <a id="prevpage" class="nav-link button_previouspage" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
+                            </li>
+                            {% endif %}
+
+                            {% if next_page %}
+                            <li class="nav-item">
+                                <a id="learnmore" class="nav-link button_learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+                    {% endif %}
+            </span>
+        </div>
+    </div>
+</div>

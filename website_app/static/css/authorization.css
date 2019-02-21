@@ -16,6 +16,7 @@
     font-stretch: always;
     border: 1px solid #f8f9fa;
     border-radius: 4px;
+    width:100%
 }
 .authorization-page h1{
     font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
@@ -48,7 +49,7 @@
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
     text-transform: uppercase;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 .authorization-page input {
@@ -89,7 +90,7 @@
     color: blue;
     font-weight: 600 !important;
     font-size: 14px !important;
-    xwidth: 800px !important;
+    width: 800px !important;
     max-width: 1000px !important;
     height: 256px !important;
 }
@@ -362,7 +363,8 @@
     margin: 0px !important;
 }
 /*------------------------------------*/
-.authorization-page-contactus-form {
+.authorization-form {
+    width:100%;
     background-color: transparent;
     /*#f8f9fa*/
     height: auto;
@@ -373,10 +375,10 @@
     font-weight: 500;
     font-size: 12px;
     color: black;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    xpadding-left: 20px;
+    xpadding-right: 20px;
+    xpadding-top: 10px;
+    xpadding-bottom: 10px;
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
     border: 1px solid transparent;
@@ -384,7 +386,7 @@
     border-radius: 4px;
 }
 
-.authorization-page-contactus-form label {
+.authorization-form label {
     color: #8c8c8c;
     background-color: transparent;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -398,7 +400,7 @@
     margin-bottom: 1px;
 }
 
-.authorization-page-contactus-form input, textarea {
+.authorization-form input, textarea {
     color: black;
     border: 1px solid #e1e1e6 !important;
     /*background-color: #fff;*/
@@ -409,37 +411,54 @@
     font-size: 14px;
     border-radius: 3px;
     padding: 2px;
-    max-width: 500px;
+    width: 100%;
+    max-width: 1000px;
 }
-
-.authorization-page-contactus-form textarea {
-    color: blue;
-    width: 500px;
+.authorization-form textarea {
+    color: blue !important;
+    width: 100%;
     max-width: 1000px;
     height: 200px;
-    padding: 2px;
 }
 
-.authorization-page-contactus-form h4 {
+.authorization-form h4 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
-    font-size: 14pt;
+    font-size: 14px;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     color: black;
 }
-
-.authorization-page-contactus-form input[type=submit] {
-    font-weight: 600;
-    font-size: 12px;
-    xwidth: 100%;
+.authorization-form-line {
+    border: 0px;
+    border-top: 2px solid #005293;
 }
 
+.authorization-form input[type=submit] {
+    font-weight: 900;
+    font-size: 12px;
+}
+.authorization-form input[type=button] {
+    color: black;
+    font-weight: 900;
+    font-size: 12px;
+}
+.authorization-form input[type=button] :hover {
+    color: white !important;
+}
+
+.authorization-form button {
+    color: black;
+    font-weight: 900;
+    font-size: 12px;
+}
+
+/*
 .authorization-page-contactus-form button {
     font-weight: 600;
     font-size: 12px;
 }
-
-
+*/
+/*
 .authorization-page-contactus-form a {
     color: orange;
     background-color: transparent;
@@ -477,3 +496,4 @@
     color: white;
     padding: 3px;
 }
+*/

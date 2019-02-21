@@ -35,13 +35,13 @@
         <div class="modal-footer d-flex justify-content-end">
             {% if alreadyconfirmed %}
             <div>
-                <input class="btn btn-warning btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
+                <input class="btn btn-sm mybtn-orange mybtn-submit btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
             </div>
             {% else %}
             <div class="mr-2">
                 <input class="btn btn-default btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
             </div>
-            {{form.submit(class="btn btn-warning btn-block")}}
+            {{form.submit(class="btn btn-sm mybtn-orange mybtn-submit btn-block")}}
             {% endif %}
         </div>
     </fieldset>

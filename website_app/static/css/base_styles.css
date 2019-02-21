@@ -1166,10 +1166,6 @@ p {
     display: block;
 }
 
-.email_link {
-    color: blue;
-}
-
 #justify {
     width: 100%;
     background: transparent;
@@ -2760,6 +2756,7 @@ canvas{
   /*
   ##################################
   */
+  /*
 .button_contactus_intext body {
     margin:0;
     padding:0;
@@ -2796,6 +2793,7 @@ canvas{
 .button_contactus_intext a:hover:before {
     transform:rotate(0deg);
 }
+*/
 /*
 ==========================================
 */
@@ -2863,7 +2861,7 @@ canvas{
     border: 3px solid #eee;
 }
 
-.mybutton-orange-moon a, a:link {
+.mybutton-orange-moon a{
     color:black !important;
     text-decoration:none !important;
 }
@@ -3003,13 +3001,17 @@ canvas{
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-
+.cookies-consent-page-line {
+    border: 0px;
+    border-top: 1px solid black;
+}
+/*
 .cookies-consent-page button {
     color: black;
     font-weight: 900;
     font-size: 12px;
 }
-
+*/
 .cookies-consent-page a {
     color: orange;
     background-color: transparent;
@@ -3021,7 +3023,7 @@ canvas{
     padding: 3px;
     border: 1px solid transparent;
 }
-
+/*
 .cookies-consent-page a:link {
     color: orange;
     background-color: transparent;
@@ -3032,6 +3034,7 @@ canvas{
     font-size: 12px;
     padding: 5px;
 }
+*/
 
 .cookies-consent-page a:hover {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -3041,29 +3044,8 @@ canvas{
     border-radius: 4px;
 }
 
-.cookies-consent-page-line {
-    border: 0px;
-    border-top: 1px solid black;
-}
+
 /*=========================*/
-.button_learnmore{
-    background: orange !important;
-    color: black !important;
-    text-decoration:None !important;
-    position: relative;
-    overflow: hidden;
-    padding:4px !important;
-    border-radius:4px !important;
-    opacity:1.5;
-  }
-  .button_learnmore:hover{
-    color: white !important;
-    background:blue !important;
-}
-  .button_learnmore a{
-    color: black !important;
-    text-decoration:None !important;
-  }
 
     /* //// Default effect: Slide from Top  //// */
     /*
@@ -3095,3 +3077,163 @@ canvas{
     background: #025ec1;
   }
 */
+
+.mybtn-orange{
+    background:orange !important;
+    border:1px solid lightgray !important;
+}
+.mybtn-submit:hover{
+    color: white !important;
+    background:blue !important;
+    border:1px solid lightgray !important;
+}
+.mybtn-close:hover{
+    color: white !important;
+    background:red !important;
+    border:1px solid lightgray !important;
+}
+
+.inpage_link {
+    color: blue !important;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: none;
+    border:0px !important;
+    padding:0px!important;
+}
+
+.inpage_link:hover {
+    color: red !important;
+    font-weight: 900 !important;
+    background-color: lightgray !important;
+    border:0px !important;
+    padding: 2px 3px !important;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+}
+
+.button_contactus_intext {
+    color: blue !important;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: none;
+    border:0px !important;
+    padding:0px!important;
+}
+
+.button_contactus_intext:hover {
+    color: red !important;
+    font-weight: 900 !important;
+    background-color: lightgray !important;
+    border:0px !important;
+    padding: 2px 3px !important;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+}
+.email_link {
+    color: blue !important;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: none;
+    border:0px !important;
+    padding:0px!important;
+}
+.email_link:hover {
+    color: red !important;
+    font-weight: 900 !important;
+    background-color: lightgray !important;
+    border:0px !important;
+    padding: 2px 3px !important;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+}
+
+
+
+.button_learnmore{
+    background: orange !important;
+    color: black !important;
+    text-decoration:None !important;
+    position: relative;
+    overflow: hidden;
+    padding:4px !important;
+    margin:1px !important;
+    border-radius:4px !important;
+    opacity:1.5;
+  }
+  .button_learnmore:hover{
+    color: white !important;
+    background:blue !important;
+}
+.button_learnmore_intext {
+    color: blue !important;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: none;
+    border:0px !important;
+    padding:0px!important;
+}
+
+.button_learnmore_intext:hover {
+    color: red !important;
+    font-weight: 900 !important;
+    background-color: gray !important;
+    border:0px !important;
+    padding: 2px 3px !important;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+}
+.button_nextpage{
+    background: orange !important;
+    color: black !important;
+    text-decoration:None !important;
+    position: relative;
+    overflow: hidden;
+    padding:4px !important;
+    margin:1px !important;
+    border-radius:4px !important;
+    opacity:1.5;
+  }
+  .button_nextpage:hover{
+    color: white !important;
+    background:blue !important;
+}
+
+.button_previouspage{
+    background: lightgray !important;
+    color: black !important;
+    text-decoration:None !important;
+    position: relative;
+    overflow: hidden;
+    padding:4px !important;
+    margin:1px !important;
+    border-radius:4px !important;
+    opacity:1.5;
+  }
+  .button_previouspage:hover{
+    color: white !important;
+    background:blue !important;
+}
+.button_linkpage{
+    background: transparent !important;
+    color: blue !important;
+    text-decoration:None !important;
+    position: relative;
+    overflow: hidden;
+    padding:4px !important;
+    margin:1px !important;
+    border-radius:4px !important;
+    opacity:1.5;
+  }
+  .button_linkpage:hover{
+    color: white !important;
+    background:blue !important;
+}
