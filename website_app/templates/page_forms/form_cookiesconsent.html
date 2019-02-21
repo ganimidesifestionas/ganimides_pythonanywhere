@@ -1,24 +1,19 @@
+<!--BEGIN: form:cookiesconsent.html-->
+{% set form_title='please accept our cookies' %}
 <form class="" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ cookiesconsentform.hidden_tag() }}
+
         <div class="modal-header align-items-center p-2">
-            <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">🍪please accept our cookies</h1>
-            <!--<button type="button button-info" class="float-right xclose splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <button type="" class="float-right splash_form_close_buttonx" data-dismiss="modal" aria-label="Close"><span class="fas fa-times-circle" aria-hidden="true"></span></button>       
-            --> 
-            <a class="float-right splash_form_close_button" data-dismiss="modal" aria-label="Close"><span class="far fa-times-circle"></span></a>
+            <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">please accept our cookies</h1>
+            {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
         <div class="cookies-consent-page-line"></div>
-        <!--add some emoji like 🍪 🐕‍🦺-->
+
         <div class="modal-body pt-1 pb-1 pl-2 pr-2">
             <div class="d-flex flex-column">
-                <p>
-                We use <strong>cookies</strong> to gather statistics and offer you personalized content and experience.
-                We also share information about your use of our site with our social media and analytics partners.Read about how we use cookies and how to withdraw your consent in our Cookie Policy.
-                <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our
-                  <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
-                </p>
+                {% include include_files('cookies_consent.html',type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
             </div>
         </div>
 
@@ -26,25 +21,15 @@
 
         <div class="modal-footer d-flex justify-content-between p-2">
             <div class="">
-                    <a id="moreinf" href="{{ url_for('cookies_policy') }}">More Information</a>
-                </div>
-                <div class="">
-                        <a id="askmelater" href="{{ url_for('cookiesconsentform', answer='ASK-ME-LATER') }}">Ask me later</a>
-                    </div>
-                <div class="">
-                    {{cookiesconsentform.submit(class="btn btn-danger btn-sm")}}
+                <a class="btn btn-default btn-sm mybtn-close" id="moreinf" href="{{ url_for('cookies_policy') }}">More Information</a>
+            </div>
+            <div class="">
+                <a class="btn btn-default btn-sm mybtn-close" id="askmelater" href="{{ url_for('cookiesconsentform', answer='ASK-ME-LATER') }}">Ask me later</a>
+            </div>
+            <div class="">
+                {{cookiesconsentform.submit(class="btn mybtn-orange mybtn-submit btn-sm mybtn-submit")}}
             </div>
         </div>
     </fieldset>
 </form>
-<!--
-
-                <strong>Cookies</strong> are important to the proper functioning of a site.
-                To improve your experience, we use cookies to remember log-in details and provide secure log-in,
-                collect statistics to optimize site functionality, and deliver content tailored to your interests.
-                Click <strong>Agree and Proceed</strong> to accept cookies and go directly to the site or click on <strong>More Information</strong> to see detailed descriptions of the types of cookies and choose whether to accept certain cookies while on the site.
-                Selecting <strong>"Ask me later"</strong> will enable cookies for the next 24 hours.
-                <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our
-                        <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
-
--->
+<!--END: form:cookiesconsent.html-->

@@ -26,14 +26,14 @@
             <div class="form-group d-flex justify-content-center xp-0 xm-0 xborder xborder-danger">
                 {% if alreadyconfirmed %}
                 <div>
-                    <input class="btn btn-warning btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Your Profile'>
+                    <input class="btn btn-sm mybtn-orange mybtn-submit btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Your Profile'>
                 </div>
                 {% else %}
                 <div>
-                    {{form.submit(class="btn btn-warning btn-block")}}
+                    {{form.submit(class="btn btn-sm mybtn-orange mybtn-submit btn-block")}}
                 </div>
                 <div>
-                    <input class="btn btn-warning btn-block" type=button onClick="location.href='{{ url_for('authorization.send_confirmation_sms')}}'" value='Generate New Confirmation Code'>
+                    <input class="btn btn-sm mybtn-orange mybtn-submit btn-block" type=button onClick="location.href='{{ url_for('authorization.send_confirmation_sms')}}'" value='Generate New Confirmation Code'>
                 </div>
                 {% endif %}
             </div>

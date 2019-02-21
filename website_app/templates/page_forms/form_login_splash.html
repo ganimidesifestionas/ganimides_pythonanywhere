@@ -51,9 +51,9 @@
                                         </div>
                                         <div class="ml-auto d-flex align-items-center">
                                             <!--
-                                            <button name="action" type="submit" value="forget_password" class="btn btn-warning p-1">Forget Your Password?</button>
+                                            <button name="action" type="submit" value="forget_password" class="btn btn-sm mybtn-orange mybtn-submit p-1">Forget Your Password?</button>
                                             -->
-                                            {{loginform.forgetPassword(class="btn btn-warning p-1")}}
+                                            {{loginform.forgetPassword(class="btn btn-sm mybtn-orange mybtn-submit p-1")}}
                                         </div>
                                         {% for error in loginform.rememberMe.errors %}
                                         <span class="text-error-note" style="color: red;">[{{ error }}]</span>
@@ -87,9 +87,9 @@
                             </div>
                             <div>
                                 <!--
-                                <button name="action" type="submit" value="login" class="btn btn-warning p-1">Login</button>
+                                <button name="action" type="submit" value="login" class="btn btn-sm mybtn-orange mybtn-submit p-1">Login</button>
                                 -->
-                                {{loginform.submit(class="btn btn-warning p-1")}}
+                                {{loginform.submit(class="btn btn-sm mybtn-orange mybtn-submit p-1")}}
                             </div>
                         </div>
                     </div>

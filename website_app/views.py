@@ -5,6 +5,8 @@ Routes and views for the flask application.
 from datetime import datetime
 from datetime import timedelta
 #import time
+import googlemaps
+from datetime import datetime
 
 import requests
 #import json
@@ -28,7 +30,7 @@ from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsFo
 from .forms import CookiesConsentForm
 #from .models import Visit, VisitPoint, Page_Visit
 #from sqlalchemy import func
-from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, RealClientIPA
+from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
 
 ###########################################################################
 ###########################################################################
@@ -373,6 +375,53 @@ def cookiesconsentform(answer):
     session['cookies_consent'] = 'YES'
     flash('Thank You. Your data are protected', 'success')
     return redirect(session.get('lastpageURL'))
+
+@app.route('/test_google_api')
+def test_google_api():
+    page_name = 'terms and conditions'
+    page_function = 'terms_and_conditions'
+    page_template = 'page_templates/terms_and_conditions.html'
+    log_page(page_name, page_function, page_template)
+    clientip = '213.149.173.194'
+    GOOGLE_MAPS_API_KEY='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
+    lat = 34.684100	
+    lon = 33.037900
+    # api_url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
+    path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
+    path = 'https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}'.format(lat,lon,GOOGLE_MAPS_API_KEY)
+    log_variable('apistack geolocation path', path)
+    #print (path)
+    r = requests.post(path)
+    print(r)
+    #reply_code=r.status_code
+    # if not r.status_code == requests.codes.ok:
+    #response = {}
+    if r:
+        response = r.json()
+        log_variable('apistack geolocation result', response)
+        # for key, value in response.items():
+        #     log_variable('---'+key, value)
+        # loc = response['location']
+        # for key, value in loc.items():
+        #     log_variable('--- ---'+key, value)
+    
+    gmaps = googlemaps.Client(key='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY')
+    # Geocoding an address
+    geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+    log_variable('geocode_result', geocode_result)
+
+    # Look up an address with reverse geocoding
+    reverse_geocode_result = gmaps.reverse_geocode((34.6841, 33.0379))
+    log_variable('reverse_geocode_result', reverse_geocode_result)
+
+    # Request directions via public transit
+    now = datetime.now()
+    directions_result = gmaps.directions("Sydney Town Hall",
+                                        "Parramatta, NSW",
+                                        mode="transit",
+                                        departure_time=now)
+    log_variable('directions_result', directions_result)
+    return render_template('page_templates/terms_and_conditions.html')
 #############################################################
 #############################################################
 #############################################################

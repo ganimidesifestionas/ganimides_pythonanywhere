@@ -1,13 +1,9 @@
-<!-- Button trigger modal
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#login_modal_form">
-    Login
-</button>
--->
-<!-- Modal -->
-<div class="modal fade" id="login_modal_form" tabindex="-1" role="dialog" aria-labelledby="login_modal_form_Label">
-    <div class="modal-dialog xmodal-dialog-slideout modal-md modal-dialog-centered" role="document">
-        <div class="modal-content border border-light" style="xwidth:fit-content">
-            {% include [language_fullpathfile('form_login.html',CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile('form_login.html','FORM','authorization')] %}
-        </div>
-    </div>
-</div>
+<!-- BEGIN:splashform_login.html -->
+{% set splashform_divid='login_modal_form' %}
+{% set splashform_aria_labelledby='login_modal_form_data' %}
+{% set splashform_module='authorization' %}
+{% set splashform_form='form_login.html' %}
+{% set splashform_class='cookies-consent-page' %}
+{% set splashform_component = include_files('splashform_component.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) %}
+{% include splashform_component ignore missing%}
+<!-- END:splashform_login.html -->

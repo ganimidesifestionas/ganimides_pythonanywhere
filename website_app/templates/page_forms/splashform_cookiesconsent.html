@@ -1,25 +1,9 @@
-<!-- Button trigger modal
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#login_modal_form">
-    cookies
-</button>
--->
-<!-- Modal -->
-<div class="modal fade " id="cookies_modal_form" tabindex="-1" role="dialog" aria-labelledby="cookies_modal_form_Label">
-    <div class="modal-dialog modal-dialog-slideout modal-md modal-dialog-centered justify-content-center " role="document">
-        <div class="modal-content border border-light cookies-consent-page" style="width:fit-content">
-                {% include [language_fullpathfile('form_cookiesconsent.html',CURRENT_LANGUAGE,'FORM',''), fullpathfile('form_cookiesconsent.html','FORM','')] %}
-        </div>
-    </div>
-</div>
-
-<!--
-<div id="cookie-notice" role="banner" class="align-self-end" style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0); visibility: visible;">
-    <div class="cookie-notice-container">
-        <span id="cn-notice-text">We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it.
-        </span>
-        <a href="#" id="cn-accept-cookie" data-cookie-set="accept" class="cn-set-cookie cn-button bootstrap button">Ok</a><a href="https://overiq.com/privacy-policy/" target="_blank" id="cn-more-info" class="cn-more-info cn-button bootstrap button">
-            Privacy policy
-        </a>
-    </div>
-</div>
--->
+<!-- BEGIN:splashform_cookiesconsent.html -->
+{% set splashform_divid='cookies_modal_form' %}
+{% set splashform_aria_labelledby='cookies_modal_form_data' %}
+{% set splashform_module='' %}
+{% set splashform_form='form_cookiesconsent.html' %}
+{% set splashform_class='cookies-consent-page' %}
+{% set splashform_component = include_files('splashform_component.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) %}
+{% include splashform_component ignore missing%}
+<!-- END:splashform_cookiesconsent.html -->

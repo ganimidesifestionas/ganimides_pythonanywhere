@@ -42,17 +42,17 @@
         <div class="modal-footer d-flex justify-content-end">
             {% if alreadyconfirmed %}
             <div>
-                <input class="btn btn-warning btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
+                <input class="btn btn-sm mybtn-orange mybtn-submit btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
             </div>
             {% else %}
             <div class="mr-2">
                 <input class="btn btn-default btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Cancel'>
             </div>
             <div class="mr-2">
-                {{mobileconfirmation_form.submit(class="btn btn-warning btn-block")}}
+                {{mobileconfirmation_form.submit(class="btn btn-sm mybtn-orange mybtn-submit btn-block")}}
             </div>
             <div>
-                <input class="btn btn-warning btn-block" type=button onClick="location.href='{{ url_for('authorization.send_confirmation_sms')}}'" value='Generate New Confirmation Code'>
+                <input class="btn btn-sm mybtn-orange mybtn-submit btn-block" type=button onClick="location.href='{{ url_for('authorization.send_confirmation_sms')}}'" value='Generate New Confirmation Code'>
             </div>
             {% endif %}
         </div>

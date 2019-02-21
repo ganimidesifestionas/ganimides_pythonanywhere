@@ -14,7 +14,7 @@ class Config(object):
     DEBUG = True
     EYECATCH = 'MYAPP'
     #SERVER = 'MYSERVER'
-
+    GOOGLE_MAPS_API_KEY='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
     ################################################
     # Secret key for signing cookies
     ################################################
