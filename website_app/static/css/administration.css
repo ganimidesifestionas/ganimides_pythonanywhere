@@ -19,7 +19,7 @@
 }
 .administration-page h1{
     font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14pt;
+    font-size: 14px;
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
@@ -29,7 +29,7 @@
 }
 .administration-page h2, h3, h4 {
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 13pt;
+    font-size: 13px;
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
@@ -153,7 +153,7 @@
 .administration-page-message-line {
     color: green;
     font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
-    font-size: 9pt;
+    font-size: 9px;
     font-style: normal;
     text-align: center;
     font-weight: 600;
@@ -163,7 +163,7 @@
 }
 .administration-page-message-line p{
     font-weight: 600;
-    font-size: 9pt;
+    font-size: 9px;
     padding:0px;
     margin:0px;
 }

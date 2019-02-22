@@ -46,6 +46,7 @@ class ContactUsForm(FlaskForm):
     #agreeTerms = BooleanField('agree terms', validators=[DataRequired('please agree with our terms and conditions')])
     #mailingListSignUp = BooleanField('mailing list signup')
     contact_message = TextAreaField('Message', validators=[DataRequired()])
+    #placeholder="Add a comment..." is added in the form
     submit = SubmitField('Contact Us')
    #Gender = RadioField('Gender', choices = [('M','Male'),('F','Female')])
    #email = TextField("Email",[validators.Required("Please enter your email address."),
