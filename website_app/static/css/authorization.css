@@ -375,10 +375,6 @@
     font-weight: 500;
     font-size: 12px;
     color: black;
-    xpadding-left: 20px;
-    xpadding-right: 20px;
-    xpadding-top: 10px;
-    xpadding-bottom: 10px;
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
     border: 1px solid transparent;
@@ -400,7 +396,7 @@
     margin-bottom: 1px;
 }
 
-.authorization-form input, textarea {
+.authorization-form input, .authorization-form textarea {
     color: black;
     border: 1px solid #e1e1e6 !important;
     /*background-color: #fff;*/
@@ -408,7 +404,7 @@
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     border-radius: 3px;
     padding: 2px;
     width: 100%;

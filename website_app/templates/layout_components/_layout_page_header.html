@@ -1,6 +1,6 @@
-<div class="d-flex col-sm-12 m-0 p-0 m-0">
-    <div class="d-flex flex-column ml-auto flex-grow-1">
-        <div class="d-flex align-self-center">
+<div class="d-flex w-100 m-0 p-0 m-0">
+    <div class="d-flex flex-row flex-grow-1">
+        <div class="d-flex align-self-start">
             <div class="d-flex p-0 m-0">
                 {% if page_image %}
                 <img src={{page_image}} class="page-image_icon" />
@@ -15,11 +15,11 @@
             </div>
         </div>
 
-        <div class="d-flex ml-auto align-items-center align-self-end">
+        <div class="d-flex xml-auto xalign-items-center xalign-self-end">
             {% if page_image or page_title%}
-            <span style="margin-top:-30px">
+            <span style="margin-top:65px;margin-left:-40px">
             {% else %}
-            <span>
+            <span style="margin-top:0px;margin-left:200px">
             {% endif %}
             {% if link_pages > 0 %}
             <nav class="navbar navbar-expand bg-transparent align-items-center pt-0 pb-0 pr-0 mb-2 links_menu">

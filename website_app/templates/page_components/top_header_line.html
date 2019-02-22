@@ -28,13 +28,19 @@
         <div class="col-4">
             <!--dummy-->`
         </div>
-        <div class="d-flex col-4 justify-content-center align-items-center">
-            <div class="align-self-center">
-                    <a href="/"><img id="logo_large" class="" src="{{image_file('ganimides_logoB3.gif')}}" alt="{{COMPANY_NAME}}" /></a>
+        <div class="d-flex col-4 justify-content-center align-items-center p-0">
+            <div class="align-self-center p-0">
+                    <a class="" href="/"><img id="logo" class="" src="{{image_file('ganimides_logoB3.gif')}}" alt="{{COMPANY_NAME}}" /></a>
                 </div>
         </div>
-        <div class="col-4 align-self-start">
-            <nav class="navbar navbar-expand-md xnavbar-light w-100 justify-content-between p-0">
+        <div class="d-flex col-4 p-0 m-0">
+            <nav class="navbar navbar-expand-md xnavbar-light w-100 justify-content-between p-0 m-0">
+                <!-- Toggler/collapsibe Button -->
+                <div class="d-flex">
+                    <button id="HeaderMenuButton" class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon ml-auto"></span>
+                    </button>
+                </div>
                 <!-- SUPPORT MENU  -->
                 <div id="SupportMenu" class="collapse navbar-collapse p-0 support_menu">
                     <ul class="navbar-nav ml-auto">

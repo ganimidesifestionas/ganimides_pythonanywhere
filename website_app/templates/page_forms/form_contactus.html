@@ -1,10 +1,10 @@
 {% set secure_text='Your information is secured and protected.' %}
 {% set include_mcafee='Y' %}
-<form style="width:100%" class="d-flex flex-column authorization-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
+<form style="width:100%" class="d-flex flex-column contactus-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
     <fieldset>
         {{ contactusform.hidden_tag() }}
 
-        <div class="modal-header align-items-center p-2">
+        <div class="modal-header align-items-center p-0 m-0">
             <h1 class="modal-title mx-auto" id="contactus_modal_form_Label">Contact Us</h1>
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
@@ -19,7 +19,8 @@
                         <!--===================================================-->
                         <div class="d-flex flex-column justify-content-start">
                             {% if not(current_user.is_authenticated) %}
-                            <div class="form-group d-flex flex-column">
+
+                            <div class="form-group d-flex flex-column mb-1">
                                 <div class="d-flex flex-row">
                                     <div>
                                         {{contactusform.firstName.label }}
@@ -33,7 +34,8 @@
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
-                            <div class="form-group d-flex flex-column">
+
+                            <div class="form-group d-flex flex-column mb-1">
                                 <div class="d-flex flex-row">
                                     <div>
                                         {{contactusform.lastName.label }}
@@ -47,7 +49,7 @@
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
-                            <div class="form-group d-flex flex-column">
+                            <div class="form-group d-flex flex-column mb-1">
                                 <div class="d-flex flex-row">
                                     <div>
                                         {{contactusform.company.label }}
@@ -61,7 +63,7 @@
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
-                            <div class="form-group d-flex flex-column">
+                            <div class="form-group d-flex flex-column mb-1">
                                 <div class="d-flex flex-row">
                                     <div>
                                         {{contactusform.jobTitle.label }}
@@ -77,7 +79,7 @@
                             </div>
                             {% endif %}
 
-                            <div class="form-group d-flex flex-column">
+                            <div class="form-group d-flex flex-column mb-1">
                                 <div class="d-flex flex-row">
                                     <div>
                                         {{contactusform.email.label }}
@@ -92,7 +94,7 @@
                                 {% endfor %}
                             </div>
 
-                            <div class="form-group d-flex flex-column w-100 justify-content-start align-self-start">
+                            <div class="form-group d-flex flex-column mb-1 w-100 justify-content-start align-self-start">
                                 <div class="d-flex flex-row">
                                     <div>
                                         {{contactusform.contact_message.label }}
@@ -116,11 +118,12 @@
         <div class="authorization-form-line"></div>
 
         <!--footer-->
-        <div class="modal-footer d-flex justify-content-start p-1">
+        <div class="modal-footer d-flex justify-content-start p-2">
             <div class="">
                 {% if not(current_user.is_authenticated) %}
-                <div class="justify-content-center align-items-center mt-0 mb-0 p-0">
-                    Already Registered?&nbsp;<a class="btn btn-default btn-sm mybtn-submit" href="{{url_for('authorization.login')}}">Login.</a>
+                <div class="d-flex mt-0 mb-0 p-0">
+                    <div class="align-self-center">Already Registered?&nbsp;</div>
+                    <div class="align-self-center"><a class="btn btn-default btn-sm mybtn-submit" href="{{url_for('authorization.login')}}">Login</a></div>
                 </div>
                 {% endif %}
             </div>
