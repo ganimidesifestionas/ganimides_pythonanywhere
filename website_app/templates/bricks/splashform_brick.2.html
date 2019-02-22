@@ -1,0 +1,18 @@
+<form style="width:100%" class="d-flex flex-column authorization-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
+    <fieldset>
+        {{ contactusform.hidden_tag() }}
+
+        {% include include_files('form_header.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('form_line.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('form_body_header.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        <!--===================================================-->
+        {% include include_files('form_field.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('form_field.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('form_textarea.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        <!--==================================================-->
+        {% include include_files('form_body_footer.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('form_line.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('form_footer.html',type='BRICK',module='',language=CURRENT_LANGUAGE) ignore missing %}
+
+    </fieldset>
+</form>

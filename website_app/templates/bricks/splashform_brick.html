@@ -3,7 +3,6 @@
 <form style="width:100%" class="d-flex flex-column authorization-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
     <fieldset>
         {{ contactusform.hidden_tag() }}
-
         <div class="modal-header align-items-center p-2">
             <h1 class="modal-title mx-auto" id="contactus_modal_form_Label">Contact Us</h1>
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
@@ -33,6 +32,7 @@
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
+                            
                             <div class="form-group d-flex flex-column">
                                 <div class="d-flex flex-row">
                                     <div>
@@ -47,6 +47,7 @@
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
+
                             <div class="form-group d-flex flex-column">
                                 <div class="d-flex flex-row">
                                     <div>
@@ -101,7 +102,10 @@
                                         <span style="color:red">{% if contactusform.contact_message.flags.required %}*{% endif %}</span>
                                     </div>
                                 </div>
-                                {{ contactusform.contact_message(class="form-control input-style",placeholder="your message...") }}
+                                
+                                <div class="f-flex w-100">
+                                    {{ contactusform.contact_message(class="form-control input-style",placeholder="your message...") }}
+                                </div>
                                 {% for error in contactusform.contact_message.errors %}
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
@@ -136,3 +140,4 @@
 
     </fieldset>
 </form>
+
