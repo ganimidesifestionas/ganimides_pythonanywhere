@@ -25,7 +25,6 @@
 
 <!DOCTYPE html>
 <html lang="en" class="gr__getbootstrap_com">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
@@ -151,11 +150,10 @@
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <script src="/static/scripts/respond.js"></script>
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
     {% if splash_form %}
     {% if splash_form=='contactus' %}
@@ -179,15 +177,15 @@
     </script>
     {% endif %}
     {% endif %}
-    session['active_module']
-    {% if not ('cookies_consent' in session) or session['cookies_consent'] != 'YES' %}
-    {% if session['active_module'].lower() not in ('website_app.module_administration.routes','website_app.module_authorization.routes') %}
+
+    {% if not ('cookies_consent' in session) or session.get('cookies_consent') != 'YES' %}
+    {% if session.get('active_module').lower() not in ('website_app.module_administration.routes','website_app.module_authorization.routes') %}
     <script>
         $('#cookies_modal_form').modal('show');
     </script>
     {% endif %}
     {% endif %}
-
+<!--
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -199,7 +197,7 @@
             $('#xxxxxxxcontactus_modal_form').modal('show');
         });
     </script>
-
+-->
     <!--
             <script src="./Fixed top navbar example for Bootstrap_files/jquery-3.3.1.slim.min.js.download" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
@@ -225,6 +223,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
             -->
+    <!--
     <script>
         jQuery(function ($) {
             checkCookie_eu();
@@ -265,7 +264,8 @@
 
         });
     </script>
-
+    💪💜👻
+    -->
     {% block scripts %}{% endblock %}
 </body>
 
