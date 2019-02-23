@@ -1,17 +1,17 @@
 <!--BEGIN: form:cookiesconsent.html-->
 {% set form_title='please accept our cookies' %}
-<form class="" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
+<form style="width:400px;" class="cookies-consent-page border border-light" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ cookiesconsentform.hidden_tag() }}
 
-        <div class="modal-header align-items-center p-2">
+        <div class="modal-header align-items-center p-1">
             <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">please accept our cookies</h1>
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
         <div class="cookies-consent-page-line"></div>
 
-        <div class="modal-body pt-1 pb-1 pl-2 pr-2">
+        <div class="modal-body pt-1 pb-1 xpl-2 xpr-2">
             <div class="d-flex flex-column">
                 {% include include_files('cookies_consent.html',type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
             </div>
@@ -19,7 +19,7 @@
 
         <div class="cookies-consent-page-line"></div>
 
-        <div class="modal-footer d-flex justify-content-between p-2">
+        <div class="modal-footer d-flex justify-content-between p-1">
             <div class="">
                 <a class="btn btn-default btn-sm mybtn-close" id="moreinf" href="{{ url_for('cookies_policy') }}">More Information</a>
             </div>

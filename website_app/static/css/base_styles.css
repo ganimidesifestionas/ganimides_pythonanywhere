@@ -1,4 +1,3 @@
-
 /*
     ****************************************************
     ****************************************************
@@ -6,17 +5,18 @@
     ****************************************************
     ****************************************************
 */
+
 html {
     width: 100%;
-    /*height: 100%;*/
     color: red;
     background-color: black;
     font-family: 'ZCOOL QingKe HuangYou', cursive, Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 100%;
+    /*use default of the browser!!! which is usually 16px*/
+    /*font-size: 16px;*/
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
-    font-size: 100.01%;
     font-stretch: always;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -24,33 +24,40 @@ html {
 
 body {
     width: 100%;
-    /*height: 100%;*/
     color: red;
     background-color: black;
     font-family: Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
 }
 
 html, body {
-    background: #1e5799; /* Old browsers */
-    background: -moz-linear-gradient(top,  #1e5799 0%, #7db9e8 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #1e5799 0%,#7db9e8 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #1e5799 0%,#7db9e8 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+    background: #1e5799;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #1e5799 0%, #7db9e8 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799), color-stop(100%, #7db9e8));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #1e5799 0%, #7db9e8 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #1e5799 0%, #7db9e8 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #1e5799 0%, #7db9e8 100%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, #1e5799 0%, #7db9e8 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8', GradientType=0);
+    /* IE6-9 */
     /*min-height:100%;*/
-    }
+}
 
 header {
     color: red;
     background-color: green;
     font-family: Inconsolata, Consolas, Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -60,7 +67,7 @@ footer {
     color: red;
     background-color: blue;
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -68,15 +75,13 @@ footer {
 
 h1, h2, h3, h4 {
     font-family: 'Segoe UI', Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
 }
+
 p {
-    font-size: 12px;
-    font-style: normal;
-    font-weight: normal;
     margin-left: 2px;
     margin-right: 2px;
     margin-top: 3px;
@@ -108,7 +113,7 @@ p {
     color: black;
     background-color: transparent;
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 1em;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -148,7 +153,7 @@ p {
     border-radius: 6px;
     color: black;
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 12px;
+    font-size: 1em;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -198,11 +203,11 @@ p {
 .content-page {
     color: black;
     background-color: transparent;
-    font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
+    font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-style: normal;
     font-feature-settings: "liga";
     font-weight: 900;
-    font-size: 12px;
+    font-size: 1rem;
     text-align: justify;
     margin: 0px;
     margin-bottom: 0px;
@@ -215,7 +220,7 @@ p {
     white-space: normal;
 }
 
-.content-page>p {
+.content-page p {
     text-align: justify;
     font-weight: 600;
     padding: 1px;
@@ -223,36 +228,36 @@ p {
 }
 
 .content-page h1 {
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
-    margin-top: 14px;
-    margin-bottom: 2px;
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .content-page h2 {
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
-    font-weight: 700;
-    margin-top: 14px;
-    margin-bottom: 2px;
+    font-weight: 900;
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .content-page h3 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
-    font-weight: 500;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    margin-top: 14px;
-    margin-bottom: 2px;
+    font-weight: 900;
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .content-page h4 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
-    font-weight: 500;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    margin-top: 14px;
-    margin-bottom: 2px;
+    font-weight: 900;
+    font-size: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.2em;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -275,39 +280,39 @@ p {
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-style: normal;
     font-feature-settings: "liga";
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 900;
+    font-size: 1rem;
     margin: 0px;
     margin-left: 4px;
     margin-right: 4px;
-    border:2px solid lightgrey ;
-    border-radius:6px;
+    border: 2px solid lightgrey;
+    border-radius: 6px;
     text-align: justify;
     padding: 4px
 }
 
 .document-page>p {
     text-align: justify;
-    font-weight: 600;
+    xfont-weight: 600;
     padding: 1px
 }
 
 .document-page>h1 {
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+    xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     margin-top: 14px;
     margin-bottom: 2px;
 }
 
 .document-page>h2 {
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
-    font-weight: 700;
+    xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+    font-weight: 900;
     margin-top: 16px;
     margin-bottom: 2px;
 }
 
 .document-page>h3 {
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+    xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     margin-top: 14px;
@@ -315,7 +320,7 @@ p {
 }
 
 .document-page>h4 {
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+    xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     margin-top: 14px;
@@ -324,10 +329,8 @@ p {
 
 .document-page-lastrevision {
     color: Black;
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+    xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
-    /*
-            */
     padding: 0px;
     margin: 0px;
     white-space: normal;
@@ -346,9 +349,9 @@ p {
     padding: 2px;
     margin: 0px;
     white-space: normal;
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+    xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 1.2em;
     /*text-decoration: none;*/
     /*underline ;*/
     /*font-size: 100%;*/
@@ -376,7 +379,7 @@ p {
     font-stretch: always;
 }
 
-.document-page-footer a:hover,link:hover {
+.document-page-footer a:hover, link:hover {
     color: white;
     background-color: lightgray;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -408,8 +411,6 @@ p {
     white-space: nowrap;
 }
 
-
-
 /*
     ****************************************************
     ****************************************************
@@ -425,13 +426,14 @@ p {
 */
 
 .support_menu {
-    color: black;/*#005293 ; /*good blue*/
+    color: black;
+    /*#005293 ; /*good blue*/
     background-color: transparent;
     font-family: Inconsolata, Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 1rem;
     padding: 1px;
 }
 
@@ -464,11 +466,11 @@ p {
 }
 
 .support_menu_dropdown_list {
-    font-size: 11px;
+    font-size: 1rem;
     font-family: Inconsolata, Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
     padding: 1px;
     color: green;
-    font-weight: 600;
+    font-weight: 900;
 }
 
 .support_menu_dropdown_list a {
@@ -494,11 +496,11 @@ p {
 .header_menu {
     color: Black;
     background-color: transparent;
-    font-family: Inconsolata,Montserrat,'Segoe UI Black', Consolas,'Open Sans','Segoe UI Black', serif,'ZCOOL QingKe HuangYou';
+    font-family: Inconsolata, Montserrat, 'Segoe UI Black', Consolas, 'Open Sans', 'Segoe UI Black', serif, 'ZCOOL QingKe HuangYou';
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 900;
-    font-size: 11px;
+    font-size: 1rem;
     padding: 1px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -507,13 +509,14 @@ p {
 .header_menu a {
     color: rgba(0, 0, 0, 0.6);
     background-color: transparent;
-
 }
 
 .header_menu a:link {
     color: rgba(0, 0, 0, 0.6);
+    color: black;
     background-color: transparent;
 }
+
 /*
     .header_menu a:visited {
         color: #808080 ;
@@ -532,7 +535,8 @@ p {
 }
 
 .header_menu_dropdown_list {
-    font-size: 11px;
+    color: blue;
+    font-size: 1em;
     padding: 1px;
     font-weight: 600;
     text-align: left;
@@ -573,7 +577,7 @@ p {
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 1rem;
 }
 
 .footer_menu a {
@@ -607,7 +611,7 @@ p {
 }
 
 .footer_menu_dropdown_list {
-    font-size: 11px;
+    font-size: 1em;
     font-family: Inconsolata, Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
     padding: 1px;
     color: green;
@@ -750,6 +754,7 @@ p {
     authorization menu
     ============================================================
 */
+
 /*
 .subscriber_menu_navbar {
     color: Black;
@@ -825,21 +830,24 @@ p {
 }
 
 /*============================================================*/
+
 /* Style the tab */
-.xnav-link
-{
-    color:orange;
+
+.xnav-link {
+    color: orange;
 }
-.xnav-link.active
-{
-    color:blank !important;
-    font-weight:900 !important;
+
+.xnav-link.active {
+    color: blank !important;
+    font-weight: 900 !important;
 }
 
 /* Style the buttons inside the tab */
-  .form-tabs button {
-    background-color: white; /*inherit;*/
-    color:green;
+
+.form-tabs button {
+    background-color: white;
+    /*inherit;*/
+    color: green;
     float: left;
     border: none;
     outline: none;
@@ -847,40 +855,52 @@ p {
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
-  }
+}
 
-  /* Change background color of buttons on hover */
-  .form-tabs button:hover {
+/* Change background color of buttons on hover */
+
+.form-tabs button:hover {
     background-color: #ddd;
-    color:blue;
-  }
+    color: blue;
+}
 
-  /* Create an active/current tablink class */
-  .form-tabs button.active {
+/* Create an active/current tablink class */
+
+.form-tabs button.active {
     background-color: #ccc;
-    color:orange;
-  }
+    color: orange;
+}
 
-  /* Style the tab content */
-  .form-tabscontent {
+/* Style the tab content */
+
+.form-tabscontent {
     display: none;
     padding: 6px 12px;
     -webkit-animation: fadeEffect 1s;
     animation: fadeEffect 1s;
-  }
+}
 
-  /* Fade in tabs */
-  @-webkit-keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
+/* Fade in tabs */
 
-  @keyframes fadeEffect {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
+@-webkit-keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 /*============================================================*/
-
 
 /*
     ============================================================
@@ -897,10 +917,10 @@ p {
     /*Add this, to prevent clicking dropdown's default click function*/
 }
 
+.vertical-middle {
+    vertical-align: middle;
+}
 
-    .vertical-middle {
-        vertical-align: middle;
-    }
 /*
     ****************************************************
     ****************************************************
@@ -909,7 +929,7 @@ p {
     ****************************************************
 */
 .top-brand-line {
-    max-height: 2em;
+    max-height: 2rem;
 }
 
 .menu_image {
@@ -937,20 +957,23 @@ p {
 }
 
 #logo {
-    width: 40px;
-    height: 40px;
+    width: 4rem;
+    height: 4rem;
     margin: auto;
 }
+
 #company_name_image {
-    max-height: 25px;
+    max-height: 2rem;
 }
+
 #logo_large {
-    width: 60px;
-    height: 60px;
+    width: 6rem;
+    height: 6rem;
     margin: auto;
 }
+
 #company_name_image_large {
-    max-height: 40px;
+    max-height: 4rem;
 }
 
 #homeicon {
@@ -979,17 +1002,21 @@ p {
     width: 30px;
     height: 30px;
 }
+
 .company_location_picture_Nicosia {
-    max-height: 270px;
+    max-height: 400px; /*270px;*/
 }
 
 .no-border {
-    border:0px !important;
+    border: 0px !important;
 }
+
 .capxcha iframe {
     position: relative;
     box-shadow: none !important;
-  }
+}
+
+
 /*
     ****************************************************
     ****************************************************
@@ -1011,14 +1038,14 @@ p {
 .text-normal-reading {
     color: black;
     font-family: Inconsolata, Consolas, 'Segoe UI Light', serif;
-    font-size: 10px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 300;
 }
 
 .text-company-name {
     color: black;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-style: normal;
     font-weight: 600;
@@ -1183,11 +1210,11 @@ p {
 .page_title {
     color: Black;
     background-color: transparent;
-    font-family: Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-family: Inconsolata, Consolas, Montserrat, 'Open Sans', 'Segoe UI Black',  serif;
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 900;
-    font-size: 14px;
+    font-size: 1.5rem;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     margin-left: 0px;
     margin-right: 0px;
@@ -1195,10 +1222,10 @@ p {
     margin-bottom: 0px;
     border: 0px;
     padding: 0px;
-    padding-left: 0px;
+    padding-left: 2px;
     padding-right: 0px;
     padding-top: 0px;
-    padding-bottom: 00px;
+    padding-bottom: 0px;
 }
 
 /*
@@ -1381,7 +1408,6 @@ hr {
     border-top: 1px solid #eeeeee;
 }
 
-
 /*
     ****************************************************
     ****************************************************
@@ -1413,11 +1439,13 @@ hr {
     padding: 0px;
     margin: 0px;
 }
+
 .message-cell>h2 {
     font-weight: 900;
     padding: 0px;
     margin: 0px;
 }
+
 .message-cell>h3 {
     font-weight: 900;
     padding: 0px;
@@ -1433,7 +1461,7 @@ hr {
     background-color: lightgray;
     color: black;
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 10px;
+    font-size: 1em;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -1446,6 +1474,7 @@ hr {
 }
 
 .summary-cell>h1 {
+    font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     margin-top: 2px;
@@ -1453,6 +1482,7 @@ hr {
 }
 
 .summary-cell>h2 {
+    font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
     margin-top: 2px;
@@ -1460,6 +1490,7 @@ hr {
 }
 
 .summary-cell>h3 {
+    font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -1468,6 +1499,7 @@ hr {
 }
 
 .summary-cell>h4 {
+    font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -1549,64 +1581,70 @@ hr {
 
 .top_navigation_line {
     color: orange;
-    font-family: 'ZCOOL QingKe HuangYou', Inconsolata, 'Segoe UI Light', Tangerine, serif;
-    font-size: 10px;
+    font-family: Inconsolata,Consolas,'Segoe UI Light', Tangerine, serif;
+    font-size: 0.8rem;
     font-style: normal;
+    font-weight: 900;
 }
+
 .top_navigation_line_counter {
     color: Green;
-    font-family: 'ZCOOL QingKe HuangYou', Inconsolata, 'Segoe UI Light', Tangerine, serif;
-    font-size: 10px;
+    font-family: Inconsolata,Consolas,'Segoe UI Light', Tangerine, serif;
+    font-size: 0.8rem;
     font-style: normal;
-    font-weight:500;
+    font-weight: 900;
 }
 
 .internal_use_line {
     color: orange;
-    font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
-    font-size: 10px;
+    font-family: Inconsolata,Consolas,'Segoe UI Light', Tangerine, serif;
+    font-size: 0.8rem;
     font-style: normal;
     text-align: center;
+    font-weight: 900;
 }
 
 .copywrite_line {
     color: black;
-    font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
-    font-size: 10px;
+    font-family: Inconsolata,Consolas, 'Segoe UI Light', Tangerine, serif;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 900;
 }
+
 .message_line {
     color: green;
     font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
-    font-size: 9px;
+    font-size: 0.8rem;
     font-style: normal;
     text-align: center;
     font-weight: 600;
     background-color: transparent;
     font-feature-settings: "liga";
-    padding:0px;
+    padding: 0px;
 }
-.message_line p{
+
+.message_line p {
     font-weight: 600;
-    font-size: 9px;
-    padding:0px;
-    margin:0px;
+    font-size: 0.8em;
+    padding: 0px;
+    margin: 0px;
 }
 
 .company_brand {
     color: Black;
     background-color: transparent;
-    font-family: Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
+    font-family: Inconsolata, Consolas, Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 900;
-    font-size: 14px;
+    font-size: 1rem;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     margin: 0px;
     border: 0px;
     padding: 0px;
 }
+
 .separation_line_form {
     border: 0px;
     border-top: 1px solid #005293;
@@ -1626,8 +1664,6 @@ hr {
     border: 0px;
     border-top: 1px solid black;
 }
-
-
 
 /*
 .form-tabs {
@@ -1660,6 +1696,7 @@ hr {
         font-weight:600;
     }
     */
+
 /*
     ****************************************************
     ****************************************************
@@ -1681,11 +1718,13 @@ hr {
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
+
 .form-messages h1, h2, h3, h4 {
     font-size: 10px;
     font-weight: 900;
     padding: 0px
 }
+
 .form-messages p {
     font-size: 10px;
     font-weight: 900;
@@ -1743,19 +1782,19 @@ hr {
 }
 
 .tabform-borders {
-    border:0px solid lightgray !important;
+    border: 0px solid lightgray !important;
     border-radius: 0px !important;
 }
 
-
-.upload_file{
+.upload_file {
     border: 0px solid #e1e1e6 !important;
 }
+
 .upload_file button {
     font-weight: 600 !important;
     font-size: 12px !important;
     width: 100% !important;
-    color:green !important;
+    color: green !important;
 }
 
 .input_1_perrow {
@@ -1834,6 +1873,7 @@ hr {
     border: 0px solid gray;
     border-radius: 0px;
 }
+
 .readonly-form a:visited {
     color: orange;
     background-color: transparent;
@@ -1918,6 +1958,7 @@ hr {
     font-weight: 500;
     font-size: 14px;
 }
+
 .readonly-form-field a:visited {
     color: orange;
     background-color: transparent;
@@ -1927,6 +1968,7 @@ hr {
     font-weight: 500;
     font-size: 14px;
 }
+
 .readonly-form-field a:link {
     color: orange;
     background-color: transparent;
@@ -1942,9 +1984,11 @@ hr {
     background-color: lightgray;
     color: white;
 }
+
 /*=========================================*/
+
 .contactus-form {
-    width:100%;
+    width: 100%;
     height: auto;
     background-color: white;
     line-height: unset;
@@ -1962,7 +2006,7 @@ hr {
 
 .contactus-form label {
     color: #8c8c8c;
-/*
+    /*
     background-color: transparent;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
     font-feature-settings: "liga";
@@ -1990,6 +2034,7 @@ hr {
     width: 100%;
     max-width: 1000px;
 }
+
 .contactus-form textarea {
     color: blue !important;
     width: 100%;
@@ -2004,6 +2049,7 @@ hr {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     color: black;
 }
+
 .contactus-form-line {
     border: 0px;
     border-top: 1px solid #005293;
@@ -2013,11 +2059,13 @@ hr {
     font-weight: 900;
     font-size: 12px;
 }
+
 .contactus-form input[type=button] {
     color: black;
     font-weight: 900;
     font-size: 12px;
 }
+
 .contactus-form input[type=button] :hover {
     color: white !important;
 }
@@ -2040,61 +2088,17 @@ hr {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
 .input-style {
     xborder: solid 1px #0077B0;
     xoutline: 0;
     xbackground: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #f8f9fa), to(#FFFFFF));
     xbackground: -moz-linear-gradient(top, #FFFFFF, #C6ECFF 1px, #FFFFFF 25px);
-    xbox-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
-    x-moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
-    x-webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
-    }
-
-/*=========================================*/
-.splash_form_close_button1 {
-    font-weight: 900 !important;
-    font-size: 1.5rem !important;
-    padding:0px !important;
-    margin:0px !important;
-}
-.splash_form_close_button2 {
-    backface-visibility: hidden;
-    position: relative;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    display: inline-block;
-    white-space: nowrap;
-    background: lightgray;
-    border-radius: 100px;
-    border: 0px solid gray ; /* #444;*/
-    padding: 4px 4px 4px 4px;
-    color: black;
-    font-weight: 900 !important;
-    font-size: 1rem !important;
-    font-family: Helvetica Neue;
-    text-align: center;
-    margin: 0px 0px 0px 0px;
-  }
-
-  .splash_form_close_button {
-    font-weight: 900 !important;
-    font-size: 24px !important;
-    color:lightgray !important;
-    background:transparent !important;
-    border:0px solid transparent !important;
-    text-decoration: none;
-  }
-  .splash_form_close_button:hover {
-    background:transparent !important;
-    border:0px solid transparent !important;
-    color:red !important;
-    opacity: 1.5;
-    text-decoration: none;
-    text-shadow: none; /* 2px 2px 3px rgba(0, 0, 0, 0.6);*/
-
+    xbox-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+    x-moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+    x-webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
 }
 
 .contactus-form a {
@@ -2117,6 +2121,7 @@ hr {
     font-weight: 500;
     font-size: 14px;
 }
+
 .contactus-form a:link {
     color: orange;
     background-color: transparent;
@@ -2131,9 +2136,8 @@ hr {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     background-color: lightgray;
     color: white;
-    padding:3px;
+    padding: 3px;
 }
-
 
 .top-menu-navbar-search-form {
     color: red;
@@ -2174,8 +2178,6 @@ hr {
 }
 
 .top-menu-navbar-search-form.button {}
-
-
 
 /*
     ****************************************************
@@ -2219,6 +2221,7 @@ hr {
 .width-1column {
     width: 98%;
 }
+
 /*
     ****************************************************
     ****************************************************
@@ -2226,6 +2229,7 @@ hr {
     ****************************************************
     ****************************************************
 */
+
 .button_intext {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
     background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
@@ -2281,7 +2285,6 @@ hr {
     font-weight: 900;
     white-space: nowrap;
 }
-
 
 /*
 .button_learnmore {
@@ -2387,7 +2390,7 @@ hr {
 }
 
 .button_back a {
-    color: black  !important;
+    color: black !important;
     /*good blue*/
     font-weight: 900;
     white-space: nowrap;
@@ -2399,6 +2402,7 @@ hr {
     font-weight: 900;
     white-space: nowrap;
 }
+
 /*
 .button_contactus_intext {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
@@ -2457,73 +2461,111 @@ hr {
 */
 
 .custom-toggler.navbar-toggler {
-    border-color: black;/* rgb(255,102,203);*/
+    border-color: black;
+    /* rgb(255,102,203);*/
 }
+
 .custom-toggler .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
+
 /*----------------------------------------*/
-canvas{
-    background-image: linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
-    background-image: -o-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
-    background-image: -moz-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
-    background-image: -webkit-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
-    background-image: -ms-linear-gradient(bottom, rgb(105,173,212) 0%, rgb(23,82,145) 84%);
-    background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0, rgb(105,173,212)),
-        color-stop(0.84, rgb(23,82,145))
-    );
+
+canvas {
+    background-image: linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -o-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -moz-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -webkit-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -ms-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(105, 173, 212)), color-stop(0.84, rgb(23, 82, 145)));
 }
+
 /*=========================================*/
-  .snow{
-    xposition:fixed;
-    xpointer-events:none;
-    xtop:0;
-    xleft:0;
-    xright:0;
-    xbottom:0;
-    xheight:100vh;
+
+.snow {
+    xposition: fixed;
+    xpointer-events: none;
+    xtop: 0;
+    xleft: 0;
+    xright: 0;
+    xbottom: 0;
+    xheight: 100vh;
     xbackground: none;
-    background-image:
-        url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png')
-        ,url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png')
-        ,url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
-    z-index:100;
+    background-image: url('https://s3-eu-west-1.amazonaws.com/static-ressources/s1.png'), url('https://s3-eu-west-1.amazonaws.com/static-ressources/s2.png'), url('https://s3-eu-west-1.amazonaws.com/static-ressources/s3.png');
+    z-index: 100;
     -webkit-animation: snow 10s linear infinite;
     -moz-animation: snow 10s linear infinite;
     -ms-animation: snow 10s linear infinite;
     animation: snow 10s linear infinite;
-  }
-  @keyframes snow {
-    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-    100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
-  }
-  @-moz-keyframes snow {
-    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-    100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
-  }
-  @-webkit-keyframes snow {
-    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-    100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
-  }
-  @-ms-keyframes snow {
-    0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
-    100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
-  }
-  /*=========================================*/
-  .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
-  .red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
-  .blue-tooltip + .tooltip > .tooltip-inner {background-color: #00f;}
-  .blue-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#00f; }
+}
 
-  #cookie-notice {
+@keyframes snow {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}
+
+@-moz-keyframes snow {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 400px 1000px, 200px 400px, 100px 300px;
+    }
+}
+
+@-webkit-keyframes snow {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}
+
+@-ms-keyframes snow {
+    0% {
+        background-position: 0px 0px, 0px 0px, 0px 0px;
+    }
+    50% {
+        background-position: 500px 500px, 100px 200px, -100px 150px;
+    }
+    100% {
+        background-position: 500px 1000px, 200px 400px, -100px 300px;
+    }
+}
+
+/*=========================================*/
+
+.red-tooltip+.tooltip>.tooltip-inner {
+    background-color: #f00;
+}
+
+.red-tooltip+.tooltip>.tooltip-arrow {
+    border-bottom-color: #f00;
+}
+
+.blue-tooltip+.tooltip>.tooltip-inner {
+    background-color: #00f;
+}
+
+.blue-tooltip+.tooltip>.tooltip-arrow {
+    border-bottom-color: #00f;
+}
+
+#cookie-notice {
     display: block;
     visibility: hidden;
     position: fixed;
@@ -2542,27 +2584,42 @@ canvas{
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
 }
- @keyframes bounce {
-    0% {transform: translateY(-25%);}
-    20% {transform: translateY(15%);}
-    40% {transform: translateY(-15%);}
-    60% {transform: translateY(5%);}
-    80% {transform: translateY(-5%);}
-    100% {transform: translateY(0%);}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(-25%);
+    }
+    20% {
+        transform: translateY(15%);
+    }
+    40% {
+        transform: translateY(-15%);
+    }
+    60% {
+        transform: translateY(5%);
+    }
+    80% {
+        transform: translateY(-5%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
 }
 
 /*
 ##############################################
 */
-.mybutton{
+
+.mybutton {
     background: transparent;
     position: relative;
     overflow: hidden;
     transition: all .5s;
-  }
-  /* //// Default effect: Slide from Top  //// */
-  .mybutton:before,
-  .mybutton:after{
+}
+
+/* //// Default effect: Slide from Top  //// */
+
+.mybutton:before, .mybutton:after {
     content: '';
     position: absolute;
     left: 0;
@@ -2572,235 +2629,301 @@ canvas{
     height: 100%;
     z-index: -1;
     transition: all .5s;
-  }
+}
 
-  .mybutton:hover{
-      color: white;
-  }
-  .mybutton:hover:after{
-    transform: translate3D(0,0,0);
+.mybutton:hover {
+    color: white;
+}
+
+.mybutton:hover:after {
+    transform: translate3D(0, 0, 0);
     transition: all .5s;
-  }
-  .mybutton-primary:before{
-    background: #007bff; /* button default background color */
-  }
-  .mybutton-primary:after{
+}
+
+.mybutton-primary:before {
+    background: #007bff;
+    /* button default background color */
+}
+
+.mybutton-primary:after {
     background: #0000005a;
-  }
-  .mybutton-primary:hover{
+}
+
+.mybutton-primary:hover {
     background: #025ec1;
-  }
-  .mybutton-secondary:before{
+}
+
+.mybutton-secondary:before {
     background: #6c757d;
     z-index: -2;
-  }
-  .mybutton-secondary:after{
+}
+
+.mybutton-secondary:after {
     background: #5a6268;
-  }
-  .mybutton-secondary:hover{
+}
+
+.mybutton-secondary:hover {
     background: #5a6268;
-  }
-  .mybutton-success:before{
+}
+
+.mybutton-success:before {
     background: #28a745;
     z-index: -2;
-  }
-  .mybutton-success:after{
-    background: #218838;
-  }
-  .mybutton-success:hover{
-    background: #218838;
-  }
-  .mybutton-danger:before{
-    background: #dc3545;
-  }
-  .mybutton-danger:after{
-    background: #c82333;
-  }
-  .mybutton-danger:hover{
-    background: #c82333;
-  }
+}
 
-  .mybutton-warning:before{
+.mybutton-success:after {
+    background: #218838;
+}
+
+.mybutton-success:hover {
+    background: #218838;
+}
+
+.mybutton-danger:before {
+    background: #dc3545;
+}
+
+.mybutton-danger:after {
+    background: #c82333;
+}
+
+.mybutton-danger:hover {
+    background: #c82333;
+}
+
+.mybutton-warning:before {
     background: #ffc107;
-  }
-  .mybutton-warning:after{
+}
+
+.mybutton-warning:after {
     background: #e0a800;
-  }
-  .mybutton-warning:hover{
+}
+
+.mybutton-warning:hover {
     background: #e0a800;
-  }
-  .mybutton-info:before{
+}
+
+.mybutton-info:before {
     background: #17a2b8;
-  }
-  .mybutton-info:after{
+}
+
+.mybutton-info:after {
     background: #138496;
-  }
-  .mybutton-info:hover{
+}
+
+.mybutton-info:hover {
     background: #138496;
-  }
-  .mybutton-light:before{
+}
+
+.mybutton-light:before {
     background: #f8f9fa;
-  }
-  .mybutton-light:after{
+}
+
+.mybutton-light:after {
     background: #e2e6ea;
-    color:#212529;
-  }
-  .mybutton-light:hover{
+    color: #212529;
+}
+
+.mybutton-light:hover {
     background: #e2e6ea;
-    color:#212529;
-  }
-  .mybutton-dark:before{
+    color: #212529;
+}
+
+.mybutton-dark:before {
     background: #6c757d;
-  }
-  .mybutton-dark:after{
+}
+
+.mybutton-dark:after {
     background: #23272b;
-  }
-  .mybutton-dark:hover{
+}
+
+.mybutton-dark:hover {
     background: #23272b;
-  }
-  .mybutton-link:hover{
+}
+
+.mybutton-link:hover {
     color: #007bff;
-  }
+}
 
-  /* //// Outline Buttons  //// */
-  .mybutton-outline-primary:after{
+/* //// Outline Buttons  //// */
+
+.mybutton-outline-primary:after {
     background: #007bff;
-  }
-  .mybutton-outline-primary:hover{
+}
+
+.mybutton-outline-primary:hover {
     background: #007bff;
-  }
-  .mybutton-outline-secondary:after{
+}
+
+.mybutton-outline-secondary:after {
     background: #6c757d;
-  }
-  .mybutton-outline-secondary:hover{
+}
+
+.mybutton-outline-secondary:hover {
     background: #6c757d;
-  }
-  .mybutton-outline-success:after{
+}
+
+.mybutton-outline-success:after {
     background: #28a745;
-  }
-  .mybutton-outline-success:hover{
+}
+
+.mybutton-outline-success:hover {
     background: #28a745;
-  }
-  .mybutton-outline-danger:after{
+}
+
+.mybutton-outline-danger:after {
     background: #dc3545;
-  }
-  .mybutton-outline-danger:hover{
+}
+
+.mybutton-outline-danger:hover {
     background: #dc3545;
-  }
-  .mybutton-outline-warning:after{
+}
+
+.mybutton-outline-warning:after {
     background: #ffc107;
-  }
-  .mybutton-outline-warning:hover{
+}
+
+.mybutton-outline-warning:hover {
     background: #ffc107;
-  }
-  .mybutton-outline-info:after{
+}
+
+.mybutton-outline-info:after {
     background: #17a2b8;
-  }
-  .mybutton-outline-info:hover{
+}
+
+.mybutton-outline-info:hover {
     background: #17a2b8;
-  }
-  .mybutton-outline-light{
-    color:#212529;
-  }
-  .mybutton-outline-light:after{
+}
+
+.mybutton-outline-light {
+    color: #212529;
+}
+
+.mybutton-outline-light:after {
     background: #e2e6ea;
-    color:#212529;
-  }
-  .mybutton-outline-light:hover{
+    color: #212529;
+}
+
+.mybutton-outline-light:hover {
     background: #e2e6ea;
-    color:#212529;
-  }
-  .mybutton-outline-dark:after{
+    color: #212529;
+}
+
+.mybutton-outline-dark:after {
     background: #343a40;
-  }
-  .mybutton-outline-dark:hover{
+}
+
+.mybutton-outline-dark:hover {
     background: #343a40;
-  }
-  /* //// Slide Left  //// */
+}
 
-  .slideright:after{
+/* //// Slide Left  //// */
+
+.slideright:after {
     top: 0;
     z-index: -1;
-    transform: translate3D(-101%,0,0);
-  }
+    transform: translate3D(-101%, 0, 0);
+}
 
-  .slideright:hover:after{
-    transform: translate3D(0,0,0);
+.slideright:hover:after {
+    transform: translate3D(0, 0, 0);
     transition: all .5s;
-  }
-  /* //// Slide Right  //// */
+}
 
-  .slideleft:after{
+/* //// Slide Right  //// */
+
+.slideleft:after {
     top: 0;
     z-index: -1;
-    transform: translate3D(101%,0,0);
-  }
-  .slideleft:hover:after{
-    transform: translate3D(0,0,0);
+    transform: translate3D(101%, 0, 0);
+}
+
+.slideleft:hover:after {
+    transform: translate3D(0, 0, 0);
     transition: all .5s;
-  }
-  /* //// Slide Up  //// */
-  .slideup:after{
+}
+
+/* //// Slide Up  //// */
+
+.slideup:after {
     top: 0;
     z-index: -1;
-        transform: translate3D(0,100%,0); /* move elements above button so they don't appear initially */
-    transition: all .5s;/* onhover background color */
-  }
-
-  .slideup:hover:after{
-    transform: translate3D(0,0,0);
+    transform: translate3D(0, 100%, 0);
+    /* move elements above button so they don't appear initially */
     transition: all .5s;
-  }
-  /* //// Slide Down  //// */
-  .slidedown:after{
+    /* onhover background color */
+}
+
+.slideup:hover:after {
+    transform: translate3D(0, 0, 0);
+    transition: all .5s;
+}
+
+/* //// Slide Down  //// */
+
+.slidedown:after {
     top: 0;
     z-index: -1;
-        transform: translate3D(0,-100%,0); /* move elements above button so they don't appear initially */
-    transition: all .5s;/* onhover background color */
-  }
+    transform: translate3D(0, -100%, 0);
+    /* move elements above button so they don't appear initially */
+    transition: all .5s;
+    /* onhover background color */
+}
 
-  .slidedown:hover:after{
-    transform: translate3D(0,0,0);
+.slidedown:hover:after {
+    transform: translate3D(0, 0, 0);
     transition: all .5s;
-  }
-  /* //// Slide Top Left //// */
-  .slidetopleft:after{
-    transform: translate3D(100%,-100%,0);
-  }
-  .slidetopleft:hover:after{
-      transform: translate3D(0,0,0);
-    transition: all .5s;
-  }
-  /* //// Slide Corner Right //// */
-  .slidetopright:after{
-    transform: translate3D(-100%,-100%,0);
-  }
-  .slidetopright:hover:after{
-      transform: translate3D(0,0,0);
-    transition: all .5s;
-  }
+}
 
-  /* //// Slide Corner Left //// */
-  .slidebottomleft:after{
-    transform: translate3D(100%,100%,0);
-  }
-  .slidebottomleft:hover:after{
-      transform: translate3D(0,0,0);
-    transition: all .5s;
-  }
-  /* //// Slide Corner Right //// */
-  .slidebottomright:after{
-    transform: translate3D(-100%,100%,0);
-  }
-  .slidebottomright:hover:after{
-      transform: translate3D(0,0,0);
-    transition: all .5s;
-  }
+/* //// Slide Top Left //// */
 
-  /*
+.slidetopleft:after {
+    transform: translate3D(100%, -100%, 0);
+}
+
+.slidetopleft:hover:after {
+    transform: translate3D(0, 0, 0);
+    transition: all .5s;
+}
+
+/* //// Slide Corner Right //// */
+
+.slidetopright:after {
+    transform: translate3D(-100%, -100%, 0);
+}
+
+.slidetopright:hover:after {
+    transform: translate3D(0, 0, 0);
+    transition: all .5s;
+}
+
+/* //// Slide Corner Left //// */
+
+.slidebottomleft:after {
+    transform: translate3D(100%, 100%, 0);
+}
+
+.slidebottomleft:hover:after {
+    transform: translate3D(0, 0, 0);
+    transition: all .5s;
+}
+
+/* //// Slide Corner Right //// */
+
+.slidebottomright:after {
+    transform: translate3D(-100%, 100%, 0);
+}
+
+.slidebottomright:hover:after {
+    transform: translate3D(0, 0, 0);
+    transition: all .5s;
+}
+
+/*
   ##################################
   */
-  /*
+
+/*
 .button_contactus_intext body {
     margin:0;
     padding:0;
@@ -2838,98 +2961,133 @@ canvas{
     transform:rotate(0deg);
 }
 */
+
 /*
 ==========================================
 */
+
 .mybutton-purple-moon {
-    background: #4e54c8;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #8f94fb, #4e54c8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #4e54c8;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #8f94fb, #4e54c8);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-ultra-voilet {
-    background: #654ea3;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #eaafc8, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #654ea3;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #eaafc8, #654ea3);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #eaafc8, #654ea3);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-pink-moon {
-    background: #ec008c;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #ec008c;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fc6767, #ec008c);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-cool-blues {
-    background: #2193b0;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #2193b0;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #6dd5ed, #2193b0);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-dark-blue {
-    background: #7474BF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #7474BF;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #348AC7, #7474BF);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #348AC7, #7474BF);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-green-moon {
-    background: #56ab2f;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #a8e063, #56ab2f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #56ab2f;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #a8e063, #56ab2f);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #a8e063, #56ab2f);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-orange-moonX {
-    background: #fc4a1a;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #fc4a1a;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7b733, #fc4a1a);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-orange-moon {
-    background: orange;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, orange, orange);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, orange, orange); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: orange;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, orange, orange);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, orange, orange);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
-.mybutton-orange-moon a{
-    color:black !important;
-    text-decoration:none !important;
+.mybutton-orange-moon a {
+    color: black !important;
+    text-decoration: none !important;
 }
 
 .mybutton-dark-moon {
-    background: #141E30;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #141E30;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
 
 .mybutton-light-moon {
-    background: #FFEFBA;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #FFEFBA;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #000;
     border: 3px solid #eee;
 }
 
 .mybutton-funky-moon {
-    background: #A770EF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #A770EF;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(145deg, #FDB99B, #CF8BF3, #A770EF);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
     border: 3px solid #eee;
 }
@@ -2944,19 +3102,24 @@ canvas{
     border-radius: 50%;
 }
 
-
 .button_learnmorex {
-    background: #FFEFBA;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #FFEFBA;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFFFFF, #FFEFBA);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #000;
     border: 3px solid #eee;
 }
 
 .button_learnmorex:hover {
-    background: #FFEFBA;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #FFFFFF, #FFEFBA);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #FFFFFF, #FFEFBA); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #FFEFBA;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #FFFFFF, #FFEFBA);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #FFFFFF, #FFEFBA);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: gray !important;
 }
 
@@ -2971,128 +3134,23 @@ canvas{
     font-weight: 900;
     white-space: nowrap;
 }
-.button_learnmorex:after{
+
+.button_learnmorex:after {
     top: 0;
     z-index: -1;
-    transform: translate3D(-101%,0,0);
-  }
+    transform: translate3D(-101%, 0, 0);
+}
 
-.button_learnmorex:hover:after{
-    transform: translate3D(0,0,0);
+.button_learnmorex:hover:after {
+    transform: translate3D(0, 0, 0);
     transition: all .5s;
-  }
-/*
-******************************
-*/
-.cookies-consent-page {
-    color: black;
-    background-color: #f8f9fa;
-    height: auto;
-    line-height: unset;
-    font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
-    font-feature-settings: "liga";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 10px;
-    #padding-left: 1px;
-    #padding-right: 1px;
-    #padding-top: 1px;
-    #padding-bottom: 1px;
-    -webkit-font-smoothing: antialiased;
-    font-stretch: always;
-
-/*
-        position: fixed;
-        bottom: 32px;
-        left: 32px;
-*/
-        width: 400px;
-        border-radius: 6px;
-        box-shadow: 0 4px 20px 0 rgba(0,0,0,0.4);
-        background-color: #ffffff;
-        border: solid 1px #e6e6e6;
-        #color: #003648;
-        #padding: 22px;
-        overflow: hidden;
-    }
-.cookies-consent-page p {
-    text-align: justify;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: normal;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 3px;
-    margin-bottom: 3px;
 }
-
-.cookies-consent-page h1{
-    font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 900;
-    font-feature-settings: "liga";
-    -webkit-font-smoothing: antialiased;
-    font-stretch: always;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-}
-.cookies-consent-page h2, h3, h4 {
-    font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 900;
-    font-feature-settings: "liga";
-    -webkit-font-smoothing: antialiased;
-    font-stretch: always;
-}
-.cookies-consent-page-line {
-    border: 0px;
-    border-top: 1px solid black;
-}
-/*
-.cookies-consent-page button {
-    color: black;
-    font-weight: 900;
-    font-size: 12px;
-}
-*/
-.cookies-consent-page a {
-    color: orange;
-    background-color: transparent;
-    font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
-    font-feature-settings: "liga";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    padding: 3px;
-    border: 1px solid transparent;
-}
-/*
-.cookies-consent-page a:link {
-    color: orange;
-    background-color: transparent;
-    font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
-    font-feature-settings: "liga";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 12px;
-    padding: 5px;
-}
-*/
-
-.cookies-consent-page a:hover {
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    background-color: lightgray;
-    color: white;
-    border: 1px solid orange;
-    border-radius: 4px;
-}
-
 
 /*=========================*/
 
-    /* //// Default effect: Slide from Top  //// */
-    /*
+/* //// Default effect: Slide from Top  //// */
+
+/*
   .button_learnmore:before,
   .button_learnmore:after{
     content: '';
@@ -3106,6 +3164,7 @@ canvas{
     transition: all .5s;
   }
 */
+
 /*
   .button_learnmore:hover:after{
     transform: translate3D(0,0,0);
@@ -3122,19 +3181,117 @@ canvas{
   }
 */
 
-.mybtn-orange{
-    background:orange !important;
-    border:1px solid lightgray !important;
+/*
+    ##############################################################
+*/
+
+.cookies-consent-page {
+    color: black;
+    background-color: white;
+    /*#f8f9fa;*/
+    height: auto;
+    width: 400px;
+    line-height: unset;
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
+    font-feature-settings: "liga";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 0.8rem;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+    border-radius: 6px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    /*
+    position: fixed;
+    bottom: 32px;
+    left: 32px;
+*/
 }
-.mybtn-submit:hover{
-    color: white !important;
-    background:blue !important;
-    border:1px solid lightgray !important;
+
+.cookies-consent-page p {
+    color: black;
+    text-align: justify;
+    font-style: normal;
+    font-weight: 900;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
-.mybtn-close:hover{
+
+.cookies-consent-page h1 {
+    color: black;
+    font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 900;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.cookies-consent-page-line {
+    border: 0px;
+    border-top: 1px solid blue;
+}
+
+.cookies-consent-page a {
+    color: orange;
+    background-color: transparent;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+/*
+    #########################################################
+*/
+
+.splash_form_close_button {
+    font-weight: 900 !important;
+    font-size: 1.5em !important;
+    color: lightgray !important;
+    font-weight: 900 !important;
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.splash_form_close_button:hover {
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    color: red !important;
+    opacity: 1.5 !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+}
+
+/*
+    ###################################################################
+*/
+
+.mybtn-orange {
+    background: orange !important;
+    border: 1px solid lightgray !important;
+    font-weight: 900;
+}
+
+.mybtn-submit:hover {
     color: white !important;
-    background:red !important;
-    border:1px solid lightgray !important;
+    background: blue !important;
+    border: 1px solid lightgray !important;
+}
+
+.mybtn-close {
+    font-weight: 900;
+}
+
+.mybtn-close:hover {
+    color: white !important;
+    background: red !important;
+    border: 1px solid lightgray !important;
 }
 
 .inpage_link {
@@ -3144,15 +3301,15 @@ canvas{
     font-style: normal;
     font-weight: 600;
     text-decoration: none;
-    border:0px !important;
-    padding:0px!important;
+    border: 0px !important;
+    padding: 0px!important;
 }
 
 .inpage_link:hover {
     color: red !important;
     font-weight: 900 !important;
     background-color: lightgray !important;
-    border:0px !important;
+    border: 0px !important;
     padding: 2px 3px !important;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     border-radius: 4px;
@@ -3165,19 +3322,21 @@ canvas{
     font-style: normal;
     font-weight: 600;
     text-decoration: none;
-    border:0px !important;
-    padding:0px!important;
+    border: 0px !important;
+    padding: 0px!important;
 }
 
 .button_contactus_intext:hover {
     color: red !important;
     font-weight: 900 !important;
     background-color: lightgray !important;
-    border:0px !important;
+    text-decoration: none;
+    border: 0px !important;
     padding: 2px 3px !important;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     border-radius: 4px;
 }
+
 .email_link {
     color: blue !important;
     background-color: transparent;
@@ -3185,99 +3344,108 @@ canvas{
     font-style: normal;
     font-weight: 600;
     text-decoration: none;
-    border:0px !important;
-    padding:0px!important;
+    border: 0px !important;
+    padding: 0px!important;
 }
+
 .email_link:hover {
     color: red !important;
     font-weight: 900 !important;
     background-color: lightgray !important;
-    border:0px !important;
+    border: 0px !important;
     padding: 2px 3px !important;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     border-radius: 4px;
 }
 
-
-
-.button_learnmore{
+.button_learnmore {
     background: orange !important;
     color: black !important;
-    text-decoration:None !important;
+    text-decoration: None !important;
     position: relative;
     overflow: hidden;
-    padding:4px !important;
-    margin:1px !important;
-    border-radius:4px !important;
-    opacity:1.5;
-  }
-  .button_learnmore:hover{
-    color: white !important;
-    background:blue !important;
+    padding: 4px !important;
+    margin: 1px !important;
+    border-radius: 4px !important;
+    opacity: 1.5;
 }
+
+.button_learnmore:hover {
+    color: white !important;
+    background: blue !important;
+}
+
 .button_learnmore_intext {
     color: blue !important;
     background-color: transparent;
     font-feature-settings: "liga";
     font-style: normal;
-    font-weight: 600;
+    font-weight: 900;
     text-decoration: none;
-    border:0px !important;
-    padding:0px!important;
+    border: 0px !important;
+    padding: 0px!important;
 }
 
 .button_learnmore_intext:hover {
     color: red !important;
     font-weight: 900 !important;
     background-color: gray !important;
-    border:0px !important;
+    border: 0px !important;
     padding: 2px 3px !important;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     border-radius: 4px;
 }
-.button_nextpage{
+
+.button_nextpage {
     background: orange !important;
     color: black !important;
-    text-decoration:None !important;
+    text-decoration: None !important;
+    font-weight: 900 !important;
     position: relative;
     overflow: hidden;
-    padding:4px !important;
-    margin:1px !important;
-    border-radius:4px !important;
-    opacity:1.5;
-  }
-  .button_nextpage:hover{
-    color: white !important;
-    background:blue !important;
+    padding: 4px !important;
+    margin: 1px !important;
+    border-radius: 4px !important;
+    opacity: 1.5;
 }
 
-.button_previouspage{
+.button_nextpage:hover {
+    color: white !important;
+    background: blue !important;
+}
+
+.button_previouspage {
     background: lightgray !important;
     color: black !important;
-    text-decoration:None !important;
+    font-weight: 900 !important;
+    text-decoration: None !important;
     position: relative;
     overflow: hidden;
-    padding:4px !important;
-    margin:1px !important;
-    border-radius:4px !important;
-    opacity:1.5;
-  }
-  .button_previouspage:hover{
-    color: white !important;
-    background:blue !important;
+    padding: 4px !important;
+    margin: 1px !important;
+    border-radius: 4px !important;
+    opacity: 1.5;
 }
-.button_linkpage{
+
+.button_previouspage:hover {
+    color: white !important;
+    background: blue !important;
+}
+
+.button_linkpage {
     background: transparent !important;
     color: blue !important;
-    text-decoration:None !important;
+    font-weight: 900 !important;
+    text-decoration: None !important;
     position: relative;
     overflow: hidden;
-    padding:4px !important;
-    margin:1px !important;
-    border-radius:4px !important;
-    opacity:1.5;
-  }
-  .button_linkpage:hover{
+    padding: 4px !important;
+    margin: 1px !important;
+    border-radius: 4px !important;
+    opacity: 1.5;
+}
+
+.button_linkpage:hover {
     color: white !important;
-    background:blue !important;
+    background: blue !important;
 }

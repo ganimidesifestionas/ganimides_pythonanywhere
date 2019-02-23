@@ -3,15 +3,16 @@
 {% set page_title = "Contact Info" %}
 {% set page_logo = "contact.png" %}
 {% set next_page = "homepage" %}
-{% set previous_page = "about" %}
+{#% set previous_page = "about" %#}
 {% set content_page="contact_page_content.html" %}
 {% set enable_contactusform="true" %}
-{# set content_page_template="_layout_page_content_template_default.html" #}
+
+{#% set content_page_template="_layout_page_content_template_default.html" %#}
 {# link_page example: set link_pageX = ["why","why","bla-bla-bla..."] #}
 {# page image example:set page_XXX_image = ['picturexxx.png','why'] #}
 
-{% set page_leftside_section = null %}
-{% set SummaryPagesArray = [null,null,null] %}
+{#% set page_leftside_section = null %#}
+{#% set SummaryPagesArray = [null,null,null] %#}
 {% set page_image = image_file(page_logo) %}
 {% set page_content_file = page_file(content_page) %}
 {% set language_page_content_file=language_file(page_content_file,CURRENT_LANGUAGE) %}

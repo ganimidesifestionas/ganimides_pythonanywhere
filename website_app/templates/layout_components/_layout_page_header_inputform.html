@@ -1,12 +1,11 @@
-<div class="d-flex col-sm-12 m-0 p-0 m-0">
-    <div class="d-flex flex-column ml-auto flex-grow-1">
-        <div class="d-flex align-self-center">
-            <div class="d-flex p-0 m-0">
+<div class="d-flex w-100 m-0 p-0 flex-row border border-primary">
+        <div class="d-flex align-self-start border-secondary">
+            <div class="d-flex p-0 m-0 border">
                 {% if page_image %}
                 <img src={{page_image}} class="page-image_icon" />
                 {% endif %}
             </div>
-            <div class="d-flex">
+            <div class="d-flex border">
                 {% if page_title %}
                 <div class="align-self-center">
                     <h1 class="page_title">{{page_title}}</h1>
@@ -14,15 +13,14 @@
                 {% endif %}
             </div>
         </div>
-        
-        <div class="d-flex ml-auto align-items-center align-self-end">
+        <div class="d-flex flex-grow-1 justify-content-end p-0 m-0 border border-danger">
             {% if page_image or page_title%}
-            <span style="margin-top:-30px">
-            {% else %}
-            <span>
-            {% endif %}
-            {% if link_pages > 0 %}
-                    <nav class="navbar navbar-expand bg-transparent align-items-center pt-0 pb-0 pr-0 mb-2 links_menu border border-danger">
+            <span style="margin-top:70px;margin-left:-80px">
+                {% else %}
+                <span style="margin-top:0px;margin-left:200px">
+                    {% endif %}
+                    {% if link_pages > 0 %}
+                    <nav class="navbar navbar-expand bg-transparent align-self-start align-items-center p-0 pt-0 pb-0 pr-0 mb-2 links_menu border">
                         <ul class="navbar-nav">
                             {% for pageLink in LinkPagesArray %}
                             {% if pageLink[0] %}
@@ -47,17 +45,16 @@
                                 <a id="prevpage" class="nav-link button_previouspage" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
                             </li>
                             {% endif %}
-
+    
                             {% if next_page %}
                             <li class="nav-item">
                                 <a id="learnmore" class="nav-link button_learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
                             </li>
                             {% endif %}
-
+    
                         </ul>
                     </nav>
                     {% endif %}
-            </span>
+                </span>
         </div>
     </div>
-</div>

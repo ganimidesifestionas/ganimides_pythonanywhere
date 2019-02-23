@@ -1,11 +1,9 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-start w-100">
     <div class="d-flex flex-column">
-        <div class="d-flex justify-content-center">
-            <span style="white-space: nowrap;">
-                <h1>{{ WEBSITE_TITLE}}</h1>
-            </span>
+        <div class="d-flex justify-content-center p-0 m-0">
+            <h1 class="m-0 p-0">{{ WEBSITE_TITLE}}</h1>
         </div>
-        <div class="d-flex flex-row  p-0">
+        <div class="d-flex flex-row p-0">
             <div class="p-0">
                 <address class="xaddress_cell p-2  ">
                     4, vasilis michelides str.<br />
@@ -17,19 +15,21 @@
                     <div class="d-flex align-self-center ">
                         <strong>Telephone(s):&nbsp;</strong>
                     </div>
-                    <div class="d-flex  align-self-center" style="max-width:140px;white-space:normal">
+                    <div class="d-flex align-self-center" style="max-width:140px;white-space:normal">
                         <strong>{{COMPANY_PHONES}} {{COMPANY_PHONES}}</strong>
                     </div>
                 </div>
-                <address class="xaddress_cell p-2 ">
+                <address class="p-2 ">
                     <strong>Contact:</strong>&nbsp;<a class="email_link" href="mailto:{{CONTACT_EMAIL}}">{{CONTACT_EMAIL}}</a>&nbsp;
                     <br /><strong>Support:</strong>&nbsp;<a class="email_link" href="mailto:{{SUPPORT_EMAIL}}?subject=Request for Support">{{SUPPORT_EMAIL}}</a>&nbsp;
                     <br /><strong>Inquiry:</strong>&nbsp;<a class="email_link" href="mailto:{{INQUIRY_EMAIL}}?subject=Request for Iformation">{{INQUIRY_EMAIL}}</a>&nbsp;
                     <br /><strong>Marketing:</strong>&nbsp;<a class="email_link" href="mailto:{{COMPANY_CONTACT_EMAIL}}">{{COMPANY_CONTACT_EMAIL}}</a>&nbsp;
                 </address>
             </div>
-            <div class="picture p-2  align-self-center">
+            <!--hide on sm-->
+            <div class="flex-grow-1 d-none d-sm-none d-md-none d-lg-block justify-content-center align-self-center">
                 <!--
+                <div class="picture p-2 align-self-center">
                 Share a map or location On your computer, open Google Maps.
                 Go to the directions, map, or Street View image you want to share.
                 On the top left, click Menu .
@@ -37,14 +37,20 @@
                 Copy and paste the link wherever you want to share the map.
                 -->
                 <a target="_blank" href="https://www.google.co.uk/maps/place/Ganimides+Technologies/@35.1412804,32.8131458,9z/data=!4m5!3m4!1s0x14de198e814af39b:0x9b3bb69135e96c60!8m2!3d35.1408505!4d33.3734969">
-                    <img class="d-inline img-fluid mx-auto d-block company_location_picture_Nicosia" src="/static/images/location_nicosia.png" alt="{{COMPANY_NAME}}" />
+                    <img class="d-inline img-fluid company_location_picture_Nicosia" src="/static/images/location_nicosia.png" alt="{{COMPANY_NAME}}" />
                 </a>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-start">
             <p>
                 To begin a conversation, <a data-toggle="modal" href="#contactus_modal_form" class="button_contactus_intext">Contact Us &raquo;</a>
             </p>
+        </div>
+        <!--show on sm-->
+        <div class="d-block d-lg-none justify-content-center">
+            <a target="_blank" href="https://www.google.co.uk/maps/place/Ganimides+Technologies/@35.1412804,32.8131458,9z/data=!4m5!3m4!1s0x14de198e814af39b:0x9b3bb69135e96c60!8m2!3d35.1408505!4d33.3734969">
+            <img class="d-inline img-fluid mx-auto d-block company_location_picture_Nicosia" src="/static/images/location_nicosia.png" alt="{{COMPANY_NAME}}" />
+            </a>
         </div>
         <div class="d-flex justify-content-center">
             <div class="subscriber_form">

@@ -376,6 +376,14 @@ def cookiesconsentform(answer):
     flash('Thank You. Your data are protected', 'success')
     return redirect(session.get('lastpageURL'))
 
+@app.route('/test_cookiesconsent')
+def test_cookiesconsent():
+    dt = datetime.now() - timedelta(days=111)
+    strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+    session['cookies_consent_time'] = strdt
+    session['cookies_consent'] = 'NO'
+    return redirect(session.get('lastpageURL'))
+
 @app.route('/test_google_api')
 def test_google_api():
     page_name = 'terms and conditions'
