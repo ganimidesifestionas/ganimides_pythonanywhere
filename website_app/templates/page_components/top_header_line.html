@@ -37,8 +37,8 @@
             <nav class="navbar navbar-expand-md xnavbar-light w-100 justify-content-between p-0 m-0">
                 <!-- Toggler/collapsibe Button -->
                 <div class="d-flex">
-                    <button id="HeaderMenuButton" class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon ml-auto"></span>
+                    <button id="supportmenu-toggler" class="navbar-toggler supportmenu-toggler m-0 p-0" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="fas fa-align-justify"></span>
                     </button>
                 </div>
                 <!-- SUPPORT MENU  -->
@@ -82,24 +82,24 @@
                         <li class="{{help_active}} nav-item dropdown xsupport_menu_dropdown_list">
                             <a class="nav-link dropdown-toggle dropdown-toggle-split" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
                             <div class="dropdown-menu dropdown-menu-right p-0 m-0 support_menu_dropdown_list" aria-labelledby="helpDropdownList">
-                                <a class="dropdown-item" href="/myBank">MyBank</a>
-                                <a class="dropdown-item" href="{{url_for('myGame')}}">MyGame</a>
+                                <a class="dropdown-item p-1" href="/myBank">MyBank</a>
+                                <a class="dropdown-item p-1" href="{{url_for('myGame')}}">MyGame</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
+                                <a class="dropdown-item p-1" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">beautifull styles</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">beautifull styles</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="https://www.rocketlawyer.co.uk/">Rocket Lawyer</a>
-                                <a class="dropdown-item" href="https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp">bootstrap4</a>
-                                <a class="dropdown-item" href="https://summerofcode.withgoogle.com/?csw=1">Summer Code Project</a>
-                                <a class="dropdown-item" href="http://flask-sqlalchemy.pocoo.org/2.3/config/">SQLalchemy-config</a>
-                                <a class="dropdown-item" href="http://flask-sqlalchemy.pocoo.org/2.3/quickstart/">SQLalchemy-quickstart</a>
-                                <a class="dropdown-item" href="https://sqlalchemy-migrate.readthedocs.io/en/latest/download.html">SQLalchemy-migrate</a>
-                                <a class="dropdown-item" href="{{ url_for('test_cookiesconsent') }}">Test Cookies Consent</a>
+                                <a class="dropdown-item p-1" href="https://www.rocketlawyer.co.uk/">Rocket Lawyer</a>
+                                <a class="dropdown-item p-1" href="https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp">bootstrap4</a>
+                                <a class="dropdown-item p-1" href="https://summerofcode.withgoogle.com/?csw=1">Summer Code Project</a>
+                                <a class="dropdown-item p-1" href="http://flask-sqlalchemy.pocoo.org/2.3/config/">SQLalchemy-config</a>
+                                <a class="dropdown-item p-1" href="http://flask-sqlalchemy.pocoo.org/2.3/quickstart/">SQLalchemy-quickstart</a>
+                                <a class="dropdown-item p-1" href="https://sqlalchemy-migrate.readthedocs.io/en/latest/download.html">SQLalchemy-migrate</a>
+                                <a class="dropdown-item p-1" href="{{ url_for('test_cookiesconsent') }}">Test Cookies Consent</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
                             </div>
                         </li>
                         <!-- option-3:language -->
@@ -118,7 +118,7 @@
                                 {% for language in AVAILABLE_LANGUAGES.items() %}
                                 {% if CURRENT_LANGUAGE != language[0] %}
                                 {% set language_picture=flag_file(language[1][1]) %}
-                                <a class="dropdown-item" href="{{ url_for('set_language', language=language[0]) }}">
+                                <a class="dropdown-item p-1" href="{{ url_for('set_language', language=language[0]) }}">
                                     <img class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
                                 </a>
                                 {% endif %}

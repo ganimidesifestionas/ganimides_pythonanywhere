@@ -49,8 +49,8 @@
             <nav class="navbar navbar-expand-md xnavbar-light w-100 justify-content-center p-0 m-0">
                 <!-- Toggler/collapsibe Button -->
                 <div class="d-flex justify-content-center">
-                    <button id="GlobalMenuButton" class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#GlobalMenu" aria-controls="GlobalMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon ml-auto"></span>
+                    <button id="mainmenu-toggler" class="navbar-toggler mainmenu-toggler m-0 p-0" type="button" data-toggle="collapse" data-target="#GlobalMenu" aria-controls="GlobalMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="fas fa-align-justify"></span>
                     </button>
                 </div>
                 <!-- MAIN MENU collapsibleNavbar -->
@@ -65,27 +65,27 @@
                         <li class="{{services_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('services')}}">Services</a></li>
                         <li class="{{prototypes_is_active}} nav-item dropdown"><a title="our prototypes" class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Prototypes&nbsp;</a>
                             <div class="dropdown-menu dropdown-menu-right header_menu_dropdown_list" aria-labelledby="ProtoTypesDropdownList">
-                                <a class="dropdown-item" href="/myBank">MyBank</a>
-                                <a class="dropdown-item" href="{{url_for('myGame')}}">MyGame</a>
+                                <a class="dropdown-item p-1" href="/myBank">MyBank</a>
+                                <a class="dropdown-item p-1" href="{{url_for('myGame')}}">MyGame</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="{{url_for('research')}}">Research</a>
-                                <a class="dropdown-item" href="{{url_for('academy')}}">FinTec Academy</a>
-                                <a class="dropdown-item" href="{{url_for('services')}}">Services</a>
+                                <a class="dropdown-item p-1" href="{{url_for('research')}}">Research</a>
+                                <a class="dropdown-item p-1" href="{{url_for('academy')}}">FinTec Academy</a>
+                                <a class="dropdown-item p-1" href="{{url_for('services')}}">Services</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
+                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
                             </div>
                         </li>
                         <li class="{{about_is_active}} nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="AboutDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">About&nbsp;</a>
                             <div class="dropdown-menu dropdown-menu-right header_menu_dropdown_list" aria-labelledby="AboutDropdownList">
-                                <a class="dropdown-item" href="{{url_for('about')}}"><span class="glyphicon glyphicon-home"></span>About Us</a>
-                                <a class="dropdown-item" href="{{url_for('contact')}}">Contact</a>
+                                <a class="dropdown-item p-1" href="{{url_for('about')}}"><span class="glyphicon glyphicon-home"></span>About Us</a>
+                                <a class="dropdown-item p-1" href="{{url_for('contact')}}">Contact</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="{{url_for('terms_and_conditions')}}">Terms &amp; Conditions of use</a>
-                                <a class="dropdown-item" href="{{url_for('privacy_policy')}}">Privacy Policy</a>
-                                <a class="dropdown-item" href="{{url_for('cookies_policy')}}">Cookies Policy</a>
+                                <a class="dropdown-item p-1" href="{{url_for('terms_and_conditions')}}">Terms &amp; Conditions of use</a>
+                                <a class="dropdown-item p-1" href="{{url_for('privacy_policy')}}">Privacy Policy</a>
+                                <a class="dropdown-item p-1" href="{{url_for('cookies_policy')}}">Cookies Policy</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
                             </div>
                         </li>

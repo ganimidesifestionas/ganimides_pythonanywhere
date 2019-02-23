@@ -1,6 +1,6 @@
 <!--BEGIN: form:cookiesconsent.html-->
 {% set form_title='please accept our cookies' %}
-<form style="width:400px;" class="cookies-consent-page border border-light" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
+<form style="width:100%;" class="cookies-consent-page border border-light" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ cookiesconsentform.hidden_tag() }}
 

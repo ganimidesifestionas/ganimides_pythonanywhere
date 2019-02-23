@@ -466,9 +466,9 @@ p {
 }
 
 .support_menu_dropdown_list {
-    font-size: 1rem;
+    font-size: 1em;
     font-family: Inconsolata, Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
-    padding: 1px;
+    padding: 0px;
     color: green;
     font-weight: 900;
 }
@@ -544,20 +544,17 @@ p {
 
 .header_menu_dropdown_list a {
     color: blue;
-    font-weight: 600
+    font-weight: 900
 }
 
 .header_menu_dropdown_list a:link {
     color: blue;
-    font-weight: 600
+    font-weight: 900
 }
 
 .header_menu_dropdown_list a:hover {
-    background-color: #f90;
-    /*orange*/
     background-color: lightgray;
     color: #fff;
-    /*white*/
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     border: 0px solid gray;
     border-radius: 0px;
@@ -907,15 +904,17 @@ p {
     this code auto activates a drop down list on a dropdown-menu
     ============================================================
 */
-
+/*
 .dropdown:hover>.dropdown-menu {
     display: block;
 }
-
+*/
+/*
 .dropdown>.dropdown-toggle:active {
     pointer-events: none;
-    /*Add this, to prevent clicking dropdown's default click function*/
+    //Add this, to prevent clicking dropdown's default click function
 }
+*/
 
 .vertical-middle {
     vertical-align: middle;
@@ -1607,7 +1606,7 @@ hr {
 .copywrite_line {
     color: black;
     font-family: Inconsolata,Consolas, 'Segoe UI Light', Tangerine, serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-style: normal;
     font-weight: 900;
 }
@@ -2460,14 +2459,6 @@ hr {
 }
 */
 
-.custom-toggler.navbar-toggler {
-    border-color: black;
-    /* rgb(255,102,203);*/
-}
-
-.custom-toggler .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-}
 
 /*----------------------------------------*/
 
@@ -3448,4 +3439,48 @@ canvas {
 .button_linkpage:hover {
     color: white !important;
     background: blue !important;
+}
+
+.custom-toggler.navbar-toggler {
+    width: 30px;
+    height: 30px;
+    border-radius:4px;
+    background-color:lightgray;
+    color:blue;
+}
+
+.xcustom-toggler.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,255, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+.custom-toggler.navbar-toggler:hover {
+    border: 1px dotted orange;
+    background-color:lightgray;
+    color:red;
+}
+
+.mainmenu-toggler.navbar-toggler{
+    width: 30px;
+    height: 30px;
+    border-radius:4px;
+    background-color:lightgray;
+    color:blue;
+    font-weight:900
+}
+.mainmenu-toggler.navbar-toggler:hover {
+    border: 1px dotted orange;
+    background-color:lightgray;
+    color:red;
+}
+.supportmenu-toggler.navbar-toggler {
+    width: 30px;
+    height: 30px;
+    border-radius:4px;
+    background-color:lightgray;
+    color:orange;
+    font-weight:900
+}
+.supportmenu-toggler.navbar-toggler:hover {
+    border: 1px dotted orange;
+    background-color:lightgray;
+    color:red;
 }
