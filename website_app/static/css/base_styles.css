@@ -266,6 +266,24 @@ p {
     background-color: transparent;
 }
 
+.content-page .button_contactus_intext {
+    color: darkblue;
+    text-decoration: none;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    font-style: normal;
+}
+
+.content-page .button_contactus_intext:hover {
+    color: red;
+    font-weight: 900;
+    background-color: lightgray;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    border: 1px solid transparent;
+    border-radius: 2em;
+}
+
 /*
     ****************************************************
     ****************************************************
@@ -384,6 +402,23 @@ p {
     background-color: lightgray;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
+.document-page .button_contactus_intext {
+    color: darkblue;
+    text-decoration: none;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    font-style: normal;
+}
+
+.document-page .button_contactus_intext:hover {
+    color: red;
+    font-weight: 900;
+    background-color: lightgray;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    border-radius: 2em;
+}
+
 
 .table-page {
     color: black;
@@ -3365,25 +3400,20 @@ canvas {
 }
 
 .button_contactus_intext {
-    color: blue !important;
+    color: blue;
+    text-decoration: none;
     background-color: transparent;
     font-feature-settings: "liga";
     font-style: normal;
-    font-weight: 600;
-    text-decoration: none;
-    border: 0px !important;
-    padding: 0px!important;
 }
 
 .button_contactus_intext:hover {
-    color: red !important;
-    font-weight: 900 !important;
-    background-color: lightgray !important;
+    color: red;
+    font-weight: 900;
+    background-color: lightgray;
     text-decoration: none;
-    border: 0px !important;
-    padding: 2px 3px !important;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    border-radius: 4px;
+    border-radius: 2em;
 }
 
 .email_link {
@@ -3408,14 +3438,18 @@ canvas {
 }
 
 .button_learnmore {
+    font-size: 1em;
     background: orange !important;
     color: black !important;
     text-decoration: None !important;
     position: relative;
     overflow: hidden;
-    padding: 4px !important;
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
     margin: 1px !important;
-    border-radius: 4px !important;
+    border-radius: 2em !important;
     opacity: 1.5;
 }
 
