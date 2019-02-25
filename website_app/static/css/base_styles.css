@@ -229,17 +229,17 @@ p {
 
 .content-page h1 {
     font-weight: 900;
-    font-size: 2em;
-    margin-top: 1em;
-    margin-bottom: 0.2em;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    font-size: 1.5em;
+    margin-top: 0.05em;
+    margin-bottom: 0.05em;
+    #text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .content-page h2 {
     font-weight: 900;
-    font-size: 2em;
-    margin-top: 1em;
-    margin-bottom: 0.2em;
+    font-size: 0.1em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -3483,4 +3483,11 @@ canvas {
     border: 1px dotted orange;
     background-color:lightgray;
     color:red;
+}
+/*
+    #####################################################
+*/
+
+.color-orange{
+    color: #f08021 !important;
 }
