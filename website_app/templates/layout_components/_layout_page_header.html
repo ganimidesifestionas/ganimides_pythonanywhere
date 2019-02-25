@@ -1,5 +1,5 @@
 {% if page_image or page_title%}
-<div class="d-flex m-0 p-0 flex-column">
+<div class="d-flex m-0 p-0 flex-column w-100">
     <div class="d-flex flex-row align-self-start">
         <div class="d-flex p-0 m-0">
             {% if page_image %}
@@ -17,50 +17,20 @@
 {% else %}
 <div class="d-flex w-100 m-0 p-0 flex-column">
 {% endif %}
-        {% if page_image or page_title%}
-        <div class="d-flex justify-content-end p-0 m-0">
-        <span style="margin-top:-30px;margin-right:-15px">
-        {% else %}
-            <div class="d-flex w-100 justify-content-end p-0 m-0">
-            <span style="margin-top:0px;margin-left:0px">
-        {% endif %}
-
-                {% if link_pages > 0 %}
-                <nav class="navbar navbar-expand bg-transparent align-self-start align-items-center p-0 pt-0 pb-0 pr-0 mb-0 links_menu">
-                    <ul class="navbar-nav">
-                        {% for pageLink in LinkPagesArray %}
-                        {% if pageLink[0] %}
-                        {% if pageLink[3]=='button' %}
-                        <!-- d-none d-sm-block: display from small screens and up -->
-                        <li class="nav-item d-none d-sm-block">
-                            <a class="nav-link button_nextpage" href="{{url_for(pageLink[0])}}" class="button_intext">{{pageLink[1]}}&raquo;
-                            </a>
-                        </li>
-                        {% else %}
-                        <!-- d-none d-sm-block: display from small screens and up -->
-                        <li class="nav-item d-none d-sm-block">
-                            <a class="nav-link button_linkpage" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% endif %}
-                        {% endfor %}
-                        <!-- d-none d-sm-block: display from small screens and up -->
-                        {% if previous_page %}
-                        <li class="nav-item d-none d-sm-block">
-                            <a id="prevpage" class="nav-link button_previouspage" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
-                        </li>
-                        {% endif %}
-
-                        {% if next_page %}
-                        <li class="nav-item">
-                            <a id="learnmore" class="nav-link button_learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
-                        </li>
-                        {% endif %}
-
-                    </ul>
-                </nav>
-                {% endif %}
-            </span>
+    <div class="d-flex flex-row p-0 m-0">
+        <div class="col-sm-2">
         </div>
+        <div class="d-flex flex-grow-1 justify-content-end align-self-center p-0 m-0 links_menu">
+
+            {% if page_image or page_title %}
+            <span style="margin-top:-2rem">
+            {% else %}
+            <span style="margin-top:1rem">
+            {% endif%}
+
+            {% include include_files('pagelinks_menu.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+
+            </span>
+    </div>
+    </div>
 </div>

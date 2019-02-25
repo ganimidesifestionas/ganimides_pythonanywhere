@@ -510,6 +510,13 @@ p {
     margin:0px;
     /*border:1px solid blue;*/
 }
+.support_menu .nav-item {
+    padding-top:0em;
+    padding-bottom:0em;
+    padding-left:0em;
+    padding-right:0em;
+    /*border:1px solid red;*/
+}
 
 .support_menu .nav-link {
     padding-top:0.3em;
@@ -599,7 +606,13 @@ p {
     padding-right:0em;
     /*border:1px solid blue;*/
 }
-
+.header_menu .nav-item {
+    padding-top:0em;
+    padding-bottom:0em;
+    padding-left:0em;
+    padding-right:0em;
+    /*border:1px solid red;*/
+}
 .header_menu .nav-link {
     padding-top:0.3em;
     padding-bottom:0.3em;
@@ -690,6 +703,15 @@ p {
     padding-right:0em;
     /*border:1px solid blue;*/
 }
+
+.footer_menu .nav-item {
+    padding-top:0em;
+    padding-bottom:0em;
+    padding-left:0em;
+    padding-right:0em;
+    /*border:1px solid red;*/
+}
+
 .footer_menu .nav-link {
     padding-top:0.3em;
     padding-bottom:0.3em;
@@ -778,46 +800,62 @@ p {
 
 /*
     ============================================================
-    social media menu customizations
+    links menu
     ============================================================
 */
 
 .links_menu {
-    color: black;
-    /*good blue*/
+    color: #005293;
     background-color: transparent;
     font-family: Inconsolata, Montserrat, 'Open Sans', 'Segoe UI Black', Inconsolata, serif;
     font-feature-settings: "liga";
     font-style: normal;
-    font-weight: 600;
-    font-size: 11px;
+    font-weight: 900;
+    font-size: 0.7rem;
 }
 
 .links_menu a {
-    color: #005293;
-    /*good blue*/
-    font-weight: 600;
-    font-size: 11px;
-    padding: 2px;
+    text-decoration: none;
 }
 
 .links_menu a:link {
-    color: #005293;
-    /*good blue*/
-    font-weight: 600;
-    font-size: 11px;
-    padding: 2px;
+    text-decoration: none;
 }
 
 .links_menu a:hover {
     color: white;
-    /*text-shadow: 2px 2px 3px rgba(0,0,0,0.6);*/
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
     background-color: lightgray;
 }
 
 .links_menu li.active {
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    color: green ;
     border-bottom: 1px solid #f90;
+}
+
+.links_menu .navbar-nav {
+    padding-top:0em;
+    padding-bottom:0em;
+    padding-left:0em;
+    padding-right:0em;
+    /*border:1px solid blue;*/
+}
+
+.links_menu .nav-item {
+    padding-top:0em;
+    padding-bottom:0em;
+    padding-left:0em;
+    padding-right:0em;
+    /*border:1px solid red;*/
+}
+
+.links_menu .nav-link {
+    padding-top:0.3em;
+    padding-bottom:0.3em;
+    padding-left:0.3em;
+    padding-right:0.3em;
+    white-space: nowrap;
+    /*border:1px solid orange;*/
 }
 
 /*
@@ -2322,236 +2360,6 @@ hr {
     ****************************************************
 */
 
-.button_intext {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23', GradientType=0);
-    background-color: #ffec64;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    display: inline-block;
-    cursor: pointer;
-    color: black;
-    font-family: Inconsolata, Verdana, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 11px;
-    padding: 2px 2px;
-    font-weight: 900;
-    text-decoration: none;
-    white-space: nowrap;
-    margin: 1px
-}
-
-.button_intext:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-    background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64', GradientType=0);
-    background-color: #ffab23;
-    text-decoration: none;
-    color: black;
-}
-
-.button_intext:active {
-    position: relative;
-    top: 1px;
-}
-
-.button_intext a {
-    color: black;
-    /*good blue*/
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_intext a:link {
-    color: black;
-    /*good blue*/
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-/*
-.button_learnmore {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23', GradientType=0);
-    background-color: #ffec64;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    display: inline-block;
-    cursor: pointer;
-    color: black !important;
-    font-family: Inconsolata, Verdana, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif !important;
-    font-size: 11px !important;
-    padding: 2px 2px !important;
-    font-weight: 900;
-    text-decoration: none;
-    white-space: nowrap;
-    margin: 1px !important;
-}
-
-.button_learnmore:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-    background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64', GradientType=0);
-    background-color: #ffab23;
-    text-decoration: none;
-    color: black;
-}
-
-.button_learnmore a {
-    color: black;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_learnmore a:link {
-    color: black;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_learnmore:active {
-    position: relative;
-    top: 1px;
-}
-
-*/
-
-.button_back {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23', GradientType=0);
-    background-color: #ffec64;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    display: inline-block;
-    cursor: pointer;
-    color: black !important;
-    font-family: Inconsolata, Verdana, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif !important;
-    font-size: 11px !important;
-    padding: 2px 2px !important;
-    font-weight: 900;
-    text-decoration: none;
-    white-space: nowrap;
-    margin: 1px !important;
-}
-
-.button_back:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-    background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64', GradientType=0);
-    background-color: #ffab23;
-    color: black;
-    text-decoration: none;
-}
-
-.button_back:active {
-    position: relative;
-    top: 1px;
-}
-
-.button_back a:visited {
-    color: black;
-}
-
-.button_back a {
-    color: black !important;
-    /*good blue*/
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_back a:link {
-    color: black;
-    /*good blue*/
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-/*
-.button_contactus_intext {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffec64), color-stop(1, #ffab23));
-    background: -moz-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -webkit-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -o-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: -ms-linear-gradient(top, #ffec64 5%, #ffab23 100%);
-    background: linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffec64', endColorstr='#ffab23', GradientType=0);
-    background-color: #ffec64;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    display: inline-block;
-    cursor: pointer;
-    font-family: Inconsolata, Verdana, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    ;
-    padding: 2px 2px;
-    color: black;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_contactus_intext a {
-    color: black;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_contactus_intext a:link {
-    color: black;
-    font-weight: 900;
-    white-space: nowrap;
-}
-
-.button_contactus_intext:hover {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffab23), color-stop(1, #ffec64));
-    background: -moz-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -webkit-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -o-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: -ms-linear-gradient(top, #ffab23 5%, #ffec64 100%);
-    background: linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffab23', endColorstr='#ffec64', GradientType=0);
-    background-color: #ffab23;
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.button_contactus_intext:active {
-    position: relative;
-    top: 1px;
-    white-space: nowrap;
-}
-*/
-
 
 /*----------------------------------------*/
 
@@ -3008,45 +2816,6 @@ canvas {
   */
 
 /*
-.button_contactus_intext body {
-    margin:0;
-    padding:0;
-}
-.button_contactus_intext a {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    padding:10px 30px;
-    background:#fff;
-    border:2px solid #262626;
-    font-family:sans-serif;
-    color:#262626;
-    text-decoration:none;
-    text-transform:uppercase;
-    font-size:24px;
-    display:block;
-    overflow:hidden;
-}
-.button_contactus_intext a:before {
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:#ff0ff0;
-    z-index:-1;
-    transform-origin: bottom left;
-    transform:rotate(-90deg);
-    transition:0.5s;
-}
-.button_contactus_intext a:hover:before {
-    transform:rotate(0deg);
-}
-*/
-
-/*
 ==========================================
 */
 
@@ -3232,38 +3001,6 @@ canvas {
 
 /*=========================*/
 
-/* //// Default effect: Slide from Top  //// */
-
-/*
-  .button_learnmore:before,
-  .button_learnmore:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    z-index: -1;
-    transition: all .5s;
-  }
-*/
-
-/*
-  .button_learnmore:hover:after{
-    transform: translate3D(0,0,0);
-    transition: all .5s;
-  }
-  .button_learnmore:before{
-    background: #007bff;
-  }
-  .button_learnmore:after{
-    background: #0000005a;
-  }
-  .button_learnmore:hover{
-    background: #025ec1;
-  }
-*/
 
 /*
     ##############################################################
@@ -3437,23 +3174,143 @@ canvas {
     border-radius: 4px;
 }
 
-.button_learnmore {
-    font-size: 1em;
+/*
+    generic link button
+*/
+.link_button {
+    font-size: 0.7rem;
     background: orange !important;
     color: black !important;
     text-decoration: None !important;
     position: relative;
     overflow: hidden;
-    padding-top: 3px !important;
-    padding-bottom: 3px !important;
-    padding-left: 6px !important;
-    padding-right: 6px !important;
-    margin: 1px !important;
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+    padding-left: 1.5em !important;
+    padding-right: 1.5em !important;
+    margin: 2px !important;
+    margin-right: 0px !important;
     border-radius: 2em !important;
-    opacity: 1.5;
+    opacity: 1.5 !important;
+    border:1px solid gray !important;
+}
+.link_button:hover {
+    color: white !important;
+    background: blue !important;
+}
+
+/* //// Default effect: Slide from Top  //// */
+
+  .link_button:before,
+  .link_button:after{
+    content: '' !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: -1;
+    transition: all .5s;
+  }
+
+  .link_button:hover:after{
+    transform: translate3D(0,0,0);
+    transition: all .5s;
+  }
+  .link_button:before{
+    background: #007bff;
+  }
+  .link_button:after{
+    background: #0000005a;
+  }
+  .link_button:hover{
+    background: #025ec1;
+  }
+
+/*
+@-webkit-keyframes backgroundScroll {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -99999999px 0;
+    }
+  }
+  
+  @keyframes backgroundScroll {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -99999999px 0;
+    }
+  }
+*/
+/*
+.link_button .navbar-nav {
+    padding-top:0em;
+    padding-bottom:0em;
+    padding-left:0em;
+    padding-right:0em;
+    margin:0px;
+    border:1px solid blue;
+}
+
+.link_button .nav-link {
+    padding-top:0.3em;
+    padding-bottom:0.3em;
+    padding-left:0.2em;
+    padding-right:0.2em;
+    border:1px solid orange;
+    white-space: nowrap;
+}
+.link_button .nav-item {
+    padding-top:0.3em;
+    padding-bottom:0.3em;
+    padding-left:0.2em;
+    padding-right:0.2em;
+    border:1px solid red;
+    white-space: nowrap;
+}
+*/
+
+
+.button_learmore {
+    background: orange !important;
 }
 
 .button_learnmore:hover {
+    color: white !important;
+    background: blue !important;
+}
+
+.button_nextpage {
+    background: orange !important;
+}
+
+.button_nextpage:hover {
+    color: white !important;
+    background: blue !important;
+}
+
+.button_previouspage {
+    background: lightgray !important;
+    color: black !important;
+}
+
+.button_previouspage:hover {
+    color: white !important;
+    background: blue !important;
+}
+
+.button_linkpage {
+    background: transparent !important;
+    color: blue !important;
+    font-weight: 900 !important;
+}
+
+.button_linkpage:hover {
     color: white !important;
     background: blue !important;
 }
@@ -3479,60 +3336,9 @@ canvas {
     border-radius: 4px;
 }
 
-.button_nextpage {
-    background: orange !important;
-    color: black !important;
-    text-decoration: None !important;
-    font-weight: 900 !important;
-    position: relative;
-    overflow: hidden;
-    padding: 4px !important;
-    margin: 1px !important;
-    border-radius: 4px !important;
-    opacity: 1.5;
-}
-
-.button_nextpage:hover {
-    color: white !important;
-    background: blue !important;
-}
-
-.button_previouspage {
-    background: lightgray !important;
-    color: black !important;
-    font-weight: 900 !important;
-    text-decoration: None !important;
-    position: relative;
-    overflow: hidden;
-    padding: 4px !important;
-    margin: 1px !important;
-    border-radius: 4px !important;
-    opacity: 1.5;
-}
-
-.button_previouspage:hover {
-    color: white !important;
-    background: blue !important;
-}
-
-.button_linkpage {
-    background: transparent !important;
-    color: blue !important;
-    font-weight: 900 !important;
-    text-decoration: None !important;
-    position: relative;
-    overflow: hidden;
-    padding: 4px !important;
-    margin: 1px !important;
-    border-radius: 4px !important;
-    opacity: 1.5;
-}
-
-.button_linkpage:hover {
-    color: white !important;
-    background: blue !important;
-}
-
+/*
+    ***************************
+    */
 .custom-toggler.navbar-toggler {
     width: 30px;
     height: 30px;

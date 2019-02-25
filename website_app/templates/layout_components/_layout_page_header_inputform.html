@@ -1,60 +1,34 @@
-<div class="d-flex w-100 m-0 p-0 flex-row border border-primary">
-        <div class="d-flex align-self-start border-secondary">
-            <div class="d-flex p-0 m-0 border">
-                {% if page_image %}
-                <img src={{page_image}} class="page-image_icon" />
-                {% endif %}
-            </div>
-            <div class="d-flex border">
-                {% if page_title %}
-                <div class="align-self-center">
-                    <h1 class="page_title">{{page_title}}</h1>
-                </div>
-                {% endif %}
-            </div>
+{% if page_image or page_title%}
+<div class="d-flex m-0 p-0 flex-column w-100">
+    <div class="d-flex flex-row align-self-start">
+        <div class="d-flex p-0 m-0">
+            {% if page_image %}
+            <img src={{page_image}} class="page-image_icon" />
+            {% endif %}
         </div>
-        <div class="d-flex flex-grow-1 justify-content-end p-0 m-0 border border-danger">
-            {% if page_image or page_title%}
-            <span style="margin-top:70px;margin-left:-80px">
-                {% else %}
-                <span style="margin-top:0px;margin-left:200px">
-                    {% endif %}
-                    {% if link_pages > 0 %}
-                    <nav class="navbar navbar-expand bg-transparent align-self-start align-items-center p-0 pt-0 pb-0 pr-0 mb-2 links_menu border">
-                        <ul class="navbar-nav">
-                            {% for pageLink in LinkPagesArray %}
-                            {% if pageLink[0] %}
-                            {% if pageLink[3]=='button' %}
-                            <!-- d-none d-sm-block: display from small screens and up -->
-                            <li class="nav-item d-none d-sm-block">
-                                <a class="nav-link button_nextpage" href="{{url_for(pageLink[0])}}" class="button_intext">{{pageLink[1]}}&raquo;
-                                </a>
-                            </li>
-                            {% else %}
-                            <!-- d-none d-sm-block: display from small screens and up -->
-                            <li class="nav-item d-none d-sm-block">
-                                <a class="nav-link button_linkpage" href="{{url_for(pageLink[0])}}" class="">{{pageLink[1]}}&raquo;
-                                </a>
-                            </li>
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
-                            <!-- d-none d-sm-block: display from small screens and up -->
-                            {% if previous_page %}
-                            <li class="nav-item d-none d-sm-block">
-                                <a id="prevpage" class="nav-link button_previouspage" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
-                            </li>
-                            {% endif %}
-    
-                            {% if next_page %}
-                            <li class="nav-item">
-                                <a id="learnmore" class="nav-link button_learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
-                            </li>
-                            {% endif %}
-    
-                        </ul>
-                    </nav>
-                    {% endif %}
-                </span>
+        <div class="d-flex">
+            {% if page_title %}
+            <div class="align-self-center">
+                <h1 class="page_title">{{page_title}}</h1>
+            </div>
+            {% endif %}
         </div>
     </div>
+{% else %}
+<div class="d-flex w-100 m-0 p-0 flex-column">
+{% endif %}
+    <div class="d-flex flex-row p-0 m-0">
+        <div class="col-sm-2">
+        </div>
+        <div class="d-flex flex-grow-1 justify-content-end align-self-center p-0 m-0 links_menu">
+                {% if page_image or page_title %}
+                <span style="margin-top:-40px">
+                {% endif%}
+
+            {% include include_files('pagelinks_menu.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+            {% if not page_image and  not page_title%}
+                </span>
+            {% endif%}
+    </div>
+    </div>
+</div>
