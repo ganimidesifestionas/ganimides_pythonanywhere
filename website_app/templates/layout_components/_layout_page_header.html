@@ -6,7 +6,7 @@
             <img src={{page_image}} class="page-image_icon" />
             {% endif %}
         </div>
-        <div class="d-flex">
+        <div class="d-flex xjumbotron">
             {% if page_title %}
             <div class="align-self-center">
                 <h1 class="page_title">{{page_title}}</h1>
@@ -21,11 +21,10 @@
         <div class="col-sm-2">
         </div>
         <div class="d-flex flex-grow-1 justify-content-end align-self-center p-0 m-0 links_menu">
-
             {% if page_image or page_title %}
-            <span style="margin-top:-2rem">
+            <span style="margin-top:-1rem">
             {% else %}
-            <span style="margin-top:1rem">
+            <span style="margin-top:0rem">
             {% endif%}
 
             {% include include_files('pagelinks_menu.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}

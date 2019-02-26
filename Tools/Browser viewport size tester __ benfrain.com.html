@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)http://www.benfrain.com/downloads/respond.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Browser viewport size tester // benfrain.com</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+</head>
+<body>
+<script src="./Browser viewport size tester __ benfrain.com_files/jquery-latest.js.download"></script>
+<script>
+     $(document).ready(function(e) {
+   showViewportSize();    
+});
+$(window).resize(function(e) {
+   showViewportSize();
+});
+function showViewportSize() {
+   var the_width = $(window).width();
+   var the_height = $(window).height();                   
+   $('#width').text(the_width);
+   $('#height').text(the_height);
+}
+    </script>
+<h1>The benfrain.com super simple, what size is my viewport page?</h1>
+<h2>Viewport Width:</h2>
+<p id="width">963</p>
+<h2>Viewport Height:</h2>
+<p id="height">674</p>
+
+</body></html>

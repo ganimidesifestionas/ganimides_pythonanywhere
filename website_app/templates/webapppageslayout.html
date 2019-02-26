@@ -25,10 +25,14 @@
 
 <!DOCTYPE html>
 <html lang="en" class="gr__getbootstrap_com">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    -->
     <meta name="description" content="ganimides business technology management">
     <meta name="keywords" content="business, technology, strategy, digital, transformation, development, innovation, fintec, banking">
     <meta name="author" content="philippos leandrou">
@@ -54,7 +58,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     <!------ Include the above in your HEAD tag ---------->
 
     <!-- MATERIALIZE -->
@@ -90,9 +95,79 @@
 </head>
 
 <body data-gr-c-s-loaded="true">
+    <script src="./Browser viewport size tester __ benfrain.com_files/jquery-latest.js.download"></script>
+    <script>
+        $(document).ready(function (e) {
+            showViewportSize();
+        });
+        $(window).resize(function (e) {
+            showViewportSize();
+        });
+        function showViewportSize() {
+            var the_width = $(window).width();
+            var the_height = $(window).height();
+            $('#width').text(the_width);
+            $('#height').text(the_height);
+        }
+        function showMobile() {
+            alert("shalimar")
+            document.width = "356px";
+
+            id = "ganimideshtml"
+            //var mobileDiv=
+            //var mobileDiv= document.querySelector('#ganimedeshtml');
+            //mobileDiv.style.width = "356px";
+            // Get child Elements and add css according to your responsive need
+            // eg
+            //var childElement1 = document.querySelector(".just-example-child-element");
+            //childElement1.style.width = "50%";
+            //childElement1.style.fontSize = "15px";
+            //childElement1.style.margin = "15px";      
+
+            // And so on
+        }
+        function setViewportSize(w, h) {
+            alert('w=' + w + ' h=' + h);
+            $(window).resizeTo(w, h);
+        }
+        function quarter() {
+            window.resizeTo(
+              window.screen.availWidth / 2,
+              window.screen.availHeight / 2
+            );
+        }
+        function setwindowsize(win, w, h) {
+            alert('w=' + w + ' h=' + h);
+            window.resizeTo(w, h);
+            window.focus();
+        }
+    </script>
 
     <header>
         <!--header is here-->
+        <!--<h1>The benfrain.com super simple, what size is my viewport page?</h1>-->
+        <table class="table table-sm p-0 m-0" style="width:auto">
+            <tbody>
+                <tr>
+                    <th>width:</th>
+                    <td id="width">963</td>
+                    <th>height:</th>
+                    <td id="height">674</td>
+                    <th>mobile1:</th>
+                    <td>320x480</td>
+                    <th>mobile2:</th>
+                    <td>640x960</td>
+                    <th>ipad:</th>
+                    <td>1024x768</td>
+                    <!--
+                        <td>
+                            <a href="#" onClick="javascript:setViewportSize(400,400);">test</a>
+                            <a href="#" onClick="quarter();">test2</a>
+                        </td>
+                    -->
+                </tr>
+            </tbody>
+        </table>
     </header>
     <div class="d-flex p-12 bg-white text-black">
         <div class="w-10 bg-white text-black justify-content-start">
@@ -187,7 +262,7 @@
     </script>
     {% endif %}
     {% endif %}
-<!--
+    <!--
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -268,6 +343,16 @@
     </script>
     💪💜👻
     -->
+    <script>
+        jQuery(function ($) {
+            setwindowsize(w, h);
+            function setwindowsize() {
+                window.resizeTo(w, h);
+            }
+        });
+    </script>
+
+
     {% block scripts %}{% endblock %}
 </body>
 

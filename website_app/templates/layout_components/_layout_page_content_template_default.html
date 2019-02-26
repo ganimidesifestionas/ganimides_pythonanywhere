@@ -48,10 +48,10 @@
             </div>
 
             <!--5:page-content-->
-            <div class="d-flex justify-content-center content-page">
-                <div class="d-flex w-100">
+            <div class="d-flex justify-content-center content-page  xjumbotron xjumbotron-fluid">
+                <div class="d-flex flex-row w-100">
                     <!--5L:page-content-left-->
-                    <div class="">
+                    <div class="d-flex">
                         {% if page_inpage_image_left %}
                         {% include LAYOUTS_FOLDER+version_file("_layout_page_image_inpage_left.html",execution_mode,design_type,design_version) %}
                         {% endif %}
@@ -60,18 +60,37 @@
                         {% endif %}
                     </div>
                     <!--5C:page-content-center-->
-                    <div class="flex-grow-1">
+                    <div class="xflex-grow-1">
                         {% include [language_page_file(content_page,CURRENT_LANGUAGE,active_module), page_file(content_page,active_module)] %}
                     </div>
                     <!--5R:page-content-right-->
-                    <div class="justify-content-start">
+                    <div class="d-flex xjustify-content-start">
                         {% if page_content_right %}
                         {% include page_content_right ignore missing %}
                         {% endif %}
                     </div>
                 </div>
             </div>
-
+            <!--
+            <div class="container">
+                    <div class="spinner-grow text-muted"></div>
+                    <div class="spinner-grow text-primary"></div>
+                    <div class="spinner-grow text-success"></div>
+                    <div class="spinner-grow text-info"></div>
+                    <div class="spinner-grow text-warning"></div>
+                    <div class="spinner-grow text-danger"></div>
+                    <div class="spinner-grow text-secondary"></div>
+                    <div class="spinner-grow text-dark"></div>
+                    <div class="spinner-grow text-light"></div>
+                    <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                          </ul>                    
+            </div>
+        -->  
             <!--6:page-summary-pages-image-or-carousel-->
             <div class="d-flex justify-content-center">
                 {% if page_bottom_image %}

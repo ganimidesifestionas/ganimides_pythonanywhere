@@ -54,12 +54,12 @@ html, body {
 }
 
 header {
-    color: red;
-    background-color: green;
+    color: black;
+    background-color:wheat;
     font-family: Inconsolata, Consolas, Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 900;
     font-feature-settings: "liga";
 }
 
@@ -67,7 +67,7 @@ footer {
     color: red;
     background-color: blue;
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -236,8 +236,9 @@ p {
 }
 
 .content-page h2 {
+    font-family: Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
-    font-size: 0.1em;
+    font-size: 1.2em;
     margin-top: 0.1em;
     margin-bottom: 0.1em;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -402,6 +403,7 @@ p {
     background-color: lightgray;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
+
 .document-page .button_contactus_intext {
     color: darkblue;
     text-decoration: none;
@@ -1593,48 +1595,50 @@ hr {
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1em;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 900;
     font-feature-settings: "liga";
 }
 
-.summary-cell>p {
+.summary-cell p {
     text-align: justify;
     font-weight: 600;
-    padding: 1px
+    xpadding: 1px
 }
 
-.summary-cell>h1 {
-    font-size: 1em;
-    font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
+.summary-cell h1 {
+    color:black;
+    font-size: 1.2em;
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-weight: 900;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 0.02em;
+    margin-bottom:0.02em;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
-.summary-cell>h2 {
+.summary-cell h2 {
     font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    xmargin-top: 2px;
+    xmargin-bottom: 2px;
 }
 
-.summary-cell>h3 {
+.summary-cell h3 {
     font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    margin-top: 2px;
-    margin-bottom: 2px;
+    xmargin-top: 2px;
+    xmargin-bottom: 2px;
 }
 
-.summary-cell>h4 {
+.summary-cell h4 {
     font-size: 1em;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-    margin-top: 2px;
-    margin-bottom: 2px;
+    xmargin-top: 2px;
+    xmargin-bottom: 2px;
 }
 
 .address_cell {
@@ -3315,18 +3319,20 @@ canvas {
     background: blue !important;
 }
 
-.button_learnmore_intext {
+.button_learnmore_intextx {
     color: blue !important;
-    background-color: transparent;
+    background-color: white;
     font-feature-settings: "liga";
     font-style: normal;
     font-weight: 900;
     text-decoration: none;
     border: 0px !important;
     padding: 0px!important;
+    border-radius: 4px;
+    border: 1px solid black;
 }
 
-.button_learnmore_intext:hover {
+.button_learnmore_intextx:hover {
     color: red !important;
     font-weight: 900 !important;
     background-color: gray !important;
@@ -3334,6 +3340,27 @@ canvas {
     padding: 2px 3px !important;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     border-radius: 4px;
+}
+.button_learnmore_intext {
+    font-size: 0.7rem;
+    background: white !important;
+    color: blue !important;
+    text-decoration: None !important;
+    position: relative;
+    overflow: hidden;
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+    padding-left: 1.5em !important;
+    padding-right: 1.5em !important;
+    margin: 2px !important;
+    margin-right: 0px !important;
+    border-radius: 2em !important;
+    opacity: 1.5 !important;
+    border:1px solid gray !important;
+}
+.button_learnmore_intext:hover {
+    color: white !important;
+    background: blue !important;
 }
 
 /*
@@ -3388,4 +3415,27 @@ canvas {
 
 .color-orange{
     color: #f08021 !important;
+}
+
+.video_button {
+    font-size: 0.7em;
+    font-weight: 900;
+    background: lightgray !important;
+    color: black !important;
+    text-decoration: None !important;
+    position: relative;
+    overflow: hidden;
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+    padding-left: 0.7em !important;
+    padding-right: 0.7em !important;
+    margin: 1px !important;
+    margin-right: 0px !important;
+    border-radius: 1.5em !important;
+    opacity: 1.5 !important;
+    border:1px solid gray !important;
+}
+.video_button:hover {
+    color: white !important;
+    background: orange !important;
 }

@@ -1,46 +1,8 @@
 {% set video_file = video_file('Did_You_Know_2016.mp4') %}
-<div class="d-flex flex-column justify-content-start ">
-    <video id="video1" width="420" xautoplay class="d-none d-sm-none d-md-block d-lg-block">
-        <source src="{{video_file}}" type="video/mp4">
-        <source src="mov_bbb.ogg" type="video/ogg">
-        Your browser does not support HTML5 video.
-    </video>
-    <!--hide on sm-->
-    <div class="d-none d-sm-none d-md-none d-lg-block">
-    <button class="btn btn-sm btn-light" onclick="playPause()">Play/Pause</button>
-    <button class="btn btn-sm btn-light" onclick="makeBig()">Big</button>
-    <button class="btn btn-sm btn-light" onclick="makeSmall()">Small</button>
-    <button class="btn btn-sm btn-light" onclick="makeNormal()">Normal</button>
-    <!--<p>Video courtesy of <a href="https://www.bigbuckbunny.org/" target="_blank">Big Buck Bunny</a>.</p>-->
-    <a class="btn btn-sm btn-light" href="{{video_file}}" download>Download</a>
-    </div>    
+{% set video_title = 'now You know Why...' %}
+{% set video_position = 'align-self-center' %}
+<div class="{{video_position}}">
+    <div class="d-none d-sm-none d-md-block">
+        {% include include_files('video_play.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    </div>
 </div>
-
-<script>
-    var myVideo = document.getElementById("video1");
-
-    function playPause() {
-        if (myVideo.paused)
-            myVideo.play();
-        else
-            myVideo.pause();
-    }
-
-    function makeBig() {
-        myVideo.width = 560;
-    }
-
-    function makeSmall() {
-        myVideo.width = 320;
-    }
-
-    function makeNormal() {
-        myVideo.width = 420;
-    } 
-</script>
-<!--
-<video width="320" height="240" autoplay>
-    <source src="{{video_file}}" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
--->
