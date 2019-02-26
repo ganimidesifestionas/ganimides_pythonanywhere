@@ -1588,7 +1588,7 @@ hr {
     /*flex:1;*/
     /* additionally, equal width */
     padding: 0.5em;
-    border: 2px solid black;
+    xborder: 2px solid black;
     border-radius: 6px;
     background-color: lightgray;
     color: black;
@@ -1597,6 +1597,8 @@ hr {
     font-style: normal;
     font-weight: 900;
     font-feature-settings: "liga";
+    margin: 0.2em;
+    height:100%
 }
 
 .summary-cell p {
@@ -3015,7 +3017,7 @@ canvas {
     background-color: white;
     /*#f8f9fa;*/
     height: auto;
-    width: 400px;
+    width: 370px;
     line-height: unset;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
     font-feature-settings: "liga";
@@ -3353,7 +3355,7 @@ canvas {
     padding-left: 1.5em !important;
     padding-right: 1.5em !important;
     margin: 2px !important;
-    margin-right: 0px !important;
+    margin-right: 0.7em !important;
     border-radius: 2em !important;
     opacity: 1.5 !important;
     border:1px solid gray !important;

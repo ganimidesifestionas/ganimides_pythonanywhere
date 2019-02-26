@@ -31,6 +31,9 @@
 {% if page_logo %}
 {% set page_image = image_file(page_logo) %}
 {%endif%}
+{% if intext_image %}
+{% set page_intext_image = image_file(intext_image) %}
+{%endif%}
 
 {% set page_top_image_file = "" %}
 {% set page_inpage_image_file = "" %}
@@ -44,6 +47,9 @@
 
 {% if page_inpage_image_left %}
 {% set page_inpage_image_left_file = image_file(page_inpage_image_left) %}
+{% endif %}
+{% if page_inpage_image_right %}
+{% set page_inpage_image_right_file = image_file(page_inpage_image_right) %}
 {% endif %}
 
 {% if page_inpage_image %}
