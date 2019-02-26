@@ -22,9 +22,8 @@
         {% set ns.row=ns.row+1 %}
 
         {% if loop.first %}
-            <div class="container bg-transparent col-sm-12">
-                    <div class="row">
-                            {% endif %}
+            <div class="d-flex flex-wrap bg-transparent w-100 mt-2">
+        {% endif %}
 
         {% set cellwidthN=12/ns.rowCells %}
         {# set cellwidth="col-"+str(cellwidthN) #}
@@ -54,16 +53,17 @@
 
                 {% set subpage_file = page_file(cell) %}
                 {% set language_subpage_file=language_file(subpage_file,CURRENT_LANGUAGE) %}
-                <div class="col-sm-4 m-0 p-1">
-                        <div class="summary-cell">
+                <div class="d-flex {{cellwidth}} p-0">
+                        <div class="d-flex flex-column {{cellmargin}} {{ns.rowmargin}} w-100 align-content-stretch">
+                            <div class="flex-grow-1 summary-cell">
                                 {% include [language_subpage_file,subpage_file] %}
+                            </div>
+                        </div>
                 </div>
-            </div>
             {% endif %}
         {% endfor %}
         {% if loop.last %}
             </div>
-        </div>
         {% endif %}
     {% endif %}
 {% endfor %}
