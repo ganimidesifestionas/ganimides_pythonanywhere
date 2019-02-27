@@ -1724,18 +1724,18 @@ hr {
     ****************************************************
 */
 
-.top_navigation_line {
+.top_information_line {
     color: orange;
     font-family: Inconsolata,Consolas,'Segoe UI Light', Tangerine, serif;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 900;
 }
 
-.top_navigation_line_counter {
+.top_information_line_counter {
     color: Green;
     font-family: Inconsolata,Consolas,'Segoe UI Light', Tangerine, serif;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 900;
 }
@@ -1743,7 +1743,7 @@ hr {
 .internal_use_line {
     color: orange;
     font-family: Inconsolata,Consolas,'Segoe UI Light', Tangerine, serif;
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-style: normal;
     text-align: center;
     font-weight: 900;

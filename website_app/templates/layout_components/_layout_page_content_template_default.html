@@ -4,11 +4,12 @@
 {% set page_summary_pages="_layout_page_summary_pages.html" %}
 {% set page_summary_pages_design="" %}
 {% set page_summary_pages_version="" %}
+
 <!---
 <canvas id="canvas"></canvas> #
 -->
-      
-<div class="d-flex flex-column justify-content-start col-12 border border-danger m-0 p-0 content-page">
+
+<div class="d-flex flex-column justify-content-start col-12 m-0 p-0 content-page">
 
     <!--0:page-top_information_line -->
     <div class="m-0 p-0">
@@ -18,65 +19,55 @@
     <div class="d-flex flex-column justify-content-start col-12 m-0 p-0">
 
         <!--1:messages-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-between border border-secondary m-0 p-0">
-            <div class="d-flex border border-success mr-2">
-                message-left
+        <div class="d-flex flex-wrap flex-row content-page justify-content-between m-0 p-0">
+            <div class="d-flex mr-2">
+                <!--message-left-->
             </div>
-            <div class="d-flex border border-success">
-                {#% include include_files('messages_display_excepterrors.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %#}
-                message-center
+            <div class="d-flex">
+                <!--message-center-->
+                {% include include_files('messages_display_excepterrors.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
             </div>
-            <div class="d-flex border border-success ml-2">
-                message-right
+            <div class="d-flex ml-2">
+                <!--message-right-->
             </div>
         </div>
 
         <!--2:page-top-image-or-carousel-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
-            <div class="d-flex border border-success">
+        <div class="d-flex flex-wrap flex-row content-page justify-content-center">
+            <div class="d-flex">
                 {% if page_top_left %}
                 {% include include_files(page_top_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_top_left
                 {% endif %}
             </div>
-            <div class="d-flex border border-success">
-                <div class="container border border-danger">
+            <div class="d-flex">
+                <div class="container">
                     {% if page_top_center %}
                     {% include include_files(page_top_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_top_center
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success">
+            <div class="d-flex">
                 {% if page_top_right %}
                 {% include include_files(page_top_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_top_right
                 {% endif %}
             </div>
         </div>
 
         <!--3:page-header:page-logo,title,buttons-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
-            <div class="d-flex border border-success align-items-center">
+        <div class="d-flex flex-wrap flex-row content-page justify-content-center">
+            <div class="d-flex align-items-center">
                 {% if page_image %}
                 <img src={{page_image}} class="page-image_icon" />
-                {% else %}
-                page_image
                 {% endif %}
             </div>
-            <div class="d-flex border border-success align-items-center">
+            <div class="d-flex   align-items-center">
                 <div class="container">
                     {% if page_title %}
                     <h1 class="page_title">{{page_title}}</h1>
-                    {% else %}
-                    page_title
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success align-items-end">
+            <div class="d-flex align-items-end">
                 <div class="d-flex flex-row p-0 m-0">
                     <div class="col-sm-1">
                     </div>
@@ -97,175 +88,137 @@
 
         <!--4:content-top -->
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="d-flex border border-success">
-                {% if page_content_top_left %}
-                {% include include_files(page_content_top_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_content_top_left
+            <div class="d-flex">
+                {% if content_page_top_left %}
+                {% include include_files(content_page_top_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
-            <div class="d-flex border border-success">
-                <div class="container border border-danger">
-                    {% if page_content_top_center %}
-                    {% include include_files(page_content_top_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_content_top_center
+            <div class="d-flex">
+                <div class="container">
+                    {% if content_page_top_center %}
+                    {% include include_files(content_page_top_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success">
-                {% if page_content_top_right %}
-                {% include include_files(page_content_top_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_content_top_right
+            <div class="d-flex">
+                {% if content_page_top_right %}
+                {% include include_files(content_page_top_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
         </div>
 
         <!--5:page-content-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
-            <div class="xd-flex border border-success">
-                {% if page_content_left %}
-                {% include include_files(page_content_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_content_left
+        <div class="d-flex flex-wrap flex-row content-page justify-content-center">
+            <div class="">
+                {% if content_page_left %}
+                {% include include_files(content_page_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
-            <div class="d-flex flex-column border border-success">
-                <div class="container border border-danger">
+            <div class="d-flex flex-column">
+                <div class="container">
                     {% if content_page %}
                     {% include include_files(content_page,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_content
                     {% endif %}
                 </div>
-                <div class="d-flex justify-content-end border border-success">
+                <div class="d-flex justify-content-end">
                     {% if contactus_button %}
                     <p>
                         To begin a conversation, <a data-toggle="modal" href="#contactus_modal_form" class="button_contactus">Contact Us &raquo;</a>
                     </p>
-                    {% else %}
-                    contact us button
                     {% endif %}
                 </div>
             </div>
-            <div class="xd-flex border border-success">
-                {% if xpage_content_right %}
-                {% include include_files(page_content_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_content_right
+            <div class="">
+                {% if content_page_right %}
+                {% include include_files(content_page_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
         </div>
         <!--6:content-bottom-->
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="d-flex border border-success">
-                {% if page_content_bottom_left %}
-                {% include include_files(page_content_bottom_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_content_bottom_left
+            <div class="d-flex">
+                {% if content_page_bottom_left %}
+                {% include include_files(content_page_bottom_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
-            <div class="d-flex border border-success">
-                <div class="container border border-danger">
-                    {% if page_content_bottom_center %}
-                    {% include include_files(page_content_bottom_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_content_bottom_center
+            <div class="d-flex">
+                <div class="container">
+                    {% if content_page_bottom_center %}
+                    {% include include_files(content_page_bottom_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success">
-                {% if page_content_bottom_right %}
-                {% include include_files(page_content_bottom_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_content_bottom_right
+            <div class="d-flex">
+                {% if content_page_bottom_right %}
+                {% include include_files(content_page_bottom_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
         </div>
 
         <!--7:summary-top-->
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="d-flex border border-success">
+            <div class="d-flex">
                 {% if page_summary_top_left %}
                 {% include include_files(page_summary_top_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_summary_top_left
                 {% endif %}
             </div>
-            <div class="d-flex border border-success">
-                <div class="container border border-danger">
+            <div class="d-flex">
+                <div class="container">
                     {% if page_summary_top_center %}
                     {% include include_files(page_summary_top_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_summary_top_center
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success">
+            <div class="d-flex">
                 {% if page_summary_top_right %}
                 {% include include_files(page_summary_top_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_summary_top_right
                 {% endif %}
             </div>
         </div>
 
         <!--8:summary pages-->
-        <div class="d-flex flex-wrap xflex-grow-1 xjustify-content-center mt-0 border border-secondary">
+        <div class="d-flex flex-wrap xflex-grow-1 xjustify-content-center mt-0">
             {% include LAYOUTS_FOLDER+version_file(page_summary_pages,execution_mode,page_summary_pages_design,page_summary_pages_version) %}
         </div>
 
         <!--9:summary-bottom-->
         <div class="d-flex flex-wrap justify-content-center">
-            <div class="d-flex border border-success">
+            <div class="d-flex">
                 {% if page_summary_bottom_left %}
                 {% include include_files(page_summary_bottom_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_summary_bottom_left
                 {% endif %}
             </div>
-            <div class="d-flex border border-success">
-                <div class="container border border-danger">
+            <div class="d-flex">
+                <div class="container">
                     {% if page_summary_bottom_center %}
                     {% include include_files(page_summary_bottom_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_summary_bottom_center
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success">
+            <div class="d-flex">
                 {% if page_summary_bottom_right %}
                 {% include include_files(page_summary_bottom_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_summary_bottom_right
                 {% endif %}
             </div>
         </div>
 
         <!--10:page-bottom-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
-            <div class="d-flex border border-success">
+        <div class="d-flex flex-wrap flex-row content-page justify-content-center">
+            <div class="d-flex">
                 {% if page_bottom_left %}
                 {% include include_files(page_bottom_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_bottom_left
                 {% endif %}
             </div>
-            <div class="d-flex border border-success">
-                <div class="container border border-danger">
+            <div class="d-flex">
+                <div class="container">
                     {% if page_bottom_center %}
                     {% include include_files(page_bottom_center,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    {% else %}
-                    page_bottom_center
                     {% endif %}
                 </div>
             </div>
-            <div class="d-flex border border-success">
+            <div class="d-flex">
                 {% if page_bottom_right %}
                 {% include include_files(page_bottom_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {% else %}
-                page_bottom_right
                 {% endif %}
             </div>
         </div>

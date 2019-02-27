@@ -23,7 +23,7 @@
 {#% set page_content_right_file = page_file(content_page_right) %#}
 {#% set language_page_content_right_file = language_file(page_content_right_file,CURRENT_LANGUAGE) %#}
 {#% set page_content_right = [language_page_content_right_file, page_content_right_file] %#}
-{% set page_content_right = include_files(content_page_right,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) %}
+{#% set page_content_right = include_files(content_page_right,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) %#}
 {% else %}
 {%endif%}
 
