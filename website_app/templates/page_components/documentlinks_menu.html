@@ -4,7 +4,7 @@
         <nav class="navbar navbar-expand-sm p-0 m-0">
         <ul class="navbar-nav ml-auto justify-content-center">
                 <ul class="navbar-nav">
-                        {% for pageLink in LinkPagesArray %}
+                        {% for pageLink in DocumentLinkPagesArray %}
                         {% if pageLink[0] %}
                         {% if pageLink[3]=='button' %}
                         <!-- d-none d-sm-block: display from small screens and up -->
@@ -21,7 +21,7 @@
                         {% endif %}
                         {% endif %}
                         {% endfor %}
-                        <!-- d-none d-sm-block: display from small screens and up -->
+                        <!--
                         {% if previous_page %}
                         <li class="nav-item xd-none xd-sm-block">
                             <a id="prevpage" class="nav-link link_button button_previouspage" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
@@ -33,6 +33,7 @@
                             <a id="learnmore" class="nav-link link_button button_learnmore" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
                         </li>
                         {% endif %}
+                    -->
             </ul>
     </nav>
     {% endif %}

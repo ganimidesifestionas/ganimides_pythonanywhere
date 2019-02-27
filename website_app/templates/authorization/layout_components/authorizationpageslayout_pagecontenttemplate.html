@@ -3,17 +3,17 @@
 {% set page_header_design="" %}
 {% set page_header_version="" %}
 <div class="d-flex flex-column justify-content-center">
-    <!--1:page-top-navigation-line-->
+    <!--1:page-top_information_line-->
     <div class="d-flex justify-content-end">
         {% include [
-            language_fullpathfile('top_navigation_line.html',CURRENT_LANGUAGE,'COMPONENT',active_module)
-            ,fullpathfile('top_navigation_line.html','COMPONENT',active_module)
-            ,language_fullpathfile('top_navigation_line.html',CURRENT_LANGUAGE,'COMPONENT')
-            ,fullpathfile('top_navigation_line.html','COMPONENT')
+            language_fullpathfile('top_information_line.html',CURRENT_LANGUAGE,'COMPONENT',active_module)
+            ,fullpathfile('top_information_line.html','COMPONENT',active_module)
+            ,language_fullpathfile('top_information_line.html',CURRENT_LANGUAGE,'COMPONENT')
+            ,fullpathfile('top_information_line.html','COMPONENT')
             ] %}
     </div>
 
-    <div class="d-flex justify-content-center col-md-10 mx-auto mb-2 mt-2">
+    <div class="d-flex justify-content-center col-10 mx-auto mb-2 mt-2">
         <div class="d-flex flex-column justify-content-center pl-2 pr-2 pt-0 pb-0 bg-white">
             <!--2:messages-->
             <div class="d-flex justify-content-center align-items-center message_line">

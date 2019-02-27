@@ -287,7 +287,10 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
         session['lastpageHTML'] = pageTemplate
     if 'pages' not in session:
         session['pages'] = []
-    session['pages'].append(pageName)
+
+    if pageName not in session['pages']:
+        session['pages'].append(pageName)
+        
     if len(session['pages']) > 9:
         session['pages'].pop(0)
 
