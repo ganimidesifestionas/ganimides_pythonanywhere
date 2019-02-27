@@ -116,12 +116,25 @@
 {% set link_pages=link_pages+1 %}
 {% endif %}
 {% endfor %}
+
 {% if next_page %}
 {% set link_pages=link_pages+1 %}
 {% endif %}
 {% if previous_page %}
 {% set link_pages=link_pages+1 %}
 {% endif %}
+
+{% if not(document_link_page1) %}{% set document_link_page1="" %}{% endif %}
+{% if not(document_link_page2) %}{% set document_link_page2="" %}{% endif %}
+{% if not(document_link_page3) %}{% set document_link_page3="" %}{% endif %}
+{% if not(document_link_page4) %}{% set document_link_page4="" %}{% endif %}
+{% if not(document_link_page5) %}{% set document_link_page5="" %}{% endif %}
+{% if not(document_link_page6) %}{% set document_link_page6="" %}{% endif %}
+{% if not(document_link_page7) %}{% set document_link_page7="" %}{% endif %}
+{% if not(document_link_page8) %}{% set document_link_page8="" %}{% endif %}
+{% if not(document_link_page9) %}{% set document_link_page9="" %}{% endif %}
+{% set DocumentLinkPagesArray = [document_link_page1 ,document_link_page2, document_link_page3, document_link_page4 ,document_link_page5, document_link_page6, document_link_page7,document_link_page8, document_link_page9] %}
+
 <div class="d-flex flex-column w-100 bg-white">
     <div class="d-flex flex-row w-100 text-black">
             <div class="d-flex flex-column justify-content-start xbg-white">
