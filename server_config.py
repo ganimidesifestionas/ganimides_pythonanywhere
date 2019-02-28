@@ -29,10 +29,10 @@ SERVER_CONFIG_FILENAME = config_filename
 EYECATCH = 'SERVER'
 EXECUTION_MODE = 'development'
 EXECUTION_ENVIRONMENT = 'localhost'
-EXECUTION_ENVIRONMENT = 'pythonanywhere'
+#EXECUTION_ENVIRONMENT = 'pythonanywhere'
 SERVER = 'localhost'
 #SERVER = 'pythonanywhere-ganimedes'
-SERVER = 'pythonanywhere-ifestionas'
+#SERVER = 'pythonanywhere-ifestionas'
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 ################################################################
 ### mail servers
@@ -152,6 +152,7 @@ DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS
 DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
 SQLALCHEMY_DATABASE_URI = localhost_SQLALCHEMY_DATABASE_URI
+
 if EXECUTION_ENVIRONMENT == 'pythonanywhere':
     DATABASE_HOST_ADDRESS = 'ganimedes.mysql.pythonanywhere-services.com'
     DATABASE_USER = 'ganimedes'
@@ -238,7 +239,6 @@ SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 #                                  cursorclass=pymysql.cursors.DictCursor
 #                                  )
 
-
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimides_db'
 # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
 # #print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILE, '###instance### ###config.py### SQLALCHEMY_DATABASE_URI=',SQLALCHEMY_DATABASE_URI)
@@ -267,8 +267,6 @@ SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 # #}
 # #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 # #DATABASE_CONNECT_OPTIONS = {}
-
-
 
 ################################################################
 ### recaptcha config

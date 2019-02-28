@@ -1,5 +1,6 @@
 <!--page content template-->
 {% if not(content_page_template) %}
+{% set content_page_template="_layout_page_content_template_default_development.html" %}
 {% set content_page_template="_layout_page_content_template_default.html" %}
 {%endif%}
 {% if not(page_content_template_version) %}

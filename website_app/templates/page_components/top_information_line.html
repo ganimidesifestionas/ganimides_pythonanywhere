@@ -3,19 +3,19 @@
         <!--d-none d-lg-block display only on large screens-->
         <div class="bg-white text-warning text-left d-none d-lg-block" style="border-bottom: 1px dotted orange;">
             <!--some other info-->
-            <span class="badge badge-pill badge-primary">{{session.get('continent_name')}}</span>
-            <span class="badge badge-pill badge-secondary">{{session.get('country_name')}}</span>
-            <span class="badge badge-pill badge-warning">{{session.get('region_name')}}</span>
+            <span class="badge badge-pill badge-warning">{{session.get('continent_name')}}</span>
+            <span class="badge badge-pill badge-success">{{session.get('country_name')}}</span>
+            <span class="badge badge-pill badge-info">{{session.get('region_name')}}</span>
             {% if session.get('region_name') != session.get('city') %}
-            <span class="badge badge-pill badge-info">{{session.get('city')}}</span>
+            <span class="badge badge-pill badge-primary">{{session.get('city')}}</span>
             {% endif %}
-            <span class="badge badge-pill badge-light">{{session.get('latitude')}},{{session.get('longitude')}}</span>
+            <span class="badge badge-pill badge-secondary">{{session.get('latitude')}},{{session.get('longitude')}}</span>
         </div>
         <div class="flex-grow-1 bg-white text-success text-left top_navigation_line">
         </div>
     </div>
     <div class="col-2 bg-white text-success text-center top_navigation_line_counter p-0 m-0">
-        <span class="badge badge-pill badge-success">visit# {{session.get('VisitNumber')}}</span>
+        <span class="badge badge-pill badge-success">visit {{session.get('VisitNumber')}}</span>
     </div>
     <div class="d-flex col-5 bg-white justify-content-end p-0 m-0">
         <div class="bg-white  text-success text-left top_navigation_line">
@@ -25,31 +25,34 @@
             <span style="text-decoration:none">
             {% set ns = namespace() %}
             {% set ns.pageix=0 %}
+            {% set ns.pagecolorix=0 %}
             {% for pg in session['pages'] %}
                 {% set ns.pageix=ns.pageix+1 %}
-                {% if ns.pageix==10 %}
-                    {% set ns.pageix=0 %}
+                {% set url=session['urls'][ns.pageix-1] %}
+                
+                {% set ns.pagecolorix=ns.pagecolorix+1 %}
+                {% if ns.pagecolorix > 7 %}
+                    {% set ns.pagecolorix=1 %}
                 {% endif %}
-                {% if ns.pageix==1 %}
+                {% if ns.pagecolorix==1 %}
                 {% set pg_color="badge-warning" %}
-                {% elif ns.pageix==2 %}
+                {% elif ns.pagecolorix==2 %}
                 {% set pg_color="badge-primary" %}
-                {% elif ns.pageix==3 %}
+                {% elif ns.pagecolorix==3 %}
                 {% set pg_color="badge-secondary" %}
-                {% elif ns.pageix==4 %}
+                {% elif ns.pagecolorix==4 %}
                 {% set pg_color="badge-success" %}
-                {% elif ns.pageix==5 %}
+                {% elif ns.pagecolorix==5 %}
                 {% set pg_color="badge-danger" %}
-                {% elif ns.pageix==6 %}
-                {% set pg_color="badge-warning" %}
-                {% elif ns.pageix==7 %}
+                {% elif ns.pagecolorix==6 %}
                 {% set pg_color="badge-info" %}
-                {% elif ns.pageix==8 %}
-                {% set pg_color="badge-light" %}
-                {% elif ns.pageix==9 %}
+                {% elif ns.pagecolorix==7 %}
                 {% set pg_color="badge-dark" %}
                 {% endif %}
+                <!--
                 <span class="badge badge-pill {{pg_color}}">{{pg}}</span>
+                -->
+                <a href="{{url}}" class="badge badge-pill {{pg_color}}">{{pg}}</a>
             {% endfor %}      
         </span>
         </div>

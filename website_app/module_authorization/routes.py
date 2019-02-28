@@ -82,9 +82,13 @@ authorization = Blueprint('authorization', __name__, url_prefix='/authorization'
 def set_cookies():
     #print('###'+__name__+'###', 'before_request')
     session['active_module'] = __name__
-    session['urls'].append(request.url)
-    if len(session['urls']) > 9:
-        session['urls'].pop(0)
+    if 'urls' not in session:
+        session['urls'] = []
+    if 'pages' not in session:
+        session['pages'] = []
+    if not 'clientIPA' in session:
+        clientIPA = client_IP()
+        session['clientIPA'] = clientIPA
 
     if current_user.is_authenticated:
         if app.forgetpasswordform:
@@ -1482,7 +1486,7 @@ def forgetpassword(email=''):
     page_template = ''
     page_form = 'splash_form_forgetpassword.html'
     log_splash_page(page_name, page_function, page_template, page_form)
-
+    #email='philippos@leandrou.com'
     form = forgetPasswordForm()
     form.email.data=email
     if form.validate_on_submit():

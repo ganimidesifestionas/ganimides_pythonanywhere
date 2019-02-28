@@ -1,6 +1,6 @@
 .authorization-page {
     color: black;
-    background-color: #f8f9fa;
+    background-color:white;/* #f8f9fa;*/
     height: auto;
     line-height: unset;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -364,8 +364,8 @@
 }
 /*------------------------------------*/
 .authorization-form {
-    width:100%;
-    background-color: transparent;
+    xwidth:100%;
+    background-color: white;
     /*#f8f9fa*/
     height: auto;
     line-height: unset;

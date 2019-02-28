@@ -621,17 +621,16 @@ def inject_utility_functions():
         folder=appfolder(type,module)
         file1=file
         file2=file1
-        if (file1.find('/')<0):
-            file2 = folder+file1
+        if not os.path.dirname(file1):
+            file2=os.path.join(folder,file1)
+            file2=os.path.normpath(file2)
+            file2=file2.replace('\\','/')
         return file2
 
     #print('   ',__name__,'###inject_utility_functions:include_files()')
     def include_files(file='',type='TEMPLATE',module='',language='en'):
-        print('tispaolas')
         file_extension = os.path.splitext(file)[1]
         file_extension = file_extension.lower()
-        print('tispaolas',file_extension)
-        
         if file_extension not in ['.html']:
             if file_extension in ['.bmp','.png','.gif','.tiff']:
                 type = 'IMAGES'
@@ -639,12 +638,9 @@ def inject_utility_functions():
                 type = 'VIDEOS'
         #folder from type,module
         folder=appfolder(type,module)
-        print('tispaolas',folder)
-
         file1=file
         if not os.path.dirname(file1):
-            file1 = folder+file1
-        print('tispaolas',file1)
+            file1=os.path.join(folder,file1)
         file2=file1    
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
@@ -655,43 +651,51 @@ def inject_utility_functions():
             Njustfile=justfile+'_'+language
             Nfilename=Njustfile+justext
             file2x=os.path.join(os.path.dirname(file1),Nfilename)
-            file2=os.path.normpath(file2x)
-        print('tispaolas',file2)
+            file2x=os.path.normpath(file2x)
+            file2x=file2x.replace('\\','/')
+            file2=file2x
         x=[file2, file1]
-        print('tispaolas',x)
+        print('###include_files=',x)
         return x
 
     #print('   ',__name__,'###inject_utility_functions:image_file()')
     def image_file(file=''):
         file1=file
         file2=file1
-        if (file1.find('/')<0):
-            file2 = app.config['IMAGES_FOLDER']+file1
+        if not os.path.dirname(file1):
+            file2=os.path.join(app.config['IMAGES_FOLDER'],file1)
+            file2=os.path.normpath(file2)
+            file2=file2.replace('\\','/')
         return file2
 
     #print('   ',__name__,'###inject_utility_functions:video_file()')
     def video_file(file=''):
         file1=file
         file2=file1
-        if (file1.find('/')<0):
-            file2 = app.config['VIDEOS_FOLDER']+file1
-        #print('shalimar---',file2)
+        if not os.path.dirname(file1):
+            file2=os.path.join(app.config['VIDEOS_FOLDER'],file1)
+            file2=os.path.normpath(file2)
+            file2=file2.replace('\\','/')
         return file2
 
     #print('   ',__name__,'###inject_utility_functions:picture_file()')
     def picture_file(file=''):
         file1=file
         file2=file1
-        if (file1.find('/')<0):
-            file2 = app.config['PICTURES_FOLDER']+file1
+        if not os.path.dirname(file1):
+            file2=os.path.join(app.config['PICTURES_FOLDER'],file1)
+            file2=os.path.normpath(file2)
+            file2=file2.replace('\\','/')
         return file2
 
     #print('   ',__name__,'###inject_utility_functions:flag_file()')
     def flag_file(file=''):
         file1=file
         file2=file1
-        if (file1.find('/')<0):
-            file2 = app.config['FLAGS_FOLDER']+file1
+        if not os.path.dirname(file1):
+            file2=os.path.join(app.config['FLAGS_FOLDER'],file1)
+            file2=os.path.normpath(file2)
+            file2=file2.replace('\\','/')
         return file2
 
     #print('   ',__name__,'###inject_utility_functions:page_file()')

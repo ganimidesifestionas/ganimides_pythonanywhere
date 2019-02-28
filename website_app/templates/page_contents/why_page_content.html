@@ -1,9 +1,13 @@
-        {% if page_intext_image %}
-        <img src={{page_intext_image}} class="page-image_icon" style="float:left"/>
-        {% endif %}
-        <p>
-        <span style="font-size:1.2em">
-    Our technical competence, and dedication to produce results are what you can expect in working with us. Our mantra of Independent Thinking, Honest Advice, is manifest in our everyday interactions with you and your staff. Here's what you can expect from us:
+{% if page_intext_image %}
+<img src={{page_intext_image}} class="page-image_icon" style="float:left" />
+{% endif %}
+<p>
+    <span style="font-size:1.2em">
+        Our technical competence, and dedication to produce results are what you can expect in working with us. Our mantra of Independent Thinking, Honest Advice, is manifest in our everyday interactions with you and your staff.
+        Here's what you can expect from us:
+    </span>
+    <span class="float-right m-0 p-0">
+        {% include include_files('button_learnmore.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
     </span>
     <br />
     <br /><span class="text-emphasis-shadow-bold">Forthright Communication:</span>

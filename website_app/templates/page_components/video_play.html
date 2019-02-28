@@ -1,26 +1,26 @@
 {#% set video_file = video_file('Did_You_Know_2016.mp4') %#}
 {#% set video_title = 'now You know Why...' %#}
 <div class="align-self-center">
-        <div class="d-flex flex-column m-0 p-0">
-    <div class="d-flex justify-content-between">
-        <span class="mx-auto">
-            <p>{{video_title}}</p>
-        </span>
+    <div class="d-flex flex-column m-0 p-0">
+        <div class="d-flex justify-content-between">
+            <span class="mx-auto">
+                <p>{{video_title}}</p>
+            </span>
+        </div>
+        <video id="video1" width="320" xautoplay class="m-0 p-0">
+            <source src="{{video_file}}" type="video/mp4">
+            <source src="mov_bbb.ogg" type="video/ogg">
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="d-flex justify-content-between p-0 m-0">
+            <button id="video_playpause" class="video_button" onclick="playPause()">Play/Pause</button>
+            <button class="video_button" onclick="makeBig()">Big</button>
+            <button class="video_button" onclick="makeSmall()">Small</button>
+            <button class="video_button" onclick="makeNormal()">Normal</button>
+            <!--<p>Video courtesy of <a href="https://www.bigbuckbunny.org/" target="_blank">Big Buck Bunny</a>.</p>-->
+            <a class="video_button" href="{{video_file}}" download>Download</a>
+        </div>
     </div>
-    <video id="video1" width="320" xautoplay class="m-0 p-0">
-        <source src="{{video_file}}" type="video/mp4">
-        <source src="mov_bbb.ogg" type="video/ogg">
-        Your browser does not support HTML5 video.
-    </video>
-    <div class="d-flex justify-content-between p-0 m-0">
-        <button id="video_playpause" class="video_button" onclick="playPause()">Play/Pause</button>
-        <button class="video_button" onclick="makeBig()">Big</button>
-        <button class="video_button" onclick="makeSmall()">Small</button>
-        <button class="video_button" onclick="makeNormal()">Normal</button>
-        <!--<p>Video courtesy of <a href="https://www.bigbuckbunny.org/" target="_blank">Big Buck Bunny</a>.</p>-->
-        <a class="video_button" href="{{video_file}}" download>Download</a>
-    </div>
-</div>
 </div>
 
 <script>

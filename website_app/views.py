@@ -149,10 +149,6 @@ def set_cookies_etc_before_request():
 
     if 'urls' not in session:
         session['urls'] = []
-    session['urls'].append(request.url)
-    if len(session['urls']) > 9:
-        session['urls'].pop(0)
-
     if 'pages' not in session:
         session['pages'] = []
 

@@ -1,7 +1,7 @@
 """
 This script runs the ganimides_website application using a development server.
 """
-# # # # # # # # # # # # # #
+# # # # # # # # # # # # # # #
 from os import environ
 print(__name__, '######################################################')
 print(__name__, '###RUN APP ON SERVER###')

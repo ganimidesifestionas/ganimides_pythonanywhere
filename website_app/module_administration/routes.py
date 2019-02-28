@@ -60,12 +60,9 @@ def check_admin():
 def set_cookies():
     #print('###'+__name__+'###', 'before_request')
     session['active_module'] = __name__
-    if not 'urls' in session:
+    if 'urls' not in session:
         session['urls'] = []
-    session['urls'].append(request.url)
-    if len(session['urls']) > 9:
-        session['urls'].pop(0)
-    if not 'pages' in session:
+    if 'pages' not in session:
         session['pages'] = []
     if not 'clientIPA' in session:
         clientIPA = client_IP()

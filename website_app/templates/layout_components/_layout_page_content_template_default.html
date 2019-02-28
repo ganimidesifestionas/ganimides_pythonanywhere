@@ -54,6 +54,7 @@
         </div>
 
         <!--3:page-header:page-logo,title,buttons-->
+        {% if page_image or page_title %}
         <div class="d-flex flex-wrap flex-row content-page justify-content-center">
             <div class="d-flex align-items-center">
                 {% if page_image %}
@@ -69,8 +70,9 @@
             </div>
             <div class="d-flex align-items-end">
                 <div class="d-flex flex-row p-0 m-0">
-                    <div class="col-sm-1">
-                    </div>
+                    <!--
+                    <div class="col-sm-1"></div>
+                    -->
                     <div class="d-flex flex-grow-1 justify-content-end align-self-center p-0 m-0 links_menu">
                         {% if page_image or page_title %}
                         <span style="margin-top:1rem">
@@ -81,9 +83,9 @@
                             </span>
                     </div>
                 </div>
-
             </div>
         </div>
+        {% endif%}
 
 
         <!--4:content-top -->
@@ -107,14 +109,31 @@
             </div>
         </div>
 
+        
+        <!--5.0:dummy margin-->
+        {% set content_top_margin='' %}
+        {% if not page_image and not page_title and not content_page_top_left and not content_page_top_center and not content_page_top_right%}
+            {% set content_top_margin='mt-4' %}
+        {% endif %}
+
+
         <!--5:page-content-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center">
+        <div class="d-flex flex-wrap flex-row content-page justify-content-center {{content_top_margin}}">
             <div class="">
                 {% if content_page_left %}
                 {% include include_files(content_page_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
             </div>
             <div class="d-flex flex-column">
+
+                {% if not page_image and not page_title %}
+                {% if next_page and learn_more_button_top %}
+                <span class="float-right" style="margin-top:{{learn_more_button_top}};">
+                    <a href="{{url_for(next_page)}}" class="badge badge-pill badge-warning badge_button">learn more&raquo;</a>
+                </span>
+                {% endif %}
+                {% endif %}
+
                 <div class="container">
                     {% if content_page %}
                     {% include include_files(content_page,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}

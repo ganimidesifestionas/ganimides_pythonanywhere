@@ -287,18 +287,16 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
         session['lastpageHTML'] = pageTemplate
     if 'pages' not in session:
         session['pages'] = []
+    if 'urls' not in session:
+        session['urls'] = []
 
     if pageName not in session['pages']:
         session['pages'].append(pageName)
+        session['urls'].append(request.url)
         
     if len(session['pages']) > 9:
         session['pages'].pop(0)
-
-    for p in range(1, len(session['pages'])):
-        if p == 1:
-            session['pages_history'] = session['pages'][p-1]
-        else:
-            session['pages_history'] = session['pages_history'] + ">"+ session['pages'][p-1]
+        session['urls'].pop(0)
 
     session.modified = True
     print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '<--'+session.get('active_module'))
