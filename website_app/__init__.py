@@ -589,7 +589,7 @@ def inject_utility_functions():
         if module:
             folder=module+'/'
 
-        if (type.upper()=='MASTERLAYOUT' or type.upper()=='PAGESLAYOUT'):
+        if (type.upper()=='MASTERLAYOUT' or type.upper()=='MASTER_LAYOUT' or type.upper()=='PAGESLAYOUT' or type.upper()=='PAGE_LAYOUT'):
             folder=folder
         if (type.upper()=='LAYOUT'):
             folder=folder+app.config['LAYOUTS_FOLDER']
@@ -638,9 +638,12 @@ def inject_utility_functions():
                 type = 'VIDEOS'
         #folder from type,module
         folder=appfolder(type,module)
+        rootfolder=appfolder(type,'')
         file1=file
         if not os.path.dirname(file1):
             file1=os.path.join(folder,file1)
+            if module != '':
+                rootfile1=os.path.join(rootfolder,file1)
         file2=file1    
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
@@ -654,8 +657,16 @@ def inject_utility_functions():
             file2x=os.path.normpath(file2x)
             file2x=file2x.replace('\\','/')
             file2=file2x
-        x=[file2, file1]
-        print('###include_files=',x)
+            if module != '':
+                file2x=os.path.join(os.path.dirname(rootfile1),Nfilename)
+                file2x=os.path.normpath(file2x)
+                file2x=file2x.replace('\\','/')
+                rootfile2=file2x
+        if module != '':            
+            x=[file2, file1, rootfile2, rootfile1]
+        else:
+            x=[file2, file1]
+        #print('###include_files=',x)
         return x
 
     #print('   ',__name__,'###inject_utility_functions:image_file()')

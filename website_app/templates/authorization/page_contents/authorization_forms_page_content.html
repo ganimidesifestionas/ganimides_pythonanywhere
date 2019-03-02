@@ -1,8 +1,8 @@
-<div class="d-flex flex-column mb-2 pb-2">
-    <div class="p-0">
-        {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT',active_module), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
+<div class="d-flex flex-column">
+    <div class="">
+        {% include include_files('messages_display_errors_exceptfielderrors.html',type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
     </div>
-    <div id="mb-2 pb-2">
-        {% include [language_fullpathfile(formPage,CURRENT_LANGUAGE,'FORM','authorization'), fullpathfile(formPage,'FORM',active_module)] %}
+    <div class="">
+        {% include include_files(formPage,type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
     </div>
 </div>

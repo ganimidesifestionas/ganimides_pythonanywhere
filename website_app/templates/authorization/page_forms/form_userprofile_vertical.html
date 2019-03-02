@@ -1,0 +1,136 @@
+<div class="d-flex flex-column">
+
+    <div class="d-flex justify-content-between p-0 m-0">
+        {% if current_user.avatarImageFile %}
+        {% set avatarImageFile=current_user.avatarImageFile %}
+        {% else %}
+        {% set avatarImageFile='/static/images/icon_avatar_default.png' %}
+        {% endif %}
+        <img class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="align-items-center pl-1">
+            <a href="{{ url_for('authorization.upload_avatar') }}" class="badge badge-pill badge-warning">Change</a>
+        </div>
+    </div>
+
+    <form id="formUserProfileDisplay" role="form" autocomplete="on" class="readonly-form">
+        <fieldset>
+            {{ userprofiledisplay_form.hidden_tag() }}
+
+            <div class="form-group d-flex flex-column">
+                {{ userprofiledisplay_form.firstName.label }}
+                {{ userprofiledisplay_form.firstName(size=32,readonly=true) }}
+            </div>
+            <div class="form-group d-flex flex-column">
+                {{ userprofiledisplay_form.lastName.label }}
+                {{ userprofiledisplay_form.lastName(size=32,readonly=true) }}
+            </div>
+            <div class="form-group d-flex flex-column">
+                {{ userprofiledisplay_form.jobTitle.label }}
+                {{ userprofiledisplay_form.jobTitle(size=32,readonly=true) }}
+            </div>
+            <div class="form-group d-flex flex-column">
+                {{ userprofiledisplay_form.company.label }}
+                {{ userprofiledisplay_form.company(size=32,readonly=true) }}
+            </div>
+            <div class="form-group d-flex flex-column">
+                {{ userprofiledisplay_form.userName.label }}
+                {{ userprofiledisplay_form.userName(size=32,readonly=true) }}
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                <div>
+                    {{ userprofiledisplay_form.email.label }}
+                </div>
+                <div class="d-flex">
+                    <div>
+                        {{ userprofiledisplay_form.email(size=32,readonly=true) }}
+                    </div>
+                    {% if not emailconfirmed %}
+                    <div class="align-items-center pl-1">
+                        <a href="{{ url_for('authorization.emailconfirmrequest', email=userprofiledisplay_form.email.data) }}" class="badge badge-pill badge-warning">Confirm</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group d-flex flex-column">
+                <div>
+                    {{ userprofiledisplay_form.mobile.label }}
+                </div>
+                <div class="d-flex">
+                    <div>
+                        {{ userprofiledisplay_form.mobile(size=32,readonly=true) }}
+                    </div>
+                    {% if not mobileconfirmed %}
+                    <div class="align-items-center pl-1">
+                        <a href="{{ url_for('authorization.mobileconfirm') }}" class="badge badge-pill badge-warning">Confirm</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- more fields -->
+            <div class="d-flex flex-wrap flex-row justify-content-start p-0 m-0">
+                <div class="mr-1">
+                    <table class="table-borderless">
+                        <tr>
+                            <td>
+                                {{ userprofiledisplay_form.termsAgreed.label }}:
+                            </td>
+                            <td>
+                                {{ userprofiledisplay_form.termsAgreed() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ userprofiledisplay_form.emailConfirmed.label }}:
+                            </td>
+                            <td>
+                                {{ userprofiledisplay_form.emailConfirmed() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ userprofiledisplay_form.registered.label }}:
+                            </td>
+                            <td>
+                                {{ userprofiledisplay_form.registered() }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="">
+                    <table class="table-borderless">
+                        <tr>
+                            <td>
+                                {{ userprofiledisplay_form.mailingListSignUp.label }}:
+                            </td>
+                            <td>
+                                {{ userprofiledisplay_form.mailingListSignUp() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ userprofiledisplay_form.mobileConfirmed.label }}:
+                            </td>
+                            <td>
+                                {{ userprofiledisplay_form.mobileConfirmed() }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{ userprofiledisplay_form.lastLogin.label }}:
+                            </td>
+                            <td>
+                                {{ userprofiledisplay_form.lastLogin() }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
