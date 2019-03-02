@@ -66,6 +66,7 @@ def get_client_info(clientip):
         session['clientIPA'] = clientip
     if clientip=='127.0.0.1':
         clientip = '213.149.173.194'
+        return None
     #print('###'+__name__+'###', 'get_client_info5', 'clientip =',clientip)
     ################################################################
     ### ipstack access key

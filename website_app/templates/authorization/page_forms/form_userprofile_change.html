@@ -1,9 +1,6 @@
-<div class="d-flex flex-column authorization-page" style="padding-left:10px;padding-right:10px;">
-    {#% include [language_fullpathfile('secure_info_general.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('secure_info_general.html','COMPONENT')] %#}
-    <div class="clearfix"></div>
-
+<div class="d-flex flex-column">
     <!--form is not validated locally on the browser (novalidate option) in order to use the forget password button-->
-    <form id="formProfileChange" action="{{ url_for('authorization.userprofilechange') }}" method="post" role="form" autocomplete="on" class="subscriber_form" validate>
+    <form id="formProfileChange" class="input-form" action="{{ url_for('authorization.userprofilechange') }}" method="post" role="form" autocomplete="on" validate>
         <fieldset>
             {{ userprofilechange_form.hidden_tag() }}
 
@@ -90,9 +87,11 @@
                     </div>
                     <div class="d-flex align-items-center">
                         <span style="color:red">{% if userprofilechange_form.mailingListSignUp.flags.required %}*{% endif %}</span>
-                        <p class="checkbox-label" style="width:400px">
-                            Sign up for weekly industry insights, updates and perspectives from {{WEBSITE_TITLE}}.
-                        </p>
+                        <div class="">
+                            <p class="checkbox-text text-wrap" style="max-width:330px">
+                                Sign up for weekly industry insights, updates and perspectives from {{WEBSITE_TITLE}}.
+                            </p>
+                        </div>
                     </div>
                 </div>
                 {% for error in userprofilechange_form.mailingListSignUp.errors %}
@@ -100,10 +99,14 @@
                 {% endfor %}
             </div>
 
-            <div class="form-group d-flex justify-content-start">
-                {{userprofilechange_form.submit(class="btn btn-sm mybtn-orange mybtn-submit btn-block")}}
+            <div class="form-group d-flex justify-content-center p-0 m-0">
+                {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT','authorization'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
             </div>
-            {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT','authorization'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
+            <div class="modal-footer d-flex justify-content-end p-1">
+                <div class="">
+                    {{userprofilechange_form.submit(class="btn mybtn-orange mybtn-submit btn-sm mybtn-submit")}}
+                </div>
+            </div>
 
         </fieldset>
 

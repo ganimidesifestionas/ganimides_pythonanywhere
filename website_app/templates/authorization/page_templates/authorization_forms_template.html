@@ -1,14 +1,17 @@
 <!--BEGIN--page_template = "authorization_forms_template"-->
 {% extends "webapppageslayout.html" %}
 {% set active_module = 'authorization' %}
-{% set page_title = "" %}
+{% set page_layout="authorizationpageslayout.html" %}
+{% set content_page_template="authorizationpageslayout_pagecontenttemplate.html" %}
+
+{% set page_title = title %}
 {% set page_logo = "" %}
 {% set next_page = "" %}
 {% set previous_page = "" %}
 {% set content_page="authorization_forms_page_content.html" %}
+{% set formlink_page1 = ["authorization.userprofile","your profile","","button"] %}
 
-{% set content_page_template="authorizationpageslayout_pagecontenttemplate.html" %}
 {% block content %}
-{% include appfolder('PAGESLAYOUT',active_module)+version_file("authorizationpageslayout.html",execution_mode,design_type,design_version) %}
+{% include include_files(page_layout,type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
 {% endblock %}
 <!--ENDOF--page_template = "authorization_forms_template"-->

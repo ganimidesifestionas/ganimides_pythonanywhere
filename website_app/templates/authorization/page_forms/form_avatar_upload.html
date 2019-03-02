@@ -1,12 +1,13 @@
-<form class="authorization-page" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
+<form class="xauthorization-page" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ avatarupload_form.hidden_tag() }}
-        <div class="modal-header align-items-center">
-            <h1 class="modal-title mx-auto" id="login_modal_form_Label">Upload Your Avatar</h1>
-            <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-
-        <div class="authorization-page-line"></div>
+        <div class="modal-header align-items-center p-1">
+                <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">Upload Your Avatar</h1>
+                {% include include_files('form_close_icon.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+        <!--
+        <div class="separation-line"></div>
+        -->
 
         <div class="modal-body pb-0 pt-0">
             <div class="d-flex flex-column ">
@@ -23,21 +24,23 @@
                     <div class="p-0 left">
                         <!--===================================================-->
                         <!-- empty avatar selection-->
-                        <div class="form-group form-check p-0 d-flex align-items-center h-100 w-100 justify-content-between">
-                            <div class="form-check-inline">
-                                <label class="form-check-label" for="radio1">
-                                    <input type="radio" class="form-check-input" id="radio1" name="emptyAvatarType" value="F">empty female avatar
-                                </label>
+                        <div class="form-group d-flex flex-row w-100 justify-content-between">
+                            <div class="mr-2">
+                                    <input type="radio" 
+                                    Style="margin-top: -1px; vertical-align: middle;"
+                                    id="emptyAvatarType" name="emptyAvatarType" value="F"> empty female avatar
                             </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label" for="radio2">
-                                    <input type="radio" class="form-check-input" id="radio2" name="emptyAvatarType" value="M">empty male avatar
-                                </label>
+                            <div class="ml-2">
+                                    <input type="radio" 
+                                    Style="margin-top: -1px; vertical-align: middle;"
+                                    id="emptyAvatarType" name="emptyAvatarType" value="M"> empty male avatar
                             </div>
                         </div>
 
-                        <!-- select a photo-->
-                        <div class="w-100 p-1 m-1" style="text-align:center;">
+                        <!-- select a photo
+                                <div class="w-100 p-1" style="text-align:left;">
+                        -->
+                        <div class="form-group d-flex flex-row w-100 justify-content-between">
                             {{ avatarupload_form.photo(class='upload_file') }}
                             {% for error in avatarupload_form.photo.errors %}
                             <span class="text-note" style="color: red;">[{{ error }}]</span>
@@ -45,8 +48,8 @@
                         </div>
 
                         <!-- moderate a photo with a 3rd party tool-->
-                        <div class="w-100 p-1 m-1" style="text-align:center;">
-                            <p class="text-note p-0 m-0 small">Image moderation with&nbsp;<a target="_blank" href="https://sightengine.com/">Sightengine</a></p>
+                        <div class="form-group d-flex flex-row w-100 justify-content-between">
+                                <p class="text-note p-0 m-0 small">Image moderation with&nbsp;<a target="_blank" href="https://sightengine.com/">Sightengine</a></p>
                         </div>
 
                         <!--===================================================-->
@@ -55,13 +58,16 @@
             </div>
         </div>
 
-        <div class="authorization-page-line"></div>
+        <!--
+        <div class="separation-line"></div>
+        -->
+
         <div class="modal-footer d-flex justify-content-end">
             <div class="mr-1">
-                <input class="btn btn-default btn-block" type=button onClick="location.href='{{ url_for('authorization.userprofile')}}'" value='Close'>
+                {% include include_files('form_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
             </div>
             <div class="">
-                {{avatarupload_form.submit(class="btn btn-sm mybtn-orange mybtn-submit btn-block")}}
+                {{avatarupload_form.submit(class="btn btn-sm mybtn-orange mybtn-submit")}}
             </div>
         </div>
     </fieldset>

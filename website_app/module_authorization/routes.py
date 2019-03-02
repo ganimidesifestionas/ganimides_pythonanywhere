@@ -82,13 +82,32 @@ authorization = Blueprint('authorization', __name__, url_prefix='/authorization'
 def set_cookies():
     #print('###'+__name__+'###', 'before_request')
     session['active_module'] = __name__
-    if 'urls' not in session:
-        session['urls'] = []
-    if 'pages' not in session:
-        session['pages'] = []
-    if not 'clientIPA' in session:
-        clientIPA = client_IP()
-        session['clientIPA'] = clientIPA
+    init_session_cookies()
+    session['login_active'] = ''
+    session['register_active'] = ''
+    session['help_active'] = ''
+    # if 'urls' not in session:
+    #     session['urls'] = []
+    # if 'pages' not in session:
+    #     session['pages'] = []
+        
+    # if not 'clientIPA' in session:
+    #     clientIPA = client_IP()
+    #     session['clientIPA'] = clientIPA
+
+    # try:
+    #     dummy=session['lastpageHTML']
+    # except:
+    #     try:
+    #         dummy=app.homepage_html
+    #         session['lastpageHTML'] = app.homepage_html
+    #     except:
+    #         session['lastpageHTML'] = 'page_templates/landing_page.html'
+
+    # try:
+    #     dummy=session['lastpageURL']
+    # except:
+    #     session['lastpageURL'] = url_for('homepage')
 
     if current_user.is_authenticated:
         if app.forgetpasswordform:
@@ -115,26 +134,36 @@ def set_cookies_after_request(response):
 ###########################################################################
 ###########################################################################
 ###########################################################################
-def init_active_menuoptions():
-    #session[login_active] = ''
-    #session[register_active] = ''
-    #session[help_active] = ''
-    dummy=1
+def init_session_cookies():
+    print('init_session_cookies','session[urls]',session.get('urls'))
+    print('init_session_cookies','session[pages]',session.get('pages'))
+    print('init_session_cookies','session[clientIPA]',session.get('clientIPA'))
+    print('init_session_cookies','session[lastpageHTML]',session.get('lastpageHTML'))
+    print('init_session_cookies','session[lastpageURL]',session.get('lastpageURL'))
+    if 'urls' not in session:
+        session['urls'] = []
+    if 'pages' not in session:
+        session['pages'] = []
+        
+    if not 'clientIPA' in session:
+        clientIPA = client_IP()
+        session['clientIPA'] = clientIPA
 
-def init_form_options():
-    print('xxxxxxxxxxxx')
-    # try:
-    #     dummy=app.lastpage
-    # except:
-    #     app.lastpage='homepage'
-    # try:
-    #     dummy=session['lastpageHTML']
-    # except:
-    #     session['lastpageHTML']='page_templates/landing_page.html'
-    # try:
-    #     dummy=app.pages
-    # except:
-    #     app.pages='homepage'
+    try:
+        dummy=session['lastpageHTML']
+    except:
+        try:
+            dummy=app.homepage_html
+            session['lastpageHTML'] = app.homepage_html
+        except:
+            session['lastpageHTML'] = 'page_templates/landing_page.html'
+        print('init_session_cookies--after','session[lastpageHTML]',session.get('lastpageHTML'))
+
+    try:
+        dummy=session['lastpageURL']
+    except:
+        session['lastpageURL'] = url_for('authorization.homepage')
+        print('init_session_cookies--after','session[lastpageURL]',session.get('lastpageURL'))
 
 def getConfig(key):
     with app.app_context():
@@ -354,7 +383,7 @@ def allowed_file(filename):
 #    return request.url+'/'+imagefile
 
 @authorization.route('/', methods=['GET', 'POST'])
-def homepageredirect():
+def homepage():
     page_name = 'authorization-home'
     page_function = 'homepageredirect'
     page_template = ''
@@ -368,8 +397,8 @@ def register():
     page_function = 'register'
     page_template = 'authorization/page_templates/authorization_forms_template.html'
     page_form = 'form_register.html'
-    #like splashform
     log_splash_page(page_name, page_function, page_template,page_form)
+    session['register_active'] = 'active'
 
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -448,20 +477,8 @@ def login():
     page_function = 'login'
     page_template = 'authorization/page_templates/authorization_forms_template.html'
     page_form = 'form_login.html'
-    #like splashform
     log_splash_page(page_name, page_function, page_template,page_form)
-    #if session['lastpageURL'] = request.url
-
-    #session[login_active] = 'active'
-    #session[register_active] = ''
-    #session[help_active] = ''
-
-    #print('LOGIN',request.method,'lastpage', session['lastpageURL'])
-    #print('LOGIN',request.method,'splash_form',session['splash_form'])
-
-    #if request.method=='POST':
-    #    app.splash_form='login'
-
+    session['login_active'] = 'active'
     form = LoginForm()
     if form.validate_on_submit():
         print('LOGIN',request.method,'NO-ERRORS----')
@@ -506,7 +523,7 @@ def login():
                         else:
                             # SUCCESS!!! send to the last page
                             #return redirect(url_for(app.lastpage))
-                            return redirect(session['lastpageURL'])
+                            return redirect(session.get('lastpageURL'))
                     else:
                         #form.email.errors.append("invalid email or password")
                         #form.password.errors.append("invalid email or password")
@@ -516,7 +533,7 @@ def login():
         #app.splash_form='login'
         #print('==============SPLASH_FORM= ',app.splash_form)
         #return redirect(url_for(app.lastpage))
-        #return redirect(session['lastpageURL'])
+        #return redirect(session.get('lastpageURL'))
 
     #print('LOGIN',request.method,'splash_form',app.splash_form)
     #load login page
@@ -524,7 +541,7 @@ def login():
                             ,login_form=form
                             ,registration_form=RegistrationForm()
                             ,activeTAB='login'
-                            ,title='login'
+                            ,title=''
                             ,formPage='form_login.html'
                            )
 
@@ -534,8 +551,9 @@ def login_or_register(action_tab):
     page_function = 'login_or_register'
     page_template = 'authorization/page_templates/authorization_forms_template.html'
     page_form = 'login_or_register.html'
-    #like splashform
     log_splash_page(page_name, page_function, page_template,page_form)
+    session['login_active'] = 'active'
+    session['register_active'] = 'active'
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -900,8 +918,8 @@ def upload_avatar():
     # load userprofile template
     return render_template('authorization/page_templates/authorization_forms_template.html'
         ,avatarupload_form=form
-        #,form=form
-        ,title='Upload Your Avatar'
+        ,form=form
+        ,title=''
         ,formPage='form_avatar_upload.html'
         )
 
@@ -972,7 +990,7 @@ def mobileconfirm():
     return render_template('authorization/page_templates/authorization_forms_template.html'
         ,mobileconfirmation_form=form
         #,form=form
-        ,title='mobile confirmation'
+        ,title=''
         ,formPage='form_mobile_confirmation.html'
         ,alreadyconfirmed=subscriber.mobileConfirmed
         )
@@ -1025,7 +1043,7 @@ def emailconfirmrequest(email):
     # load emailconfirmation
     return render_template('authorization/page_templates/authorization_forms_template.html'
         ,form=form
-        ,title='email confirmation'
+        ,title=''
         ,formPage='form_email_confirmation.html'
         ,alreadyconfirmed=subscriber.emailConfirmed
         )
@@ -1061,11 +1079,47 @@ def password_reset(email=''):
     # load passsword reset template
     return render_template('authorization/page_templates/authorization_forms_template.html'
                             ,form=form
-                            ,title=varTitle
+                            ,title=''
                             ,formPage='form_password_reset.html'
                             ,passwordreset=subscriber.passwordReset
                             )
 
+@authorization.route('/forgetpassword', methods=['GET', 'POST'])
+def forgetpassword():
+    page_name = 'forgetpassword'
+    page_function = 'forgetpassword'
+    page_template = 'authorization/page_templates/authorization_forms_template.html'
+    page_form = 'form_forgetpassword.html'
+    log_route(page_name, page_function, page_template,page_form)
+    form = forgetPasswordForm()
+    if request.method=='GET':
+        if current_user.is_authenticated:
+            form.email.data=current_user.email
+    if request.method=='POST':
+        if form.validate_on_submit():
+            captcha_response = request.form['g-recaptcha-response']
+            if not(is_human(captcha_response)):
+                flash("Sorry ! Bots are not allowed.",'error')
+            else:
+                subscriber = Subscriber.query.filter_by(email=form.email.data).first()
+                if subscriber is None:
+                    flash("invalid email",'error')
+                else:
+                    result=send_passwordreset_email(subscriber.email)
+                    if result=='OK':
+                        flash('a password reset link has been sent to {}'.format(subscriber.email),'warning')
+                        flash('please open this email and click the provided link to reset Your Password','info')
+                        return redirect(session.get('lastpageURL'))
+                    else:
+                        ErrorMsg='Failed to send password reset email. Retry'
+                        flash(ErrorMsg, 'error')
+
+    return render_template('authorization/page_templates/authorization_forms_template.html'
+        ,forgetpasswordform=form
+        #,form=form
+        ,title=''
+        ,formPage='form_forgetpassword.html'
+        )
 #############################################################
 #############################################################
 #############################################################
@@ -1079,7 +1133,7 @@ def logout():
     log_route('logout', 'logout')
     logout_user()
     flash('You have successfully logged out.','success')
-    return redirect(session['lastpageURL'])
+    return redirect(session.get('lastpageURL'))
 
 @authorization.route('/sendconfirmationemail', methods=['POST','GET'])
 def send_confirmation_email():
@@ -1285,7 +1339,7 @@ def loginForm():
     page_template = ''
     page_form = 'splash_form_login.html'
     log_splash_page(page_name, page_function, page_template, page_form)
-    log_variable('lastpageHTML',session['lastpageHTML'])
+    log_variable('lastpageHTML',session.get('lastpageHTML'))
     form = LoginForm()
     log_info('form content is:')
     log_variable('form.email.data',form.email.data)
@@ -1295,9 +1349,9 @@ def loginForm():
     #check if forgetPassword submit button was pushed
     if form.forgetPassword.data:
         log_info('forgetPassword button pushed...')
-        log_info('return template [{0}] with splash_form={1} and forgetpasswordform=...'.format(session['lastpageHTML'],'forgetpassword'))
+        log_info('return template [{0}] with splash_form={1} and forgetpasswordform=...'.format(session.get('lastpageHTML'),'forgetpassword'))
         return render_template(
-            session['lastpageHTML']
+            session.get('lastpageHTML')
             ,forgetpasswordform=forgetPasswordForm()
             ,activeTAB='forgetpassword'
             ,splash_form='forgetpassword'
@@ -1353,10 +1407,10 @@ def loginForm():
                             log_info('subscriber isAdmin, redirect to administration.homepage')
                             return redirect(url_for('administration.homepage'))
                         else:
-                            log_info('subscriber is Not Admin, redirect to last page:{0}'.format(session['lastpageURL']))
-                            return redirect(session['lastpageURL'])
-    log_info('return template [{0}] with splash_form={1} and loginform=...'.format(session['lastpageHTML'],'login'))
-    return render_template(session['lastpageHTML']
+                            log_info('subscriber is Not Admin, redirect to last page:{0}'.format(session.get('lastpageURL')))
+                            return redirect(session.get('lastpageURL'))
+    log_info('return template [{0}] with splash_form={1} and loginform=...'.format(session.get('lastpageHTML'),'login'))
+    return render_template(session.get('lastpageHTML')
         ,splash_form='login'
         ,loginform=form
         )
@@ -1386,7 +1440,7 @@ def registrationForm():
                 #return redirect(url_for('authorization.loginForm'))
                 loginform = LoginForm()
                 loginform.email.data = form.email.data
-                return render_template(session['lastpageHTML']
+                return render_template(session.get('lastpageHTML')
                     ,splash_form='login'
                     ,loginform=loginform
                     )
@@ -1419,7 +1473,7 @@ def registrationForm():
             else:
                 flash('an activation email has been sent to {}.'.format(subscriber.email),'warning')
                 flash('open this email and click the provided link in order to activate Your account','info')
-                return render_template(session['lastpageHTML'])
+                return render_template(session.get('lastpageHTML'))
 
     # flash the errors if not already registered
     # is_already_registered=False
@@ -1429,8 +1483,8 @@ def registrationForm():
     # if not(is_already_registered):
     #     flash_errors(form)
 
-    #print('REGISTRATION-FORM','RETURN',session['lastpageHTML'],'with splash_form','registration')
-    return render_template(session['lastpageHTML']
+    #print('REGISTRATION-FORM','RETURN',session.get('lastpageHTML'),'with splash_form','registration')
+    return render_template(session.get('lastpageHTML')
         ,registrationform=form
         ,splash_form='registration'
         )
@@ -1470,25 +1524,28 @@ def contactForm():
             flash(ErrorMsg, 'error')
         #OK
         return render_template(
-            session['lastpageHTML']
+            session.get('lastpageHTML')
             )
-    print('CONTACT-FORM','RETURN',session['lastpageHTML'],'with splash_form','contactus')
+    print('CONTACT-FORM','RETURN',session.get('lastpageHTML'),'with splash_form','contactus')
     return render_template(
-        session['lastpageHTML']
+        session.get('lastpageHTML')
         ,contactusform=form
         ,splash_form='contactus'
         )
 
-@authorization.route('/forgetpassword/<email>', methods=['GET', 'POST'])
-def forgetpassword(email=''):
+@authorization.route('/forgetpassword2', methods=['GET', 'POST'])
+def forgetpasswordsplashform():
     page_name = 'forgetpassword-splash-form'
     page_function = 'forgetpassword'
     page_template = ''
     page_form = 'splash_form_forgetpassword.html'
     log_splash_page(page_name, page_function, page_template, page_form)
-    #email='philippos@leandrou.com'
-    form = forgetPasswordForm()
-    form.email.data=email
+    if request.method=='POST':
+        form = forgetPasswordForm()
+    else:
+        form = forgetPasswordForm()
+        form.email.data=email
+
     if form.validate_on_submit():
         captcha_response = request.form['g-recaptcha-response']
         if not(is_human(captcha_response)):
@@ -1502,14 +1559,16 @@ def forgetpassword(email=''):
                 if result=='OK':
                     flash('a password reset link has been sent to {}'.format(subscriber.email),'warning')
                     flash('please open this email and click the provided link to reset Your Password','info')
+                    return redirect(session.get('lastpageURL'))
                 else:
                     ErrorMsg='Failed to send password reset email. Retry'
                     flash(ErrorMsg, 'error')
 
-    return render_template(session['lastpageHTML']
+    return render_template(session.get('lastpageHTML')
         ,forgetpasswordform=form
         ,splash_form='forgetpassword'
         )
+
 # @authorization.route('/cookiesconsentform', methods=['GET', 'POST'])
 # def cookiesconsentform():
 #     page_name = 'cookiesconsentform-splash-form'
@@ -1529,10 +1588,10 @@ def forgetpassword(email=''):
 #         flash('Thank You. Your data are protected','success')
 #         #OK
 #         return render_template(
-#             session['lastpageHTML']
+#             session.get('lastpageHTML')
 #             )
 #     return render_template(
-#         session['lastpageHTML']
+#         session.get('lastpageHTML')
 #         ,cookiesconsentform=form
 #         ,splash_form='cookiesconsent'
 #         )

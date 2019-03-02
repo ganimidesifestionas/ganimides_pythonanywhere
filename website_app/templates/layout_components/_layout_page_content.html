@@ -1,4 +1,7 @@
 <!--page content template-->
+
+{% set active_module='' %}
+
 {% if not(content_page_template) %}
 {% set content_page_template="_layout_page_content_template_default_development.html" %}
 {% set content_page_template="_layout_page_content_template_default.html" %}
@@ -111,18 +114,18 @@
 {% if not(link_page9) %}{% set link_page9="" %}{% endif %}
 {% set LinkPagesArray = [link_page1 ,link_page2, link_page3, link_page4 ,link_page5, link_page6, link_page7,link_page8, link_page9] %}
 
-{% set link_pages=0 %}
+{% set LinkPages=0 %}
 {% for pageLink in LinkPagesArray %}
 {% if pageLink[0] %}
-{% set link_pages=link_pages+1 %}
+{% set LinkPages=LinkPages+1 %}
 {% endif %}
 {% endfor %}
 
 {% if next_page %}
-{% set link_pages=link_pages+1 %}
+{% set LinkPages=LinkPages+1 %}
 {% endif %}
 {% if previous_page %}
-{% set link_pages=link_pages+1 %}
+{% set LinkPages=LinkPages+1 %}
 {% endif %}
 
 {% if not(document_link_page1) %}{% set document_link_page1="" %}{% endif %}
@@ -136,16 +139,23 @@
 {% if not(document_link_page9) %}{% set document_link_page9="" %}{% endif %}
 {% set DocumentLinkPagesArray = [document_link_page1 ,document_link_page2, document_link_page3, document_link_page4 ,document_link_page5, document_link_page6, document_link_page7,document_link_page8, document_link_page9] %}
 
+{% set DocumentLinkPages=0 %}
+{% for pageLink in DocumentLinkPagesArray %}
+{% if pageLink[0] %}
+{% set DocumentLinkPages=DocumentLinkPages+1 %}
+{% endif %}
+{% endfor %}
+
 <div class="d-flex flex-column w-100 bg-white">
     <div class="d-flex flex-row w-100 text-black">
-            <div class="d-flex flex-column justify-content-start xbg-white">
-                {% include LAYOUTS_FOLDER+version_file('_layout_leftside.html',execution_mode,design_type,design_version_left) %}
-            </div>
-            <div class="d-flex flex-column flex-grow-1 justify-content-start">
-                {% include LAYOUTS_FOLDER+version_file(content_page_template,execution_mode,page_content_template_design,page_content_template_version) %}
-            </div>    
+        <div class="d-flex flex-column justify-content-start xbg-white">
+            {% include include_files('_layout_leftside.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
+        <div class="d-flex flex-column flex-grow-1 justify-content-start">
+            {% include include_files(content_page_template,type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
     </div>
     <div class="w-100 internal_use_line p-2">
-            {% include [language_fullpathfile('internaluse_line.html',CURRENT_LANGUAGE,'COMPONENT'),fullpathfile('internaluse_line.html','COMPONENT')] %}
+        {% include include_files('internaluse_line.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
     </div>
 </div>

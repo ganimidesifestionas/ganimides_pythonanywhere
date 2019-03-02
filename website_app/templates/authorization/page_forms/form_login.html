@@ -1,4 +1,4 @@
-<form class="authorization-page" id="LoginForm" action="{{ url_for('authorization.loginForm') }}" method="post" role="form" autocomplete="on" novalidate>
+<form class="xauthorization-page" id="LoginForm" action="{{ url_for('authorization.loginForm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ loginform.hidden_tag() }}
         <!--header-->
@@ -7,7 +7,7 @@
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
-        <div class="authorization-page-line"></div>
+        <div class="xauthorization-page-line"></div>
 
         <!--body-->
         <div class="modal-body">
@@ -57,7 +57,7 @@
                             {% endfor %}
                         </div>
 
-                        <div class="form-group d-flex justify-content-center align-items-center">
+                        <div class="form-group d-flex justify-content-start align-items-center m-0">
                             <div class="d-flex">
                                 {{ loginform.recaptcha }}
                                 {% for error in loginform.recaptcha.errors %}
@@ -65,20 +65,22 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="form-group d-flex justify-content-start align-items-center m-0">
+                            <div class="align-self-center text-in-form" style="font-size:75%">Don't have an account yet?&nbsp;</div>
+                            <div class="align-self-center"><a class="btn btn-default btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
+                        </div>
                         <!--===================================================-->
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="authorization-page-line"></div>
+        <div class="xauthorization-page-line"></div>
 
         <!--footer-->
         <div class="modal-footer d-flex justify-content-start p-1">
             <div class="">
                 <div class="d-flex mt-0 mb-0 p-0">
-                    <div class="align-self-center">Don't have an account yet?&nbsp;</div>
-                    <div class="align-self-center"><a class="btn btn-default btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
                 </div>
             </div>
             <div class="d-flex flex-grow-1 justify-content-end">

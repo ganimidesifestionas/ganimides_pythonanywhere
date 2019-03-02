@@ -157,7 +157,7 @@
                                 {% if current_user.passwordreset %}
                                 <a class="dropdown-item" href="{{ url_for('authorization.password_reset',email='*') }}">Reset Your Password</a>
                                 {% else %}
-                                <a class="dropdown-item" href="{{ url_for('authorization.forgetpassword',email='*') }}">Forgot Your Password?</a>
+                                <a class="dropdown-item" href="{{ url_for('authorization.forgetpassword') }}">Forgot Your Password?</a>
                                 {% endif %}
                                 <div class="dropdown-divider p-0 m-0"></div>
                                 <a class="dropdown-item" href="#">Setting</a>

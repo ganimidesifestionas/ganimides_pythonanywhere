@@ -37,6 +37,14 @@
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
+.authorization-page.avatar_image {
+    width: 70px;
+    height: 70px;
+}
+.authorization-page.separation_line {
+    border: 0px;
+    border-top: 1px solid #005293;
+}
 
 .authorization-page label {
     color: #8c8c8c;
@@ -446,6 +454,108 @@
     color: black;
     font-weight: 900;
     font-size: 12px;
+}
+.authorization-page message_line {
+    color: green;
+    font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
+    font-size: 1rem;
+    font-style: normal;
+    text-align: center;
+    font-weight: 800;
+    background-color: transparent;
+    font-feature-settings: "liga";
+    padding: 0px;
+}
+
+.authorization-page message_line p {
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 0px;
+    margin: 0px;
+}
+.authorization-page .checkbox-label {
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 600;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+.authorization-page .checkbox-text {
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 600;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+.authorization-page .text-in-form {
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: 600;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+
+.authorization-page .tabform-borders {
+    border: 0px solid lightgray !important;
+    border-radius: 0px !important;
+}
+
+.authorization-page .upload_file {
+    font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
+    font-size: 80%;
+    font-style: normal;
+    font-weight: 600;
+    color: orange;
+    -webkit-font-smoothing: antialiased;
+    font-stretch: always;
+}
+.authorization-page .upload_file > button {
+    color: white !important;
+    background-color: green !important;
+}
+
+.authorization-page .splash_form_close_button {
+    font-weight: 900 !important;
+    font-size: 1.5em !important;
+    color: lightgray !important;
+    font-weight: 900 !important;
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.authorization-page .splash_form_close_button:hover {
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    color: red !important;
+    opacity: 1.5 !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+}
+.authorization-page .form_close_button {
+    font-weight: 900 !important;
+    font-size: 1.5em !important;
+    color: lightgray !important;
+    font-weight: 900 !important;
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    text-decoration: none !important;
+    cursor: pointer;
+}
+.authorization-page .form_close_button:hover {
+    background: transparent !important;
+    border: 0px solid transparent !important;
+    color: red !important;
+    opacity: 1.5 !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
 }
 
 /*
