@@ -13,7 +13,7 @@ html {
     font-family: 'ZCOOL QingKe HuangYou', cursive, Montserrat, 'Inconsolata', 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 100%;
     /*use default of the browser!!! which is usually 16px*/
-    /*font-size: 16px;*/
+    font-size: 12px;
     font-style: normal;
     font-weight: normal;
     font-feature-settings: "liga";
@@ -1943,6 +1943,9 @@ hr {
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
+.form-group{
+    margin-bottom:0.5em;
+}
 
 .tabform-borders {
     border: 0px solid lightgray !important;
@@ -2871,7 +2874,7 @@ canvas {
     background-color: white;
     /*#f8f9fa;*/
     height: auto;
-    width: 370px;
+    width: 300px;
     line-height: unset;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
     font-feature-settings: "liga";
