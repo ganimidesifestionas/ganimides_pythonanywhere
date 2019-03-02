@@ -57,7 +57,7 @@
                             {% endfor %}
                         </div>
 
-                        <div class="form-group d-flex justify-content-start align-items-center m-0">
+                        <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="d-flex">
                                 {{ loginform.recaptcha }}
                                 {% for error in loginform.recaptcha.errors %}
@@ -65,7 +65,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="form-group d-flex justify-content-start align-items-center m-0">
+                        <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="align-self-center text-in-form" style="font-size:75%">Don't have an account yet?&nbsp;</div>
                             <div class="align-self-center"><a class="btn btn-default btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
                         </div>

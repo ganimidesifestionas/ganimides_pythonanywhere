@@ -1943,6 +1943,9 @@ hr {
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
+.form-group{
+    margin-bottom:0.5em;
+}
 
 .tabform-borders {
     border: 0px solid lightgray !important;
@@ -2871,7 +2874,7 @@ canvas {
     background-color: white;
     /*#f8f9fa;*/
     height: auto;
-    width: 370px;
+    width: 300px;
     line-height: unset;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
     font-feature-settings: "liga";
