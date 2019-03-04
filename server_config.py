@@ -29,10 +29,10 @@ SERVER_CONFIG_FILENAME = config_filename
 EYECATCH = 'SERVER'
 EXECUTION_MODE = 'development'
 EXECUTION_ENVIRONMENT = 'localhost'
-EXECUTION_ENVIRONMENT = 'pythonanywhere'
+#EXECUTION_ENVIRONMENT = 'pythonanywhere'
 SERVER = 'localhost'
 #SERVER = 'pythonanywhere-ganimedes'
-SERVER = 'pythonanywhere-ifestionas'
+#SERVER = 'pythonanywhere-ifestionas'
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 ################################################################
 ### mail servers

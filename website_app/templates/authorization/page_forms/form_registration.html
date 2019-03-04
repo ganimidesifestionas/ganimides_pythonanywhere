@@ -3,13 +3,12 @@
 <form class="" id="RegistrationForm" action="{{ url_for('authorization.registrationForm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ registrationform.hidden_tag() }}
+
         <!--header-->
         <div class="modal-header align-items-center">
             <h1 class="modal-title mx-auto" id="registration_modal_form_Label">Registration</h1>
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
-
-        <div class="xauthorization-page-line"></div>
 
         <!--body-->
         <div class="modal-body">
@@ -145,9 +144,9 @@
                             {% endfor %}
                         </div>
 
-                        <div class="form-group d-flex justify-content-center align-items-center">
+                        <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="d-flex">
-                                {{ registrationform.recaptcha }}
+                                {{ registrationform.recaptcha(style="width:200px") }}
                                 {% for error in registrationform.recaptcha.errors %}
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}

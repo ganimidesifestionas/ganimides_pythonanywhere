@@ -1,15 +1,15 @@
 {% set secure_text='Your information is secured and protected.' %}
 {% set include_mcafee='Y' %}
-<form style="width:100%" class="d-flex flex-column contactus-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
+<form style="xwidth:100%" class="d-flex flex-column contactus-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
     <fieldset>
         {{ contactusform.hidden_tag() }}
 
-        <div class="modal-header align-items-center p-0 m-0">
+        <div class="modal-header align-items-center">
             <h1 class="modal-title mx-auto" id="contactus_modal_form_Label">Contact Us</h1>
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="xauthorization-form-line"></div>
 
         <div class="modal-body">
             <div class="d-flex flex-column">
@@ -115,10 +115,10 @@
             </div>
         </div>
 
-        <div class="authorization-form-line"></div>
+        <div class="xauthorization-form-line"></div>
 
         <!--footer-->
-        <div class="modal-footer d-flex justify-content-start p-2">
+        <div class="modal-footer d-flex justify-content-start">
             <div class="">
                 {% if not(current_user.is_authenticated) %}
                 <div class="d-flex mt-0 mb-0 p-0">

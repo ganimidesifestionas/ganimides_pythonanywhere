@@ -102,10 +102,13 @@
             <div class="form-group d-flex justify-content-center p-0 m-0">
                 {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT','authorization'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
             </div>
-            <div class="modal-footer d-flex justify-content-end p-1">
+        <!-- form footer -->
+        <div class="modal-footer d-flex justify-content-end">
                 <div class="">
-                    {{userprofilechange_form.submit(class="btn mybtn-orange mybtn-submit btn-sm mybtn-submit")}}
                 </div>
+                <div class="">
+                        {{userprofilechange_form.submit(class="btn mybtn-orange mybtn-submit btn-sm mybtn-submit")}}
+                    </div>
             </div>
 
         </fieldset>

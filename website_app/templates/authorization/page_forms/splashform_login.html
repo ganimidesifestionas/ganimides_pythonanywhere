@@ -3,7 +3,8 @@
 {% set splashform_aria_labelledby='login_modal_form_data' %}
 {% set splashform_module='authorization' %}
 {% set splashform_form='form_login.html' %}
-{% set splashform_class='cookies-consent-page' %}
-{% set splashform_component = include_files('splashform_component.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) %}
-{% include splashform_component ignore missing%}
+{% set splashform_class='authorization-page' %}
+{% set splashform_width='330px' %}
+{% set splashform_wrapper = include_files('splashform_wrapper.html',type='COMPONENT',module=splashform_module,language=CURRENT_LANGUAGE) %}
+{% include splashform_wrapper ignore missing%}
 <!-- END:splashform_login.html -->

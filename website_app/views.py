@@ -200,7 +200,7 @@ def set_cookies_etc_before_request():
             app.contactusform.company.data = current_user.company
             app.contactusform.jobTitle.data = current_user.jobTitle
             app.contactusform.email.data = current_user.email
-            app.contactusform.contact_message.data = 'xxxx'
+            app.contactusform.contact_message.data = ''
     session.modified = True
 
     #3. log the visit in db

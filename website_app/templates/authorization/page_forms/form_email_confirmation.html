@@ -1,7 +1,8 @@
 {% if alreadyconfirmed %}
 {% set alreadyconfirmedStr='disable' %}
 {% endif %}
-<form class="authorization-page" id="emailconfirm" action="{{ url_for('authorization.send_confirmation_email') }}" method="post" role="form" autocomplete="on" novalidate>
+
+<form class="" id="emailconfirm" action="{{ url_for('authorization.send_confirmation_email') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ form.hidden_tag() }}
         <div class="modal-header align-items-center">

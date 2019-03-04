@@ -1,15 +1,13 @@
-<form class="xauthorization-page" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
+<form class="" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ avatarupload_form.hidden_tag() }}
-        <div class="modal-header align-items-center p-1">
-                <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">Upload Your Avatar</h1>
-                {% include include_files('form_close_icon.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-            </div>
-        <!--
-        <div class="separation-line"></div>
-        -->
 
-        <div class="modal-body pb-0 pt-0">
+        <div class="modal-header align-items-center">
+            <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">Upload Your Avatar</h1>
+            {% include include_files('form_close_icon.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
+
+        <div class="modal-body">
             <div class="d-flex flex-column ">
                 <div class="d-flex justify-content-between p-1">
                     {% if current_user.avatarImageFile %}
@@ -23,23 +21,18 @@
                     {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
                     <div class="p-0 left">
                         <!--===================================================-->
+
                         <!-- empty avatar selection-->
                         <div class="form-group d-flex flex-row w-100 justify-content-between">
                             <div class="mr-2">
-                                    <input type="radio" 
-                                    Style="margin-top: -1px; vertical-align: middle;"
-                                    id="emptyAvatarType" name="emptyAvatarType" value="F"> empty female avatar
+                                <input type="radio" Style="margin-top: -1px; vertical-align: middle;" id="emptyAvatarType" name="emptyAvatarType" value="F"> empty female avatar
                             </div>
                             <div class="ml-2">
-                                    <input type="radio" 
-                                    Style="margin-top: -1px; vertical-align: middle;"
-                                    id="emptyAvatarType" name="emptyAvatarType" value="M"> empty male avatar
+                                <input type="radio" Style="margin-top: -1px; vertical-align: middle;" id="emptyAvatarType" name="emptyAvatarType" value="M"> empty male avatar
                             </div>
                         </div>
 
-                        <!-- select a photo
-                                <div class="w-100 p-1" style="text-align:left;">
-                        -->
+                        <!-- upload a picture-->
                         <div class="form-group d-flex flex-row w-100 justify-content-between">
                             {{ avatarupload_form.photo(class='upload_file') }}
                             {% for error in avatarupload_form.photo.errors %}
@@ -49,7 +42,7 @@
 
                         <!-- moderate a photo with a 3rd party tool-->
                         <div class="form-group d-flex flex-row w-100 justify-content-between">
-                                <p class="text-note p-0 m-0 small">Image moderation with&nbsp;<a target="_blank" href="https://sightengine.com/">Sightengine</a></p>
+                            <p class="text-note p-0 m-0 small">Image moderation with&nbsp;<a target="_blank" href="https://sightengine.com/">Sightengine</a></p>
                         </div>
 
                         <!--===================================================-->
@@ -58,17 +51,15 @@
             </div>
         </div>
 
-        <!--
-        <div class="separation-line"></div>
-        -->
-
+        <!-- form footer -->
         <div class="modal-footer d-flex justify-content-end">
-            <div class="mr-1">
+            <div class="">
                 {% include include_files('form_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
             </div>
             <div class="">
                 {{avatarupload_form.submit(class="btn btn-sm mybtn-orange mybtn-submit")}}
             </div>
         </div>
+
     </fieldset>
 </form>
