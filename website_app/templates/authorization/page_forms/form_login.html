@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="ml-auto d-flex align-items-center">
-                                {{loginform.forgetPassword(class="btn btn-sm mybtn-orange mybtn-submit p-1 mybtn-submit")}}
+                                {{loginform.forgetPassword(class="btn btn-outline-info btn-sm mybtn-submit")}}
                             </div>
                             {% for error in loginform.rememberMe.errors %}
                             <span class="text-error-note" style="color: red;">[{{ error }}]</span>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="align-self-center text-in-form" style="font-size:75%">Don't have an account yet?&nbsp;</div>
-                            <div class="align-self-center"><a class="btn btn-default btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
+                            <div class="align-self-center"><a class="btn btn-outline-info btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
                         </div>
                         <!--===================================================-->
                     </div>

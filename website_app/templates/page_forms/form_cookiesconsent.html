@@ -1,11 +1,11 @@
 <!--BEGIN: form:cookiesconsent.html-->
 {% set form_title='please accept our cookies' %}
-<form style="width:320px;" class="cookies-consent-page border border-light" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
+<form style="width:320px;font-size:1rem" class="cookies-consent-page border border-light" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ cookiesconsentform.hidden_tag() }}
 
         <div class="modal-header align-items-center">
-            <h1 class="modal-title mx-auto" id="cookies_modal_form_Label">please accept our cookies</h1>
+            <h6 class="modal-title mx-auto" id="cookies_modal_form_Label">please accept our cookies</h6>
             {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
@@ -22,13 +22,10 @@
         <!-- form footer -->
         <div class="modal-footer d-flex justify-content-between">
             <div class="">
-                <a class="btn btn-default btn-sm mybtn-close" id="moreinf" href="{{ url_for('cookies_policy') }}">More Information</a>
+                <a style="border-radius:2rem" class="btn btn-outline-info btn-sm" id="askmelater" href="{{ url_for('cookiesconsentform', answer='ASK-ME-LATER') }}">Ask me later</a>
             </div>
             <div class="">
-                <a class="btn btn-default btn-sm mybtn-close" id="askmelater" href="{{ url_for('cookiesconsentform', answer='ASK-ME-LATER') }}">Ask me later</a>
-            </div>
-            <div class="">
-                {{cookiesconsentform.submit(class="btn mybtn-orange mybtn-submit btn-sm mybtn-submit")}}
+                {{cookiesconsentform.submit(class="btn btn-sm btn-warning btn-submit")}}
             </div>
         </div>
     </fieldset>

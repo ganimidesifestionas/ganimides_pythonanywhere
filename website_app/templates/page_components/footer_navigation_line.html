@@ -1,23 +1,9 @@
-<div class="bg-transparent w-100 footer_menu">
-    <div class="d-flex flex-row justify-content-center xalign-self-center">
+<div class="d-flex flex-row justify-content-center align-items-center bg-transparent w-100 footer_menu">
         {% if previous_page %}
-        <div class="p-0">
-            <p style="text-align:right">
-                <a class="nav-link" data-toggle="tooltip" title="{{previous_page}}" data-placement="top" href="{{url_for(previous_page)}}">&laquo;Previous</a>
-            </p>
-        </div>
+        <a style="width:4rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{previous_page}}" data-placement="top" href="{{url_for(previous_page)}}">&laquo;Previous</a>
         {% endif %}
-        <div class="p-0">
-            <p style="text-align:center">
-                <a class="nav-link" data-toggle="tooltip" title="" data-placement="top" rel="nofollow" href="#" onclick="window.scrollTo(0,0); return false;">Top&uarr;</a>
-            </p>
-        </div>
+        <a style="width:4rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="" data-placement="top" rel="nofollow" href="#" onclick="window.scrollTo(0,0); return false;">Top&uarr;</a>
         {% if next_page %}
-        <div class="p-0">
-            <p style="text-align:left">
-                <a class="nav-link" data-toggle="tooltip" title="{{next_page}}" data-placement="top" <a href="{{url_for(next_page)}}">Next&raquo;</a>
-            </p>
-        </div>
+        <a style="width:4rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{next_page}}" data-placement="top" <a href="{{url_for(next_page)}}">Next&raquo;</a>
         {% endif %}
-    </div>
 </div>

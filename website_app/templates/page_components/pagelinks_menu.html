@@ -22,14 +22,13 @@
                         <!-- d-none d-sm-block: display from small screens and up -->
                         {% if previous_page %}
                         <li class="nav-item mr-1">
-                                <a id="prevpage" class="nav-link py-0 px-1 btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{previous_page}}" href="{{url_for(previous_page)}}">&laquo;previous</a>
-                                </a>
+                                {% include include_files('button_previous.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
                             </li>
                         {% endif %}
         
                         {% if next_page %}
                         <li class="nav-item">
-                            <a id="learnmore" class="nav-link py-0 px-1 btn btn-outline-primary btn-sm" data-toggle="tooltip" title="{{next_page}}" href="{{url_for(next_page)}}">learn more&raquo;</a>
+                            {% include include_files('button_learnmore.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
                         </li>
                         {% endif %}
             </ul>
