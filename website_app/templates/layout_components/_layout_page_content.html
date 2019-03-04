@@ -114,12 +114,15 @@
 {% if not(link_page9) %}{% set link_page9="" %}{% endif %}
 {% set LinkPagesArray = [link_page1 ,link_page2, link_page3, link_page4 ,link_page5, link_page6, link_page7,link_page8, link_page9] %}
 
+{% set ns = namespace() %}
+{% set ns.items=0 %}
 {% set LinkPages=0 %}
 {% for pageLink in LinkPagesArray %}
 {% if pageLink[0] %}
-{% set LinkPages=LinkPages+1 %}
+{% set ns.items=ns.items+1 %}
 {% endif %}
 {% endfor %}
+{% set LinkPages=ns.items %}
 
 {% if next_page %}
 {% set LinkPages=LinkPages+1 %}
@@ -139,12 +142,14 @@
 {% if not(document_link_page9) %}{% set document_link_page9="" %}{% endif %}
 {% set DocumentLinkPagesArray = [document_link_page1 ,document_link_page2, document_link_page3, document_link_page4 ,document_link_page5, document_link_page6, document_link_page7,document_link_page8, document_link_page9] %}
 
+{% set ns.items=0 %}
 {% set DocumentLinkPages=0 %}
 {% for pageLink in DocumentLinkPagesArray %}
 {% if pageLink[0] %}
-{% set DocumentLinkPages=DocumentLinkPages+1 %}
+{% set ns.items=ns.items+1 %}
 {% endif %}
 {% endfor %}
+{% set DocumentLinkPages=ns.items %}
 
 <div class="d-flex flex-column w-100 bg-white">
     <div class="d-flex flex-row w-100 text-black">
