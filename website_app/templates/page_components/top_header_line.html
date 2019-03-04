@@ -30,7 +30,7 @@
         </div>
         <div class="d-flex col-2 justify-content-center align-items-center p-0">
             <div class="align-self-center p-0">
-                    <a class="" href="/"><img id="logo" class="" src="{{image_file('ganimides_logoB3.gif')}}" alt="{{COMPANY_NAME}}" /></a>
+                    <a class="" href="/"><img id="logo" style="width:3rem;height:3rem;" class="" src="{{image_file('ganimides_logoB3.gif')}}" alt="{{COMPANY_NAME}}" /></a>
             </div>
         </div>
         <div class="d-flex col-5 p-0 m-0">
@@ -43,21 +43,12 @@
                 </div>
                 <!-- SUPPORT MENU  -->
                 <div id="SupportMenu" class="collapse navbar-collapse p-0 support_menu">
-                    <ul class="navbar-nav ml-auto">
-                        <!-- option-1:Search -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" Style="color:red" id="searchform" data-toggle="tooltip" title="search" data-placement="bottom" href="javascript:function(){document.getElementById('top-menu-search').show();}">
-                                <img class="menu_image" src="{{image_file('icon_search.gif')}}" alt="search" onmouseover="this.src = '/static/images/icon_search_green.gif';" onmouseout="this.src = '/static/images/icon_search.gif';" />
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right p-0 m-0" aria-labelledby="searchform">
-                                <form class="xform-inline mt-0 mt-md-0 top-menu-navbar-search-form">
-                                    <div class="d-flex">
-                                        <input class="xform-control mr-sm-2" type="text" placeholder="Search..." aria-label="Search">
-                                        <button type="submit" class="btn btn-sm mybtn-orange mybtn-submit btn-sm">Search</button>
-                                    </div>
+                        <!-- Search inline form -->
+                                <form class="form-inline">
+                                  <input class="form-control form-control-sm mr-1" type="search" placeholder="Search" aria-label="Search">
+                                  <button class="btn btn-sm btn-outline-warning my-1 my-sm-0 mx-1 mx-sm-0" type="submit">Search</button>
                                 </form>
-                            </div>
-                        </li>
+                    <ul class="navbar-nav ml-auto">
                         {% if not(current_user.is_authenticated) %}
                         <!-- option-2:login or register -->
                         <li class="{{login_active}} nav-item">
@@ -109,7 +100,7 @@
                             {% if CURRENT_LANGUAGE == language[0] %}
                             {% set language_picture=flag_file(language[1][1]) %}
                             <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" id="languageDropdownList" role="button" data-toggle="dropdown" aria-expanded="false">
-                                <img class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
+                                <img style="width:1.5rem;height:1.5rem;" class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
                             </a>
                             {% endif %}
                             {% endfor %}
@@ -119,7 +110,7 @@
                                 {% if CURRENT_LANGUAGE != language[0] %}
                                 {% set language_picture=flag_file(language[1][1]) %}
                                 <a class="dropdown-item p-1" href="{{ url_for('set_language', language=language[0]) }}">
-                                    <img class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
+                                    <img style="width:1.5rem;height:1.5rem;" class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
                                 </a>
                                 {% endif %}
                                 {% endfor %}
@@ -135,7 +126,7 @@
                                 {% else %}
                                 {% set avatarImageFile=image_file('icon_avatar_default.png') %}
                                 {% endif %}
-                                <img class="menu_image rounded-circle border border-lightgray" alt="" src='{{avatarImageFile}}'>
+                                <img style="width:1.5rem;height:1.5rem;" class="menu_image rounded-circle border border-lightgray" alt="" src='{{avatarImageFile}}'>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right p-0 m-0 support_menu_dropdown_list" aria-labelledby="usermenu1">
                                 <a class="dropdown-item" href="#">Signed-in as {{ current_user.firstName.lower() }}</a>

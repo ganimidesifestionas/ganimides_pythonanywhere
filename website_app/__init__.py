@@ -648,6 +648,7 @@ def inject_utility_functions():
             rootfile1=os.path.join(rootfolder,file)
         #print('f1=',file1,rootfile1)
         file2=file1
+        rootfile2=rootfile1
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
         if (language!=app.config['DEFAULT_LANGUAGE']):
@@ -666,10 +667,14 @@ def inject_utility_functions():
             file2x=file2x.replace('\\','/')
             rootfile2=file2x
         #print('f2=',file2,rootfile2)
-        if file1 != rootfile1:
-            x=[file2, file1, rootfile2, rootfile1]
-        else:
+        if file1 != file2:
             x=[file2, file1]
+        else:
+            x=[file1]
+        if file2 != rootfile2:
+            x.append(rootfile2)
+        if file1 != rootfile1:
+            x.append(rootfile1)
         print('###include_files=',x)
         return x
 
