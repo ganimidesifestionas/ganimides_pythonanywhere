@@ -636,15 +636,18 @@ def inject_utility_functions():
                 type = 'IMAGES'
             if file_extension in ['.mp4']:
                 type = 'VIDEOS'
+        #print('module',module)
         #folder from type,module
         folder=appfolder(type,module)
         rootfolder=appfolder(type,'')
+        #print('folder=',folder,rootfolder)
         file1=file
-        if not os.path.dirname(file1):
-            file1=os.path.join(folder,file1)
-            if module != '':
-                rootfile1=os.path.join(rootfolder,file1)
-        file2=file1    
+        if not os.path.dirname(file):
+            file1=os.path.join(folder,file)
+            #if module != '':
+            rootfile1=os.path.join(rootfolder,file)
+        #print('f1=',file1,rootfile1)
+        file2=file1
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
         if (language!=app.config['DEFAULT_LANGUAGE']):
@@ -657,16 +660,17 @@ def inject_utility_functions():
             file2x=os.path.normpath(file2x)
             file2x=file2x.replace('\\','/')
             file2=file2x
-            if module != '':
-                file2x=os.path.join(os.path.dirname(rootfile1),Nfilename)
-                file2x=os.path.normpath(file2x)
-                file2x=file2x.replace('\\','/')
-                rootfile2=file2x
-        if module != '':            
+            #if module != '':
+            file2x=os.path.join(os.path.dirname(rootfile1),Nfilename)
+            file2x=os.path.normpath(file2x)
+            file2x=file2x.replace('\\','/')
+            rootfile2=file2x
+        #print('f2=',file2,rootfile2)
+        if file1 != rootfile1:
             x=[file2, file1, rootfile2, rootfile1]
         else:
             x=[file2, file1]
-        #print('###include_files=',x)
+        print('###include_files=',x)
         return x
 
     #print('   ',__name__,'###inject_utility_functions:image_file()')
