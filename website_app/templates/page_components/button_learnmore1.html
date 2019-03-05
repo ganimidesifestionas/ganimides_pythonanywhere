@@ -1,0 +1,7 @@
+<!--START:button_learnmore-->
+{% if next_page %}
+<button style="border-radius:2em;color:orange" class="btn btn-default py-0 px-1 d-flex align-items-center" onclick="location.href='{{url_for(next_page)}}'">
+    <i class="material-icons">exit_to_app</i> learn more
+</button>
+{% endif %}
+<!--FINISH:button_learnmore-->

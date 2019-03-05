@@ -1,0 +1,17 @@
+<!--START:button_learnmore-->
+{% if next_page %}
+<a href="{{url_for(next_page)}}" style="font-size:0.75rem;font-weight:800;border-radius:2rem;" class="d-flex align-items-center btn btn-outline-warning btn-sm">learn more&raquo;</a>
+<button class="btn btn-default button-icon d-flex align-items-center py-0 px-1">
+        <i class="material-icons">account_box</i>
+        learn more
+    </button>
+    <a href="{{url_for(next_page)}}" style="font-size:0.75rem;font-weight:800;border-radius:2rem;" 
+    class="btn btn-outline-default button-icon d-flex align-items-center py-0 px-1">
+    <i class="material-icons">account_box</i>
+    learn more
+    </a>
+    <button style="border-radius:2em;" class="btn btn-outline-default py-0 px-1 d-flex align-items-center" onclick="location.href='{{url_for(next_page)}}'" >
+    <i class="material-icons">exit_to_app</i> learn more
+    </button>
+    {% endif %}
+<!--FINISH:button_learnmore-->

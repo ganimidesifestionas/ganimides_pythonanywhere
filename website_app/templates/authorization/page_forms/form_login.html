@@ -1,12 +1,15 @@
+{% set form_title='login' %}
+{% set form_onclose_url='' %}
+
 <form class="" id="LoginForm" action="{{ url_for('authorization.loginForm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ loginform.hidden_tag() }}
         <!--header-->
         <div class="modal-header align-items-center">
-            <h1 class="modal-title mx-auto" id="login_modal_form_Label">Login</h1>
-            {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+                {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
-
+    
         <!--body-->
         <div class="modal-body">
             <div class="d-flex flex-column">

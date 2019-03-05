@@ -1,0 +1,57 @@
+        <div class="d-flex flex-row bg-white w-100 justify-content-between p-0 m-0">
+        <div class="d-flex col-5 bg-white text-success text-left top_navigation_line justify-content-start p-0 m-0">
+            <!--d-none d-lg-block display only on large screens-->
+            <div class="bg-white text-warning text-left xd-none xd-lg-block" style="border-bottom: 1px dotted orange;">
+                <!--some other info-->
+                <span style="font-weight:400" class="badge badge-pill badge-warning py-1 px-1">{{session.get('continent_name')}}</span>
+                <span style="font-weight:400" class="badge badge-pill badge-success py-1 px-1">{{session.get('country_name')}}</span>
+                <span style="font-weight:400" class="badge badge-pill badge-info py-1 px-1">{{session.get('region_name')}}</span>
+                {% if session.get('region_name') != session.get('city') %}
+                <span style="font-weight:400" class="badge badge-pill badge-primary py-1 px-1">{{session.get('city')}}</span>
+                {% endif %}
+                <span style="font-weight:400" class="badge badge-pill badge-secondary py-1 px-1">{{session.get('latitude')}},{{session.get('longitude')}}</span>
+            </div>
+            <div class="flex-grow-1 bg-white text-success text-left top_navigation_line">
+            </div>
+        </div>
+        <div class="col-2 bg-white text-success text-center top_navigation_line_counter p-0 m-0">
+            <span style="font-weight:400" class="badge badge-pill badge-success py-1 px-2">visit {{session.get('VisitNumber')}}</span>
+        </div>
+        <div class="d-flex col-5 bg-white justify-content-end p-0 m-0">
+            <div class="bg-white text-success text-left top_navigation_line">
+            </div>
+            <!--d-none d-lg-block display only on large screens-->
+            <div class="bg-white pr-1 top_navigation_line xd-none xd-lg-block" style="border-bottom: 1px dotted orange;">
+                <span style="text-decoration:none">
+                    {% set ns = namespace() %}
+                    {% set ns.pageix=0 %}
+                    {% set ns.pagecolorix=0 %}
+                    {% for pg in session['pages'] %}
+                    {% set ns.pageix=ns.pageix+1 %}
+                    {% set url=session['urls'][ns.pageix-1] %}
+
+                    {% set ns.pagecolorix=ns.pagecolorix+1 %}
+                    {% if ns.pagecolorix > 7 %}
+                    {% set ns.pagecolorix=1 %}
+                    {% endif %}
+                    {% if ns.pagecolorix==1 %}
+                    {% set pg_color="badge-warning" %}
+                    {% elif ns.pagecolorix==2 %}
+                    {% set pg_color="badge-primary" %}
+                    {% elif ns.pagecolorix==3 %}
+                    {% set pg_color="badge-secondary" %}
+                    {% elif ns.pagecolorix==4 %}
+                    {% set pg_color="badge-success" %}
+                    {% elif ns.pagecolorix==5 %}
+                    {% set pg_color="badge-danger" %}
+                    {% elif ns.pagecolorix==6 %}
+                    {% set pg_color="badge-info" %}
+                    {% elif ns.pagecolorix==7 %}
+                    {% set pg_color="badge-dark" %}
+                    {% endif %}
+                    <a href="{{url}}" style="font-weight:400" class="badge badge-pill py-1 px-2 {{pg_color}}">{{pg}}</a>
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+</div>

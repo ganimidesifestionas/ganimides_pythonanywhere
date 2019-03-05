@@ -1,13 +1,14 @@
 <!--BEGIN: form:cookiesconsent.html-->
 {% set form_title='please accept our cookies' %}
+{% set form_onclose_url='' %}
 <form style="width:320px;font-size:1rem" class="cookies-consent-page border border-light" id="cookiesForm" action="{{ url_for('cookiesconsentform', answer='AGREE') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ cookiesconsentform.hidden_tag() }}
 
         <div class="modal-header align-items-center">
-            <h6 class="modal-title mx-auto" id="cookies_modal_form_Label">please accept our cookies</h6>
-            {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-        </div>
+                {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
 
         <div class="cookies-consent-page-line"></div>
 

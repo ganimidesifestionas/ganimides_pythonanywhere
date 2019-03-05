@@ -1,0 +1,32 @@
+<div class="bg-white page_history d-flex align-items-center py-0">
+    <span style="text-decoration:none;line-height:1">
+        {% set ns = namespace() %}
+        {% set ns.pageix=0 %}
+        {% set ns.pagecolorix=0 %}
+        {% for pg in session['pages'] %}
+        {% set ns.pageix=ns.pageix+1 %}
+        {% set url=session['urls'][ns.pageix-1] %}
+
+        {% set ns.pagecolorix=ns.pagecolorix+1 %}
+        {% if ns.pagecolorix > 7 %}
+        {% set ns.pagecolorix=1 %}
+        {% endif %}
+        {% if ns.pagecolorix==1 %}
+        {% set pg_color="badge-warning" %}
+        {% elif ns.pagecolorix==2 %}
+        {% set pg_color="badge-primary" %}
+        {% elif ns.pagecolorix==3 %}
+        {% set pg_color="badge-secondary" %}
+        {% elif ns.pagecolorix==4 %}
+        {% set pg_color="badge-success" %}
+        {% elif ns.pagecolorix==5 %}
+        {% set pg_color="badge-danger" %}
+        {% elif ns.pagecolorix==6 %}
+        {% set pg_color="badge-info" %}
+        {% elif ns.pagecolorix==7 %}
+        {% set pg_color="badge-dark" %}
+        {% endif %}
+        <a href="{{url}}" style="font-weight:400" class="badge badge-pill {{pg_color}}">{{pg}}</a>
+        {% endfor %}
+    </span>
+</div>

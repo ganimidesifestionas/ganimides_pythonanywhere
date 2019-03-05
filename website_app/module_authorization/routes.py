@@ -118,7 +118,7 @@ def set_cookies():
             app.contactusform.company.data = current_user.company
             app.contactusform.jobTitle.data = current_user.jobTitle
             app.contactusform.email.data = current_user.email
-            app.contactusform.contact_message.data = '...'
+            app.contactusform.contact_message.data = ''
 
     session.modified = True
 

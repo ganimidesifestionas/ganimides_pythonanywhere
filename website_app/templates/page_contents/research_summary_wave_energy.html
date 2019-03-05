@@ -1,4 +1,24 @@
-<h1>wave energy</h1>
-<p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-<br>&nbsp;
-<p class="text-bottom-right"><a href="http://flask.pocoo.org/" style="font-size:0.75rem;font-weight:800;border-radius:2rem" class="btn btn-outline-warning btn-sm">learn more&raquo;</a></p>
+{% set summary_title='wave energy' %}
+{% set summary_icon='storage' %}
+{% set summary_url='http://flask.pocoo.org/' %}
+<div class="d-flex flex-column w-100 justify-content-center px-1 pb-1 m-0 summary_cell bg-light" style="border-radius:1.5em">
+    <div class="d-flex p-0 m-0 justify-content-center">
+        {% if summary_icon %}
+        <i class="material-icons align-center">{{summary_icon}}</i>
+        {% endif %}
+    </div>
+    <div class="d-flex p-0 m-0 justify-content-center text-center">
+        {% if summary_title %}
+        <h1 class="text-center p-0 m-0">{{summary_title}}</h1>
+        {% endif %}
+    </div>
+    <div class="d-flex p-0 m-0 justify-content-start">
+        <p class="p-0 m-0 text-justify">
+                You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.        </p>
+    </div>
+    <div class="d-flex p-0 m-0 justify-content-end">
+        {% if summary_url %}
+        {% include include_files('button_learnmore_summary.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+        {% endif %}
+    </div>
+</div>
