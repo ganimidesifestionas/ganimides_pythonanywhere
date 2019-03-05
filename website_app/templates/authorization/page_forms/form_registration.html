@@ -4,7 +4,7 @@
 
 {% set secure_text='Your information is secured and protected.' %}
 {% set include_mcafee='Y' %}
-<form class="" id="RegistrationForm" action="{{ url_for('authorization.registrationForm') }}" method="post" role="form" autocomplete="on" novalidate>
+<form style="width:auto" class="" id="RegistrationForm" action="{{ url_for('authorization.registrationForm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ registrationform.hidden_tag() }}
 
@@ -118,7 +118,7 @@
                                     <div class="d-flex align-items-center">
                                         <span style="color:red">{% if registrationform.agreeTerms.flags.required %}*{% endif %}</span>
                                         <div class="">
-                                            <p class="checkbox-text text-wrap" style="max-width:330px">
+                                            <p class="checkbox-text text-wrap" style="xmax-width:360px">
                                                     by providing the above information, I agree to the <a href="{{url_for('terms_and_conditions')}}" target="_blank" rel="noopener">Terms of Use</a> and the <a href="{{url_for('privacy_policy')}}" target="_blank" rel="noopener">Privacy Policy</a> of {{WEBSITE_TITLE}}.
                                                 </p>
                                         </div>
@@ -137,7 +137,7 @@
                                 <div class="d-flex align-items-center">
                                     <span style="color:red">{% if registrationform.mailingListSignUp.flags.required %}*{% endif %}</span>
                                     <div class="">
-                                        <p class="checkbox-text text-wrap" style="max-width:330px">
+                                        <p class="checkbox-text text-wrap" style="xmax-width:360px">
                                             Sign up for weekly industry insights, updates and perspectives from {{WEBSITE_TITLE}}.
                                         </p>
                                     </div>
