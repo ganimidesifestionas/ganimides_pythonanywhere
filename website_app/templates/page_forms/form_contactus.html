@@ -1,3 +1,6 @@
+{% set form_title='contact us' %}
+{% set form_onclose_url='' %}
+
 {% set secure_text='Your information is secured and protected.' %}
 {% set include_mcafee='Y' %}
 <form style="xwidth:100%" class="d-flex flex-column contactus-form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
@@ -5,9 +8,9 @@
         {{ contactusform.hidden_tag() }}
 
         <div class="modal-header align-items-center">
-            <h1 class="modal-title mx-auto" id="contactus_modal_form_Label">Contact Us</h1>
-            {% include include_files('splashform_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-        </div>
+                {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
 
         <div class="xauthorization-form-line"></div>
 

@@ -1,3 +1,6 @@
+{% set form_title='mobile confirmation' %}
+{% set form_onclose_url='' %}
+
 {% if alreadyconfirmed %}
 {% set alreadyconfirmedStr='disable' %}
 {% endif %}
@@ -5,10 +8,10 @@
     <fieldset>
         {{ mobileconfirmation_form.hidden_tag() }}
         <div class="modal-header align-items-center">
-            <h1 class="modal-title mx-auto" id="login_modal_form_Label">Mobile Confirmation</h1>
-            <button type="button button-info" class="float-right close splash_form_close_button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-
+                {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+    
         <div class="authorization-page-line"></div>
 
         <div class="modal-body">

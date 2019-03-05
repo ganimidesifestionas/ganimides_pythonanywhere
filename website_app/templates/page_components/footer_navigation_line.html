@@ -1,9 +1,9 @@
-<div class="d-flex flex-row justify-content-center align-items-center bg-transparent w-100 footer_menu">
+<div class="d-flex flex-row justify-content-center align-items-center bg-transparent my-1 w-100 footer_menu">
         {% if previous_page %}
-        <a style="width:4rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{previous_page}}" data-placement="top" href="{{url_for(previous_page)}}">&laquo;Previous</a>
+        <a style="width:5rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{previous_page}}" data-placement="top" href="{{url_for(previous_page)}}">&laquo;Previous</a>
         {% endif %}
-        <a style="width:4rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="" data-placement="top" rel="nofollow" href="#" onclick="window.scrollTo(0,0); return false;">Top&uarr;</a>
+        <a style="width:5rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="" data-placement="top" rel="nofollow" href="#" onclick="window.scrollTo(0,0); return false;">Top&uarr;</a>
         {% if next_page %}
-        <a style="width:4rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{next_page}}" data-placement="top" <a href="{{url_for(next_page)}}">Next&raquo;</a>
+        <a style="width:5rem" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" title="{{next_page}}" data-placement="top" <a href="{{url_for(next_page)}}">Next&raquo;</a>
         {% endif %}
 </div>

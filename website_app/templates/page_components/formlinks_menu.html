@@ -1,0 +1,54 @@
+<!--START:formlinks_menu-->
+<div class="d-flex p-0 m-0 align-items-center justify-content-end formlinks">
+    {% if FormLinkPages > 0 %}
+    <nav class="navbar navbar-expand-sm p-0 m-0">
+        <ul class="navbar-nav ml-auto justify-content-center">
+            {% set ns = namespace() %}
+            {% set ns.pagecolorix=0 %}
+            {% for pageLink in FormLinkPagesArray %}
+                {% if pageLink[0] %}
+                    {% set ns.pagecolorix=ns.pagecolorix+1 %}
+                    {% if ns.pagecolorix > 7 %}
+                    {% set ns.pagecolorix=1 %}
+                    {% endif %}
+                    {% if ns.pagecolorix==1 %}
+                    {% set pg_color="badge-warning" %}
+                    {% elif ns.pagecolorix==2 %}
+                    {% set pg_color="badge-primary" %}
+                    {% elif ns.pagecolorix==3 %}
+                    {% set pg_color="badge-secondary" %}
+                    {% elif ns.pagecolorix==4 %}
+                    {% set pg_color="badge-success" %}
+                    {% elif ns.pagecolorix==5 %}
+                    {% set pg_color="badge-danger" %}
+                    {% elif ns.pagecolorix==6 %}
+                    {% set pg_color="badge-info" %}
+                    {% elif ns.pagecolorix==7 %}
+                    {% set pg_color="badge-dark" %}
+                    {% endif %}
+
+                    {% if not pageLink[0].split(',')[1] %}
+                    {% set pageurl=url_for(pageLink[0]) %}
+                    {% else %}
+                    {% set v1=pageLink[0].split(',')[0] %}
+                    {% set v2=pageLink[0].split(',')[1] %}
+                    {% set r=v1.replace("'","") %}
+                    {% set p1=v2.split('=')[0] %}
+                    {% set p2=v2.split('=')[1] %}
+                    {% set p2s=p2.replace("'","") %}
+                    {% set pageurl=url_for(r,email=p2s) %}
+                    {% endif %}
+                    <li class="nav-item ml-1">
+                        {% if pageLink[3]=='button' %}
+                        <a href="{{pageurl}}" class="badge badge {{pg_color}}">{{pageLink[1]}}&raquo;</a>
+                        {% else %}
+                        <a href="{{pageurl}}" class="badge badge {{pg_color}}">{{pageLink[1]}}&raquo;</a>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+<!--FINISH:formlinks_menu-->

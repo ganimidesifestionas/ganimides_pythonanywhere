@@ -1,10 +1,12 @@
+{% set form_title='upload your avatar' %}
+{% set form_onclose_url=url_for('authorization.userprofile') %}
 <form class="" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ avatarupload_form.hidden_tag() }}
 
         <div class="modal-header align-items-center">
-            <h4 class="modal-title mx-auto" id="cookies_modal_form_Label">Upload Your Avatar</h4>
-            {% include include_files('form_close_icon.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+            {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
         <div class="modal-body">

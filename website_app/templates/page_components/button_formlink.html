@@ -1,0 +1,9 @@
+<!--START:button_learnmore-->
+{% if next_page %}
+    <a href="{{url_for(next_page)}}" style="font-size:0.75rem;font-weight:600;border-radius:2rem;" 
+    class="btn btn-outline-warning button-icon d-flex align-items-center py-0 px-1">
+    <i class="material-icons">exit_to_app</i>
+    learn more
+    </a>
+    {% endif %}
+<!--FINISH:button_learnmore-->

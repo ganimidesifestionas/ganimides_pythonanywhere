@@ -1,5 +1,11 @@
 <!--START:button_previous-->
 {% if previous_page %}
-<a href="{{url_for(previous_page)}}" style="font-size:0.75rem;font-weight:800;border-radius:2rem" class="btn btn-outline-light btn-sm"></a>&laquo;previous</a>
+    <a href="{{url_for(previous_page)}}" 
+    style="border:1px solid transparent;border-radius:2em" 
+    class="btn btn-sm btn-outline-secondary my-1 my-sm-0 mx-1 mx-sm-0 py-0 d-flex align-items-center"
+    >
+    <i class="material-icons">arrow_left</i>
+    previous
+    </a>
 {% endif %}
 <!--FINISH:button_previous-->

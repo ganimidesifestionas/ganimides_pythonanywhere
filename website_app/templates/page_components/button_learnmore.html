@@ -1,5 +1,10 @@
 <!--START:button_learnmore-->
 {% if next_page %}
-<a href="{{url_for(next_page)}}" style="font-size:0.75rem;font-weight:800;border-radius:2rem" class="btn btn-outline-warning btn-sm">learn more&raquo;</a>
-{% endif %}
+    <a href="{{url_for(next_page)}}" 
+    style="border:1px solid transparent;border-radius:2em" 
+    class="btn btn-sm btn-outline-warning my-1 my-sm-0 mx-1 mx-sm-0 py-0 d-flex align-items-center">
+    <i class="material-icons">exit_to_app</i>
+    learn more
+    </a>
+    {% endif %}
 <!--FINISH:button_learnmore-->
