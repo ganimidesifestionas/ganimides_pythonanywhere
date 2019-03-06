@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="d-flex col-5 p-0 m-0">
-            <nav class="navbar navbar-expand-lg w-100 justify-content-between p-0 m-0">
+            <nav class="navbar navbar-expand-xl w-100 justify-content-between p-0 m-0">
                 <!-- Toggler/collapsibe Button -->
                 <div class="d-flex">
                     <button id="supportmenu-toggler" class="navbar-toggler supportmenu-toggler m-0 p-0" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,8 +45,8 @@
                 <div id="SupportMenu" class="collapse navbar-collapse p-0 support_menu">
                         <!-- Search inline form -->
                                 <form class="form-inline">
-                                  <input class="form-control form-control-sm mr-1" type="search" placeholder="Search" aria-label="Search">
-                                  <button class="btn btn-sm btn-outline-warning my-1 my-sm-0 mx-1 mx-sm-0" type="submit">Search</button>
+                                  <input class="form-control form-control-sm mr-2" type="search" placeholder="Search" aria-label="Search">
+                                  <button class="btn btn-sm btn-outline-warning my-1 my-sm-0 mx-0 mx-sm-0" type="submit">Search</button>
                                 </form>
                     <ul class="navbar-nav ml-auto">
                         {% if not(current_user.is_authenticated) %}
@@ -70,9 +70,9 @@
                         </li>
                         {% endif %}
                         <!-- option-2:help -->
-                        <li class="{{help_active}} nav-item dropdown xsupport_menu_dropdown_list">
+                        <li class="{{help_active}} nav-item dropdown">
                             <a class="nav-link dropdown-toggle dropdown-toggle-split" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
-                            <div class="dropdown-menu dropdown-menu-right p-0 m-0 support_menu_dropdown_list" aria-labelledby="helpDropdownList">
+                            <div class="dropdown-menu dropdown-menu-right p-0 m-0 menu_dropdown_list" aria-labelledby="helpDropdownList">
                                 <a class="dropdown-item p-1" href="/myBank">MyBank</a>
                                 <a class="dropdown-item p-1" href="{{url_for('myGame')}}">MyGame</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
@@ -105,7 +105,7 @@
                             {% endif %}
                             {% endfor %}
                             <!--show the other languages as menu-->
-                            <div class="dropdown-menu  dropdown-menu-right p-0 support_menu_dropdown_list" aria-labelledby="languageDropdownList">
+                            <div class="dropdown-menu  dropdown-menu-right p-0 menu_dropdown_list" aria-labelledby="languageDropdownList">
                                 {% for language in AVAILABLE_LANGUAGES.items() %}
                                 {% if CURRENT_LANGUAGE != language[0] %}
                                 {% set language_picture=flag_file(language[1][1]) %}
@@ -128,7 +128,7 @@
                                 {% endif %}
                                 <img style="width:1.5rem;height:1.5rem;" class="menu_image rounded-circle border border-lightgray" alt="" src='{{avatarImageFile}}'>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right p-0 m-0 support_menu_dropdown_list" aria-labelledby="usermenu1">
+                            <div class="dropdown-menu dropdown-menu-right p-0 m-0 menu_dropdown_list" aria-labelledby="usermenu1">
                                 <a class="dropdown-item" href="#">Signed-in as {{ current_user.firstName.lower() }}</a>
                                 <div class="dropdown-divider p-0 m-0"></div>
                                 <a class="dropdown-item" href="{{ url_for('authorization.logout') }}">Logout</a>

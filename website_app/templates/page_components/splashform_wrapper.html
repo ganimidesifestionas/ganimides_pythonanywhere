@@ -7,7 +7,7 @@
 {% set splashform_formfile = include_files(splashform_form,type='FORM',module=splashform_module,language=CURRENT_LANGUAGE) %}
 {%endif%}
 <div class="modal fade" id="{{splashform_divid}}" tabindex="-1" role="dialog" aria-labelledby="{{splashform_aria_labelledby}}">
-    <div class="modal-dialog modal-dialog-slideout modal-md modal-dialog-centered justify-content-center" role="document">
+    <div class=" border border-primary modal-dialog modal-dialog-slideout modal-md modal-dialog-centered justify-content-center" role="document">
         <div class="modal-content border border-light {{splashform_class}}" style="width:fit-content">
                 {% if splashform_width %}
                 <div style="width:{{splashform_width}}">
@@ -17,7 +17,6 @@
                 </div>
             {% endif %}
         </div> 
-        </div>
     </div>
 </div>
 <!-- END:splash form wrapper -->

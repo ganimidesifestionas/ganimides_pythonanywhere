@@ -1,0 +1,19 @@
+html {
+    font-size: 1rem;
+  }
+@media (max-width: 400px) { 
+    font-size: 0.5rem;
+ }
+@media (max-width: 600px) { 
+    font-size: 0.8rem;
+ }
+/*
+ @media screen and (device-pixel-ratio: 1)
+    and (device-width: 1024px)
+    and (max-device-height: 600px)
+    and (orientation: landscape),
+  screen and (device-pixel-ratio: 1)
+    and (device-width: 600px)
+    and (max-device-height: 1024px)
+    and (orientation: portrait)
+*/

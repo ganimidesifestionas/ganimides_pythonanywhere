@@ -111,10 +111,8 @@
         function showViewportSize() {
             var the_width = $(window).width();
             var the_height = $(window).height();
-            var the_size = the_width + 'w X h' + the_height;
             $('#width').text(the_width);
             $('#height').text(the_height);
-            $('#screensize').text(the_size);
         }
         function showMobile() {
             alert("shalimar")
@@ -139,8 +137,8 @@
         }
         function quarter() {
             window.resizeTo(
-                window.screen.availWidth / 2,
-                window.screen.availHeight / 2
+              window.screen.availWidth / 2,
+              window.screen.availHeight / 2
             );
         }
         function setwindowsize(win, w, h) {
@@ -177,11 +175,12 @@
         </table>
     -->
     </header>
-    <div class="d-flex flex-row w-100 bg-white text-black">
-        <div class="w-10 bg-white text-black justify-content-start">
-            &nbsp;
+    <div class="d-flex flex-row w-100 bg-white text-black border border-danger mx-2">
+        <div class="w-10 bg-white text-black justify-content-start border border-info">
+            w-10
+            &nbsp;&nbsp;&nbsp;
         </div>
-        <div class="d-flex flex-column flex-grow-1">
+        <div class="d-flex flex-column flex-grow-1 border border-info">
             <!--
             {{session['session_expiry']}}|
             clientIP:{{session['clientIPA']}}|
@@ -190,52 +189,38 @@
             page_visit:{{session['page_visit_id']}}|
             active_module:{{session['active_module']}}|
             -->
-            <div class="d-flex flex-column">
-                {% include include_files('_layout_header.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            <div class="d-flex flex-column  border border-info">
+                {% include LAYOUTS_FOLDER+version_file("_layout_header.html",execution_mode,design_type,design_version_header) %}
             </div>
-
-            <div class="d-flex flex-row py-1">
+            {% include [language_fullpathfile('cookies_alert.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('cookies_alert.html','COMPONENT')] %}
+            {% include [language_fullpathfile('splash_forms.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('splash_forms.html','COMPONENT')] %}
+            <div class="d-flex border border-info">
+                    advertise banner top 
                 <!--
-                advertise banner top
                 -->
             </div>
-            <div class="d-flex flex-column m-0 p-0">
-                <!--
-                    splash screens here
-                -->
-                {% include include_files('cookies_alert.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-                {% include include_files('splash_forms.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-            </div>
-            <div class="d-flex flex-row py-1">
-                <!--
+            <div class="d-flex border border-info">
                 block content
-                -->
                 <div class="d-flex flex-grow-1">
-                    <!--
-                            page content including left side
-                        -->
+                    <!--page content including left side-->
                     {% block content %}
                     {% endblock %}
                 </div>
                 <div class="d-flex">
-                    <!--
-                            right side content
-                        -->
-                    {% include include_files('_layout_rightside.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    <!--right side content-->
+                    {% include LAYOUTS_FOLDER+version_file("_layout_rightside.html",execution_mode,design_type,"") %}
                 </div>
-
             </div>
-            <div class="d-flex flex-row py-1">
-                <!--
-                advertise banner bottom
-                -->
+            <div class="d-flex border border-info">
+                    advertise banner bottom 
+                <!---->
             </div>
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column border border-info">
                 {% include LAYOUTS_FOLDER+version_file("_layout_footer.html",execution_mode,design_type,"") %}
             </div>
         </div>
-        <div class="w-10 bg-white text-black justify-content-end">
-            &nbsp;
+        <div class="w-10 bg-white text-black justify-content-end border border-success">
+            w-10 &nbsp;&nbsp;&nbsp;
         </div>
     </div>
 
@@ -257,6 +242,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 -->
+
     {% if splash_form %}
     {% if splash_form=='contactus' %}
     <script>
@@ -287,7 +273,6 @@
     </script>
     {% endif %}
     {% endif %}
-
     <!--
     <script>
         $(document).ready(function () {
