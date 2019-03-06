@@ -19,30 +19,30 @@
 
 
 <!--cookies_splash form -->
-{% include include_files('splashform_cookiesconsent.html',type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+{% include include_files('splashform_cookiesconsent.html',type='FORM',module='',language=CURRENT_LANGUAGE) ignore missing %}
 
 {% if SPLASHFORM_CONTACTUS and contactusform%}
 <div class="d-flex">
     <!--contactus splash form -->
-    {% include include_files(SPLASHFORM_CONTACTUS,type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files(SPLASHFORM_CONTACTUS,type='FORM',module='',language=CURRENT_LANGUAGE) ignore missing %}
 </div>
 {% endif %}
 
 {% if SPLASHFORM_LOGIN and loginform %}
 <div class="d-flex">
     <!--login splash form -->
-    {% include include_files(SPLASHFORM_LOGIN,type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files(SPLASHFORM_LOGIN,type='FORM',module='authorization',language=CURRENT_LANGUAGE) ignore missing %}
 </div>
 {% endif %}
 {% if SPLASHFORM_REGISTRATION and registrationform %}
 <div class="d-flex ">
     <!--registration splash form -->
-    {% include include_files(SPLASHFORM_REGISTRATION,type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files(SPLASHFORM_REGISTRATION,type='FORM',module='authorization',language=CURRENT_LANGUAGE) ignore missing %}
 </div>
 {% endif %}
 {% if SPLASHFORM_FORGETPASSWORD and forgetpasswordform %}
 <div class="d-flex">
     <!--forgetpassword splash form -->
-    {% include include_files(SPLASHFORM_FORGETPASSWORD,type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files(SPLASHFORM_FORGETPASSWORD,type='FORM',module='authorization',language=CURRENT_LANGUAGE) ignore missing %}
 </div>
 {% endif %}
