@@ -1,19 +1,16 @@
-<div id="cookie_directive_container" class="alert alert-warning alert-dismissible text-center" style="display: none">
+{% set cookies_alert_showhide="display: none" %}
+{% if not ('cookies_consent' in session) or session.get('cookies_consent') != 'YES' %}
+{% if session.get('active_module').lower() not in ('website_app.module_administration.routes','website_app.module_authorization.routes') %}
+{% set cookies_alert_showhide="" %}
+{% endif %}
+{% endif %}
+
+<div id="cookie_directive_container" class="alert alert-warning alert-dismissible text-center xborder xborder-dark" style="{{cookies_alert_showhide}}">
   <div id="cookie_accept">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
     We use <strong>cookies</strong> to provide social media features and to analyse our traffic. 
     We also share information about your use of our site with our social media and analytics partners. 
     <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our 
       <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
-  </div>
-</div>
-<div class="modal fade" id="cookie_accept_form" tabindex="-1" role="dialog" aria-labelledby="cookie_accept_form_Label">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content border border-light" style="xwidth:fit-content">
-        We use <strong>cookies</strong> to provide social media features and to analyse our traffic. 
-        We also share information about your use of our site with our social media and analytics partners. 
-        <span class="text-muted credit">By using our website you are consenting to our use of cookies in accordance with our 
-          <a href="{{url_for('cookies_policy')}}">cookie policy</a>.</span>
-      </div>
   </div>
 </div>

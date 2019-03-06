@@ -55,8 +55,9 @@
                 {% set subpage_file = page_file(cell) %}
                 {% set language_subpage_file=language_file(subpage_file,CURRENT_LANGUAGE) %}
                 <div class="col-sm-4 m-0 p-1">
-                        <div class="summary-cell">
-                                {% include [language_subpage_file,subpage_file] %}
+                        <div class="summary_cell">
+                                {% include include_files(cell,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                                {#% include [language_subpage_file,subpage_file] %#}
                 </div>
             </div>
             {% endif %}

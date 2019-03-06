@@ -1,23 +1,18 @@
-        <div class="d-flex flex-row bg-white w-100 justify-content-between p-0 m-0 top_information_line">
-        <div class="d-flex col-5 bg-white text-success text-left justify-content-start p-0 m-0">
-            <!--d-none d-lg-block display only on large screens-->
-            <div class="bg-white text-warning text-left py-1 xd-none xd-lg-block" style="border-bottom: 1px dotted orange;">
-                    {% include include_files('GPS_info.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                </div>
-            <div class="flex-grow-1 bg-white text-success text-left">
-            </div>
+<div class="d-flex flex-row bg-white justify-content-center p-0 m-0 top_information_line">
+    <div class="d-flex flex-row w-100 row justify-content-start text-left py-1 p-0 m-0">
+        <div class="d-flex flex-row py-1" style="line-height:1;border-bottom: 1px dotted orange;">
+            {% include include_files('display_properties.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+            {% include include_files('GPS_info.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
-        <div class="col-2 bg-white text-success text-center py-1 top_navigation_line_counter p-0 m-0">
-                {% include include_files('visit_info.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    </div>
+    <div class="d-flex text-success text-center py-1 p-0 m-0 align-items-center">
+        {% include include_files('visit_info.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    </div>
+    <div class="d-flex flex-row w-100 justify-content-end py-1 p-0 m-0">
+        <div class="bg-white py-1" style="line-height:1;border-bottom: 1px dotted orange;">
+            {#% include include_files('pages_history.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %#}
+            {#% include include_files('pages_history_gray.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %#}
+            {% include include_files('pages_history_color.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
         </div>
-        <div class="d-flex col-5 bg-white justify-content-end p-0 m-0">
-            <div class="bg-white text-success text-left">
-            </div>
-            <!--d-none d-lg-block display only on large screens-->
-            <div class="bg-white xd-none xd-lg-block py-1" style="line-height:1;border-bottom: 1px dotted orange;">
-                {% include include_files('pages_history.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                {#% include include_files('pages_history_gray.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %#}
-                {#% include include_files('pages_history_color.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %#}
-            </div>
-        </div>
+    </div>
 </div>

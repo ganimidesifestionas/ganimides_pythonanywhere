@@ -44,14 +44,14 @@
                         <div class="form-group d-flex justify-content-start">
                             <div class="d-flex align-items-center">
                                 <div class="d-flex">
-                                    {{loginform.rememberMe(class="form-checkbox")}}
+                                    {{loginform.rememberMe(class="form-checkbox", Style="margin-top: -1px; vertical-align: middle;")}}
                                 </div>
-                                <div class="d-flex">
-                                    <p class="checkbox-label">Remember Me</p>
+                                <div class="d-flex align-items-center ml-1">
+                                    <p class="checkbox-label p-0 m-0">Remember Me</p>
                                 </div>
                             </div>
                             <div class="ml-auto d-flex align-items-center">
-                                {{loginform.forgetPassword(class="btn btn-outline-info btn-sm mybtn-submit")}}
+                                {{loginform.forgetPassword(class="btn btn-info btn-sm button_submit")}}
                             </div>
                             {% for error in loginform.rememberMe.errors %}
                             <span class="text-error-note" style="color: red;">[{{ error }}]</span>
@@ -66,9 +66,10 @@
                                 {% endfor %}
                             </div>
                         </div>
+
                         <div class="form-group d-flex justify-content-start align-items-center">
                             <div class="align-self-center text-in-form" style="font-size:75%">Don't have an account yet?&nbsp;</div>
-                            <div class="align-self-center"><a class="btn btn-outline-info btn-sm mybtn-submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
+                            <div class="align-self-center"><a class="btn btn-info btn-sm button_submit" data-toggle="tooltip" title="Register" href="{{url_for('authorization.registrationForm')}}">Sign up now!</a></div>
                         </div>
                         <!--===================================================-->
                     </div>
@@ -76,14 +77,13 @@
             </div>
         </div>
 
-        <div class="xauthorization-page-line"></div>
                    <!-- form footer -->
                    <div class="modal-footer d-flex justify-content-end">
                         <div class="">
                             {% include include_files('form_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
                         </div>
                         <div class="">
-                            {{loginform.submit(class="btn btn-sm mybtn-orange mybtn-submit")}}
+                            {{loginform.submit(class="btn btn-sm btn-warning button_submit")}}
                         </div>
                     </div>
 
