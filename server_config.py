@@ -36,8 +36,6 @@ EXECUTION_ENVIRONMENT = os.environ.get(company_name+'_'+application_name+'_'+'EX
 SERVER = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT')
 EXECUTION_MODE = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_MODE')
 #####################################################################
-EXECUTION_MODE = 'development'
-EXECUTION_ENVIRONMENT = 'localhost'
 if EXECUTION_ENVIRONMENT == 'localhost':
     if not SERVER:
         SERVER = 'localhost'
