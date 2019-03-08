@@ -95,10 +95,12 @@
         h1   {color: blue;}
         p    {color: red;}
         @media screen and (device-pixel-ratio: 1) {
-            html {font-size: 0.675rem;}
+            html {font-size: 1.5rem;}
+            p    {color: green;}
         }
         @media screen and (-webkit-min-device-resolution: 2){
             html {font-size: 0.475rem;}
+            p    {color: blue;}
         }
         @media
         only screen and (-webkit-min-device-pixel-ratio: 1.25),
@@ -108,7 +110,8 @@
         only screen and ( min-resolution: 200dpi),
         only screen and ( min-resolution: 1.25dppx)
         {        
-            html {font-size: 0.475rem;}
+            html {font-size: 0.675rem;}
+            p    {color: orange;}
         }
     </style>    
 
