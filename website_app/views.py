@@ -115,7 +115,7 @@ def set_cookies_etc_before_request():
     if not session.get('sessionID'):
         token = generate_unique_sessionID()
         session['sessionID'] = token
-    print('@@@@@@session_id =',session.get('sessionID'))
+        print('@@@@@@ NEW SESSION @@@@@@ session_id =', session.get('sessionID'))
 
 
     #print('##########################################')

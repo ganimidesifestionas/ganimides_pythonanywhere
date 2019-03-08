@@ -27,8 +27,8 @@ from flask_login import current_user, login_required, login_user, logout_user
 #from werkzeug import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from .. external_services.email_services import send_email
-from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
-from .. external_services.log_services import *
+from .. external_services.token_services import generate_unique_sessionID, generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
+from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
 
 # Import module forms
 from . forms import LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm,emailConfirmationForm,PasswordReSetForm,forgetPasswordForm,ContactUsForm,AvatarUploadForm,CookiesConsentForm
@@ -82,6 +82,11 @@ authorization = Blueprint('authorization', __name__, url_prefix='/authorization'
 def set_cookies():
     #print('###'+__name__+'###', 'before_request')
     session['active_module'] = __name__
+    if not session.get('sessionID'):
+        token = generate_unique_sessionID()
+        session['sessionID'] = token
+        print('@@@@@@ NEW SESSION @@@@@@ session_id =', session.get('sessionID'))
+
     init_session_cookies()
     session['login_active'] = ''
     session['register_active'] = ''
