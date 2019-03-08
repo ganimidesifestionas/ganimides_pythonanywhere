@@ -28,12 +28,13 @@ SERVER_CONFIG_FILENAME = config_filename
 #####################################################################
 EYECATCH = 'SERVER'
 #####################################################################
-#os.environ["EXECUTION_ENVIRONMENT"]='localhost'
-#####################################################################
 company_name = os.environ.get('COMPANY_NAME', 'LeandrouTechnologyForward')
 application_name = os.environ.get('APPLICATION_NAME', 'WEBSITE')
+#####################################################################
+os.environ[company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
+#####################################################################
 EXECUTION_ENVIRONMENT = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT', 'localhost')
-SERVER = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT')
+SERVER = os.environ.get(company_name+'_'+application_name+'_'+'DATABASE_SERVER')
 EXECUTION_MODE = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_MODE')
 #####################################################################
 if EXECUTION_ENVIRONMENT == 'localhost':
@@ -52,7 +53,9 @@ else:
             SERVER = 'pythonanywhere-ganimedes'
         if not EXECUTION_MODE:
             EXECUTION_MODE = 'testing'
-
+print('&&&&&&&&& ENVI =',EXECUTION_ENVIRONMENT)
+print('&&&&&&&&& SERVER =',SERVER)
+print('&&&&&&&&& MODE =',EXECUTION_MODE)
 ################################################################
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 ################################################################
