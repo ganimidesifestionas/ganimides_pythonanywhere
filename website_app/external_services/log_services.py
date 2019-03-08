@@ -155,62 +155,77 @@ def get_geolocation_info(visitpoint):
     #response = {}
     if r:
         response = r.json()
-        #log_variable('GEOLOCATION',response)
+        log_variable('GEOLOCATION',response)
         status = response.get('status')
         log_variable('status',status)
-        types = ['locality', 'neighborhood', 'administrative_area_level_1', 'country', 'postal_code', 'postal_code']
+        types = [
+              'locality'
+            , 'sublocality'
+            , 'sublocality_level_1'
+            , 'neighborhood'
+            , 'route'
+            , 'premise'
+            , 'administrative_area_level_1'
+            , 'postal_code'
+            , 'country'
+            , 'street_address'
+        ]
         results = response.get('results')
         #log_variable('results',results)
         for res in results:
-            typ=res.get('types')
-            log_variable('---types',typ)
-            if 'street_address' in typ:
-                val = res.get('formatted_address') #res.response['results'][i]['formatted_address']
-                nam = 'address'
-                log_variable('--- --- address',val)
-                geolocationDictionary.update({'address' : val})
-
-            filter_method = lambda x: len(set(x['types']).intersection(types))
-            types_of_visitpoint = filter(filter_method, typ)
-            for x in types_of_visitpoint:
-                log_variable('--- --- XXX ---types_of_visitpoint',x)
-
-            if 'street_address' in typ:
-                val = res.get('formatted_address') #res.response['results'][i]['formatted_address']
-                nam = 'address'
-                log_variable('--- --- address',val)
-                geolocationDictionary.update({'address' : val})
-
+            typ = res.get('types')
+            #log_variable('---types',typ)
             compos = res.get('address_components')
-            #log_variable('--- --- components',compos)
+            #log_variable('--- --- components', compos)
 
-            types = ['locality', 'neighborhood', 'administrative_area_level_1', 'country', 'postal_code']
+            fnd = 0
+            for t in typ:
+                if t in types:
+                    fnd = 1
+            if fnd == 0:
+                for t in typ:
+                    log_variable('--- --- XXX ---types_of_visitpoint',t)
+
+            if 'street_address' in typ:
+                val = res.get('formatted_address') #res.response['results'][i]['formatted_address']
+                nam = 'address'
+                #log_variable('--- --- address',val)
+                geolocationDictionary.update({'address' : val})
+
             #address_comps = response['results'][0]['address_components']
             address_comps = compos
             filter_method = lambda x: len(set(x['types']).intersection(types))
             compo = filter(filter_method, address_comps)
+            #log_variable('--- --- compo',compo)
+
             for geoname in compo:
+                #log_variable('--- --- +++ geoname',geoname)
                 common_types = set(geoname['types']).intersection(set(types))
                 nam = ', '.join(common_types)
                 val = geoname['long_name']
-                #print(nam, val)
-                if nam == 'country':
+                print('ooo ooo ooo', nam,'-->', val)
+                if 'country' in geoname['types']:
                     geolocationDictionary.update({'country_name' : val})
                     visitpoint.country_name = val
                     log_variable('--- --- ---visitpoint.country_name',visitpoint.country_name)
-                if nam == 'administrative_area_level_1':
+                if 'administrative_area_level_1' in geoname['types']:
                     geolocationDictionary.update({'region_name' : val})
                     visitpoint.region_name = val
                     log_variable('--- --- ---visitpoint.region_name',visitpoint.region_name)
-                if nam == 'neighborhood':
+                if 'neighborhood'  in geoname['types']:
                     geolocationDictionary.update({'region_name' : val})
                     visitpoint.region_name = val
                     log_variable('--- --- ---visitpoint.region_name',visitpoint.city)
-                if nam == 'locality':
+                if 'sublocality' in geoname['types']:
+                    #geolocationDictionary.update({'sublocality?' : val})
+                    #visitpoint.region_name = val
+                    log_variable('--- --- ---visitpoint.xxxxx????',val)
+
+                if 'locality' in geoname['types']:
                     geolocationDictionary.update({'city' : val})
                     visitpoint.city = val
                     log_variable('--- --- ---visitpoint.city',visitpoint.city)
-                if nam == 'postal_code':
+                if 'postal_code' in geoname['types']:
                     geolocationDictionary.update({'zip' : val})
                     visitpoint.zip = val
                     log_variable('--- --- ---visitpoint.zip',visitpoint.zip)
