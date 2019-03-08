@@ -39,3 +39,14 @@ def generate_mobileconfirmation_code(parWhat):
     codeStr=str(codeInt)
     return codeStr
 
+def generate_unique_sessionID():
+    #MAIL_userName = os.environ['APP_MAIL_userName']
+    #MAIL_PASSWORD = os.environ['APP_MAIL_PASSWORD']
+    #secret_key=app.config['SECRET_KEY']
+    #salt_password=app.config['SECURITY_PASSWORD_SALT']
+    secret_key='spithas'
+    salt_password='chaos490px!'
+    serializer = URLSafeTimedSerializer(secret_key)
+    token=serializer.dumps('satora', salt_password)
+    return token
+

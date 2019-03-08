@@ -30,7 +30,8 @@ from .module_authorization.forms import LoginForm, RegistrationForm, ContactUsFo
 from .forms import CookiesConsentForm
 #from .models import Visit, VisitPoint, Page_Visit
 #from sqlalchemy import func
-from .external_services.log_services import client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
+from .external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
+from .external_services.token_services import generate_unique_sessionID
 
 ###########################################################################
 ###########################################################################
@@ -87,7 +88,7 @@ def init_cookies_etc_before_first_request():
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
     session['visit'] = 0
-    app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SITE FIRST REQUEST !!! IP:{0}'.format(session.get('clientIPA')))
+    app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SITE FIRST REQUEST !!! IP:{0}'.format(session.get('clientIPA')))
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
@@ -110,9 +111,16 @@ def set_cookies_etc_before_request():
     #print(request.base_url.lower().find('/static/'))
     if request.base_url.lower().find('/static/') >= 0 :
         return
-    print('##########################################')
-    print('###'+__name__+'###', 'before_request')
-    print('##########################################-start')
+
+    if not session.get('sessionID'):
+        token = generate_unique_sessionID()
+        session['sessionID'] = token
+        print('@@@@@@session_id =',session.get('sessionID'))
+
+
+    #print('##########################################')
+    #print('###'+__name__+'###', 'before_request')
+    #print('##########################################-start')
     if not session.get('visit'):
         session['visit'] = 100
     session['visit'] = session.get('visit') + 1
@@ -140,11 +148,11 @@ def set_cookies_etc_before_request():
             session['identityDT'] = strdt
             session['session_expiry'] = 60*60
             print('###'+__name__+'###', '***session expired after 1 hour')
-            app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SESSION EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
+            app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SESSION EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
             session.pop('VisitID', None) # delete visitID
             session.pop('VisitNumber', None) # delete visitNumber
-            session.pop('VisitorID', None) # delete visitpointID
-            session.pop('VisitorNumber', None) # delete visitpointNumber
+            session.pop('VisitPointID', None) # delete visitpointID
+            session.pop('VisitPointNumber', None) # delete visitpointNumber
             session.pop('clientIPA', None) # delete clientIPA
 
     if 'urls' not in session:
@@ -206,7 +214,7 @@ def set_cookies_etc_before_request():
     #3. log the visit in db
     log_visit()
     session['request_started'] = 'YES'
-    print('##########################################--finished')
+    #print('##########################################--finished')
 
 @app.after_request
 def set_cookies_after_request(response):
@@ -388,8 +396,9 @@ def test_google_api():
     log_page(page_name, page_function, page_template)
     clientip = '213.149.173.194'
     GOOGLE_MAPS_API_KEY='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
-    lat = 34.684100
-    lon = 33.037900
+    lat =session.get('geolocation')[0] 
+    lon =session.get('geolocation')[1] 
+
     # api_url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
     path = 'https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}'.format(lat,lon,GOOGLE_MAPS_API_KEY)
@@ -402,12 +411,50 @@ def test_google_api():
     #response = {}
     if r:
         response = r.json()
-        log_variable('apistack geolocation result', response)
-        # for key, value in response.items():
-        #     log_variable('---'+key, value)
-        # loc = response['location']
-        # for key, value in loc.items():
-        #     log_variable('--- ---'+key, value)
+        address_comps = response['results'][0]['address_components']
+        types = ['locality', 'administrative_area_level_1', 'country', 'postal_code']
+        filter_method = lambda x: len(set(x['types']).intersection(types))
+        res=filter(filter_method, address_comps)
+        for geoname in res:
+            common_types = set(geoname['types']).intersection(set(types))
+            print ('{} ({})'.format(geoname['long_name'], ', '.join(common_types)))
+            # nam = ', '.join(common_types)
+            # val = geoname['long_name']
+            # print(nam, val)
+
+        formatted_address = response['results'][0]['formatted_address']
+        print ('{} ({})'.format(formatted_address, 'formatted address'))
+
+        # #log_variable('apistack geolocation result', response)
+        # log_info('==================================================')
+        # #for key, value in response.items():
+        #     #log_variable('---'+key, value)
+        #     #log_info('------------------')
+        # log_info('==================================================')
+        # res= response['results']['address_components']
+        # for item in res:
+        #     log_variable('--- ---',item)
+        #     for key, value in item.items():
+        #         log_variable('--- --- ---'+key, value)
+
+# import json
+# import urllib2
+
+# def get_geonames(lat, lng, types):
+#     url = 'http://maps.googleapis.com/maps/api/geocode/json' + \
+#             '?latlng={},{}&sensor=false'.format(lat, lng)
+#     jsondata = json.load(urllib2.urlopen(url))
+#     address_comps = jsondata['results'][0]['address_components']
+#     filter_method = lambda x: len(set(x['types']).intersection(types))
+#     return filter(filter_method, address_comps)
+
+# lat, lng = 59.3, 18.1
+# types = ['locality', 'administrative_area_level_1']
+
+# # Display all geographical names along with their types
+# for geoname in get_geonames(lat, lng, types):
+#     common_types = set(geoname['types']).intersection(set(types))
+#     print '{} ({})'.format(geoname['long_name'], ', '.join(common_types))
 
     # gmaps = googlemaps.Client(key='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY')
     # # Geocoding an address
@@ -426,6 +473,23 @@ def test_google_api():
     #                                     departure_time=now)
     # log_variable('directions_result', directions_result)
     return render_template('page_templates/terms_and_conditions.html')
+
+#############################################################
+#############################################################
+#############################################################
+### client-to-server utilities:
+#############################################################
+#############################################################
+#############################################################
+@app.route('/location', methods=['POST'])
+def location():
+    latitude = request.json.get('latitude')
+    longitude = request.json.get('longitude')
+    session['geolocation'] = [latitude, longitude]
+    log_variable('geolocation', session.get('geolocation'))
+    set_geolocation(latitude, longitude)
+    log_route('geolocation', 'geolocation')
+    return('')
 #############################################################
 #############################################################
 #############################################################

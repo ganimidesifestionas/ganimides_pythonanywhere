@@ -24,13 +24,17 @@ class VisitPoint(Base):
 
     id = db.Column(db.Integer, primary_key=True)
     visitpointNumber = db.Column(db.Integer, nullable=True, default=1)
-    visitsCount = db.Column(db.Integer, nullable=True, default=1)
+    geolocation_type = db.Column(db.String(20),default='')
+    ip = db.Column(db.String(60), index=True)
+    latitude = db.Column(db.Numeric(15,9), index=True)
+    longitude = db.Column(db.Numeric(15,9), index=True)
     visitDT = db.Column(db.DateTime, nullable=False)
     firstvisitDT = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     lastvisitDT = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+
+    visitsCount = db.Column(db.Integer, nullable=True, default=1)
     visits = db.relationship('Visit', backref='visitpoint')
 
-    ip = db.Column(db.String(60), index=True, unique=True, nullable=True, default='')
     iptype = db.Column(db.String(60), nullable=True, default='')
     continent_code = db.Column(db.String(10), nullable=True, default='')
     continent_name = db.Column(db.String(60), nullable=True, default='')
@@ -40,9 +44,10 @@ class VisitPoint(Base):
     region_name = db.Column(db.String(60), nullable=True, default='')
     city = db.Column(db.String(60), nullable=True, default='')
     zip = db.Column(db.String(60), nullable=True, default='')
-    latitude = db.Column(db.Numeric(10,6), nullable=True, default='')
-    longitude = db.Column(db.Numeric(10,6), nullable=True, default='')
+    postal_code = db.Column(db.String(60), nullable=True, default='')
+    address = db.Column(db.String(255), nullable=True, default='')
     location = db.Column(db.PickleType, nullable=True, default=None) # this is a blob datatype to add dictionary, json etc
+
     #timezone = db.Column(db.String(60), nullable=True, default='')
     #currency = db.Column(db.String(10), nullable=True, default='')
     #connection = db.Column(db.String(60), nullable=True, default='')
@@ -113,7 +118,7 @@ class VisitPoint(Base):
     #isAdmin = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<visitpoint: {0}({1}) ip:{2}>'.format(self.id, self.visitpointNumber, self.ip)
+        return '<visitpoint: {0}({1}) {5}/{6} ip:{2} lat:{3} lon:{4}>'.format(self.id, self.visitpointNumber, self.ip, self.latitude,self.longitude,self.country_name,self.city)
 ###########################################################################
 class Visit(Base):
     """
@@ -125,11 +130,14 @@ class Visit(Base):
     id = db.Column(db.Integer, primary_key=True)
     visitNumber = db.Column(db.Integer, nullable=True, default=0)
     visitDT = db.Column(db.DateTime, nullable=False)
-    ip = db.Column(db.String(60), nullable=True, default='')
+    sessionID=db.Column(db.String(255), nullable=True, default='')
+    #ip = db.Column(db.String(60), index=True)
+    #latitude = db.Column(db.Numeric(15,12), index=True)
+    #longitude = db.Column(db.Numeric(15,12), index=True)
     visitpoint_ID = db.Column(db.Integer, db.ForeignKey('visitpoints.id'))
 
     def __repr__(self):
-        return '<visit: {0}({1}) {2}>'.format(self.id, self.visitNumber, self.visitDT)
+        return '<visit: {0}({1}) {2} visitpoint:{3}>'.format(self.id, self.visitNumber, self.visitDT, self.visitpoint_ID)
     def __str__(self):
         return '{0}'.format(self.visitDT)
 
@@ -150,11 +158,15 @@ class Page_Visit(Base):
     pageTemplate = db.Column(db.String(1024), nullable=True, default='')
     pageTemplate_page = db.Column(db.String(1024), nullable=True, default='')
     pageTemplate_form = db.Column(db.String(1024), nullable=True, default='')
+    sessionID=db.Column(db.String(255), nullable=True, default='')
+    #ip = db.Column(db.String(60), index=True)
+    #latitude = db.Column(db.Numeric(15,12), index=True)
+    #longitude = db.Column(db.Numeric(15,12), index=True)
     #visitpoint_ID = db.Column(db.Integer, db.ForeignKey('visitpoints.id'))
     visit_ID = db.Column(db.Integer, db.ForeignKey('visits.id'))
 
     def __repr__(self):
-        return '<page_visit:{0} page:{1}>'.format(self.id,self.pageID)
+        return '<page_visit:{0} page:{1}>'.format(self.id, self.pageID, self.visit_ID)
 
 class xContactMessage(db.Model):
     """

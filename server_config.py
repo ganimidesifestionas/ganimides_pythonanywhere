@@ -27,12 +27,35 @@ SERVER_CONFIG_FOLDER = config_folder
 SERVER_CONFIG_FILENAME = config_filename
 #####################################################################
 EYECATCH = 'SERVER'
+#####################################################################
+#os.environ["EXECUTION_ENVIRONMENT"]='localhost'
+#####################################################################
+company_name = os.environ.get('COMPANY_NAME', 'LeandrouTechnologyForward')
+application_name = os.environ.get('APPLICATION_NAME', 'WEBSITE')
+EXECUTION_ENVIRONMENT = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT', 'localhost')
+SERVER = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT')
+EXECUTION_MODE = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_MODE')
+#####################################################################
 EXECUTION_MODE = 'development'
 EXECUTION_ENVIRONMENT = 'localhost'
-EXECUTION_ENVIRONMENT = 'pythonanywhere'
-SERVER = 'localhost'
-#SERVER = 'pythonanywhere-ganimedes'
-SERVER = 'pythonanywhere-ifestionas'
+if EXECUTION_ENVIRONMENT == 'localhost':
+    if not SERVER:
+        SERVER = 'localhost'
+    if not EXECUTION_MODE:
+        EXECUTION_MODE = 'design'
+else:
+    if EXECUTION_ENVIRONMENT == 'pythonanywhere':
+        if not SERVER:
+            SERVER = 'pythonanywhere-ifestionas'
+        if not EXECUTION_MODE:
+            EXECUTION_MODE = 'production'
+    else:
+        if not SERVER:
+            SERVER = 'pythonanywhere-ganimedes'
+        if not EXECUTION_MODE:
+            EXECUTION_MODE = 'testing'
+
+################################################################
 MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
 ################################################################
 ### mail servers

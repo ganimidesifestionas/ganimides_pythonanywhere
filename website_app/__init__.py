@@ -649,6 +649,10 @@ def inject_utility_functions():
         #print('f1=',file1,rootfile1)
         file2=file1
         rootfile2=rootfile1
+        file3=file1
+        rootfile3=rootfile1
+        file4=file1
+        rootfile4=rootfile1
         if (language not in app.config['LANGUAGES']):
             language=app.config['DEFAULT_LANGUAGE']
         if (language!=app.config['DEFAULT_LANGUAGE']):
@@ -666,16 +670,60 @@ def inject_utility_functions():
             file2x=os.path.normpath(file2x)
             file2x=file2x.replace('\\','/')
             rootfile2=file2x
-        #print('f2=',file2,rootfile2)
-        if file1 != file2:
-            x=[file2, file1]
-        else:
-            x=[file1]
-        if file2 != rootfile2:
-            x.append(rootfile2)
-        if file1 != rootfile1:
+            #print('f2(lang)=',file2,rootfile2)
+
+        if type in app.config['DEBUG_TYPES'] or '*' in app.config['DEBUG_TYPES'] :
+            if app.config['EXECUTION_MODE'] != 'production':
+                filename=os.path.basename(file1)
+                justfile=os.path.splitext(filename)[0]
+                justext=os.path.splitext(filename)[1]
+                Njustfile=justfile+'_'+app.config['EXECUTION_MODE']
+                Nfilename=Njustfile+justext
+                file2x=os.path.join(os.path.dirname(file1),Nfilename)
+                file2x=os.path.normpath(file2x)
+                file2x=file2x.replace('\\','/')
+                file3=file2x
+                #if module != '':
+                file2x=os.path.join(os.path.dirname(rootfile1),Nfilename)
+                file2x=os.path.normpath(file2x)
+                file2x=file2x.replace('\\','/')
+                rootfile3=file2x
+                #print('f3(mode)=',file3,rootfile3)
+
+        if app.config['DEBUG_VERSION'] != '' :
+            filename=os.path.basename(file1)
+            justfile=os.path.splitext(filename)[0]
+            justext=os.path.splitext(filename)[1]
+            Njustfile=justfile+'_'+app.config['DEBUG_VERSION']
+            Nfilename=Njustfile+justext
+            file2x=os.path.join(os.path.dirname(file1),Nfilename)
+            file2x=os.path.normpath(file2x)
+            file2x=file2x.replace('\\','/')
+            file4=file2x
+            #if module != '':
+            file2x=os.path.join(os.path.dirname(rootfile1),Nfilename)
+            file2x=os.path.normpath(file2x)
+            file2x=file2x.replace('\\','/')
+            rootfile4=file2x
+            #print('f4(version)=',file4,rootfile4)
+
+        x=[]
+        if file4 != file1:
+            x.append(file4)
+            if rootfile4 != file4:
+                x.append(rootfile3)
+        if file3 != file1:
+            x.append(file3)
+            if rootfile3 != file3:
+                x.append(rootfile3)
+        if file2 != file1:
+            x.append(file2)
+            if rootfile2 != file2:
+                x.append(rootfile2)
+        x.append(file1)
+        if rootfile1 != file1:
             x.append(rootfile1)
-        print('###include_files=',x)
+        #print('###include_files=',x)
         return x
 
     #print('   ',__name__,'###inject_utility_functions:image_file()')

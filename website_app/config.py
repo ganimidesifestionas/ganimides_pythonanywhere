@@ -62,6 +62,8 @@ class Config(object):
         , 'gr': 'greece.png'
         , 'cy': 'cyprus.png'
     }
+    DEBUG_TYPES = {}
+    DEBUG_VERSION = ''
 
     SPLASHFORM_LOGIN = 'splashform_login.html'
     SPLASHFORM_REGISTRATION = 'splashform_registration.html'
@@ -161,15 +163,21 @@ class Config(object):
 #    @staticmethod
 #    def init_app(app):
 #        pass
-
-class SandBoxConfig(Config):
+############################################################
+class DesignConfig(Config):
     """Development configurations"""
-    EYECATCH = 'MYAPP-SANDBOX'
+    EYECATCH = 'MYAPP-DESIGN'
     DEBUG = True
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DEBUG_TYPES = {
+        'LAYOUT'
+        , 'TEMPLATE'
+        , '*'
+        }
+    DEBUG_VERSION = '34'
 
 class DevelopmentConfig(Config):
     """Development configurations"""
@@ -178,7 +186,13 @@ class DevelopmentConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_TRACK_MODIFICATIONS=True
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DEBUG_TYPES = {
+        'LAYOUT'
+        , 'TEMPLATE'
+        , '*'
+        }
+    DEBUG_VERSION = '33'
 
 class TestingConfig(Config):
     """Testing configurations"""
@@ -188,6 +202,21 @@ class TestingConfig(Config):
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DEBUG_TYPES = {
+        '*'
+        }
+    DEBUG_VERSION = '32'
+
+class SandBoxConfig(Config):
+    """Development configurations"""
+    EYECATCH = 'MYAPP-SANDBOX'
+    DEBUG = True
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DEBUG_TYPES = {}
+    DEBUG_VERSION = ''
 
 class ProductionConfig(Config):
     """Production configurations """
@@ -197,7 +226,8 @@ class ProductionConfig(Config):
     WTF_CSRF_ENABLED = True
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
+    DEBUG_TYPES = {}
+    DEBUG_VERSION = ''
 
 class xProductionConfig(Config):
     EYECATCH = 'MYAPP-PRODUCTION'
@@ -304,13 +334,14 @@ environment_config = {
 }
 #####################################################
 app_config = {
-    'sandbox' : SandBoxConfig
-    ,'development' : DevelopmentConfig
-    ,'testing' : TestingConfig
-    ,'production' : ProductionConfig
-    ,'xproduction' : xProductionConfig
-    ,'localhost' : LocalHostConfig
-    ,'heroku' : HerokuConfig
-    ,'pythonanywhere' : PythonAnyWhereConfig
+    'design' : DesignConfig
+    , 'development' : DevelopmentConfig
+    , 'testing' : TestingConfig
+    , 'sandbox' : SandBoxConfig
+    , 'production' : ProductionConfig
+    , 'xproduction' : xProductionConfig
+    , 'localhost' : LocalHostConfig
+    , 'heroku' : HerokuConfig
+    , 'pythonanywhere' : PythonAnyWhereConfig
 }
 #####################################################
