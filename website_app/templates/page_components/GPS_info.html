@@ -6,6 +6,10 @@
         {% if session.get('region_name') != session.get('city') %}
         <span style="font-weight:400" class="d-none d-lg-inline badge badge-pill badge-primary">{{session.get('city')}}</span>
         {% endif %}
-        <span style="font-weight:400" class="d-none d-lg-inline badge badge-pill badge-secondary">{{session.get('latitude')}},{{session.get('longitude')}}</span>
+        {% set href="https://www.google.co.uk/maps/place/@{0},{1}".format(session.get('longitude'),session.get('longitude')) %}
+        {% set href=href+"" %}
+        <a target="_blank" href="{{href}}">
+            <span style="font-weight:400" class="d-none d-lg-inline badge badge-pill badge-secondary">{{session.get('latitude')}},{{session.get('longitude')}}</span>
+        </a>
     </span>
 </div>
