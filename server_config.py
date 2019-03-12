@@ -31,7 +31,7 @@ EYECATCH = 'SERVER'
 company_name = os.environ.get('COMPANY_NAME', 'LeandrouTechnologyForward')
 application_name = os.environ.get('APPLICATION_NAME', 'WEBSITE')
 #####################################################################
-#os.environ[company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
+os.environ[company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
 #####################################################################
 EXECUTION_ENVIRONMENT = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT', 'localhost')
 SERVER = os.environ.get(company_name+'_'+application_name+'_'+'DATABASE_SERVER')
