@@ -1,7 +1,9 @@
 <!--START:summary_cell-->
-{% include include_files('summary_cell_header.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-{% include include_files('summary_cell_body_header.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-{{summary_content}}
-{% include include_files('summary_cell_body_footer.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-{% include include_files('summary_cell_footer.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}<!--END:summary_cell_body_footer-->
+<div class="d-flex flex-column w-100 justify-content-center px-1 pb-1 m-0">
+    {% include include_files('summary_cell_header.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files('summary_cell_body_header.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    {{summary_content}}
+    {% include include_files('summary_cell_body_footer.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files('summary_cell_footer.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}<!--END:summary_cell_body_footer-->
+</div>
 <!--END:summary_cell-->

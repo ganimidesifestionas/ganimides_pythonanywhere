@@ -6,7 +6,7 @@
 {% endif %}
 {% endfor %}
 
-<div class="d-flex flex-column justify-content-start bg-white">
+<div class="d-flex flex-column justify-content-start ">
     <!--1:page-top_information_line-->
     <div class="d-flex justify-content-end">
         {% include [language_fullpathfile('top_information_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('top_information_line.html','COMPONENT')] %}
@@ -62,7 +62,7 @@
         </div>
         {% endif %}
         <!--4:messages-->
-        <div class="d-flex bg-white justify-content-center align-items-center">
+        <div class="d-flex  justify-content-center align-items-center">
             {% include [language_fullpathfile('messages_display_excepterrors.html',CURRENT_LANGUAGE,'COMPONENT'),fullpathfile('messages_display_excepterrors.html','COMPONENT')] %}
         </div>
         <div class="d-flex justify-content-center">

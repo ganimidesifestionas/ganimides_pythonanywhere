@@ -2,9 +2,11 @@ import requests
 from .debug_log_services import *
 ##########################################################################################################
 def get_geolocation_info_from_IP(ip=None):
-    print('###'+__name__+'###', 'get_IPA_info', 'ip =',ip)
+    log_module_start('get_geolocation_info_from_IP')
+    #print('###'+__name__+'###', 'get_IPA_info', 'ip =',ip)
     if not ip:
         log_error('get_geolocation_info_from_IP requires input','ip address')
+        log_module_finish('get_geolocation_info_from_IP')
         return None
     if not ip:
         ip = '127.0.0.1'
@@ -31,8 +33,10 @@ def get_geolocation_info_from_IP(ip=None):
         loc = response['location']
         for key, value in loc.items():
             log_variable('geolocationDictionary location '+key+'=', value)
+        log_module_finish('get_geolocation_info_from_IP')
         return response
     else:
+        log_module_finish('get_geolocation_info_from_IP')
         return None
     #res = response.json()
         #print(res)
@@ -40,6 +44,7 @@ def get_geolocation_info_from_IP(ip=None):
     #reply_code=r.status_code
 ##########################################################################################################
 def get_geolocation_info(latitude, longitude):
+    log_module_finish('get_geolocation_info')
     geolocationDictionary = {}
     geolocationDictionary.update({'latitude' : latitude})
     geolocationDictionary.update({'longitude' : longitude})
@@ -56,6 +61,7 @@ def get_geolocation_info(latitude, longitude):
     #print(requests.codes.ok)
     #log_variable('reply status', r.status_code)
     if not r.status_code == requests.codes.ok:
+        log_module_finish('get_geolocation_info')
         return None
     if r:
         response = r.json()
@@ -67,6 +73,7 @@ def get_geolocation_info(latitude, longitude):
         results = response.get('results')
         #log_variable('results',results)
         if status != 'OK':
+            log_module_finish('get_geolocation_info')
             return None
         for res in results:
             types = res.get('types')
@@ -110,6 +117,7 @@ def get_geolocation_info(latitude, longitude):
         for geoname in geolocationDictionary.items():
             log_variable('geolocationDictionary', geoname)
 
+        log_module_finish('get_geolocation_info')
         return geolocationDictionary
 ##########################################################################################################
 ##########################################################################################################

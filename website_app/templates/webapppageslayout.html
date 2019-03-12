@@ -51,7 +51,7 @@
     <!-- icons from FONTAWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-    
+
     <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -90,41 +90,112 @@
     <!--<link rel="icon" href="https://getbootstrap.com/favicon.ico">-->
     <!--<link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">-->
     <style>
-        html {font-size: 1rem;color:orange}
-        body {background-color: powderblue;}
-        h1   {color: blue;}
-        p    {color: black;}
+        html {
+            font-size: 1rem;
+            color: orange;
+            background-color: black;
+        }
 
-        @media
-        only screen and (-webkit-min-device-pixel-ratio: 1),
-        only screen and ( min--moz-device-pixel-ratio: 1),
-        only screen and ( -o-min-device-pixel-ratio: 1/1),
-        only screen and ( min-device-pixel-ratio: 1)
-        {        
-            html {font-size: 1rem;}
-            p    {color: green;}
+        body {
+            background-color: powderblue;
         }
-        @media
-        only screen and (-webkit-min-device-pixel-ratio: 1.25),
-        only screen and ( min--moz-device-pixel-ratio: 1.25),
-        only screen and ( -o-min-device-pixel-ratio: 1.25/1),
-        only screen and ( min-device-pixel-ratio: 1.25)
-        {        
-            html {font-size: 0.8rem;}
-            p    {color: orange;}
+
+        h1 {
+            color: blue;
         }
-        
-        @media
-        only screen and (-webkit-min-device-pixel-ratio: 2),
-        only screen and ( min--moz-device-pixel-ratio: 2),
-        only screen and ( -o-min-device-pixel-ratio: 2/1),
-        only screen and ( min-device-pixel-ratio: 2)
-        {        
-            html {font-size: 0.8rem;}
-            p    {color: blue;}
+
+        p {
+            color: black;
         }
-    </style>    
-        <!--
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 1),
+        only screen and (min--moz-device-pixel-ratio: 1),
+        only screen and (-o-min-device-pixel-ratio: 1/1),
+        only screen and (min-device-pixel-ratio: 1) {
+            html {
+                font-size: 1rem;
+            }
+
+            p {
+                color: green;
+            }
+        }
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+        only screen and (min--moz-device-pixel-ratio: 1.25),
+        only screen and (-o-min-device-pixel-ratio: 1.25/1),
+        only screen and (min-device-pixel-ratio: 1.25) {
+            html {
+                font-size: 0.8rem;
+            }
+
+            p {
+                color: orange;
+            }
+        }
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (min--moz-device-pixel-ratio: 2),
+        only screen and (-o-min-device-pixel-ratio: 2/1),
+        only screen and (min-device-pixel-ratio: 2) {
+            html {
+                font-size: 0.8rem;
+            }
+
+            p {
+                color: blue;
+            }
+        }
+
+        .top_header_line {
+            background-color: black;
+        }
+
+        .top_brand_line {
+            background-color: black;
+        }
+
+        .top_menu_line {
+            background-color: black;
+        }
+
+        .top_information_line {
+            background-color: black;
+        }
+
+        .footer_menu_line {
+            background-color: black;
+        }
+
+        .footer_navigation_line {
+            background-color: black;
+        }
+
+        .footer_copywrite_line {
+            background-color: black;
+        }
+
+        .footer_social_media_menu {
+            background-color: black;
+        }
+
+        .footer_menu {
+            background-color: black;
+        }
+
+        .internal_use_line {
+            background-color: black;
+        }
+
+        .summary_cell {
+            background-color: black;
+        }
+
+        .content_page {
+            background-color: black;
+        }
+    </style>
+    <!--
         only screen and ( min-resolution: 200dpi),
         only screen and ( min-resolution: 1.25dppx)
         -->
@@ -145,8 +216,8 @@
         function showViewportSize() {
             var the_width = $(window).width();
             var the_height = $(window).height();
-            var dpr=getDevicePixelRatio();
-            var the_size = the_width + 'w x h' + the_height+'-dpr='+dpr;
+            var dpr = getDevicePixelRatio();
+            var the_size = the_width + 'w x h' + the_height + '-dpr=' + dpr;
             $('#width').text(the_width);
             $('#height').text(the_height);
             $('#screensize').text(the_size);
@@ -227,11 +298,11 @@
         </table>
     -->
     </header>
-    <div class="d-flex flex-row w-100 bg-white text-black">
-        <div class="w-10 bg-white text-black justify-content-start">
-            &nbsp;
+    <div class="d-flex flex-row w-100">
+        <div class="w-10 justify-content-start p-0 m-0 bg-warning">
+            &nbsp;&nbsp;
         </div>
-        <div class="d-flex flex-column flex-grow-1">
+        <div class="d-flex flex-column flex-grow-1 p-0 m-0">
             <!--
             {{session['session_expiry']}}|
             clientIP:{{session['clientIPA']}}|
@@ -240,11 +311,11 @@
             page_visit:{{session['page_visit_id']}}|
             active_module:{{session['active_module']}}|
             -->
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column p-0 m-0">
                 {% include include_files('_layout_header.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
             </div>
 
-            <div class="d-flex flex-row py-1">
+            <div class="d-flex flex-row">
                 <!--
                 advertise banner top
                 -->
@@ -256,36 +327,36 @@
                 {% include include_files('cookies_alert.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 {% include include_files('splash_forms.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
             </div>
-            <div class="d-flex flex-row py-1">
+            <div class="d-flex flex-row">
                 <!--
                 block content
                 -->
                 <div class="d-flex flex-grow-1">
                     <!--
-                            page content including left side
-                        -->
+                    page content including left side
+                    -->
                     {% block content %}
                     {% endblock %}
                 </div>
                 <div class="d-flex">
                     <!--
-                            right side content
-                        -->
+                    right side content
+                    -->
                     {% include include_files('_layout_rightside.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 </div>
 
             </div>
-            <div class="d-flex flex-row py-1">
+            <div class="d-flex flex-row">
                 <!--
                 advertise banner bottom
                 -->
             </div>
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column p-0 m-0">
                 {% include LAYOUTS_FOLDER+version_file("_layout_footer.html",execution_mode,design_type,"") %}
             </div>
         </div>
-        <div class="w-10 bg-white text-black justify-content-end">
-            &nbsp;
+        <div class="w-10 text-black justify-content-end bg-warning">
+            &nbsp;&nbsp;
         </div>
     </div>
 
@@ -427,11 +498,11 @@
             }
         });
     </script>
-<!---
+    <!---
     geolocation
 -->
-    <script type = "text/javascript">
-    
+    <script type="text/javascript">
+
         function getGeoLocation() {
             var already = getCookie("geolocation");
             //alert('geolocation_cookie:'+already)
@@ -440,64 +511,64 @@
             }
         }
         function getLocation() {
-            if(navigator.geolocation) {           
-               // timeout at 60000 milliseconds (60 seconds)
-               var options = {timeout:60000};
-               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+            if (navigator.geolocation) {
+                // timeout at 60000 milliseconds (60 seconds)
+                var options = { timeout: 60000 };
+                navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
             } else {
-               alert("Sorry, browser does not support geolocation!");
+                alert("Sorry, browser does not support geolocation!");
             }
-         }		
-         function showLocation(position) {
+        }
+        function showLocation(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
             //alert("Latitude : " + latitude + " Longitude: " + longitude);
             $.ajax({
                 type: 'POST',
                 url: '/location',
-                data: JSON.stringify({'latitude': latitude, 'longitude': longitude}, null, '\t'),
+                data: JSON.stringify({ 'latitude': latitude, 'longitude': longitude }, null, '\t'),
                 contentType: 'application/json;charset=UTF-8'
             });
-            setCookie_geolocation(latitude,longitude);
+            setCookie_geolocation(latitude, longitude);
         }
 
-         function errorHandler(err) {
-            if(err.code == 1) {
-               alert("Error: Geolocation Access is denied!");
-            } else if( err.code == 2) {
-               alert("Error: Geolocation Position is unavailable!");
+        function errorHandler(err) {
+            if (err.code == 1) {
+                alert("Error: Geolocation Access is denied!");
+            } else if (err.code == 2) {
+                alert("Error: Geolocation Position is unavailable!");
             }
-         }
-			
-         function setCookie_geolocation(lat,long) {
-             value=lat.toString()+' - '+long.toString();
-             duration_days = 1;
-             duration_seconds = 100;
-             var exdate = new Date();
-             exdate.setSeconds( exdate.getSeconds() + duration_seconds );
-             //exdate.setDate(exdate.getDate() + duration_days);
-             var c_value = escape(value) + ((duration_seconds == null) ? "" : "; expires=" + exdate.toUTCString());
-             document.cookie = 'geolocation' + "=" + c_value + "; path=/";
-             //alert('setCookie_geolocation='+'geolocation' + "=" + c_value)
-         }
+        }
 
-         function getCookie(c_name) {
-             var i, x, y, ARRcookies = document.cookie.split(";");
-             for (i = 0; i < ARRcookies.length; i++) {
-                 x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-                 y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-                 x = x.replace(/^\s+|\s+$/g, "");
-                 //alert(i+'. cookie= ['+x+']');
-                 if (x == c_name) {
+        function setCookie_geolocation(lat, long) {
+            value = lat.toString() + ' - ' + long.toString();
+            duration_days = 1;
+            duration_seconds = 100;
+            var exdate = new Date();
+            exdate.setSeconds(exdate.getSeconds() + duration_seconds);
+            //exdate.setDate(exdate.getDate() + duration_days);
+            var c_value = escape(value) + ((duration_seconds == null) ? "" : "; expires=" + exdate.toUTCString());
+            document.cookie = 'geolocation' + "=" + c_value + "; path=/";
+            //alert('setCookie_geolocation='+'geolocation' + "=" + c_value)
+        }
+
+        function getCookie(c_name) {
+            var i, x, y, ARRcookies = document.cookie.split(";");
+            for (i = 0; i < ARRcookies.length; i++) {
+                x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                x = x.replace(/^\s+|\s+$/g, "");
+                //alert(i+'. cookie= ['+x+']');
+                if (x == c_name) {
                     //alert(i+'. cookie= ['+x+']='+y);
                     return unescape(y);
-                 }
+                }
             }
-         }
+        }
 
     </script>
 
-<!--
+    <!--
     <button onclick="getLocation()">Try It</button>
 <p id="demo"></p>
 

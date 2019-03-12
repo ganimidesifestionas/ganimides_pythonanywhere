@@ -1,5 +1,5 @@
-<div class="d-flex flex-wrap bg-white w-100 border-top border-bottom">
-    {% include [language_fullpathfile('footer_navigation_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('footer_navigation_line.html','COMPONENT')] %}
-    {% include [language_fullpathfile('footer_menu_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('footer_menu_line.html','COMPONENT')] %}
-    {% include [language_fullpathfile('footer_copywrite_line.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('footer_copywrite_line.html','COMPONENT')] %}
+<div class="d-flex flex-wrap w-100">
+    {% include include_files('footer_navigation_line.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files('footer_menu_line.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    {% include include_files('footer_copywrite_line.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
 </div>

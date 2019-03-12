@@ -43,7 +43,7 @@
 {% set about_is_active='active' %}
 {% endif %}
 
-<div class="bg-light justify-content-center">
+<div class="justify-content-center top_menu_line">
     <div class="d-flex p-0 justify-content-center">
         <div class="">
             <nav class="navbar navbar-expand-lg w-100 justify-content-center p-0 m-0">
@@ -63,7 +63,7 @@
                         <li class="{{academy_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('academy')}}">FinTec Academy</a></li>
                         <li class="{{knowledge_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('knowledge')}}">knowledge center</a></li>
                         <li class="{{services_is_active}} nav-item"><a data-toggle="tooltip" title="" data-placement="top" class="nav-link" href="{{url_for('services')}}">Services</a></li>
-                        <li class="{{prototypes_is_active}} nav-item dropdown"><a title="our prototypes" class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Prototypes&nbsp;</a>
+                        <li class="{{prototypes_is_active}} nav-item dropdown text-nowrap"><a title="our prototypes" class="nav-link dropdown-toggle" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Prototypes&nbsp;</a>
                             <div class="dropdown-menu dropdown-menu-right menu_dropdown_list" aria-labelledby="ProtoTypesDropdownList">
                                 <a class="dropdown-item p-1" href="/myBank">MyBank</a>
                                 <a class="dropdown-item p-1" href="{{url_for('myGame')}}">MyGame</a>
@@ -78,7 +78,7 @@
                                 <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
                             </div>
                         </li>
-                        <li class="{{about_is_active}} nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="AboutDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">About&nbsp;</a>
+                        <li class="{{about_is_active}} nav-item dropdown text-nowrap"><a class="nav-link dropdown-toggle" href="#" id="AboutDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">About&nbsp;</a>
                             <div class="dropdown-menu dropdown-menu-right menu_dropdown_list" aria-labelledby="AboutDropdownList">
                                 <a class="dropdown-item p-1" href="{{url_for('about')}}"><span class="glyphicon glyphicon-home"></span>About Us</a>
                                 <a class="dropdown-item p-1" href="{{url_for('contact')}}">Contact Info</a>

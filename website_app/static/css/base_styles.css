@@ -200,7 +200,7 @@ p {
     ****************************************************
 */
 
-.content-page {
+.content_page {
     color: black;
     background-color: transparent;
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI', 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
@@ -215,19 +215,19 @@ p {
     margin-right: 0px;
 }
 
-.content-page td {
+.content_page td {
     border: 0px dashed blue;
     white-space: normal;
 }
 
-.content-page p {
+.content_page p {
     text-align: justify;
     font-weight: 600;
     padding: 1px;
     background: transparent;
 }
 
-.content-page h1 {
+.content_page h1 {
     font-weight: 900;
     font-size: 1.5em;
     margin-top: 0.05em;
@@ -235,7 +235,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
 }
 
-.content-page h2 {
+.content_page h2 {
     font-family: Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     font-size: 1.2em;
@@ -244,7 +244,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page h3 {
+.content_page h3 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     font-size: 2em;
@@ -253,7 +253,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page h4 {
+.content_page h4 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     font-size: 2em;
@@ -262,12 +262,12 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page h1, .content-page h2, .content-page h3, .content-page h4 {
+.content_page h1, .content_page h2, .content_page h3, .content_page h4 {
     color: black;
     background-color: transparent;
 }
 
-.content-page .button_contactus_intext {
+.content_page .button_contactus_intext {
     color: darkblue;
     text-decoration: none;
     background-color: transparent;
@@ -275,7 +275,7 @@ p {
     font-style: normal;
 }
 
-.content-page .button_contactus_intext:hover {
+.content_page .button_contactus_intext:hover {
     color: red;
     font-weight: 900;
     background-color: lightgray;

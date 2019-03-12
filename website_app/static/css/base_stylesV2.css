@@ -287,7 +287,7 @@ p {
     ****************************************************
 */
 
-.content-page {
+.content_page {
     color: black;
     background-color: transparent;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
@@ -302,19 +302,19 @@ p {
     margin-right: 0px;
 }
 
-.content-page td {
+.content_page td {
     border: 0px dashed blue;
     white-space: normal;
 }
 
-.content-page>p {
+.content_page>p {
     text-align: justify;
     font-weight: 600;
     padding: 1px;
     background: transparent;
 }
 
-.content-page>h1 {
+.content_page>h1 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     margin-top: 14pt;
@@ -322,7 +322,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page>h2 {
+.content_page>h2 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
     margin-top: 14pt;
@@ -330,7 +330,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page>h3 {
+.content_page>h3 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -339,7 +339,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page>h4 {
+.content_page>h4 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -348,7 +348,7 @@ p {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
-.content-page>h1, .content-page>h2, .content-page>h3, .content-page>h4 {
+.content_page>h1, .content_page>h2, .content_page>h3, .content_page>h4 {
     color: black;
     background-color: transparent;
 }

@@ -8,12 +8,12 @@
 <canvas id="canvas"></canvas> #
 -->
 
-<div class="d-flex flex-column justify-content-start col-12 border border-danger m-0 p-0 content-page">
+<div class="d-flex flex-column justify-content-start col-12 border border-danger m-0 p-0 content_page">
 
     <div class="d-flex flex-column justify-content-start col-12 m-0 p-0">
 
         <!--1:messages-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-between border border-secondary m-0 p-0">
+        <div class="d-flex flex-wrap flex-row content_page justify-content-between border border-secondary m-0 p-0">
             <div class="d-flex border border-success mr-2">
                 message-left
             </div>
@@ -26,7 +26,7 @@
         </div>
 
         <!--2:page-top-image-or-carousel-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
+        <div class="d-flex flex-wrap flex-row content_page justify-content-center border border-secondary">
             <div class="d-flex border border-success">
                 {% if page_top_left %}
                 {% include include_files(page_top_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
@@ -54,7 +54,7 @@
 
         <!--3:page-header:page-logo,title,buttons-->
         {% if page_image or page_title %}
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
+        <div class="d-flex flex-wrap flex-row content_page justify-content-center border border-secondary">
             <div class="d-flex border border-success align-items-center">
                 {% if page_image %}
                 <img style="width:5rem;height:5rem;" src={{page_image}} class="page-header-image" />
@@ -126,7 +126,7 @@
 
 
         <!--5:page-content-->
-        <div class="d-flex flex-wrap flex-row border content-page justify-content-center {{content_top_margin}}">
+        <div class="d-flex flex-wrap flex-row border content_page justify-content-center {{content_top_margin}}">
             <div class="xd-flex border border-success">
                 {% if page_content_left %}
                 {% include include_files(page_content_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
@@ -254,7 +254,7 @@
         </div>
 
         <!--10:page-bottom-->
-        <div class="d-flex flex-wrap flex-row content-page justify-content-center border border-secondary">
+        <div class="d-flex flex-wrap flex-row content_page justify-content-center border border-secondary">
             <div class="d-flex border border-success">
                 {% if page_bottom_left %}
                 {% include include_files(page_bottom_left,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}

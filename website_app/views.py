@@ -32,6 +32,7 @@ from .forms import CookiesConsentForm
 #from sqlalchemy import func
 from .external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
 from .external_services.token_services import generate_unique_sessionID
+from .external_services.debug_log_services import *
 
 ###########################################################################
 ###########################################################################
@@ -112,10 +113,13 @@ def set_cookies_etc_before_request():
     if request.base_url.lower().find('/static/') >= 0 :
         return
 
+    log_module_start('@app.before_request')
+
     if not session.get('sessionID'):
         token = generate_unique_sessionID()
         session['sessionID'] = token
-        print('@@@@@@ NEW SESSION @@@@@@ session_id =', session.get('sessionID'))
+        #print('@@@@@@ NEW SESSION @@@@@@ session_id =', session.get('sessionID'))
+        log_variable('@@@ NEW SESSION @@@' , session.get('sessionID'))
 
 
     #print('##########################################')
@@ -134,7 +138,8 @@ def set_cookies_etc_before_request():
         strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
         session['identityDT'] = strdt
         session['session_expiry'] = 60
-        print('###'+__name__+'###', '***New session started')
+        #print('###'+__name__+'###', '***New session started')
+        log_info('*** new session started', session.get('identityDT'), session.get('session_expiry'))
     else:
         strdt = session['identityDT']
         t1 = datetime.strptime(strdt, "%Y-%m-%d %H:%M:%S")
@@ -215,12 +220,15 @@ def set_cookies_etc_before_request():
     log_visit()
     session['request_started'] = 'YES'
     #print('##########################################--finished')
+    log_module_finish('@app.before_request')
 
 @app.after_request
 def set_cookies_after_request(response):
+    log_module_start('@app.after_request')
     #print('###'+__name__+'###', 'after_request')
     #session['request_started'] = 'NO'
     #print('##########################################--finished')
+    log_module_finish('@app.after_request')
     return response
 
 ###########################################################################
@@ -243,9 +251,7 @@ def homepage():
     page_name = 'home'
     page_function = 'homepage'
     page_template = 'page_templates/landing_page.html'
-    print('###'+__name__+'###homepage-1')
     log_page(page_name, page_function, page_template)
-    print('###'+__name__+'###homepage-2')
     return render_template('page_templates/landing_page.html')
 
 @app.route('/landingpage')
@@ -253,9 +259,7 @@ def landingpage():
     page_name = 'landingpage'
     page_function = 'landingpage'
     page_template = 'page_templates/landing_page.html'
-    print('###'+__name__+'###landingpage-1')
     log_page(page_name, page_function, page_template)
-    print('###'+__name__+'###landingpage-2')
     return render_template('page_templates/landing_page.html')
 
 @app.route('/contact')
@@ -279,9 +283,7 @@ def company():
     page_name = 'company'
     page_function = 'company'
     page_template = 'page_templates/company.html'
-    print('###'+__name__+'###company-1')
     log_page(page_name, page_function, page_template)
-    print('###'+__name__+'###company-2')
     return render_template('page_templates/company.html')
 
 @app.route('/services')
@@ -396,8 +398,22 @@ def test_google_api():
     log_page(page_name, page_function, page_template)
     clientip = '213.149.173.194'
     GOOGLE_MAPS_API_KEY='AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
-    lat =session.get('geolocation')[0] 
-    lon =session.get('geolocation')[1] 
+    if session.get('geolocation'):
+        try:
+            lat = session.get('geolocation')[0] 
+            lon = session.get('geolocation')[1] 
+        except:
+            lat = 0
+            lon = 0
+            return render_template('page_templates/terms_and_conditions.html')
+    else:
+        lat = -1
+        lon = -1
+        return render_template('page_templates/terms_and_conditions.html')
+
+    print('-----',lat,lon)
+    #lat = session.get('geolocation')[0] 
+    #lon = session.get('geolocation')[1] 
 
     # api_url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     path = 'http://api.ipstack.com/{0}?access_key={1}'.format(clientip, '4022cfd2249c3431953ecf599152892e')
@@ -472,6 +488,46 @@ def test_google_api():
     #                                     mode="transit",
     #                                     departure_time=now)
     # log_variable('directions_result', directions_result)
+    
+   #rootWindow = None
+   #mapLabel = None
+
+   #defaultLocation = "Mauna Kea, Hawaii"
+   #mapLocation = defaultLocation
+   #mapFileName = 'googlemap.gif'
+    # https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
+    # &markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318
+    # &markers=color:red%7Clabel:C%7C40.718217,-73.998284
+    # &key=YOUR_API_KEY
+
+    #############static map
+    key='&key='+GOOGLE_MAPS_API_KEY
+
+    urlbase = "http://maps.google.com/maps/api/staticmap?"
+    zoomLevel = 15
+    mapType = "satellite" #"roadmap" #"terrain"
+    width = 600
+    height = 300
+    markers  = "&markers=color:red|size:mid|label:VisitPoint|{},{}".format(lat,lon)
+    args = "center={},{}&zoom={}&size={}x{}&format=gif{}".format(lat,lon,zoomLevel,width,height,markers)
+    mapType = "&maptype={}".format(mapType)
+    google_maps_url = urlbase+args+mapType+key
+    return redirect(google_maps_url)
+    
+    #############dynamic map
+    key='&key='+GOOGLE_MAPS_API_KEY
+    urlbase = "https://www.google.com/maps/@?api=1&map_action=map"
+    args = "&center={},{}&zoom={}&size={}x{}&format=gif{}".format(lat,lon,zoomLevel,width,height,markers)
+    #&center=-33.712206,150.311941&zoom=12&basemap=terrain
+    google_maps_url = urlbase+args+mapType+key
+    return redirect(google_maps_url)
+
+    # https://www.google.co.uk/maps/place/@{0},{1}".format(session.get('longitude'),session.get('longitude')) %}
+    #     {% set href=href+"" %}
+    #     <a target="_blank" href="{{href}}">
+    #         <span style="font-weight:400" class="d-none d-lg-inline badge badge-pill badge-secondary">{{session.get('latitude')}},{{session.get('longitude')}}</span>
+    #     </a>
+
     return render_template('page_templates/terms_and_conditions.html')
 
 #############################################################
