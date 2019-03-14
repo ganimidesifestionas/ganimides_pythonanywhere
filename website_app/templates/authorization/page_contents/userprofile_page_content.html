@@ -47,17 +47,17 @@
     <!-- Nav tabs -->
     <div class="">
         <ul class="nav nav-tabs " role="tablist">
-            <li class="nav-item {{userprofile_is_active}}"><a class="nav-link authorization-page-nav-link {{userprofile_show}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
-            <li class="nav-item {{profilechange_is_active}}"><a class="nav-link authorization-page-nav-link {{profilechange_show}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
-            <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link authorization-page-nav-link {{passwordchange_show}}" href="#passchange" data-toggle="tab">Change Password</a></li>
+            <li class="nav-item {{userprofile_is_active}}"><a class="nav-link  {{userprofile_show}}" href="#userprofile" data-toggle="tab">User Profile</a></li>
+            <li class="nav-item {{profilechange_is_active}}"><a class="nav-link  {{profilechange_show}}" href="#profilechange" data-toggle="tab">Change Profile</a></li>
+            <li class="nav-item {{passwordchange_is_active}}"><a class="nav-link  {{passwordchange_show}}" href="#passchange" data-toggle="tab">Change Password</a></li>
             {% if avatarupload_is_active %}
-            <li class="nav-item {{avatarupload_is_active}}"><a class="nav-link authorization-page-nav-link {{avatarupload_show}}" href="#uploadpicture" data-toggle="tab">Upload Your Picture</a></li>
+            <li class="nav-item {{avatarupload_is_active}}"><a class="nav-link  {{avatarupload_show}}" href="#uploadpicture" data-toggle="tab">Upload Your Picture</a></li>
             {% endif %}
             {% if mobileconfirmation_is_active %}
-            <li class="nav-item {{mobileconfirmation_is_active}}"><a class="nav-link authorization-page-nav-link {{mobileconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
+            <li class="nav-item {{mobileconfirmation_is_active}}"><a class="nav-link  {{mobileconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
             {% endif %}
             {% if emailconfirmation_is_active %}
-            <li class="nav-item {{emailconfirmation_is_active}}"><a class="nav-link authorization-page-nav-link {{emailconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
+            <li class="nav-item {{emailconfirmation_is_active}}"><a class="nav-link  {{emailconfirmation_show}}" href="#mobileconfirmation" data-toggle="tab">Confirm Mobile</a></li>
             {% endif %}
         </ul>
     </div>
@@ -66,7 +66,7 @@
         <!-- form 1 userprofile-readonly -->
         <div id="userprofile" class="tab-pane fade {{userprofile_show}} mt-2 ml-2 mr-2">
             <div class="d-flex justify-content-center">
-                <div class="">
+                <div class="d-flex justify-content-center">
                     {% include include_files('form_userprofile.html',type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 </div>
             </div>
@@ -75,7 +75,7 @@
         <!-- form 2 profile change-->
         <div id="profilechange" class="tab-pane fade {{profilechange_show}} mt-2 ml-2 mr-2">
             <div class="d-flex justify-content-center">
-                <div class="">
+                <div class="d-flex justify-content-center">
                     {% include include_files('form_userprofile_change.html',type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 </div>
             </div>

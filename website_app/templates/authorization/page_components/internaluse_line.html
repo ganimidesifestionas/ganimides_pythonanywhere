@@ -1,0 +1,8 @@
+{% if EXECUTION_MODE.upper()=='production'.upper() %}
+{% else %}
+{{SERVER.upper()}} 
+|{{EXECUTION_MODE.upper()}} 
+|dbserver:{{DATABASE_SERVER}} dbname:{{DATABASE_NAME}} 
+|active module:{{session['active_module']}}
+|{{content_page_template}} 
+{% endif %}

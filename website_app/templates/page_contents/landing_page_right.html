@@ -1,8 +1,8 @@
 {% set video_file = video_file('Did_You_Know_2016.mp4') %}
 {% set video_title = 'now You know Why...' %}
 {% set video_position = 'align-self-center' %}
-<div class="p-0 m-0 border border-danger {{video_position}}">
-    <div class=" border xd-none xd-sm-none xd-md-block">
+<div class="p-0 m-0 {{video_position}}">
+    <div class="xd-none xd-sm-none xd-md-block">
         {% include include_files('video_play.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
     </div>
 </div>

@@ -1,4 +1,4 @@
-.authorization-page {
+.authorization_form {
     color: black;
     background-color:white;/* #f8f9fa;*/
     height: auto;
@@ -18,7 +18,7 @@
     border-radius: 4px;
     width:100%
 }
-.authorization-page h1{
+.authorization_form h1{
     font-family: Montserrat, Inconsolata, Consolas, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     font-style: normal;
@@ -28,7 +28,7 @@
     font-stretch: always;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
-.authorization-page h2, h3, h4 {
+.authorization_form h2, h3, h4 {
     font-family: Inconsolata, Consolas, Montserrat, 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
     font-style: normal;
@@ -37,16 +37,16 @@
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-.authorization-page.avatar_image {
+.authorization_form.avatar_image {
     width: 70px;
     height: 70px;
 }
-.authorization-page.separation_line {
+.authorization_form.separation_line {
     border: 0px;
     border-top: 1px solid #005293;
 }
 
-.authorization-page label {
+.authorization_form label {
     color: #8c8c8c;
     background-color: transparent;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -60,7 +60,7 @@
     margin-bottom: 1px;
 }
 
-.authorization-page input {
+.authorization_form input {
     /*color: #8c8c8c;*/
     color: black;
     border: 1px solid #e1e1e6;
@@ -74,27 +74,27 @@
     max-width: 500px;
 }
 
-.authorization-page input[type=submit] {
+.authorization_form input[type=submit] {
     color: black;
     font-weight: 900;
     font-size: 12px;
 }
-.authorization-page input[type=button] {
+.authorization_form input[type=button] {
     color: black;
     font-weight: 900;
     font-size: 12px;
 }
-.authorization-page input[type=button] :hover {
+.authorization_form input[type=button] :hover {
     color: white !important;
 }
 
-.authorization-page button {
+.authorization_form button {
     color: black;
     font-weight: 900;
     font-size: 12px;
 }
 
-.authorization-page textarea {
+.authorization_form textarea {
     color: blue;
     font-weight: 600 !important;
     font-size: 14px !important;
@@ -103,7 +103,7 @@
     height: 256px !important;
 }
 
-.authorization-page a {
+.authorization_form a {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -115,7 +115,7 @@
     border: 1px solid transparent;
 }
 
-.authorization-page a:visited {
+.authorization_form a:visited {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -125,7 +125,7 @@
     font-size: 14px;
 }
 
-.authorization-page a:link {
+.authorization_form a:link {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -137,29 +137,29 @@
     border: 1px solid transparent;
 }
 
-.authorization-page a:hover {
+.authorization_form a:hover {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     background-color: lightgray;
     color: white;
     border: 1px solid orange;
     border-radius: 4px;
 }
-.authorization-page-nav-link
+.
 {
     color:orange;
 }
-.authorization-page-nav-link.active
+..active
 {
     color:blank !important;
     font-weight:900 !important;
 }
 
-.authorization-page-line {
+.horizontal_line {
     border: 0px;
     border-top: 1px solid #005293;
 }
 
-.authorization-page-message-line {
+.authorization_form-message-line {
     color: green;
     font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
     font-size: 9px;
@@ -170,25 +170,25 @@
     font-feature-settings: "liga";
     padding:0px;
 }
-.authorization-page-message-line p{
+.authorization_form-message-line p{
     font-weight: 600;
     font-size: 9px;
     padding:0px;
     margin:0px;
 }
 
-.authorization-page-upload-file {
+.authorization_form-upload-file {
     border: 0px solid #e1e1e6 !important;
 }
 
-.authorization-page-upload-file button {
+.authorization_form-upload-file button {
     font-weight: 600 !important;
     font-size: 12px !important;
     width: 100% !important;
     color: green !important;
 }
 /*------------------------------------*/
-.authorization-page-readonly-form {
+.authorization_form-readonly-form {
     background-color: #f8f9fa;
     height: auto;
     line-height: unset;
@@ -206,7 +206,7 @@
     font-stretch: always;
 }
 
-.authorization-page-readonly-form label {
+.authorization_form-readonly-form label {
     color: #8c8c8c;
     background-color: transparent;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -220,7 +220,7 @@
     margin-bottom: 2px;
 }
 
-.authorization-page-readonly-form input {
+.authorization_form-readonly-form input {
     color: #8c8c8c;
     border: 1px solid #e1e1e6;
     /*background-color: #fff;*/
@@ -234,13 +234,13 @@
     max-width: 500px;
 }
 
-.authorization-page-readonly-form input[type=submit] {
+.authorization_form-readonly-form input[type=submit] {
     font-weight: 600;
     font-size: 12px;
     width: 100%;
 }
 
-.authorization-page-readonly-form a {
+.authorization_form-readonly-form a {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -253,7 +253,7 @@
     border-radius: 0px;
 }
 
-.authorization-page-readonly-form a:visited {
+.authorization_form-readonly-form a:visited {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -263,7 +263,7 @@
     font-size: 14px;
 }
 
-.authorization-page-readonly-form a:link {
+.authorization_form-readonly-form a:link {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -273,13 +273,13 @@
     font-size: 14px;
 }
 
-.authorization-page-readonly-form a:hover {
+.authorization_form-readonly-form a:hover {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     background-color: lightgray;
     color: white;
 }
 
-.authorization-page-readonly-form-field {
+.authorization_form-readonly-form-field {
     background-color: #f8f9fa;
     height: auto;
     line-height: unset;
@@ -297,7 +297,7 @@
     font-stretch: always;
 }
 
-.authorization-page-readonly-form-field label {
+.authorization_form-readonly-form-field label {
     color: #8c8c8c;
     background-color: transparent;
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -313,7 +313,7 @@
     margin-bottom: 0px;
 }
 
-.authorization-page-readonly-form-field input {
+.authorization_form-readonly-form-field input {
     color: blue;
     /*#8c8c8c;*/
     border: 1px solid #e1e1e6;
@@ -328,7 +328,7 @@
     max-width: 480px;
 }
 
-.authorization-page-readonly-form-field a {
+.authorization_form-readonly-form-field a {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -338,7 +338,7 @@
     font-size: 14px;
 }
 
-.authorization-page-readonly-form-field a:visited {
+.authorization_form-readonly-form-field a:visited {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -348,7 +348,7 @@
     font-size: 14px;
 }
 
-.authorization-page-readonly-form-field a:link {
+.authorization_form-readonly-form-field a:link {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -358,13 +358,13 @@
     font-size: 14px;
 }
 
-.authorization-page-readonly-form-field a:hover {
+.authorization_form-readonly-form-field a:hover {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     background-color: lightgray;
     color: white;
 }
 /*------------------------------------*/
-.authorization-page-splash-form-close-button {
+.authorization_form-splash-form-close-button {
     font-weight: 600 !important;
     font-size: 1.5rem !important;
     padding: 0px !important;
@@ -455,7 +455,7 @@
     font-weight: 900;
     font-size: 12px;
 }
-.authorization-page message_line {
+.authorization_form message_line {
     color: green;
     font-family: Inconsolata, 'Segoe UI Light', Tangerine, serif;
     font-size: 1rem;
@@ -467,13 +467,13 @@
     padding: 0px;
 }
 
-.authorization-page message_line p {
+.authorization_form message_line p {
     font-weight: 800;
     font-size: 1rem;
     padding: 0px;
     margin: 0px;
 }
-.authorization-page .checkbox-label {
+.authorization_form .checkbox-label {
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-size: 1em;
     font-style: normal;
@@ -482,7 +482,7 @@
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-.authorization-page .checkbox-text {
+.authorization_form .checkbox-text {
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-size: 1em;
     font-style: normal;
@@ -491,7 +491,7 @@
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-.authorization-page .text-in-form {
+.authorization_form .text-in-form {
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-size: 1em;
     font-style: normal;
@@ -501,12 +501,12 @@
     font-stretch: always;
 }
 
-.authorization-page .tabform-borders {
+.authorization_form .tabform-borders {
     border: 0px solid lightgray !important;
     border-radius: 0px !important;
 }
 
-.authorization-page .upload_file {
+.authorization_form .upload_file {
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
     font-size: 80%;
     font-style: normal;
@@ -515,12 +515,12 @@
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-.authorization-page .upload_file > button {
+.authorization_form .upload_file > button {
     color: white !important;
     background-color: green !important;
 }
 
-.authorization-page .splash_form_close_button {
+.authorization_form .splash_form_close_button {
     font-weight: 900 !important;
     font-size: 1.5em !important;
     color: lightgray !important;
@@ -531,7 +531,7 @@
     cursor: pointer;
 }
 
-.authorization-page .splash_form_close_button:hover {
+.authorization_form .splash_form_close_button:hover {
     background: transparent !important;
     border: 0px solid transparent !important;
     color: red !important;
@@ -539,7 +539,7 @@
     text-decoration: none !important;
     text-shadow: none !important;
 }
-.authorization-page .form_close_button {
+.authorization_form .form_close_button {
     font-weight: 900 !important;
     font-size: 1.5em !important;
     color: lightgray !important;
@@ -549,7 +549,7 @@
     text-decoration: none !important;
     cursor: pointer;
 }
-.authorization-page .form_close_button:hover {
+.authorization_form .form_close_button:hover {
     background: transparent !important;
     border: 0px solid transparent !important;
     color: red !important;
@@ -559,13 +559,13 @@
 }
 
 /*
-.authorization-page-contactus-form button {
+.authorization_form-form_contactus button {
     font-weight: 600;
     font-size: 12px;
 }
 */
 /*
-.authorization-page-contactus-form a {
+.authorization_form-form_contactus a {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -576,7 +576,7 @@
     padding: 1px;
 }
 
-.authorization-page-contactus-form a:visited {
+.authorization_form-form_contactus a:visited {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -586,7 +586,7 @@
     font-size: 14px;
 }
 
-.authorization-page-contactus-form a:link {
+.authorization_form-form_contactus a:link {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -596,7 +596,7 @@
     font-size: 14px;
 }
 
-.authorization-page-contactus-form a:hover {
+.authorization_form-form_contactus a:hover {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     background-color: lightgray;
     color: white;

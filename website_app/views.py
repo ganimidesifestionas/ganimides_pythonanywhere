@@ -74,119 +74,104 @@ from .external_services.debug_log_services import *
 #############################################################
 @app.before_first_request
 def init_cookies_etc_before_first_request():
-    print('##########################################')
-    print('###'+__name__+'###', 'before_first_request')
-    print('##########################################')
+    log_module_start('@app.before_first_request')
+    log_info('SITE FIRST REQUEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
     #this will make session cookies expired in 5 minutes
-    # set app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
+    #set app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=5)
     #session.permanent = True
 
     #1. init session cookies
+    log_info('init session cookies')
+
     session['active_module'] = __name__
     session['urls'] = []
     session['pages'] = []
     clientIPA = client_IP()
     session['clientIPA'] = clientIPA
     session['visit'] = 0
-    app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SITE FIRST REQUEST !!! IP:{0}'.format(session.get('clientIPA')))
     try:
         session['lastpageHTML'] = app.homepage_html
     except:
         session['lastpageHTML'] = 'page_templates/landing_page.html'
-
     session.modified = True
 
     #2. import splash forms objects
+    log_info('init app (splash) forms')
+
     app.loginform = LoginForm()
     app.loginform.eyecatch.data = __name__
     app.registrationform = RegistrationForm()
     app.contactusform = ContactUsForm()
     app.forgetpasswordform = forgetPasswordForm()
     app.cookiesconsentform = CookiesConsentForm()
-    print('##########################################--finished')
+
+    log_module_finish('@app.before_first_request')
 
 @app.before_request
 def set_cookies_etc_before_request():
-    #print(request.base_url)
-    #print(request.base_url.lower().find('/static/'))
     if request.base_url.lower().find('/static/') >= 0 :
         return
 
     log_module_start('@app.before_request')
 
+    log_info('save necessary cookies')
+
+    session['active_module'] = __name__
     if not session.get('sessionID'):
         token = generate_unique_sessionID()
         session['sessionID'] = token
-        #print('@@@@@@ NEW SESSION @@@@@@ session_id =', session.get('sessionID'))
-        log_variable('@@@ NEW SESSION @@@' , session.get('sessionID'))
-
-
-    #print('##########################################')
-    #print('###'+__name__+'###', 'before_request')
-    #print('##########################################-start')
-    if not session.get('visit'):
-        session['visit'] = 100
-    session['visit'] = session.get('visit') + 1
-    session['visitpoint_try'] = 0
-
-    #1. set session cookies
-    session['active_module'] = __name__
+        log_variable('@@@ NEW SESSION @@@', session.get('sessionID'))
+        dt = datetime.now()
+        strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+        session['identityDT'] = strdt
+        session['session_expiry'] = 60
 
     if 'identityDT' not in session:
         dt = datetime.now()
         strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
         session['identityDT'] = strdt
         session['session_expiry'] = 60
-        #print('###'+__name__+'###', '***New session started')
-        log_info('*** new session started', session.get('identityDT'), session.get('session_expiry'))
-    else:
-        strdt = session['identityDT']
-        t1 = datetime.strptime(strdt, "%Y-%m-%d %H:%M:%S")
-        t2 = datetime.now()
-        duration = t2 - t1
-        duration_sec = duration.total_seconds()
-        session['session_expiry'] = duration_sec
-        if duration_sec >= 60*60:
-            dt = datetime.now()
-            strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
-            session['identityDT'] = strdt
-            session['session_expiry'] = 60*60
-            print('###'+__name__+'###', '***session expired after 1 hour')
-            app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SESSION EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
-            session.pop('VisitID', None) # delete visitID
-            session.pop('VisitNumber', None) # delete visitNumber
-            session.pop('VisitPointID', None) # delete visitpointID
-            session.pop('VisitPointNumber', None) # delete visitpointNumber
-            session.pop('clientIPA', None) # delete clientIPA
+        #log_info('*** new session started', session.get('identityDT'), session.get('session_expiry'))
+
+    if not session.get('visit'):
+        session['visit'] = 100
+    session['visit'] = session.get('visit') + 1
+    session['visitpoint_try'] = 0
 
     if 'urls' not in session:
         session['urls'] = []
     if 'pages' not in session:
         session['pages'] = []
-
     if 'clientIPA' not in session:
         clientIPA = client_IP()
         session['clientIPA'] = clientIPA
-        #print('###'+__name__+'###', '***new clientIPA session cookie : ',session['clientIPA'])
-
     if session['clientIPA'] !=  RealClientIPA():
         clientIPA = RealClientIPA()
         session['clientIPA'] = RealClientIPA()
-        #print('###'+__name__+'###', '***changed clientIPA session cookie : ',session['clientIPA'])
+    
+    log_info('check session expiry')
 
-    #from mod_python import apache
-    #print('###'+__name__+'###1', session['clientIPA'], request.get_remote_host(apache.REMOTE_NOLOOKUP))
+    strdt = session['identityDT']
+    t1 = datetime.strptime(strdt, "%Y-%m-%d %H:%M:%S")
+    t2 = datetime.now()
+    duration = t2 - t1
+    duration_sec = duration.total_seconds()
+    session['session_expiry'] = duration_sec
+    if duration_sec >= 60*60:
+        dt = datetime.now()
+        strdt = dt.strftime("%Y-%m-%d %H:%M:%S")
+        session['identityDT'] = strdt
+        session['session_expiry'] = 60*60
+        log_info('***session expired after 1 hour', duration_sec)
+        app.logger.critical('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SESSION EXPIRED !!! IP:{0}'.format(session.get('clientIPA')))
+        session.pop('VisitID', None) # delete visitID
+        session.pop('VisitNumber', None) # delete visitNumber
+        session.pop('VisitPointID', None) # delete visitpointID
+        session.pop('VisitPointNumber', None) # delete visitpointNumber
+        session.pop('clientIPA', None) # delete clientIPA
 
-    # print('###'+__name__+'###1', session['clientIPA'], request.environ.get('HTTP_X_REAL_IP'))
-    # print('###'+__name__+'###2', session['clientIPA'], request.environ.get('REMOTE_ADDR'))
-    # print('###'+__name__+'###3', session['clientIPA'], request.remote_addr)
-
-    #force get
-    #clientIPA = client_IP()
-    #session['clientIPA'] = clientIPA
-    #print('###'+__name__+'###', 'client IP :',session['clientIPA'])
-
+    log_info('check cookies consent expiry')
     if 'cookies_consent_time' in session:
         strdt = session['cookies_consent_time']
         t1 = datetime.strptime(strdt, "%Y-%m-%d %H:%M:%S")
@@ -204,6 +189,7 @@ def set_cookies_etc_before_request():
         session['cookies_consent'] = 'NO'
 
     #2. init spash forms with authenticated user info
+    log_info('move authenticated user info to the (splash) forms')
     if current_user.is_authenticated:
         if app.forgetpasswordform:
             app.forgetpasswordform.email.data = current_user.email
@@ -214,20 +200,19 @@ def set_cookies_etc_before_request():
             app.contactusform.jobTitle.data = current_user.jobTitle
             app.contactusform.email.data = current_user.email
             app.contactusform.contact_message.data = ''
-    session.modified = True
+
 
     #3. log the visit in db
+    log_info('log the visit in DB')
     log_visit()
-    session['request_started'] = 'YES'
-    #print('##########################################--finished')
+    
+    session.modified = True
+
     log_module_finish('@app.before_request')
 
 @app.after_request
 def set_cookies_after_request(response):
     log_module_start('@app.after_request')
-    #print('###'+__name__+'###', 'after_request')
-    #session['request_started'] = 'NO'
-    #print('##########################################--finished')
     log_module_finish('@app.after_request')
     return response
 
@@ -382,6 +367,62 @@ def cookiesconsentform(answer):
     flash('Thank You. Your data are protected', 'success')
     return redirect(session.get('lastpageURL'))
 
+#############################################################
+#############################################################
+#############################################################
+### client-to-server utilities:
+#############################################################
+#############################################################
+#############################################################
+@app.route('/location', methods=['POST'])
+def location():
+    latitude = request.json.get('latitude')
+    longitude = request.json.get('longitude')
+    session['geolocation'] = [latitude, longitude]
+    log_variable('geolocation', session.get('geolocation'))
+    set_geolocation(latitude, longitude)
+    log_route('geolocation', 'geolocation')
+    return('')
+#############################################################
+#############################################################
+#############################################################
+### prototypes:
+#############################################################
+#############################################################
+#############################################################
+@app.route('/myBank')
+@login_required
+def myBank():
+    page_name = 'myBank-prototype'
+    page_function = 'myBank'
+    page_template = 'myBank/myBank_index.html'
+    page_form = ''
+    log_page(page_name, page_function, page_template, '', page_form)
+    return render_template(
+        'mybank/mybank_index.html'
+        , title='myBank'
+        , message='open banking prototype........'
+    )
+
+@app.route('/myGame')
+def myGame():
+    page_name = 'myGame-prototype'
+    page_function = 'myGame'
+    page_template = 'myGame/myGame.html'
+    page_form = ''
+    log_page(page_name, page_function, page_template, '', page_form)
+    return render_template(
+        'myGame/myGame.html'
+        , title='myGame'
+        , message='gaming prototype........'
+    )
+#############################################################
+#############################################################
+#############################################################
+### test utilities:
+#############################################################
+#############################################################
+#############################################################
 @app.route('/test_cookiesconsent')
 def test_cookiesconsent():
     dt = datetime.now() - timedelta(days=111)
@@ -411,7 +452,7 @@ def test_google_api():
         lon = -1
         return render_template('page_templates/terms_and_conditions.html')
 
-    print('-----',lat,lon)
+    log_info('-----lat,lon',lat,lon)
     #lat = session.get('geolocation')[0] 
     #lon = session.get('geolocation')[1] 
 
@@ -421,7 +462,7 @@ def test_google_api():
     log_variable('apistack geolocation path', path)
     #print (path)
     r = requests.post(path)
-    print(r)
+    log_variable('request',r)
     #reply_code=r.status_code
     # if not r.status_code == requests.codes.ok:
     #response = {}
@@ -433,13 +474,13 @@ def test_google_api():
         res=filter(filter_method, address_comps)
         for geoname in res:
             common_types = set(geoname['types']).intersection(set(types))
-            print ('{} ({})'.format(geoname['long_name'], ', '.join(common_types)))
+            log_info ('{} ({})'.format(geoname['long_name'], ', '.join(common_types)))
             # nam = ', '.join(common_types)
             # val = geoname['long_name']
             # print(nam, val)
 
         formatted_address = response['results'][0]['formatted_address']
-        print ('{} ({})'.format(formatted_address, 'formatted address'))
+        log_info ('{} ({})'.format(formatted_address, 'formatted address'))
 
         # #log_variable('apistack geolocation result', response)
         # log_info('==================================================')
@@ -527,55 +568,5 @@ def test_google_api():
     #     <a target="_blank" href="{{href}}">
     #         <span style="font-weight:400" class="d-none d-lg-inline badge badge-pill badge-secondary">{{session.get('latitude')}},{{session.get('longitude')}}</span>
     #     </a>
-
     return render_template('page_templates/terms_and_conditions.html')
 
-#############################################################
-#############################################################
-#############################################################
-### client-to-server utilities:
-#############################################################
-#############################################################
-#############################################################
-@app.route('/location', methods=['POST'])
-def location():
-    latitude = request.json.get('latitude')
-    longitude = request.json.get('longitude')
-    session['geolocation'] = [latitude, longitude]
-    log_variable('geolocation', session.get('geolocation'))
-    set_geolocation(latitude, longitude)
-    log_route('geolocation', 'geolocation')
-    return('')
-#############################################################
-#############################################################
-#############################################################
-### prototypes:
-#############################################################
-#############################################################
-#############################################################
-@app.route('/myBank')
-@login_required
-def myBank():
-    page_name = 'myBank-prototype'
-    page_function = 'myBank'
-    page_template = 'myBank/myBank_index.html'
-    page_form = ''
-    log_page(page_name, page_function, page_template, '', page_form)
-    return render_template(
-        'mybank/mybank_index.html'
-        , title='myBank'
-        , message='open banking prototype........'
-    )
-
-@app.route('/myGame')
-def myGame():
-    page_name = 'myGame-prototype'
-    page_function = 'myGame'
-    page_template = 'myGame/myGame.html'
-    page_form = ''
-    log_page(page_name, page_function, page_template, '', page_form)
-    return render_template(
-        'myGame/myGame.html'
-        , title='myGame'
-        , message='gaming prototype........'
-    )

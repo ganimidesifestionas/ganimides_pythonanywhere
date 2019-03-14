@@ -22,7 +22,7 @@
         {% set ns.row=ns.row+1 %}
 
         {% if loop.first %}
-            <div class="container bg-transparent col-sm-12 mb-2">
+            <div class="container bg-transparent col-sm-12 mb-2 mt-2">
                     <div class="row">
                             {% endif %}
 
@@ -40,7 +40,7 @@
 
         {% set ns.rowmargin="" %}
         {% if not(loop.last) %}
-            {% set ns.rowmargin="mb-1" %}
+            {% set ns.rowmargin="mb-3" %}
         {% endif %}
 
         {% set ns.col=0 %}
@@ -54,7 +54,7 @@
 
                 {% set subpage_file = page_file(cell) %}
                 {% set language_subpage_file=language_file(subpage_file,CURRENT_LANGUAGE) %}
-                <div class="d-flex align-items-stretch col-sm-4 m-0 p-1">
+                <div class="d-flex align-items-stretch col-sm-4 m-0 p-1 {{ns.rowmargin}}">
                         <div class="summary_cell border" style="border-radius:1.5em">
                                 {% include include_files(cell,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                                 {#% include [language_subpage_file,subpage_file] %#}
