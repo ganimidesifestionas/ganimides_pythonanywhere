@@ -96,17 +96,28 @@
 {% endif %}
 {% endfor %}
 {% set FormLinkPages=ns.items %}
-<div class="d-flex flex-column w-100 ">
-    <div class="d-flex flex-row w-100 text-black">
+<div class="d-flex flex-column w-100 authorization_page">
+    <div class="d-flex flex-row w-100 justify-content-center">
+
+        {% if page_left_content1 %}
         <div class="d-flex flex-column justify-content-start">
-            {% include include_files('_layout_leftside.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {% include include_files(page_left_content1,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
-        <div class="d-flex flex-column flex-grow-1 justify-content-start">
+        {% endif %}
+
+        <div class="d-flex flex-column flex-grow-1 justify-content-start authorization_page">
             {% include include_files(content_page_template,type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
+        
+        {% if page_right_content1 %}
+        <div class="d-flex flex-column justify-content-start">
+            {% include include_files(page_right_content1,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
+        {% endif %}
+    
     </div>
-    <div class="w-100 internal_use_line p-2">
-        {% include include_files('internaluse_line.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-    </div>
+    <div style="color:orange;" class="w-100 internal_use_line py-1 text-center">
+            {% include include_files('internaluse_line.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
 </div>
 <!--ENDOF--pageslayout = "authorizationpageslayout"-->

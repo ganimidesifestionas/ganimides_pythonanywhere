@@ -50,10 +50,10 @@
 
         <!--3:page-header:page-logo,title,buttons-->
         {% if page_image or page_title %}
-        <div class="d-flex flex-wrap flex-row justify-content-center">
+        <div class="d-flex flex-wrap flex-row justify-content-center pt-1">
             <div class="d-flex align-items-center">
                 {% if page_image %}
-                <img style="width:5rem;height:5rem;" src={{page_image}} class="page-header-image" />
+                <img style="width:5rem;height:5rem;" src={{page_image}} class="page_header_image" />
                 {% endif %}
             </div>
             <div class="d-flex   align-items-center">
@@ -139,7 +139,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="align-self-center border border-success">
+            <div class="align-self-center">
                 {% if content_page_right %}
                 {% include include_files(content_page_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}

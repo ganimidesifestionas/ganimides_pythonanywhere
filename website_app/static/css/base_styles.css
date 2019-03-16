@@ -293,7 +293,7 @@ p {
     ****************************************************
 */
 
-.document-page {
+.document_page {
     background-color: #f8f9fa;
     color: black;
     font-family: Inconsolata, Montserrat, 'Segoe UI Light', serif;
@@ -310,27 +310,27 @@ p {
     padding: 4px
 }
 
-.document-page>p {
+.document_page>p {
     text-align: justify;
     xfont-weight: 600;
     padding: 1px
 }
 
-.document-page>h1 {
+.document_page>h1 {
     xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     margin-top: 14px;
     margin-bottom: 2px;
 }
 
-.document-page>h2 {
+.document_page>h2 {
     xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 900;
     margin-top: 16px;
     margin-bottom: 2px;
 }
 
-.document-page>h3 {
+.document_page>h3 {
     xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -338,7 +338,7 @@ p {
     margin-bottom: 2px;
 }
 
-.document-page>h4 {
+.document_page>h4 {
     xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 500;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -346,7 +346,7 @@ p {
     margin-bottom: 2px;
 }
 
-.document-page-lastrevision {
+.document_page-lastrevision {
     color: Black;
     xfont-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
@@ -363,7 +363,7 @@ p {
     margin-bottom: 2px
 }
 
-.document-page-footer {
+.document_page-footer {
     color: Black;
     padding: 2px;
     margin: 0px;
@@ -376,7 +376,7 @@ p {
     border-top: 2px dotted orange;
 }
 
-.document-page-footer a {
+.document_page-footer a {
     color: black;
     white-space: normal;
     text-decoration: none;
@@ -386,7 +386,7 @@ p {
     padding: 2px;
 }
 
-.document-page-footer a:link {
+.document_page-footer a:link {
     color: black;
     white-space: normal;
     text-decoration: none;
@@ -395,7 +395,7 @@ p {
     #font-stretch: always;
 }
 
-.document-page-footer a:hover, .document-page-footer link:hover {
+.document_page-footer a:hover, .document_page-footer link:hover {
     color: red;
     background-color: lightgray;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
@@ -403,7 +403,7 @@ p {
     #border:1px solid blue;
 }
 
-.document-page .button_contactus_intext {
+.document_page .button_contactus_intext {
     color: darkblue;
     text-decoration: none;
     background-color: transparent;
@@ -411,7 +411,7 @@ p {
     font-style: normal;
 }
 
-.document-page .button_contactus_intext:hover {
+.document_page .button_contactus_intext:hover {
     color: red;
     font-weight: 900;
     background-color: lightgray;
@@ -1129,7 +1129,7 @@ p {
     padding-left: 0px
 }
 
-.page-header-image {
+.page_header_image {
     width: 100px;
     height: 100px;
 }
@@ -1980,7 +1980,7 @@ hr {
 
 /*=========================================*/
 
-.contactus-form {
+.form_contactus {
     width: 100%;
     height: auto;
     background-color: white;
@@ -1997,7 +1997,7 @@ hr {
     border-radius: 4px;
 }
 
-.contactus-form label {
+.form_contactus label {
     color: #8c8c8c;
     /*
     background-color: transparent;
@@ -2013,7 +2013,7 @@ hr {
     margin-bottom: 1px;
 }
 
-.contactus-form input, .contactus-form textarea {
+.form_contactus input, .form_contactus textarea {
     color: black;
     border: 1px solid #e1e1e6 !important;
     /*background-color: #fff;*/
@@ -2028,14 +2028,14 @@ hr {
     max-width: 1000px;
 }
 
-.contactus-form textarea {
+.form_contactus textarea {
     color: blue !important;
     width: 100%;
     max-width: 1000px;
     height: 200px;
 }
 
-.contactus-form h4 {
+.form_contactus h4 {
     font-family: Montserrat, Inconsolata, 'Segoe UI Light', serif;
     font-weight: 700;
     font-size: 14px;
@@ -2043,27 +2043,27 @@ hr {
     color: black;
 }
 
-.contactus-form-line {
+.form_contactus-line {
     border: 0px;
     border-top: 1px solid #005293;
 }
 
-.contactus-form input[type=submit] {
+.form_contactus input[type=submit] {
     font-weight: 900;
     font-size: 12px;
 }
 
-.contactus-form input[type=button] {
+.form_contactus input[type=button] {
     color: black;
     font-weight: 900;
     font-size: 12px;
 }
 
-.contactus-form input[type=button] :hover {
+.form_contactus input[type=button] :hover {
     color: white !important;
 }
 
-.contactus-form button {
+.form_contactus button {
     color: black;
     font-weight: 900;
     font-size: 12px;
@@ -2094,7 +2094,7 @@ hr {
     x-webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
 }
 
-.contactus-form a {
+.form_contactus a {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -2105,7 +2105,7 @@ hr {
     padding: 1px;
 }
 
-.contactus-form a:visited {
+.form_contactus a:visited {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -2115,7 +2115,7 @@ hr {
     font-size: 14px;
 }
 
-.contactus-form a:link {
+.form_contactus a:link {
     color: orange;
     background-color: transparent;
     font-family: Inconsolata, 'Segoe UI Light', 'Open Sans', 'Segoe UI Black', serif;
@@ -2125,7 +2125,7 @@ hr {
     font-size: 14px;
 }
 
-.contactus-form a:hover {
+.form_contactus a:hover {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
     background-color: lightgray;
     color: white;

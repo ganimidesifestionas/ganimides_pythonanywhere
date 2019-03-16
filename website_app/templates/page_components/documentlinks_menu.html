@@ -6,15 +6,23 @@
                 <ul class="navbar-nav">
                         {% for pageLink in DocumentLinkPagesArray %}
                         {% if pageLink[0] %}
+                        {% set document_url=url_for(pageLink[0]) %}
+                        {% set document_text=pageLink[1] %}
                         {% if pageLink[3]=='button' %}
                         <li class="nav-item mr-1">
-                            <a style="border-radius:2em;" class="nav-link py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for(pageLink[0])}}">{{pageLink[1]}}&raquo;
+                            <!--
+                            <a style="border-radius:1em;" class="nav-link py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for(pageLink[0])}}">{{pageLink[1]}}&raquo;
                             </a>
+                            -->
+                            {% include include_files('button_document_link.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing%}                            
                         </li>
                         {% else %}
                         <li class="nav-item mr-1">
-                            <a style="border-radius:2em;" class="nav-link py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for(pageLink[0])}}">{{pageLink[1]}}&raquo;
+                            <!--
+                            <a style="border-radius:1em;" class="nav-link py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for(pageLink[0])}}">{{pageLink[1]}}&raquo;
                             </a>
+                            -->
+                            {% include include_files('button_document_link.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing%}                            
                         </li>
                         {% endif %}
                         {% endif %}

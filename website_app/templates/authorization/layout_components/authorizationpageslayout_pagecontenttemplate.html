@@ -1,11 +1,6 @@
 <!--BEGIN--layoutpagecontenttemplate = "authorizationpageslayout_pagecontenttemplate"-->
 {% set page_header="_layout_page_header.html" %}
-<div class="d-flex flex-column justify-content-start col-12 m-0 p-0 xauthorization-page">
-
-    <!--0:page-top_information_line -->
-    <div class="m-0 p-0">
-        {% include include_files('top_information_line.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-    </div>
+<div class="d-flex flex-column justify-content-start col-12 m-0 mb-3 p-0 authorization_page">
 
     <div class="d-flex flex-column justify-content-start col-12 m-0 p-0">
 
@@ -19,6 +14,7 @@
             <div class="d-flex ml-2">
             </div>
         </div>
+
         <!--2:links-->
         <div class="d-flex flex-wrap flex-row justify-content-between m-0 p-0">
             <div class="d-flex flex-grow-1 justify-content-end align-items-end">

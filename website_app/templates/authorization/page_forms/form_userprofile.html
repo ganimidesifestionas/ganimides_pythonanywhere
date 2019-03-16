@@ -1,6 +1,6 @@
-<div class="d-flex flex-column">
+<div class="d-flex flex-column flex-shrink-1">
 
-    <div class="d-flex justify-content-between p-0 m-0">
+    <div class="d-flex justify-content-between p-0 m-0 flex-shrink-1">
         {% if current_user.avatarImageFile %}
         {% set avatarImageFile=current_user.avatarImageFile %}
         {% else %}
@@ -9,131 +9,131 @@
         <img style="width:4rem;height:4rem" class="rounded-circle mx-auto d-block avatar_image border border-lightgray" alt="" src='{{avatarImageFile}}'>
     </div>
 
-    <div class="d-flex justify-content-center">
-        <div class="align-items-center pl-1">
-            <a href="{{ url_for('authorization.upload_avatar') }}" class="badge badge-pill badge-warning">Change</a>
+    <div class="d-flex justify-content-center flex-shrink-1">
+        <div class="align-items-center">
+            <a href="{{ url_for('authorization.upload_avatar') }}" class="badge badge-warning">Change</a>
         </div>
     </div>
 
-    <form id="formUserProfileDisplay" role="form" autocomplete="on" class="readonly-form">
-        <fieldset>
-            {{ userprofiledisplay_form.hidden_tag() }}
-            <!-- -->
-            <div class="d-flex flex-wrap xflex-row xjustify-content-start p-0 m-0 mt-2">
-                <!--column1 left -->
-                <div class="d-flex flex-wrap flex-column pt-2 mr-2 align-items-start">
+    <div class="d-flex justify-content-center flex-shrink-1">
+            <div class="d-flex justify-content-center flex-shrink-1">
+        <form style="xwidth:100%" class="readonly_form flex-shrink-1" id="formUserProfileDisplay" role="form" autocomplete="on">
+            <fieldset>
+                {{ userprofiledisplay_form.hidden_tag() }}
+                <!-- -->
+                <div class="d-flex flex-wrap p-0 m-0 mt-2">
+                    <!--column1 left -->
+                    <div class="d-flex xflex-wrap flex-column pt-2 mr-2 align-items-start">
 
-                    <div class="form-group d-flex flex-column">
-                        {{ userprofiledisplay_form.firstName.label }}
-                        {{ userprofiledisplay_form.firstName(size=32,readonly=true) }}
-                    </div>
-                    <div class="form-group d-flex flex-column">
-                        {{ userprofiledisplay_form.lastName.label }}
-                        {{ userprofiledisplay_form.lastName(size=32,readonly=true) }}
-                    </div>
-                    <div class="form-group d-flex flex-column">
-                        {{ userprofiledisplay_form.jobTitle.label }}
-                        {{ userprofiledisplay_form.jobTitle(size=32,readonly=true) }}
-                    </div>
-                    <div class="form-group d-flex flex-column">
-                        {{ userprofiledisplay_form.company.label }}
-                        {{ userprofiledisplay_form.company(size=32,readonly=true) }}
-                    </div>
-                    <div class="form-group d-flex flex-column">
-                        {{ userprofiledisplay_form.userName.label }}
-                        {{ userprofiledisplay_form.userName(size=32,readonly=true) }}
-                    </div>
+                        <div class="form-group d-flex flex-column">
+                            {{ userprofiledisplay_form.firstName.label }}
+                            {{ userprofiledisplay_form.firstName(size=39,readonly=true) }}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            {{ userprofiledisplay_form.lastName.label }}
+                            {{ userprofiledisplay_form.lastName(size=39,readonly=true) }}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            {{ userprofiledisplay_form.jobTitle.label }}
+                            {{ userprofiledisplay_form.jobTitle(size=39,readonly=true) }}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            {{ userprofiledisplay_form.company.label }}
+                            {{ userprofiledisplay_form.company(size=39,readonly=true) }}
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                            {{ userprofiledisplay_form.userName.label }}
+                            {{ userprofiledisplay_form.userName(size=39,readonly=true) }}
+                        </div>
 
-                    <div class="form-group d-flex flex-column">
-                        <div>
-                            {{ userprofiledisplay_form.email.label }}
-                        </div>
-                        <div class="d-flex flex-column">
-                            <div>
-                                {{ userprofiledisplay_form.email(size=32,readonly=true) }}
-                            </div>
-                            {% if not emailconfirmed %}
-                            <div class="align-items-center pl-1">
-                                <a href="{{ url_for('authorization.emailconfirmrequest', email=userprofiledisplay_form.email.data) }}" class="badge badge-pill badge-warning">Confirm</a>
-                            </div>
-                            {% endif %}
-                        </div>
                     </div>
 
-                    <div class="form-group d-flex flex-column">
-                        <div>
-                            {{ userprofiledisplay_form.mobile.label }}
-                        </div>
-                        <div class="d-flex flex-column">
-                            <div>
-                                {{ userprofiledisplay_form.mobile(size=32,readonly=true) }}
+                    <!--column2 right -->
+                    <div class="align-self-start xalign-self-stretch">
+                        <!-- more fields -->
+                        <div class="d-flex flex-column pt-2">
+                            <div class="form-group d-flex flex-column">
+                                <div class="align-items-center">
+                                    {{ userprofiledisplay_form.email.label }}
+                                    {% if not emailconfirmed %}
+                                    <a href="{{ url_for('authorization.emailconfirmrequest', email=userprofiledisplay_form.email.data) }}" class="pl-2 badge badge-pill badge-warning">Confirm</a>
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        {{ userprofiledisplay_form.email(size=39,readonly=true) }}
+                                    </div>
+                                </div>
                             </div>
-                            {% if not mobileconfirmed %}
-                            <div class="align-items-center pl-1">
-                                <a href="{{ url_for('authorization.mobileconfirm') }}" class="badge badge-pill badge-warning">Confirm</a>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
 
-                <!--column2 right -->
-                <div class="align-self-start">
-                    <!-- more fields -->
-                    <div class="d-flex flex-wrap flex-column pt-2 align-items-end">
-                        <div class="flex-grow-1">
-                            <table class="table-borderless">
-                                <tr>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.termsAgreed.label }}:
-                                    </td>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.termsAgreed() }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.emailConfirmed.label }}:
-                                    </td>
-                                    <td>
-                                        {{ userprofiledisplay_form.emailConfirmed() }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.registered.label }}:
-                                    </td>
-                                    <td>
-                                        {{ userprofiledisplay_form.registered() }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.mailingListSignUp.label }}:
-                                    </td>
-                                    <td>
-                                        {{ userprofiledisplay_form.mailingListSignUp() }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.mobileConfirmed.label }}:
-                                    </td>
-                                    <td>
-                                        {{ userprofiledisplay_form.mobileConfirmed() }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">
-                                        {{ userprofiledisplay_form.lastLogin.label }}:
-                                    </td>
-                                    <td>
-                                        {{ userprofiledisplay_form.lastLogin() }}
-                                    </td>
-                                </tr>
-                            </table>
+                            <div class="form-group d-flex flex-column">
+                                <div class="align-items-center">
+                                    {{ userprofiledisplay_form.mobile.label }}
+                                    {% if not mobileconfirmed %}
+                                    <a href="{{ url_for('authorization.mobileconfirm') }}" class="pl-2 badge badge-pill badge-warning">Confirm</a>
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <div class="align-items-center">
+                                        {{ userprofiledisplay_form.mobile(size=39,readonly=true) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex flex-column">
+                                    <table class="table-borderless">
+                                    <tr>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.termsAgreed.label }}:
+                                        </td>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.termsAgreed() }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.emailConfirmed.label }}:
+                                        </td>
+                                        <td>
+                                            {{ userprofiledisplay_form.emailConfirmed() }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.registered.label }}:
+                                        </td>
+                                        <td>
+                                            {{ userprofiledisplay_form.registered() }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.mailingListSignUp.label }}:
+                                        </td>
+                                        <td>
+                                            {{ userprofiledisplay_form.mailingListSignUp() }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.mobileConfirmed.label }}:
+                                        </td>
+                                        <td>
+                                            {{ userprofiledisplay_form.mobileConfirmed() }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="">
+                                            {{ userprofiledisplay_form.lastLogin.label }}:
+                                        </td>
+                                        <td>
+                                            {{ userprofiledisplay_form.lastLogin() }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                </div>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    </div>
+</div>
 </div>

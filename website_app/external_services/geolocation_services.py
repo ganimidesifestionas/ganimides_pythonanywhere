@@ -1,9 +1,8 @@
 import requests
-from .debug_log_services import *
+from ..debug_services.debug_log_services import *
 ##########################################################################################################
 def get_geolocation_info_from_IP(ip=None):
     log_module_start('get_geolocation_info_from_IP')
-    #print('###'+__name__+'###', 'get_IPA_info', 'ip =',ip)
     if not ip:
         log_error('get_geolocation_info_from_IP requires input','ip address')
         log_module_finish('get_geolocation_info_from_IP')
@@ -44,7 +43,7 @@ def get_geolocation_info_from_IP(ip=None):
     #reply_code=r.status_code
 ##########################################################################################################
 def get_geolocation_info(latitude, longitude):
-    log_module_finish('get_geolocation_info')
+    log_module_start('get_geolocation_info')
     geolocationDictionary = {}
     geolocationDictionary.update({'latitude' : latitude})
     geolocationDictionary.update({'longitude' : longitude})
@@ -121,7 +120,7 @@ def get_geolocation_info(latitude, longitude):
         return geolocationDictionary
 ##########################################################################################################
 ##########################################################################################################
-print(__name__)
+#print(__name__)
 if __name__ == '__main__':
     log_module_start('geolocation_services')
     get_geolocation_info(35.123647 , 33.367925)

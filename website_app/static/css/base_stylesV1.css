@@ -57,7 +57,7 @@
     padding:2px;
     padding-left:0px
 }
-.page-header-image {
+.page_header_image {
     width: 100px;
     height: 100px;
 }
@@ -1681,7 +1681,7 @@ hr {
     ****************************************************
     ****************************************************
 */
-.document-page {
+.document_page {
     background-color: #f8f9fa!important;
     color: black;
     font-family: Inconsolata,Montserrat,'Segoe UI Light', serif;
@@ -1696,38 +1696,38 @@ hr {
     text-align: justify;
     padding:1px
 }
-    .document-page > p {
+    .document_page > p {
         text-align: justify;
         font-weight: 600;
         padding:1px
     }
-    .document-page > h1 {
+    .document_page > h1 {
         font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
         font-weight: 900;
         margin-top: 14pt;
         margin-bottom: 2pt;
     }
-    .document-page > h2 {
+    .document_page > h2 {
         font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
         font-weight: 700;
         margin-top: 16px;
         margin-bottom: 2pt;
     }
-    .document-page > h3 {
+    .document_page > h3 {
         font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
         font-weight: 500;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 14pt;
         margin-bottom: 2pt;
     }
-    .document-page > h4 {
+    .document_page > h4 {
         font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
         font-weight: 500;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
         margin-top: 14pt;
         margin-bottom: 2pt;
     }
-    .document-page-lastrevision {
+    .document_page-lastrevision {
             color: Black;
             font-family: Montserrat,Inconsolata,'Segoe UI Light', serif;
             font-weight: 700;
@@ -1744,7 +1744,7 @@ hr {
             border-bottom: 2px dotted red;
             margin-bottom: 2px
         }
-    .document-page-footer {
+    .document_page-footer {
         color: Black;
         padding: 0px;
         margin: 0px;
@@ -1755,7 +1755,7 @@ hr {
         font-stretch: always;
         border-top: 2px dotted red;
 }
-.document-page-footer a{
+.document_page-footer a{
     color:black !important;
     white-space: normal;
     text-decoration: none;
@@ -1763,7 +1763,7 @@ hr {
     -webkit-font-smoothing: antialiased;
     font-stretch: always;
 }
-.document-page-footer a:link{
+.document_page-footer a:link{
     color: black;
     white-space: normal;
     text-decoration: none;
@@ -1772,7 +1772,7 @@ hr {
     font-stretch: always;
 }
 
-.document-page-footer a:hover {
+.document_page-footer a:hover {
     color: white !important;
     background-color: lightgray !important;
 }

@@ -9,7 +9,7 @@
                 {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
             </div>
     
-        <div class="authorization-page-line"></div>
+        <div class="horizontal_line"></div>
 
         <div class="modal-body">
             <div class="d-flex flex-column">
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="authorization-page-line"></div>
+        <div class="horizontal_line"></div>
 
         <!-- form footer -->
         <div class="modal-footer d-flex justify-content-start">
@@ -130,8 +130,7 @@
                 </div>
                 <div>
                     <div class="">
-                        <!--{contactusform.submit(class="btn btn-sm mybtn-orange mybtn-submit mr-auto p-1")}}-->
-                        <button type="submit" class="btn btn-sm mybtn-orange mybtn-submit p-1">Submit</button>
+                        {{contactusform.submit(class="btn btn-sm btn-warning button_submit")}}
                     </div>
                 </div>
             </div>
