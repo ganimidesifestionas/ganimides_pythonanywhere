@@ -22,7 +22,7 @@ from .. import db
 from .. models import Visit, VisitPoint, Page_Visit
 #from flask_login import current_user#, login_required#, login_user, logout_user
 from .geolocation_services import get_geolocation_info_from_IP, get_geolocation_info
-from .debug_log_services import *
+from ..debug_services.debug_log_services import *
 
 def RealClientIPA():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -472,7 +472,6 @@ def log_visit(visitpoint=None):
 ##########################################################################################################
 def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
     log_module_start('log_page_visit')
-
     visit = log_visit()
     #visitid=visit.id
     visitid=session.get('VisitID')
@@ -557,7 +556,8 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
         , request.url
         , session.get('active_module')
         )
-    print(msg)
+    #print(msg)
+    log_info(msg)
     #print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '<--'+session.get('active_module'))
     log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s page:%s %s %s %s', session['clientIPA'], session['pageID'], request.method, request.url, '### '+__name__+' ###')

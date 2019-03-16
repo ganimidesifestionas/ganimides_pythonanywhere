@@ -32,7 +32,7 @@ from .forms import CookiesConsentForm
 #from sqlalchemy import func
 from .external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
 from .external_services.token_services import generate_unique_sessionID
-from .external_services.debug_log_services import *
+from .debug_services.debug_log_services import *
 
 ###########################################################################
 ###########################################################################

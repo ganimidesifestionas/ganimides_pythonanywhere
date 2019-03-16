@@ -1,5 +1,5 @@
 import requests
-from .debug_log_services import *
+from ..debug_services.debug_log_services import *
 ##########################################################################################################
 def get_geolocation_info_from_IP(ip=None):
     log_module_start('get_geolocation_info_from_IP')

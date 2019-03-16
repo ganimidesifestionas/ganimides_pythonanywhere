@@ -17,17 +17,17 @@ app = application
 app.app_context().push()
 
 from .models import Subscriber, ContactMessage
-from ..external_services.debug_log_services import *
+from .. debug_services.debug_log_services import *
 
-log_module_start('database')
+#log_module_start('authorization_database')
 
 DATABASE_SERVER = app.config['DATABASE_SERVER']
 DATABASE_SERVER_URI = app.config['DATABASE_SERVER_URI']
 DATABASE_NAME = app.config['DATABASE_NAME']
 DATABASE_URI = app.config['DATABASE_URI']
 
-log_variable('DATABASE_SERVER_URI', DATABASE_SERVER_URI)
-log_variable('DATABASE_URI', DATABASE_URI)
+#log_variable('DATABASE_SERVER_URI', DATABASE_SERVER_URI)
+#log_variable('DATABASE_URI', DATABASE_URI)
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -168,18 +168,20 @@ def tables_list(db_engine):
     return tables_list
 
 def init_database():
+    log_module_start('init_database')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
     global DATABASE_URI
-    log_module_start('init_database')
+    log_variable('DATABASE_SERVER_URI', DATABASE_SERVER_URI)
+    log_variable('DATABASE_URI', DATABASE_URI)
     create_database()
     create_all_tables_auto()
     #create_all_tables_manually()
     #create_subscribers()
     log_module_finish('init_database')
 
-log_module_finish('database')
+#log_module_finish('authorization_database')
 
 if __name__ == '__main__':
     cls()# now, to clear the screen

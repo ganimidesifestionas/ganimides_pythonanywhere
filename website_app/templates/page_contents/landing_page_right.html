@@ -1,8 +1,12 @@
 {% set video_file = video_file('Did_You_Know_2016.mp4') %}
 {% set video_title = 'now You know Why...' %}
 {% set video_position = 'align-self-center' %}
+{% set video_note_prefix = 'Video courtesy of' %}
+{% set video_note_url = 'https://www.bigbuckbunny.org/' %}
+{% set video_note_text = 'Big Buck Bunny' %}
+
 <div class="p-0 m-0 {{video_position}}">
-    <div class="xd-none xd-sm-none xd-md-block">
+    <div class="">
         {% include include_files('video_play.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
     </div>
 </div>

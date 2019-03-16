@@ -3,6 +3,8 @@
 The flask application package.
 """
 import os
+from os import environ
+import os.path
 import sqlalchemy
 from datetime import datetime
 # third-party imports
@@ -16,7 +18,9 @@ from flask_migrate import Migrate, MigrateCommand
 # local imports
 from .config import app_config
 
-from .external_services.debug_log_services import *
+from debug_services.debug_log_services import *
+from .app_debug_config import debug_config
+debug_config()
 
 #from logging.config import dictConfig
 #from .external_services.log_services import *
@@ -143,7 +147,27 @@ log_variable('FLASK_CONFIGURATION',config_name)
 log_info('###CONFIGURE FLASK-APP###')
 #########################################################################################
 log_info('CONFIG-1-FROM-SERVER', '../server_config.py')
-app.config.from_pyfile('../server_config.py') #from the (server) root
+server_config_file = os.environ.get('SERVER_CONFIG_FILE')
+if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+    log_variable('server_config_file', server_config_file)
+    app.config.from_pyfile(server_config_file) #from the (server)
+else:
+    server_config_file = '../server_config.py'
+    log_variable('server_config_file', server_config_file)
+    app.config.from_pyfile(server_config_file) #from the (root)
+    # if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+    #     log_variable('server_config_file', server_config_file)
+    #     app.config.from_pyfile(server_config_file) #from the (root)
+    # else:
+    #     server_config_file = 'server_config.py'
+    #     if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+    #         log_variable('server_config_file', server_config_file)
+    #         app.config.from_pyfile(server_config_file) #from the (application folder)
+    #     else:
+    #         log_warning('server_config_file NOT FOUND')
+
+#app.config.from_pyfile('../server_config.py') #from the root
+
 #log_info('(1-server) EYECATCH---', app.config['EYECATCH'])
 #log_info('(1-server) SERVER---', app.config['SERVER'])
 #log_info('(1-server) SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
