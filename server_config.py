@@ -1,8 +1,15 @@
 # myServer/server_config.py
-import os
 #1 #2 #3 #4 #5 #6 #7 #8 #9 #10 #11 #12 #shalimar
+import os
+from website_app.debug_services.debug_log_services import *
+log_module_start('server_configuration')
 ################################################################
 DISPLAY_CONFIGURATION = False
+################################################################
+### Secret key for signing cookies
+################################################################
+SECRET_KEY = 'server-aeiotheosomegasgeometreip9Bv<3Eid9%$i01bobbistarr'
+SECURITY_PASSWORD_SALT = 'server-aeiotheosomegasgeometreip9Bvtispaolasbobbistarr'
 ################################################################
 config_file = os.path.abspath(__file__)
 config_filename = os.path.basename(__file__)
@@ -11,12 +18,12 @@ APPLICATION_BASEFOLDER = config_path
 config_base_folder = os.path.dirname(config_path)
 config_folder = config_file.replace(config_filename, '').replace(APPLICATION_BASEFOLDER, '')
 ################################################################
-print('      ', '__file__ =',__file__)
-print('      ', 'config_file =', config_file)
-print('      ', 'config_path =', config_path)
-print('      ', 'config_folfer =', config_folder)
-print('      ', 'config_filename =', config_filename)
-print('      ', 'config_base_folder =', config_base_folder)
+log_variable('__file__',__file__)
+log_variable('config_file', config_file)
+log_variable('config_path', config_path)
+log_variable('config_folfer', config_folder)
+log_variable('config_filename', config_filename)
+log_variable('config_base_folder', config_base_folder)
 #####################################################################
 APPLICATION_BASEFOLDER = config_path #will be used in other configs as the base
 os.environ["APPLICATION_BASEFOLDER"] = APPLICATION_BASEFOLDER
@@ -33,9 +40,28 @@ application_name = os.environ.get('APPLICATION_NAME', 'WEBSITE')
 #####################################################################
 #os.environ[company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
 #####################################################################
-EXECUTION_ENVIRONMENT = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_ENVIRONMENT', 'localhost')
-SERVER = os.environ.get(company_name+'_'+application_name+'_'+'DATABASE_SERVER')
-EXECUTION_MODE = os.environ.get(company_name+'_'+application_name+'_'+'EXECUTION_MODE')
+log_start('server.ini')
+
+EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT')
+if not EXECUTION_ENVIRONMENT:
+    EXECUTION_ENVIRONMENT = 'localhost'
+SERVER = os.environ.get('DATABASE_SERVER')
+EXECUTION_MODE = os.environ.get('EXECUTION_MODE')
+MAIL_SERVER_PROVIDER = os.environ.get('MAIL_SERVER_PROVIDER', 'GOOGLE')
+GOOGLE_RECAPTCHA_SITE_KEY = os.environ.get('GOOGLE_RECAPTCHA_SITE_KEY')
+GOOGLE_RECAPTCHA_SECRET_KEY = os.environ.get('GOOGLE_RECAPTCHA_SECRET_KEY')
+GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY = os.environ.get('GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY')
+GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY = os.environ.get('GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY')
+
+log_variable('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
+log_variable('SERVER', SERVER)
+log_variable('EXECUTION_MODE', EXECUTION_MODE)
+log_variable('GOOGLE_RECAPTCHA_SITE_KEY', GOOGLE_RECAPTCHA_SITE_KEY)
+log_variable('GOOGLE_RECAPTCHA_SECRET_KEY', GOOGLE_RECAPTCHA_SECRET_KEY)
+log_variable('GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+log_variable('GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+
+log_finish('server.ini')
 #####################################################################
 if EXECUTION_ENVIRONMENT == 'localhost':
     if not SERVER:
@@ -53,94 +79,101 @@ else:
             SERVER = 'pythonanywhere-ganimedes'
         if not EXECUTION_MODE:
             EXECUTION_MODE = 'testing'
-print('      ', '&&&&&&&&& ENVI =',EXECUTION_ENVIRONMENT)
-print('      ', '&&&&&&&&& SERVER =',SERVER)
-print('      ', '&&&&&&&&& MODE =',EXECUTION_MODE)
-################################################################
-MAIL_SERVER_PROVIDER = 'google' #'mailjet' #'yandex'
+log_variable('&&&&&&&&& ENVI', EXECUTION_ENVIRONMENT)
+log_variable('&&&&&&&&& SERVER', SERVER)
+log_variable('&&&&&&&&& MODE', EXECUTION_MODE)
 ################################################################
 ### mail servers
 ################################################################
-mailjet_MAIL_SERVER = 'in-v3.mailjet.com'
-mailjet_MAIL_PORT = '587' #Port 25 or 587 (some providers block port 25). If TLS on port 587 doesn't work, try using port 465 and/or using SSL instead
-mailjet_MAIL_USE_TLS = 'True'
-mailjet_MAIL_USE_SSL = 'True'
-mailjet_MAIL_USERNAME = 'f8d33207c3c7a1ecaf2f74e809b57786'
-mailjet_MAIL_PASSWORD = '2d6a3c2de41ff45b5435382f3e267580'
-mailjet_MAIL_APIKEY_PUBLIC ='f8d33207c3c7a1ecaf2f74e809b57786'
-mailjet_MAIL_APIKEY_PRIVATE ='2d6a3c2de41ff45b5435382f3e267580'
+MAILJET_MAIL_SERVER = 'in-v3.mailjet.com'
+MAILJET_MAIL_PORT = '587' 
+# Port 25 or 587 (some providers block port 25). If TLS on port 587 doesn't work, try using port 465 and/or using SSL instead
+MAILJET_MAIL_USE_TLS = 'True'
+MAILJET_MAIL_USE_SSL = 'True'
+MAILJET_MAIL_USERNAME = 'f8d33207c3c7a1ecaf2f74e809b57786'
+MAILJET_MAIL_PASSWORD = '2d6a3c2de41ff45b5435382f3e267580'
+MAILJET_MAIL_APIKEY_PUBLIC ='f8d33207c3c7a1ecaf2f74e809b57786'
+MAILJET_MAIL_APIKEY_PRIVATE ='2d6a3c2de41ff45b5435382f3e267580'
 
-yandex_MAIL_SERVER = "smtp.yandex.ru"
-yandex_MAIL_PORT = '587'
-yandex_MAIL_USE_TLS = 'True'
-yandex_MAIL_USE_SSL = 'True'
-yandex_MAIL_USERNAME = '...' #without the @yandex.ru
-yandex_MAIL_PASSWORD = '***'
-yandex_MAIL_APIKEY_PUBLIC ='...'
-yandex_MAIL_APIKEY_PRIVATE ='...'
+YANDEX_MAIL_SERVER = "smtp.yandex.ru"
+YANDEX_MAIL_PORT = '587'
+YANDEX_MAIL_USE_TLS = 'True'
+YANDEX_MAIL_USE_SSL = 'True'
+YANDEX_MAIL_USERNAME = '...' #without the @yandex.ru
+YANDEX_MAIL_PASSWORD = '***'
+YANDEX_MAIL_APIKEY_PUBLIC = '...'
+YANDEX_MAIL_APIKEY_PRIVATE = '...'
 
-google_MAIL_SERVER = "smtp.gmail.com"
-google_MAIL_PORT = '587'
-google_MAIL_USE_TLS = 'False'
-google_MAIL_USE_SSL = 'True'
-google_MAIL_USERNAME = 'akamas2020@gmail.com'
-google_MAIL_PASSWORD = 'philea13'
-google_MAIL_USERNAME = 'bstarr131@gmail.com'
-google_MAIL_PASSWORD = 'bstarr13'
-google_MAIL_USERNAME = 'spithas@leandrou.com'
-google_MAIL_PASSWORD = 'spithas3116'
-google_MAIL_APIKEY_PUBLIC ='...'
-google_MAIL_APIKEY_PRIVATE ='...'
+GOOGLE_MAIL_SERVER = "smtp.gmail.com"
+GOOGLE_MAIL_PORT = '587'
+GOOGLE_MAIL_USE_TLS = 'False'
+GOOGLE_MAIL_USE_SSL = 'True'
+GOOGLE_MAIL_USERNAME = 'akamas2020@gmail.com'
+GOOGLE_MAIL_PASSWORD = 'philea13'
+GOOGLE_MAIL_USERNAME = 'bstarr131@gmail.com'
+GOOGLE_MAIL_PASSWORD = 'bstarr13'
+GOOGLE_MAIL_USERNAME = 'spithas@leandrou.com'
+GOOGLE_MAIL_PASSWORD = 'spithas3116'
+GOOGLE_MAIL_APIKEY_PUBLIC = '...'
+GOOGLE_MAIL_APIKEY_PRIVATE = '...'
 
-if MAIL_SERVER_PROVIDER == 'mailjet':
-    MAIL_SERVER = mailjet_MAIL_SERVER
-    MAIL_PORT = mailjet_MAIL_PORT
-    MAIL_USE_TLS = mailjet_MAIL_USE_TLS
-    MAIL_USE_SSL = mailjet_MAIL_USE_SSL
-    MAIL_USERNAME = mailjet_MAIL_USERNAME
-    MAIL_PASSWORD = mailjet_MAIL_PASSWORD
-    MAIL_APIKEY_PUBLIC = mailjet_MAIL_APIKEY_PUBLIC
-    MAIL_APIKEY_PRIVATE = mailjet_MAIL_APIKEY_PRIVATE
+if MAIL_SERVER_PROVIDER == 'MAILJET':
+    MAIL_SERVER = MAILJET_MAIL_SERVER
+    MAIL_PORT = MAILJET_MAIL_PORT
+    MAIL_USE_TLS = MAILJET_MAIL_USE_TLS
+    MAIL_USE_SSL = MAILJET_MAIL_USE_SSL
+    MAIL_USERNAME = MAILJET_MAIL_USERNAME
+    MAIL_PASSWORD = MAILJET_MAIL_PASSWORD
+    MAIL_APIKEY_PUBLIC = MAILJET_MAIL_APIKEY_PUBLIC
+    MAIL_APIKEY_PRIVATE = MAILJET_MAIL_APIKEY_PRIVATE
 else:
-    if MAIL_SERVER_PROVIDER =='yandex':
-        MAIL_SERVER = yandex_MAIL_SERVER
-        MAIL_PORT = yandex_MAIL_PORT
-        MAIL_USE_TLS = yandex_MAIL_USE_TLS
-        MAIL_USE_SSL = yandex_MAIL_USE_SSL
-        MAIL_USERNAME = yandex_MAIL_USERNAME
-        MAIL_PASSWORD = yandex_MAIL_PASSWORD
-        MAIL_APIKEY_PUBLIC = yandex_MAIL_APIKEY_PUBLIC
-        MAIL_APIKEY_PRIVATE = yandex_MAIL_APIKEY_PRIVATE
+    if MAIL_SERVER_PROVIDER == 'YANDEX':
+        MAIL_SERVER = YANDEX_MAIL_SERVER
+        MAIL_PORT = YANDEX_MAIL_PORT
+        MAIL_USE_TLS = YANDEX_MAIL_USE_TLS
+        MAIL_USE_SSL = YANDEX_MAIL_USE_SSL
+        MAIL_USERNAME = YANDEX_MAIL_USERNAME
+        MAIL_PASSWORD = YANDEX_MAIL_PASSWORD
+        MAIL_APIKEY_PUBLIC = YANDEX_MAIL_APIKEY_PUBLIC
+        MAIL_APIKEY_PRIVATE = YANDEX_MAIL_APIKEY_PRIVATE
     else:
-        MAIL_SERVER = google_MAIL_SERVER
-        MAIL_PORT = google_MAIL_PORT
-        MAIL_USE_TLS = google_MAIL_USE_TLS
-        MAIL_USE_SSL = google_MAIL_USE_SSL
-        MAIL_USERNAME = google_MAIL_USERNAME
-        MAIL_PASSWORD = google_MAIL_PASSWORD
-        MAIL_APIKEY_PUBLIC = google_MAIL_APIKEY_PUBLIC
-        MAIL_APIKEY_PRIVATE = google_MAIL_APIKEY_PRIVATE
-
+        MAIL_SERVER = GOOGLE_MAIL_SERVER
+        MAIL_PORT = GOOGLE_MAIL_PORT
+        MAIL_USE_TLS = GOOGLE_MAIL_USE_TLS
+        MAIL_USE_SSL = GOOGLE_MAIL_USE_SSL
+        MAIL_USERNAME = GOOGLE_MAIL_USERNAME
+        MAIL_PASSWORD = GOOGLE_MAIL_PASSWORD
+        MAIL_APIKEY_PUBLIC = GOOGLE_MAIL_APIKEY_PUBLIC
+        MAIL_APIKEY_PRIVATE = GOOGLE_MAIL_APIKEY_PRIVATE
 ################################################################
-### database connection
+### databases connection
 ################################################################
 #dialect+driver://username:password@host:port/database
 
-DATABASE_SERVER = 'localhost'
-DATABASE_NAME = 'ifestionas_db'
-DATABASE_SERVER_URI = 'mysql+pymysql://ganimedes:philea13@localhost'
-DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+#localhost
+# DATABASE_SERVER = 'localhost'
+# DATABASE_NAME = 'ifestionas_db'
 
-DATABASE_HOST_ADDRESS = 'localhost'
+# DATABASE_SERVER_URI = 'mysql+pymysql://ganimedes:philea13@localhost'
+# DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
+
+DATABASE_HOST_ADDRESS = 'ganimedes.mysql.pythonanywhere-services.com'
 DATABASE_USER = 'ganimedes'
 DATABASE_PASS = 'philea13'
+DATABASE_NAME = 'ganimedes$ganimides_db'
+
+DATABASE_HOST_ADDRESS = 'localhost'
 DATABASE_NAME = 'ifestionas_db'
+DATABASE_USER = 'ganimedes'
+DATABASE_PASS = 'philea13'
 DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
 DATABASE_SERVER = DATABASE_HOST_ADDRESS
 DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
 DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
 localhost_SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
+
+#ganimedes database on pythonanywhere
 DATABASE_HOST_ADDRESS = 'ganimedes.mysql.pythonanywhere-services.com'
 DATABASE_USER = 'ganimedes'
 DATABASE_PASS = 'philea13'
@@ -151,6 +184,7 @@ DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS
 DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
 pythonanywhere_ganimedes_SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
+#ifestionas database on pythonanywhere
 DATABASE_HOST_ADDRESS = 'ifestionas.mysql.pythonanywhere-services.com'
 DATABASE_USER = 'ifestionas'
 DATABASE_PASS = 'philea13'
@@ -163,6 +197,7 @@ pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
 pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ifestionas:philea13@ifestionas.mysql.pythonanywhere-services.com/ifestionas$ganimides_db'
 pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
+
 #localhost_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ifestionas_db'
 #localhost_SQLALCHEMY_TEST_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db_test'
 
@@ -174,8 +209,6 @@ DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
 DATABASE_SERVER = DATABASE_HOST_ADDRESS
 DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
 DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
-SQLALCHEMY_DATABASE_URI = DATABASE_URI
-SQLALCHEMY_DATABASE_URI = localhost_SQLALCHEMY_DATABASE_URI
 
 if EXECUTION_ENVIRONMENT == 'pythonanywhere':
     DATABASE_HOST_ADDRESS = 'ganimedes.mysql.pythonanywhere-services.com'
@@ -186,7 +219,6 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
     DATABASE_SERVER = DATABASE_HOST_ADDRESS
     DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
     DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
-    SQLALCHEMY_DATABASE_URI = DATABASE_URI
     if SERVER == 'pythonanywhere-ifestionas':
         DATABASE_HOST_ADDRESS = 'ifestionas.mysql.pythonanywhere-services.com'
         DATABASE_USER = 'ifestionas'
@@ -196,11 +228,18 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
         DATABASE_SERVER = DATABASE_HOST_ADDRESS
         DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX+DATABASE_USER+':'+DATABASE_PASS+'@'+DATABASE_HOST_ADDRESS
         DATABASE_URI = DATABASE_SERVER_URI+'/'+DATABASE_NAME
-        SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
 ################################################
 # SQLALCHEMY
 ################################################
+SQLALCHEMY_DATABASE_URI = DATABASE_URI
+SQLALCHEMY_POOL_RECYCLE = 10
+SQLALCHEMY_POOL_SIZE = 5
+SQLALCHEMY_POOL_TIMEOUT = 60 #less than SQLALCHEMY_POOL_RECYCLE
+SQLALCHEMY_POOL_RECYCLE = 100 #greater than SQLALCHEMY_POOL_TIMEOUT
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+#SQLALCHEMY_MAX_OVERFLOW = 5
 #SQLALCHEMY_POOL_RECYCLE = 90
 #SQLALCHEMY_POOL_TIMEOUT = 90
 #SQLALCHEMY_POOL_SIZE = 5
@@ -234,13 +273,6 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
 # 13 rows in set (0.01 sec)
 #SQLALCHEMY_POOL_SIZE = 5
 #SQLALCHEMY_POOL_TIMEOUT = 60
-SQLALCHEMY_POOL_RECYCLE = 10
-SQLALCHEMY_POOL_SIZE = 5
-SQLALCHEMY_POOL_TIMEOUT = 60 #less than SQLALCHEMY_POOL_RECYCLE
-SQLALCHEMY_POOL_RECYCLE = 100 #greater than SQLALCHEMY_POOL_TIMEOUT
-SQLALCHEMY_TRACK_MODIFICATIONS = True
-SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-#SQLALCHEMY_MAX_OVERFLOW = 5
 ################################################
 # '''
 # pool_recycle=-1: this setting causes the pool to recycle
@@ -293,155 +325,160 @@ SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 # #DATABASE_CONNECT_OPTIONS = {}
 
 ################################################################
+### ipstack access key
+################################################################
+IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
+IPSTACK_URL = 'http://api.ipstack.com/'
+
+################################################################
 ### recaptcha config
 ################################################################
-localhost_google_RECAPTCHA_SITE_KEY = "6LcD3XkUAAAAABAoO2p4WOoBGg6uRyCoVCcGNCFV"
-localhost_google_RECAPTCHA_SECRET_KEY = "6LcD3XkUAAAAAHTNpV8RsDN8CybCNEJ0htRddCMq"
-localhost_google_RECAPTCHA_INVISIBLE_SITE_KEY = "6LfL2HkUAAAAAF8ot-2aPAHYzHPAAxvLtKI-PyXi"
-localhost_google_RECAPTCHA_INVISIBLE_SECRET_KEY = "6LfL2HkUAAAAAIdjgyCwgSaV2hvOS6APpoXot1yw"
+localhost_GOOGLE_RECAPTCHA_SITE_KEY = "6LcD3XkUAAAAABAoO2p4WOoBGg6uRyCoVCcGNCFV"
+localhost_GOOGLE_RECAPTCHA_SECRET_KEY = "6LcD3XkUAAAAAHTNpV8RsDN8CybCNEJ0htRddCMq"
+localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY = "6LfL2HkUAAAAAF8ot-2aPAHYzHPAAxvLtKI-PyXi"
+localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY = "6LfL2HkUAAAAAIdjgyCwgSaV2hvOS6APpoXot1yw"
 
-pythonanywhere_google_RECAPTCHA_SITE_KEY = "6LeQxnwUAAAAAAyscnSdBS0RbNo6BEDje-trtOV-"
-pythonanywhere_google_RECAPTCHA_SECRET_KEY = "6LeQxnwUAAAAAGjxVdpUGhRREi5xQQQhRfROJCmZ"
-pythonanywhere_google_RECAPTCHA_INVISIBLE_SITE_KEY = "...."
-pythonanywhere_google_RECAPTCHA_INVISIBLE_SECRET_KEY = "..."
+localhost_XXXXXX_RECAPTCHA_SITE_KEY = "6LcD3XkUAAAAABAoO2p4WOoBGg6uRyCoVCcGNCFV"
+localhost_XXXXXX_RECAPTCHA_SECRET_KEY = "6LcD3XkUAAAAAHTNpV8RsDN8CybCNEJ0htRddCMq"
+localhost_XXXXXX_RECAPTCHA_INVISIBLE_SITE_KEY = "6LfL2HkUAAAAAF8ot-2aPAHYzHPAAxvLtKI-PyXi"
+localhost_XXXXXX_RECAPTCHA_INVISIBLE_SECRET_KEY = "6LfL2HkUAAAAAIdjgyCwgSaV2hvOS6APpoXot1yw"
 
-RECAPTCHA_SITE_KEY = localhost_google_RECAPTCHA_SITE_KEY
-RECAPTCHA_SECRET_KEY = localhost_google_RECAPTCHA_SECRET_KEY
-RECAPTCHA_INVISIBLE_SITE_KEY = localhost_google_RECAPTCHA_INVISIBLE_SITE_KEY
-RECAPTCHA_INVISIBLE_SECRET_KEY = localhost_google_RECAPTCHA_INVISIBLE_SECRET_KEY
-GOOGLE_RECAPTCHA_SITE_KEY = localhost_google_RECAPTCHA_SITE_KEY
-GOOGLE_RECAPTCHA_SECRET_KEY = localhost_google_RECAPTCHA_SECRET_KEY
-GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY = localhost_google_RECAPTCHA_INVISIBLE_SITE_KEY
-GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY = localhost_google_RECAPTCHA_INVISIBLE_SECRET_KEY
-if EXECUTION_ENVIRONMENT=='pythonanywhere':
-    RECAPTCHA_SITE_KEY = pythonanywhere_google_RECAPTCHA_SITE_KEY
-    RECAPTCHA_SECRET_KEY = pythonanywhere_google_RECAPTCHA_SECRET_KEY
-    RECAPTCHA_INVISIBLE_SITE_KEY = pythonanywhere_google_RECAPTCHA_INVISIBLE_SITE_KEY
-    RECAPTCHA_INVISIBLE_SECRET_KEY = pythonanywhere_google_RECAPTCHA_INVISIBLE_SECRET_KEY
-    GOOGLE_RECAPTCHA_SITE_KEY = pythonanywhere_google_RECAPTCHA_SITE_KEY
-    GOOGLE_RECAPTCHA_SECRET_KEY = pythonanywhere_google_RECAPTCHA_SECRET_KEY
-    GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY = pythonanywhere_google_RECAPTCHA_INVISIBLE_SITE_KEY
-    GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY = pythonanywhere_google_RECAPTCHA_INVISIBLE_SECRET_KEY
+pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY = "6LeQxnwUAAAAAAyscnSdBS0RbNo6BEDje-trtOV-"
+pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY = "6LeQxnwUAAAAAGjxVdpUGhRREi5xQQQhRfROJCmZ"
+pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY = "...."
+pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY = "..."
+
+pythonanywhere_XXXXXX_RECAPTCHA_SITE_KEY = "6LeQxnwUAAAAAAyscnSdBS0RbNo6BEDje-trtOV-"
+pythonanywhere_XXXXXX_RECAPTCHA_SECRET_KEY = "6LeQxnwUAAAAAGjxVdpUGhRREi5xQQQhRfROJCmZ"
+pythonanywhere_XXXXXX_RECAPTCHA_INVISIBLE_SITE_KEY = "...."
+pythonanywhere_XXXXXX_RECAPTCHA_INVISIBLE_SECRET_KEY = "..."
+
+if GOOGLE_RECAPTCHA_SITE_KEY and GOOGLE_RECAPTCHA_SECRET_KEY:
+    # from server.ini
+    RECAPTCHA_SITE_KEY = GOOGLE_RECAPTCHA_SITE_KEY
+    RECAPTCHA_SECRET_KEY = GOOGLE_RECAPTCHA_SECRET_KEY
+    RECAPTCHA_INVISIBLE_SITE_KEY = GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY
+    RECAPTCHA_INVISIBLE_SECRET_KEY = GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY
+else:
+    if EXECUTION_ENVIRONMENT == 'pythonanywhere':
+        RECAPTCHA_SITE_KEY = pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY
+        RECAPTCHA_SECRET_KEY = pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY
+        RECAPTCHA_INVISIBLE_SITE_KEY = pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY
+        RECAPTCHA_INVISIBLE_SECRET_KEY = pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY
+    else:
+        RECAPTCHA_SITE_KEY = localhost_GOOGLE_RECAPTCHA_SITE_KEY
+        RECAPTCHA_SECRET_KEY = localhost_GOOGLE_RECAPTCHA_SECRET_KEY
+        RECAPTCHA_INVISIBLE_SITE_KEY = localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY
+        RECAPTCHA_INVISIBLE_SECRET_KEY = localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY
 
 RECAPTCHA_PUBLIC_KEY = RECAPTCHA_SITE_KEY
 RECAPTCHA_PRIVATE_KEY = RECAPTCHA_SECRET_KEY
 RECAPTCHA_INVISIBLE_PUBLIC_KEY = RECAPTCHA_INVISIBLE_SITE_KEY
 RECAPTCHA_INVISIBLE_PRIVATE_KEY = RECAPTCHA_INVISIBLE_SECRET_KEY
-################################################################
-### Secret key for signing cookies
-################################################################
-SECRET_KEY = 'server-aeiotheosomegasgeometreip9Bv<3Eid9%$i01bobbistarr'
-SECURITY_PASSWORD_SALT = 'server-aeiotheosomegasgeometreip9Bvtispaolasbobbistarr'
-################################################################
-### ipstack access key
-################################################################
-IPSTACK_API_ACCESSKEY = '4022cfd2249c3431953ecf599152892e'
-IPSTACK_URL = 'http://api.ipstack.com/'
+
 ################################################################
 #store in os.environ in order to be used in instance or app_config
 ################################################################
-os.environ["EXECUTION_ENVIRONMENT"]=EXECUTION_ENVIRONMENT
-os.environ["EXECUTION_MODE"]=EXECUTION_MODE
+os.environ["EXECUTION_ENVIRONMENT"] = EXECUTION_ENVIRONMENT
+os.environ["EXECUTION_MODE"] = EXECUTION_MODE
+os.environ["SERVER"] = SERVER
 
-os.environ["SERVER"]=SERVER
+os.environ["DATABASE_SERVER"] = DATABASE_SERVER
+os.environ["DATABASE_NAME"] = DATABASE_NAME
+os.environ["DATABASE_SERVER_URI"] = DATABASE_SERVER_URI
+os.environ["DATABASE_URI"] = DATABASE_URI
+os.environ["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 
-os.environ["DATABASE_SERVER"]=DATABASE_SERVER
-os.environ["DATABASE_NAME"]=DATABASE_NAME
-os.environ["DATABASE_SERVER_URI"]=DATABASE_SERVER_URI
-os.environ["DATABASE_URI"]=DATABASE_URI
-os.environ["SQLALCHEMY_DATABASE_URI"]=SQLALCHEMY_DATABASE_URI
+os.environ["MAIL_SERVER_PROVIDER"] = MAIL_SERVER_PROVIDER
+# os.environ["MAILJET_MAIL_SERVER"] = MAILJET_MAIL_SERVER
+# os.environ["MAILJET_MAIL_PORT"] = MAILJET_MAIL_PORT
+# os.environ["MAILJET_MAIL_USE_TLS"] = MAILJET_MAIL_USE_TLS
+# os.environ["MAILJET_MAIL_USE_SSL"] = MAILJET_MAIL_USE_SSL
+# os.environ["MAILJET_MAIL_USERNAME"] = MAILJET_MAIL_USERNAME
+# os.environ["MAILJET_MAIL_PASSWORD"] = MAILJET_MAIL_PASSWORD
+# os.environ["MAILJET_MAIL_APIKEY_PUBLIC"] = MAILJET_MAIL_APIKEY_PUBLIC
+# os.environ["MAILJET_MAIL_APIKEY_PRIVATE"] = MAILJET_MAIL_APIKEY_PRIVATE
 
-os.environ["MAIL_SERVER_PROVIDER"]=MAIL_SERVER_PROVIDER
-os.environ["mailjet_MAIL_SERVER"]=mailjet_MAIL_SERVER
-os.environ["mailjet_MAIL_PORT"]=mailjet_MAIL_PORT
-os.environ["mailjet_MAIL_USE_TLS"]=mailjet_MAIL_USE_TLS
-os.environ["mailjet_MAIL_USE_SSL"]=mailjet_MAIL_USE_SSL
-os.environ["mailjet_MAIL_USERNAME"]=mailjet_MAIL_USERNAME
-os.environ["mailjet_MAIL_PASSWORD"]=mailjet_MAIL_PASSWORD
-os.environ["mailjet_MAIL_APIKEY_PUBLIC"]=mailjet_MAIL_APIKEY_PUBLIC
-os.environ["mailjet_MAIL_APIKEY_PRIVATE"]=mailjet_MAIL_APIKEY_PRIVATE
+# os.environ["YANDEX_MAIL_SERVER"] = YANDEX_MAIL_SERVER
+# os.environ["YANDEX_MAIL_PORT"] = YANDEX_MAIL_PORT
+# os.environ["YANDEX_MAIL_USE_TLS"] = YANDEX_MAIL_USE_TLS
+# os.environ["YANDEX_MAIL_USE_SSL"] = YANDEX_MAIL_USE_SSL
+# os.environ["YANDEX_MAIL_USERNAME"] = YANDEX_MAIL_USERNAME
+# os.environ["YANDEX_MAIL_PASSWORD"] = YANDEX_MAIL_PASSWORD
+# os.environ["YANDEX_MAIL_APIKEY_PUBLIC"] = YANDEX_MAIL_APIKEY_PUBLIC
+# os.environ["YANDEX_MAIL_APIKEY_PRIVATE"] = YANDEX_MAIL_APIKEY_PRIVATE
 
-os.environ["yandex_MAIL_SERVER"]=yandex_MAIL_SERVER
-os.environ["yandex_MAIL_PORT"]=yandex_MAIL_PORT
-os.environ["yandex_MAIL_USE_TLS"]=yandex_MAIL_USE_TLS
-os.environ["yandex_MAIL_USE_SSL"]=yandex_MAIL_USE_SSL
-os.environ["yandex_MAIL_USERNAME"]=yandex_MAIL_USERNAME
-os.environ["yandex_MAIL_PASSWORD"]=yandex_MAIL_PASSWORD
-os.environ["yandex_MAIL_APIKEY_PUBLIC"]=yandex_MAIL_APIKEY_PUBLIC
-os.environ["yandex_MAIL_APIKEY_PRIVATE"]=yandex_MAIL_APIKEY_PRIVATE
+# os.environ["GOOGLE_MAIL_SERVER"] = GOOGLE_MAIL_SERVER
+# os.environ["GOOGLE_MAIL_PORT"] = GOOGLE_MAIL_PORT
+# os.environ["GOOGLE_MAIL_USE_TLS"] = GOOGLE_MAIL_USE_TLS
+# os.environ["GOOGLE_MAIL_USE_SSL"] = GOOGLE_MAIL_USE_SSL
+# os.environ["GOOGLE_MAIL_USERNAME"] = GOOGLE_MAIL_USERNAME
+# os.environ["GOOGLE_MAIL_PASSWORD"] = GOOGLE_MAIL_PASSWORD
+# os.environ["GOOGLE_MAIL_APIKEY_PUBLIC"] = GOOGLE_MAIL_APIKEY_PUBLIC
+# os.environ["GOOGLE_MAIL_APIKEY_PRIVATE"] = GOOGLE_MAIL_APIKEY_PRIVATE
 
-os.environ["google_MAIL_SERVER"]=google_MAIL_SERVER
-os.environ["google_MAIL_PORT"]=google_MAIL_PORT
-os.environ["google_MAIL_USE_TLS"]=google_MAIL_USE_TLS
-os.environ["google_MAIL_USE_SSL"]=google_MAIL_USE_SSL
-os.environ["google_MAIL_USERNAME"]=google_MAIL_USERNAME
-os.environ["google_MAIL_PASSWORD"]=google_MAIL_PASSWORD
-os.environ["google_MAIL_APIKEY_PUBLIC"]=google_MAIL_APIKEY_PUBLIC
-os.environ["google_MAIL_APIKEY_PRIVATE"]=google_MAIL_APIKEY_PRIVATE
+# os.environ["MAIL_SERVER"] = MAIL_SERVER
+# os.environ["MAIL_PORT"] = MAIL_PORT
+# os.environ["MAIL_USE_TLS"] = MAIL_USE_TLS
+# os.environ["MAIL_USE_SSL"] = MAIL_USE_SSL
+# os.environ["MAIL_USERNAME"] = MAIL_USERNAME
+# os.environ["MAIL_PASSWORD"] = MAIL_PASSWORD
+# os.environ["MAIL_APIKEY_PUBLIC"] = MAIL_APIKEY_PUBLIC
+# os.environ["MAIL_APIKEY_PRIVATE"] = MAIL_APIKEY_PRIVATE
 
-os.environ["MAIL_SERVER"]=MAIL_SERVER
-os.environ["MAIL_PORT"]=MAIL_PORT
-os.environ["MAIL_USE_TLS"]=MAIL_USE_TLS
-os.environ["MAIL_USE_SSL"]=MAIL_USE_SSL
-os.environ["MAIL_USERNAME"]=MAIL_USERNAME
-os.environ["MAIL_PASSWORD"]=MAIL_PASSWORD
-os.environ["MAIL_APIKEY_PUBLIC"]=MAIL_APIKEY_PUBLIC
-os.environ["MAIL_APIKEY_PRIVATE"]=MAIL_APIKEY_PRIVATE
+# os.environ["localhost_SQLALCHEMY_DATABASE_URI"] = localhost_SQLALCHEMY_DATABASE_URI
+# os.environ["pythonanywhere_SQLALCHEMY_DATABASE_URI"] = pythonanywhere_SQLALCHEMY_DATABASE_URI
 
-os.environ["localhost_SQLALCHEMY_DATABASE_URI"]=localhost_SQLALCHEMY_DATABASE_URI
-os.environ["pythonanywhere_SQLALCHEMY_DATABASE_URI"]=pythonanywhere_SQLALCHEMY_DATABASE_URI
+# os.environ["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 
-os.environ["SQLALCHEMY_DATABASE_URI"]=SQLALCHEMY_DATABASE_URI
+# os.environ["localhost_GOOGLE_RECAPTCHA_SITE_KEY"] = localhost_GOOGLE_RECAPTCHA_SITE_KEY
+# os.environ["localhost_GOOGLE_RECAPTCHA_SECRET_KEY"] = localhost_GOOGLE_RECAPTCHA_SECRET_KEY
+# os.environ["localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY"] = localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY
+# os.environ["localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY"] = localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY
 
-os.environ["localhost_google_RECAPTCHA_SITE_KEY"]=localhost_google_RECAPTCHA_SITE_KEY
-os.environ["localhost_google_RECAPTCHA_SECRET_KEY"]=localhost_google_RECAPTCHA_SECRET_KEY
-os.environ["localhost_google_RECAPTCHA_INVISIBLE_SITE_KEY"]=localhost_google_RECAPTCHA_INVISIBLE_SITE_KEY
-os.environ["localhost_google_RECAPTCHA_INVISIBLE_SECRET_KEY"]=localhost_google_RECAPTCHA_INVISIBLE_SECRET_KEY
+# os.environ["pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY"] = pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY
+# os.environ["pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY"] = pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY
+# os.environ["pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY"] = pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY
+# os.environ["pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY"] = pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY
 
-os.environ["pythonanywhere_google_RECAPTCHA_SITE_KEY"]=pythonanywhere_google_RECAPTCHA_SITE_KEY
-os.environ["pythonanywhere_google_RECAPTCHA_SECRET_KEY"]=pythonanywhere_google_RECAPTCHA_SECRET_KEY
-os.environ["pythonanywhere_google_RECAPTCHA_INVISIBLE_SITE_KEY"]=pythonanywhere_google_RECAPTCHA_INVISIBLE_SITE_KEY
-os.environ["pythonanywhere_google_RECAPTCHA_INVISIBLE_SECRET_KEY"]=pythonanywhere_google_RECAPTCHA_INVISIBLE_SECRET_KEY
-
-os.environ["RECAPTCHA_SITE_KEY"]=RECAPTCHA_SITE_KEY
-os.environ["RECAPTCHA_SECRET_KEY"]=RECAPTCHA_SECRET_KEY
-os.environ["RECAPTCHA_INVISIBLE_SITE_KEY"]=RECAPTCHA_INVISIBLE_SITE_KEY
-os.environ["RECAPTCHA_INVISIBLE_SECRET_KEY"]=RECAPTCHA_INVISIBLE_SECRET_KEY
+os.environ["RECAPTCHA_SITE_KEY"] = RECAPTCHA_SITE_KEY
+os.environ["RECAPTCHA_SECRET_KEY"] = RECAPTCHA_SECRET_KEY
+os.environ["RECAPTCHA_INVISIBLE_SITE_KEY"] = RECAPTCHA_INVISIBLE_SITE_KEY
+os.environ["RECAPTCHA_INVISIBLE_SECRET_KEY"] = RECAPTCHA_INVISIBLE_SECRET_KEY
 
 #############################################################################################
-# print
-#############################################################################################
-if DISPLAY_CONFIGURATION :
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '# server configuration')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, 'base folder =', SERVER_CONFIG_BASE_FOLDER)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_ENVIRONMENT =', EXECUTION_ENVIRONMENT)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### EXECUTION_MODE =', EXECUTION_MODE)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SERVER =', SERVER)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER =', DATABASE_SERVER)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_NAME =', DATABASE_NAME)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_SERVER_URI =', DATABASE_SERVER_URI)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### DATABASE_URI =', DATABASE_URI)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SQLALCHEMY_DATABASE_URI =', SQLALCHEMY_DATABASE_URI)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER_PROVIDER =',MAIL_SERVER_PROVIDER)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_SERVER =',MAIL_SERVER)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PORT =',MAIL_PORT)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_TLS =',MAIL_USE_TLS)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USE_SSL =',MAIL_USE_SSL)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_USERNAME =',MAIL_USERNAME)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_PASSWORD =',MAIL_PASSWORD)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PUBLIC =',MAIL_APIKEY_PUBLIC)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### MAIL_APIKEY_PRIVATE =',MAIL_APIKEY_PRIVATE)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SITE_KEY =',GOOGLE_RECAPTCHA_SITE_KEY)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_SECRET_KEY =',GOOGLE_RECAPTCHA_SECRET_KEY)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY =',GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECRET_KEY =',SECRET_KEY)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '### SECURITY_PASSWORD_SALT =',SECURITY_PASSWORD_SALT)
-    print('      ', SERVER_CONFIG_FOLDER, SERVER_CONFIG_FILENAME, EYECATCH, '########################################################')
-#############################################################################################
+log_info('########################################################')
+log_info('# server configuration')
+log_info('########################################################')
+log_variable('base folder', SERVER_CONFIG_BASE_FOLDER)
+log_variable('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
+log_variable('EXECUTION_MODE', EXECUTION_MODE)
+log_variable('SERVER', SERVER)
+log_variable('DATABASE_SERVER', DATABASE_SERVER)
+log_variable('DATABASE_NAME', DATABASE_NAME)
+log_variable('DATABASE_SERVER_URI', DATABASE_SERVER_URI)
+log_variable('DATABASE_URI', DATABASE_URI)
+log_variable('SQLALCHEMY_DATABASE_URI', SQLALCHEMY_DATABASE_URI)
+log_info('########################################################')
+log_variable('MAIL_SERVER_PROVIDER', MAIL_SERVER_PROVIDER)
+log_variable('MAIL_SERVER', MAIL_SERVER)
+log_variable('MAIL_PORT', MAIL_PORT)
+log_variable('MAIL_USE_TLS', MAIL_USE_TLS)
+log_variable('MAIL_USE_SSL', MAIL_USE_SSL)
+log_variable('MAIL_USERNAME', MAIL_USERNAME)
+log_variable('MAIL_PASSWORD', MAIL_PASSWORD)
+log_variable('MAIL_APIKEY_PUBLIC', MAIL_APIKEY_PUBLIC)
+log_variable('MAIL_APIKEY_PRIVATE', MAIL_APIKEY_PRIVATE)
+log_info('########################################################')
+log_variable('GOOGLE_RECAPTCHA_SITE_KEY', RECAPTCHA_SITE_KEY)
+log_variable('GOOGLE_RECAPTCHA_SECRET_KEY', RECAPTCHA_SECRET_KEY)
+log_variable('GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', RECAPTCHA_INVISIBLE_SITE_KEY)
+log_variable('GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', RECAPTCHA_INVISIBLE_SECRET_KEY)
+log_info('########################################################')
+log_variable('IPSTACK_API_ACCESSKEY', RECAPTCHA_SITE_KEY)
+log_variable('IPSTACK_URL', RECAPTCHA_SECRET_KEY)
+log_info('########################################################')
+log_variable('SECRET_KEY',SECRET_KEY)
+log_variable('SECURITY_PASSWORD_SALT',SECURITY_PASSWORD_SALT)
+log_info('########################################################')
+log_module_finish('server_configuration')

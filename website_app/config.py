@@ -135,7 +135,7 @@ class Config(object):
     ################################################
     # SQLALCHEMY
     ################################################
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_RECORD_QUERIES = False
     
@@ -165,9 +165,9 @@ class Config(object):
 #        pass
 ############################################################
 class DesignConfig(Config):
-    """Development configurations"""
+    """Design mode configurations"""
     EYECATCH = 'MYAPP-DESIGN'
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
@@ -180,9 +180,9 @@ class DesignConfig(Config):
     DEBUG_VERSION = '34'
 
 class DevelopmentConfig(Config):
-    """Development configurations"""
+    """Development mode configurations"""
     EYECATCH = 'MYAPP-DEVELOPMENT'
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
@@ -195,9 +195,9 @@ class DevelopmentConfig(Config):
     DEBUG_VERSION = '33'
 
 class TestingConfig(Config):
-    """Testing configurations"""
+    """Testing mode configurations"""
     EYECATCH = 'MYAPP-TESTING'
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
@@ -208,9 +208,9 @@ class TestingConfig(Config):
     DEBUG_VERSION = '32'
 
 class SandBoxConfig(Config):
-    """Development configurations"""
+    """Sandbox mode configurations"""
     EYECATCH = 'MYAPP-SANDBOX'
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
@@ -219,7 +219,7 @@ class SandBoxConfig(Config):
     DEBUG_VERSION = ''
 
 class ProductionConfig(Config):
-    """Production configurations """
+    """Production mode configurations """
     EYECATCH = 'MYAPP-PRODUCTION'
     DEBUG = False
     TESTING = False
@@ -227,6 +227,19 @@ class ProductionConfig(Config):
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG_TYPES = {}
+    DEBUG_VERSION = ''
+
+class FlaskConfig(Config):
+    """Flask configurations"""
+    EYECATCH = 'FLASK-APP'
+    DEBUG = False
+    TESTING = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_ECHO = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    DEBUG_TYPES = {
+        '*'
+        }
     DEBUG_VERSION = ''
 
 class xProductionConfig(Config):
@@ -308,7 +321,6 @@ class UnixConfig(ProductionConfig):
         syslog_handler.setLevel(logging.INFO)
         app.logger.addHandler(syslog_handler)
 
-
 #config = {
 #    'development': DevelopmentConfig,
 #    'testing': TestingConfig,
@@ -321,9 +333,10 @@ class UnixConfig(ProductionConfig):
 
 #####################################################
 execmode_config = {
-    'sandbox' : SandBoxConfig
+    'design' : DesignConfig
     ,'development' : DevelopmentConfig
     ,'testing' : TestingConfig
+    ,'sandbox' : SandBoxConfig
     ,'production' : ProductionConfig
 }
 #####################################################
@@ -331,17 +344,11 @@ environment_config = {
     'localhost' : LocalHostConfig
     ,'heroku' : HerokuConfig
     ,'pythonanywhere' : PythonAnyWhereConfig
+    ,'heroku' : HerokuConfig
+    ,'pythonanywhere' : PythonAnyWhereConfig
 }
 #####################################################
 app_config = {
-    'design' : DesignConfig
-    , 'development' : DevelopmentConfig
-    , 'testing' : TestingConfig
-    , 'sandbox' : SandBoxConfig
-    , 'production' : ProductionConfig
-    , 'xproduction' : xProductionConfig
-    , 'localhost' : LocalHostConfig
-    , 'heroku' : HerokuConfig
-    , 'pythonanywhere' : PythonAnyWhereConfig
+    'flask' : FlaskConfig
 }
 #####################################################

@@ -105,7 +105,7 @@ def init_cookies_etc_before_first_request():
     app.contactusform = ContactUsForm()
     app.forgetpasswordform = forgetPasswordForm()
     app.cookiesconsentform = CookiesConsentForm()
-
+    log_variable('debug_log_services_eyecatch', debug_log_services_eyecatch)
     log_module_finish('@app.before_first_request')
 
 @app.before_request

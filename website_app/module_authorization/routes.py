@@ -270,7 +270,7 @@ def is_human(parCaptchaResponse):
         Returns True captcha test passed for submitted form else returns False.
     """
     log_module_start('is_human')
-    log_param('captcha_response',parCaptchaResponse)
+    log_param('captcha_response', parCaptchaResponse)
 
     secret = app.config.get('RECAPTCHA_SECRET_KEY')
     log_variable('RECAPTCHA_SECRET_KEY', secret)

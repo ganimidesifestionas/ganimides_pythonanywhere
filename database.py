@@ -2,7 +2,6 @@
 """
 This script creates default database entries
 """
-# # # #
 import os
 import sqlalchemy
 #from sqlalchemy.engine.url import URL
@@ -13,13 +12,12 @@ import sqlalchemy
 #from flask_sqlalchemy import SQLAlchemy
 from website_app import db
 from website_app import app as application
-app = application
-app.app_context().push()
-
 from website_app.module_administration.models import User, Department, Role
 from website_app.module_authorization.models import Subscriber, ContactMessage
-from website_app.models import Visit, VisitPoint, Page_Visit
-from debug_services.debug_log_services import *
+from website_app.models import Visit, VisitPoint, Page_Visit, xContactMessage
+from website_app.debug_services.debug_log_services import *
+app = application
+app.app_context().push()
 
 #log_module_start('application_databases')
 
@@ -33,7 +31,6 @@ DATABASE_URI = app.config['DATABASE_URI']
 
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
-
 
 def create_database():
     log_module_start('create_database')
@@ -49,7 +46,7 @@ def create_database():
     #     print("...database {0} on dbserver {1}".format(database, DATABASE_SERVER_URI))
     if DATABASE_NAME not in existing_databases:
         dbserver_engine.execute("CREATE DATABASE {db}".format(db=DATABASE_NAME))
-        log_info("{0} database CREATED on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
+        log_warning("{0} database CREATED on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
     else:
         log_info("database {0} already exists on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
     # -or-
@@ -67,20 +64,18 @@ def create_all_tables_auto():
     #log_info('database-init',  'create all tables in database if not exists(auto)')
     #log_info('database-init',  '   DATABASE_URI =',DATABASE_URI)
     db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
-    existing_tables_before = db_engine.execute('SHOW TABLES;')
-    existing_tables_before = [d[0] for d in existing_tables_before]
+    existing_tables_before = get_tables_list(db_engine)
     #log_info('database-init',  'tables before')
     #list_tables(db_engine)
     db.create_all(app=app)
     db.session.commit()
-    existing_tables_after = db_engine.execute('SHOW TABLES;')
-    existing_tables_after = [d[0] for d in existing_tables_after]
+    existing_tables_after = get_tables_list(db_engine)
     created = 0
     for table in existing_tables_after:
         if table not in existing_tables_before:
             created = created + 1
-    log_info("{0} tables created in database {1}".format(created,DATABASE_NAME))
-    db_engine.dispose()
+    log_warning("{0} tables created in database {1}".format(created,DATABASE_NAME))
+    #db_engine.dispose()
     log_finish('create_all_tables_auto')
 
 def create_all_tables_manually():
@@ -92,43 +87,60 @@ def create_all_tables_manually():
     #log_info('database-init',  'create tables in database if not exists (manually)')
     #log_info('database-init',  '   DATABASE_URI =', DATABASE_URI)
     db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
-    existing_tables = db_engine.execute('SHOW TABLES;')
-    existing_tables = [d[0].lower() for d in existing_tables]
+    existing_tables_before = get_tables_list(db_engine)
+
+    thistable=Visit.__table__.name
+    if thistable.lower() not in existing_tables:
+        Department.__table__.create(db_engine)
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+
+    thistable=VisitPoint.__table__.name
+    if thistable.lower() not in existing_tables:
+        Department.__table__.create(db_engine)
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+
+    thistable=Page_Visit.__table__.name
+    if thistable.lower() not in existing_tables:
+        Department.__table__.create(db_engine)
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+
+    thistable=xContactMessage.__table__.name
+    if thistable.lower() not in existing_tables:
+        Department.__table__.create(db_engine)
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
 
     thistable=Subscriber.__table__.name
     if thistable.lower() not in existing_tables:
         Subscriber.__table__.create(db_engine)
-        log_info("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
 
     thistable=ContactMessage.__table__.name
     if thistable.lower() not in existing_tables:
         ContactMessage.__table__.create(db_engine)
-        log_info("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
 
     thistable = User.__table__.name
     if thistable.lower() not in existing_tables:
         User.__table__.create(db_engine)
-        log_info("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
 
     thistable=Role.__table__.name
     if thistable.lower() not in existing_tables:
         Role.__table__.create(db_engine)
-        log_info("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
 
     thistable=Department.__table__.name
     if thistable.lower() not in existing_tables:
         Department.__table__.create(db_engine)
-        log_info("table {0} created in database {1}".format(thistable,DATABASE_NAME))
+        log_warning("table {0} created in database {1}".format(thistable,DATABASE_NAME))
 
-    existing_tables_after = db_engine.execute('SHOW TABLES;')
-    existing_tables_after = [d[0] for d in existing_tables_after]
+    existing_tables_after = get_tables_list(db_engine)
     created = 0
     for table in existing_tables_after:
-        if table not in existing_tables:
+        if table not in existing_tables_before:
             created = created + 1
 
-    db_engine.dispose()
-    log_info("{0} tables created in database {1}".format(created,DATABASE_NAME))
+    log_warning("{0} tables created in database {1}".format(created,DATABASE_NAME))
     log_finish('create_all_tables_manually')
 
 def create_subscribers():
@@ -151,7 +163,7 @@ def create_subscribers():
             thisUser = Subscriber(email=user[0], firstName=user[1], lastName=user[2])
             #db.session.add(thisUser)
             created = created + 1
-            log_info('subscriber created:', thisUser)
+            log_warning('subscriber created:', thisUser)
     #db.session.commit()
     log_info("{0} Subscribers created in database {1}".format(created, DATABASE_NAME))
     log_finish('create_subscribers')
@@ -167,22 +179,22 @@ def create_roles():
         thisrole = Role(name='user',description='system user')
         db.session.add(thisrole)
         created = created + 1
-        log_info('role created:', thisrole)
+        log_warning('role created:', thisrole)
     if not Role.query.filter_by(name='sysadmin').first():
         thisrole = Role(name='sysadmin',description='system administrator')
         db.session.add(thisrole)
         created = created + 1
-        log_info('role created:', thisrole)
+        log_warning('role created:', thisrole)
     if not Role.query.filter_by(name='dbadmin').first():
         thisrole = Role(name='dbadmin',description='database administrator')
         db.session.add(thisrole)
         created = created + 1
-        log_info('role created:', thisrole)
+        log_warning('role created:', thisrole)
     if not Role.query.filter_by(name='subscriber').first():
         thisrole = Role(name='subscriber',description='subscriber')
         db.session.add(thisrole)
         created = created + 1
-        log_info('role created:', thisrole)
+        log_warning('role created:', thisrole)
     db.session.commit()
     log_info("{0} Roles created in database {1}".format(created, DATABASE_NAME))
     log_finish('create_roles')
@@ -198,22 +210,22 @@ def create_departments():
         thisDpmt = Department(name='development',description='development')
         db.session.add(thisDpmt)
         created = created + 1
-        log_info('Department created:', thisDpmt)
+        log_warning('Department created:', thisDpmt)
     if not Department.query.filter_by(name='sales').first():
         thisDpmt = Department(name='sales',description='sales')
         db.session.add(thisDpmt)
         created = created + 1
-        log_info('Department created:', thisDpmt)
+        log_warning('Department created:', thisDpmt)
     if not Department.query.filter_by(name='administration').first():
         thisDpmt = Department(name='administration',description='administration')
         db.session.add(thisDpmt)
         created = created + 1
-        log_info('Department created:', thisDpmt)
+        log_warning('Department created:', thisDpmt)
     if not Department.query.filter_by(name='').first():
         thisDpmt = Department(name='',description='subscribers')
         db.session.add(thisDpmt)
         created = created + 1
-        log_info('Department created:', thisDpmt)
+        log_warning('Department created:', thisDpmt)
     db.session.commit()
     log_info("{0} Departments created in database {1}".format(created, DATABASE_NAME))
     log_finish('create_departments')
@@ -237,7 +249,7 @@ def create_users():
             thisUser = User(email=user[0], firstName=user[1], lastName=user[2], roleX=user[3])
             db.session.add(thisUser)
             created = created + 1
-            log_info('user created:', thisUser)
+            log_warning('user created:', thisUser)
     db.session.commit()
     log_info("{0} Subscribers created in database {1}".format(created, DATABASE_NAME))
     log_finish('create_users')
@@ -257,15 +269,13 @@ def list_tables(db_engine):
         log_info("   {0}. {1}.{2}".format(t, DATABASE_NAME,table))
     #db_engine.dispose()
 
-def tables_list(db_engine):
+def get_tables_list(db_engine):
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
     global DATABASE_URI
-    #db_engine = sqlalchemy.create_engine(DATABASE_URI) # connect to database
     tables_list = db_engine.execute('SHOW TABLES;')
     tables_list = [d[0] for d in tables_list]
-    #db_engine.dispose()
     return tables_list
 
 def init_database():
@@ -286,6 +296,6 @@ def init_database():
 #log_module_finish('application_databases')
 
 if __name__ == '__main__':
-    cls()# now, to clear the screen
+    cls() # now, to clear the screen
     init_database()
 
