@@ -127,7 +127,7 @@ pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = pythonanywhere_ifestionas_DA
 #         DATABASE_SERVER_URI = pythonanywhere_ifestionas_DATABASE_SERVER_URI
 #         DATABASE_URI = pythonanywhere_ifestionas_DATABASE_URI
 #####################################################################################################
-#####################################################################################################
+######################################################################################################
 #####################################################################################################
 DATABASE_HOST_ADDRESS = DATABASE_SERVER
 #DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX + DATABASE_USER + ':' + DATABASE_PASS + '@' + DATABASE_HOST_ADDRESS
