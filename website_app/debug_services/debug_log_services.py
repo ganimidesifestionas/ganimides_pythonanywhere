@@ -418,7 +418,7 @@ def set_log_prefix(sid, uid):
         else:
             prefix = uid
     if active_component_debug_enabled and active_component_debug_level > 0:
-        message = '***log debug prefix set to {}'.format(prefix)
+        message = 'log debug prefix set to {}'.format(prefix)
         log_info(message)
 ##########################################
 def set_log_suffix(sid, uid):
@@ -444,7 +444,7 @@ def set_log_suffix(sid, uid):
         else:
             suffix = uid
     if active_component_debug_enabled and active_component_debug_level > 0:
-        message = '***log_suffix set to {}'.format(suffix)
+        message = 'log_suffix set to {}'.format(suffix)
         log_info(message)
 ##########################################
 def set_log_suffix_timestamp(o='ON'):
@@ -462,7 +462,7 @@ def set_log_suffix_timestamp(o='ON'):
         suffix_timestamp = True
         OnOff = "ON"
     if active_component_debug_enabled and active_component_debug_level > 0:
-        message = '***log debug suffix timestamp set {}'.format(OnOff)
+        message = 'log debug suffix timestamp set {}'.format(OnOff)
         log_info(message)
 ##########################################
 def set_log_prefix_timestamp(o='ON'):
@@ -480,7 +480,7 @@ def set_log_prefix_timestamp(o='ON'):
         prefix_timestamp = True
         OnOff = "ON"
     if active_component_debug_enabled and active_component_debug_level > 0:
-        message = '***log debug prefix timestamp set {}'.format(OnOff)
+        message = 'log debug prefix timestamp set {}'.format(OnOff)
         log_info(message)
 ##########################################
 ##########################################
@@ -495,7 +495,7 @@ def set_module_debug_off(module_name):
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     set_debug_level(module=module_name, component='', priority=1, debugOnOff='OFF')
-    message = '***log debug set OFF for module {}'.format(module_name)
+    message = 'log debug set OFF for module {}'.format(module_name)
     log_info(message)
 ##########################################
 def set_module_debug_on(module_name):
@@ -504,7 +504,7 @@ def set_module_debug_on(module_name):
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     set_debug_level(module=module_name, component='', priority=1, debugOnOff='ON')
-    message = '***log debug set ON for module {}'.format(module_name)
+    message = 'log debug set ON for module {}'.format(module_name)
     log_info(message)
 ##########################################
 def set_module_debug_level(module_name='', debug_level=9):
@@ -519,7 +519,7 @@ def set_module_debug_level(module_name='', debug_level=9):
         onoff = 'ON'
     retrieve_activecomponent_debug_info()
     set_debug_level(module=module_name, priority=10, debugOnOff=onoff, debugLevel=debug_level)
-    message = '***log debug level set to {}-{} for module {}'.format(onoff, debug_level, module_name)
+    message = 'log debug level set to {}-{} for module {}'.format(onoff, debug_level, module_name)
     log_info(message)
 ##########################################
 
@@ -536,7 +536,7 @@ def set_component_debug_off(component_name='', module_name=''):
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     set_debug_level(module=module_name, component=component_name, priority=2, debugOnOff='OFF')
-    message = '***log debug set OFF for component {}.{}'.format(module_name, component_name)
+    message = 'log debug set OFF for component {}.{}'.format(module_name, component_name)
     log_info(message)
 ##########################################
 def set_component_debug_on(component_name='', module_name=''):
@@ -545,7 +545,7 @@ def set_component_debug_on(component_name='', module_name=''):
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     set_debug_level(module=module_name, component=component_name, priority=2, debugOnOff='ON')
-    message = '***log debug set ON for component {}.{}'.format(module_name, component_name)
+    message = 'log debug set ON for component {}.{}'.format(module_name, component_name)
     log_info(message)
 ##########################################
 def set_component_debug_level(component_name='', debug_level=9, module_name=''):
@@ -560,7 +560,7 @@ def set_component_debug_level(component_name='', debug_level=9, module_name=''):
         onoff = 'ON'
     retrieve_activecomponent_debug_info()
     set_debug_level(module=module_name, component=component_name, priority=2, debugOnOff=onoff, debugLevel=debug_level)
-    message = '***log debug level set to {}-{} for component {}.{}'.format(onoff, debug_level, module_name, component_name)
+    message = 'log debug level set to {}-{} for component {}.{}'.format(onoff, debug_level, module_name, component_name)
     log_info(message)
 ##########################################
 
@@ -577,7 +577,7 @@ def set_componenttype_debug_off(component_type='', component_name='', module_nam
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     set_debug_level(module=module_name, component=component_name, component_type=component_type, priority=3, debugOnOff='OFF')
-    message = '***log debug set OFF for component type {}.{}.{}'.format(module_name, component_name,component_type)
+    message = 'log debug set OFF for component type {}.{}.{}'.format(module_name, component_name,component_type)
     log_info(message)
 ##########################################
 def set_componenttype_debug_on(component_type='', component_name='', module_name=''):
@@ -586,7 +586,7 @@ def set_componenttype_debug_on(component_type='', component_name='', module_name
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     set_debug_level(module=module_name, component=component_name, component_type=component_type, priority=3, debugOnOff='ON')
-    message = '***log debug set ON for component type {}.{}.{}'.format(module_name, component_name,component_type)
+    message = 'log debug set ON for component type {}.{}.{}'.format(module_name, component_name,component_type)
     log_info(message)
 ##########################################
 def set_componenttype_debug_level(component_type='', component_name='', debug_level=9, module_name=''):
@@ -601,7 +601,7 @@ def set_componenttype_debug_level(component_type='', component_name='', debug_le
         onoff = 'ON'
     retrieve_activecomponent_debug_info()
     set_debug_level(module=module_name, component=component_name, component_type=component_type, priority=3, debugOnOff=onoff, debugLevel=debug_level)
-    message = '***log debug level set to {}-{} for component type {}.{}.{}'.format(onoff, debug_level, module_name, component_name, component_type)
+    message = 'log debug level set to {}-{} for component type {}.{}.{}'.format(onoff, debug_level, module_name, component_name, component_type)
     log_info(message)
 ##########################################
 def set_global_debug(onoff='ON'):
@@ -633,7 +633,7 @@ def init_this_module():
     global components_stack
     caller = sys._getframe(1)  # Obtain calling frame
     thisModule = caller.f_globals['__name__']
-    message = '***log debug module set to ({})'.format(thisModule)
+    message = 'log debug module set to ({})'.format(thisModule)
     log_info(message)
     components_stack = {}
 ##########################################
@@ -654,7 +654,7 @@ def set_debug_defaults(onoff='ON',debuglevel=9):
     if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
         default_debug_onoff = True
         default_debug_onoff_Str = 'ON'
-    message = '***log debug defaults set to ({}-{})'.format(default_debug_onoff_Str, default_debug_level)
+    message = 'log debug defaults set to ({}-{})'.format(default_debug_onoff_Str, default_debug_level)
     log_info(message)
 ##########################################
 # take second element for sort
@@ -703,7 +703,7 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
     Components.sort(key=takeSecond, reverse=False) 
     #ModulesDictionary.update({componentKey:[debugOnOff, debugLevel]})
     #print(ModulesDictionary)
-    message = '***debug levels for folder "{}" module "{}" component "{}" compo-type "{}" set to ({}-{}) with priority {}.'.format(folder, module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
+    message = 'debug levels for folder "{}" module "{}" component "{}" compo-type "{}" set to ({}-{}) priority {}.'.format(folder, module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
     log_info(message)
 ##########################################
 def retrieve_activecomponent_debug_info(folder_name='', module_name='', component_name='', component_type=''):
