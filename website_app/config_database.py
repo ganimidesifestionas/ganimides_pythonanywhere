@@ -100,33 +100,33 @@ pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = pythonanywhere_ifestionas_DA
 #localhost_SQLALCHEMY_TEST_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db_test'
 
 #default is localhost
-DATABASE_HOST_ADDRESS = localhost_DATABASE_HOST_ADDRESS
-DATABASE_NAME = localhost_DATABASE_NAME
-DATABASE_USER = localhost_DATABASE_USER
-DATABASE_PASS = localhost_DATABASE_PASS
-DATABASE_CONNECTION_PREFIX = localhost_DATABASE_CONNECTION_PREFIX
-DATABASE_SERVER = localhost_DATABASE_SERVER
-DATABASE_SERVER_URI = localhost_DATABASE_SERVER_URI
-DATABASE_URI = localhost_DATABASE_URI
+# DATABASE_HOST_ADDRESS = localhost_DATABASE_HOST_ADDRESS
+# DATABASE_NAME = localhost_DATABASE_NAME
+# DATABASE_USER = localhost_DATABASE_USER
+# DATABASE_PASS = localhost_DATABASE_PASS
+# DATABASE_CONNECTION_PREFIX = localhost_DATABASE_CONNECTION_PREFIX
+# DATABASE_SERVER = localhost_DATABASE_SERVER
+# DATABASE_SERVER_URI = localhost_DATABASE_SERVER_URI
+# DATABASE_URI = localhost_DATABASE_URI
 
-if EXECUTION_ENVIRONMENT == 'pythonanywhere':
-    DATABASE_HOST_ADDRESS = pythonanywhere_ganimedes_DATABASE_HOST_ADDRESS
-    DATABASE_NAME = pythonanywhere_ganimedes_DATABASE_NAME
-    DATABASE_USER = pythonanywhere_ganimedes_DATABASE_USER
-    DATABASE_PASS = pythonanywhere_ganimedes_DATABASE_PASS
-    DATABASE_CONNECTION_PREFIX = pythonanywhere_ganimedes_DATABASE_CONNECTION_PREFIX
-    DATABASE_SERVER = pythonanywhere_ganimedes_DATABASE_SERVER
-    DATABASE_SERVER_URI = pythonanywhere_ganimedes_DATABASE_SERVER_URI
-    DATABASE_URI = pythonanywhere_ganimedes_DATABASE_URI
-    if DATABASE_SERVER == 'pythonanywhere-ifestionas':
-        DATABASE_HOST_ADDRESS = pythonanywhere_ifestionas_DATABASE_HOST_ADDRESS
-        DATABASE_NAME = pythonanywhere_ifestionas_DATABASE_NAME
-        DATABASE_USER = pythonanywhere_ifestionas_DATABASE_USER
-        DATABASE_PASS = pythonanywhere_ifestionas_DATABASE_PASS
-        DATABASE_CONNECTION_PREFIX = pythonanywhere_ifestionas_DATABASE_CONNECTION_PREFIX
-        DATABASE_SERVER = pythonanywhere_ifestionas_DATABASE_SERVER
-        DATABASE_SERVER_URI = pythonanywhere_ifestionas_DATABASE_SERVER_URI
-        DATABASE_URI = pythonanywhere_ifestionas_DATABASE_URI
+# if EXECUTION_ENVIRONMENT == 'pythonanywhere':
+#     DATABASE_HOST_ADDRESS = pythonanywhere_ganimedes_DATABASE_HOST_ADDRESS
+#     DATABASE_NAME = pythonanywhere_ganimedes_DATABASE_NAME
+#     DATABASE_USER = pythonanywhere_ganimedes_DATABASE_USER
+#     DATABASE_PASS = pythonanywhere_ganimedes_DATABASE_PASS
+#     DATABASE_CONNECTION_PREFIX = pythonanywhere_ganimedes_DATABASE_CONNECTION_PREFIX
+#     DATABASE_SERVER = pythonanywhere_ganimedes_DATABASE_SERVER
+#     DATABASE_SERVER_URI = pythonanywhere_ganimedes_DATABASE_SERVER_URI
+#     DATABASE_URI = pythonanywhere_ganimedes_DATABASE_URI
+#     if DATABASE_SERVER == 'pythonanywhere-ifestionas':
+#         DATABASE_HOST_ADDRESS = pythonanywhere_ifestionas_DATABASE_HOST_ADDRESS
+#         DATABASE_NAME = pythonanywhere_ifestionas_DATABASE_NAME
+#         DATABASE_USER = pythonanywhere_ifestionas_DATABASE_USER
+#         DATABASE_PASS = pythonanywhere_ifestionas_DATABASE_PASS
+#         DATABASE_CONNECTION_PREFIX = pythonanywhere_ifestionas_DATABASE_CONNECTION_PREFIX
+#         DATABASE_SERVER = pythonanywhere_ifestionas_DATABASE_SERVER
+#         DATABASE_SERVER_URI = pythonanywhere_ifestionas_DATABASE_SERVER_URI
+#         DATABASE_URI = pythonanywhere_ifestionas_DATABASE_URI
 #####################################################################################################
 #####################################################################################################
 #####################################################################################################
@@ -134,6 +134,8 @@ DATABASE_HOST_ADDRESS = DATABASE_SERVER
 DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX + DATABASE_USER + ':' + DATABASE_PASS + '@' + DATABASE_HOST_ADDRESS
 DATABASE_URI = DATABASE_SERVER_URI + '/' + DATABASE_NAME
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
+
+
 #####################################################################################################
 #####################################################################################################
 #store in os.environ in order to be used in subsequent configuration
