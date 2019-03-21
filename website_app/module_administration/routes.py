@@ -30,6 +30,7 @@ from .. external_services.email_services import send_email
 #from .. external_services.log_services import *
 from .. external_services.token_services import generate_unique_sessionID, generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
 from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
+from .. debug_services.debug_log_services import *
 
 # Import module forms
 from . forms import UserAdminForm, RoleForm, DepartmentForm, SetPasswordForm, LoginForm, RegistrationForm, PasswordChangeForm, mobileConfirmationForm, UserProfileDisplayForm, UserProfileChangeForm, emailConfirmationForm, PasswordReSetForm, forgetPasswordForm, ContactUsForm, AvatarUploadForm

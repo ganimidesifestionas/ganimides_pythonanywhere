@@ -3,8 +3,10 @@
 The flask application package.
 """
 import os
-from os import environ
 import os.path
+from os import environ
+import configparser
+
 import sqlalchemy
 from datetime import datetime
 # third-party imports
@@ -16,11 +18,16 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
 # local imports
-from .config import app_config
+from .config import app_config, environment_config, environment_config, execmode_config
+# from .config_google import config as google_config
+# from .config_geolocation import config as geolocation_config
+# from .config_mailserver import config as mailserver_config
+# from .config_sqlalchemy import config as sqlalchemy_config
+# from .config_database import config as database_config
 
-from debug_services.debug_log_services import *
-from .app_debug_config import debug_config
-debug_config()
+
+from website_app.debug_services.debug_log_services import *
+from .app_debug_config import debug_config, debug_config_on_startup
 
 #from logging.config import dictConfig
 #from .external_services.log_services import *
@@ -30,7 +37,7 @@ debug_config()
 #logging config
 import logging
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.ERROR)
 #logger.setLevel(logging.INFO)
 
 # create a file handler
@@ -56,7 +63,7 @@ logger.info('#################################################Hello World#######
 
 logging.getLogger('sqlalchemy.engine').setLevel(logging.ERROR)
 logging.basicConfig(level=logging.ERROR)
-logging.Formatter('%(asctime)s | %(name)s | %(levelname)s |:: %(message)s ::')
+#logging.Formatter('%(asctime)s | %(name)s | %(levelname)s |:: %(message)s ::')
 # def create_app():
 #     app = Flask(__name__)
 #     db.init_app(app)
@@ -65,12 +72,10 @@ logging.Formatter('%(asctime)s | %(name)s | %(levelname)s |:: %(message)s ::')
 ################################################################################
 log_module_start('website_app:__init__')
 ################################################################################
-################################################################################
-################################################################################
+
+debug_config_on_startup()
+
 ### Define the database
-################################################################################
-################################################################################
-################################################################################
 db = SQLAlchemy()
 log_info('db = SQLAlchemy()')
 # db variable initialization
@@ -89,10 +94,29 @@ log_info('db = SQLAlchemy()')
 ################################################################################
 ################################################################################
 ################################################################################
+thisfile = os.path.abspath(__file__)
+thisDir = os.path.dirname(__file__)
+exec_folder = os.path.abspath(os.path.dirname(__file__))
+server_config_folder = os.path.dirname(exec_folder)
+################################################################
+print('...__file__', __file__)
+print('...DirName', thisDir)
+print('...exec_folder', exec_folder)
+print('...server_config_folder', server_config_folder)
+# print('...SERVER_INI_FILE', SERVER_INI_FILE)
+# print('...SERVER_CONFIG_FILE', SERVER_CONFIG_FILE)
+# #print (os.path.isfile(SERVER_CONFIG_FILE))
+# print('...start-server.ini')
+# exit(0)
 #log_info('#############################################################')
+log_info('instance folder to be used for file configs is ', thisDir)
 log_info('###CREATE FLASK-APP###', 'app = Flask(__name__, instance_relative_config=True)')
-app = Flask(__name__, instance_relative_config=True)
+#app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__, instance_path=thisDir)
+#x=get_instance_folder_path()
+#log_variable('get_instance_folder_path', x)
 log_variable('app', app)
+#exit(0)
 #--> important: the folders are relative to where the flask app is created
 # specifies the main template folder for the application
 #app = Flask(__name__,
@@ -146,60 +170,124 @@ log_variable('FLASK_CONFIGURATION',config_name)
 #log_info('')
 log_info('###CONFIGURE FLASK-APP###')
 #########################################################################################
-log_info('CONFIG-1-FROM-SERVER', '../server_config.py')
-server_config_file = os.environ.get('SERVER_CONFIG_FILE')
-if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
-    log_variable('server_config_file', server_config_file)
-    app.config.from_pyfile(server_config_file) #from the (server)
-else:
-    server_config_file = '../server_config.py'
-    log_variable('server_config_file', server_config_file)
-    app.config.from_pyfile(server_config_file) #from the (root)
-    # if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
-    #     log_variable('server_config_file', server_config_file)
-    #     app.config.from_pyfile(server_config_file) #from the (root)
-    # else:
-    #     server_config_file = 'server_config.py'
-    #     if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
-    #         log_variable('server_config_file', server_config_file)
-    #         app.config.from_pyfile(server_config_file) #from the (application folder)
-    #     else:
-    #         log_warning('server_config_file NOT FOUND')
+
+#########################################################################################
+config_name = 'flask'
+#log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'from app_config in .config.py')
+app.config.from_object(app_config[config_name]) # object-based default configuration
+log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+#... more apps here
+#########################################################################################
+config_name = 'google'
+config_file = 'config_google.py'
+log_info('CONFIG-STEP-5 google apps', config_file)
+app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+#log_info('CONFIG-STEP-5 google apps', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+#########################################################################################
+config_name = 'geolocation'
+config_file = 'config_geolocation.py'
+log_info('CONFIG-STEP-6 geolocation', config_file)
+app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+#log_info('CONFIG-STEP-6 geolocation', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+#########################################################################################
+config_name = 'mailserver'
+config_file = 'config_mailserver.py'
+log_info('CONFIG-STEP-7 mailserver', config_file)
+app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+#log_info('CONFIG-STEP-7 mailserver', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+#########################################################################################
+config_name = app.config.get('EXECUTION_ENVIRONMENT')
+if os.getenv('EXECUTION_ENVIRONMENT', ''):
+    config_name = os.getenv('EXECUTION_ENVIRONMENT')
+if not config_name:
+    config_name = 'localhost'
+config_name = config_name.replace("'",'')
+#log_info('CONFIG-STEP-2 EXECUTION_ENVIRONMENT', config_name, 'from environment_config in .config.py')
+app.config.from_object(environment_config[config_name]) # object-based default configuration
+log_info('CONFIG-STEP-2 EXECUTION_ENVIRONMENT', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+#########################################################################################
+config_name = app.config.get('EXECUTION_MODE')
+if os.getenv('EXECUTION_MODE', ''):
+    config_name = os.getenv('EXECUTION_MODE')
+if not config_name:
+    config_name = 'design'
+config_name = config_name.replace("'",'')
+app.config.from_object(execmode_config[config_name]) # object-based default configuration
+log_info('CONFIG-STEP-3 EXECUTION_MODE', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+
+#########################################################################################
+#server_config_file = '../server_config.py'
+#log_info('CONFIG-STEP-4 server_config.py', server_config_file, 'from ../server_config.py')
+#app.config.from_pyfile(server_config_file, silent=False) # instance-folders configuration (outside source control)
+#log_info('CONFIG-STEP-4 server_config.py', server_config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+#########################################################################################
+config_name = 'database'
+config_file = 'config_database.py'
+log_info('CONFIG-STEP-6 database', config_file)
+app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+#log_info('CONFIG-STEP-6 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+
+#########################################################################################
+config_name = 'sqlalchemy'
+config_file = 'config_sqlalchemy.py'
+log_info('CONFIG-STEP-7 sqlalchemy', config_file)
+app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+#log_info('CONFIG-STEP-8 sqlalchemy', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
+
+# server_config_file = os.environ.get('SERVER_CONFIG_FILE')
+# if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+#     log_variable('server_config_file', server_config_file)
+#     app.config.from_pyfile(server_config_file) #from the (server)
+# else:
+#     server_config_file = '../server_config.py'
+#     log_variable('server_config_file', server_config_file)
+#     app.config.from_pyfile(server_config_file) #from the (root)
+#     # if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+#     #     log_variable('server_config_file', server_config_file)
+#     #     app.config.from_pyfile(server_config_file) #from the (root)
+#     # else:
+#     #     server_config_file = 'server_config.py'
+#     #     if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+#     #         log_variable('server_config_file', server_config_file)
+#     #         app.config.from_pyfile(server_config_file) #from the (application folder)
+#     #     else:
+#     #         log_warning('server_config_file NOT FOUND')
 
 #app.config.from_pyfile('../server_config.py') #from the root
-
-#log_info('(1-server) EYECATCH---', app.config['EYECATCH'])
+#log_info('(1-server) EYECATCH---', app.config.get('EYECATCH'))
 #log_info('(1-server) SERVER---', app.config['SERVER'])
 #log_info('(1-server) SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
 #########################################################################################
-log_info('CONFIG-2-FROM-SERVER-INSTANCE', '../instance/config.py')
-app.config.from_pyfile('../instance/config.py') #from instance
-#log_info('(2-instance) EYECATCH---', app.config['EYECATCH'])
+#log_info('CONFIG-2-FROM-SERVER-INSTANCE', '../instance/config.py')
+#app.config.from_pyfile('../instance/config.py') #from instance
+#log_info('(2-instance) EYECATCH---', app.config.get('EYECATCH'))
 #log_info('(2-instance) SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
-#########################################################################################
-config_name = app.config['EXECUTION_ENVIRONMENT']
-log_info('CONFIG-3-APP-ENVIRONMENT',  config_name, '.config.py')
-app.config.from_object(app_config[config_name])
-log_info('(3-environment)', config_name, 'EYECATCH---', app.config['EYECATCH'])
-#log_info('(3-environment)', config_name, 'SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
-#########################################################################################
-config_name = app.config['EXECUTION_MODE']
-log_info('CONFIG-4-APP-EXEC-MODE', config_name, '.config.py')
-app.config.from_object(app_config[config_name])
-log_info('(4-exec-mode)', config_name, 'EYECATCH---', app.config['EYECATCH'])
-#log_info('(4-exec-mode)', config_name, 'SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
-#########################################################################################
 
-#########################################################################################
 log_info('@@@check', 'SERVER---', app.config['SERVER'])
 log_info('@@@check', 'DATABASE_SERVER---', app.config['DATABASE_SERVER'])
 log_info('@@@check', 'DATABASE_NAME---', app.config['DATABASE_NAME'])
 log_info('@@@check', 'DATABASE_SERVER_URI---', app.config['DATABASE_SERVER_URI'])
 log_info('@@@check', 'DATABASE_URI---', app.config['DATABASE_URI'])
 log_info('@@@check', 'SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
-log_info('@@@check', 'SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
-log_info('@@@check', 'RECAPTCHA_SITE_KEY---', app.config['RECAPTCHA_SITE_KEY'])
-log_info('@@@check', 'RECAPTCHA_SECRET_KEY---', app.config['RECAPTCHA_SECRET_KEY'])
+log_info('@@@check', 'RECAPTCHA_PUBLIC_KEY---', app.config['RECAPTCHA_PUBLIC_KEY'])
+log_info('@@@check', 'RECAPTCHA_PRIVATE_KEY---', app.config['RECAPTCHA_PRIVATE_KEY'])
 log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_LOGIN'])
 log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_REGISTRATION'])
 log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_FORGETPASSWORD'])
@@ -340,7 +428,9 @@ log_info('@app.errorhandler(404)','render_template(error_pages/404.html, title=P
 def page_not_found(error):
     log_info('@app.errorhandler(404) title=Page Not Found)')
     varPageName = str(request._get_current_object())
-    return render_template('error_pages/404.html', title='Page Not Found',PageNotFound=varPageName), 404
+    log_variable('varPageName', varPageName)
+    #return render_template('error_pages/404.html', title='Page Not Found', PageNotFound=varPageName), 404
+    return render_template('error_pages/404.html', title='Page Not Found')
 
 log_info('@app.errorhandler(500)','render_template(error_pages/500.html, title=Server Error)')
 @app.errorhandler(500)
@@ -401,53 +491,61 @@ log_info('###DATABASE###', 'create database if not exists')
 SERVER = app.config['SERVER'] # application server
 DATABASE_SERVER = app.config['DATABASE_SERVER']
 DATABASE_NAME = app.config['DATABASE_NAME']
-DATABASE_URI=app.config['SQLALCHEMY_DATABASE_URI']
-DATABASE_SERVER_URI=app.config['DATABASE_SERVER_URI']
-DB_URI=app.config['DATABASE_URI']
+DATABASE_URI = app.config['SQLALCHEMY_DATABASE_URI']
+DATABASE_SERVER_URI = app.config['DATABASE_SERVER_URI']
+DB_URI = app.config['DATABASE_URI']
+from database import init_database as init_application_database
+from website_app.module_authorization.database import init_database as init_authorization_database
+from website_app.module_administration.database import init_database as init_administration_database
+log_start('@@@INIT DATABASES START@@@')
+init_application_database()
+init_administration_database()
+init_authorization_database()
+log_finish('@@@INIT DATABASES START@@@')
 
-dbserver_engine = sqlalchemy.create_engine(DATABASE_SERVER_URI,pool_recycle=180) # connect to server
-existing_databases = dbserver_engine.execute("SHOW DATABASES;")
-existing_databases = [d[0] for d in existing_databases]
-# for database in existing_databases:
-#     print("...database {0} on dbserver {1}".format(database, DATABASE_SERVER_URI))
-if DATABASE_NAME not in existing_databases:
-    dbserver_engine.execute("CREATE DATABASE {db}".format(db=DATABASE_NAME))
-    log_info('###DATABASE###', "{0} database CREATED on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
-else:
-    log_info('###DATABASE###', "database {0} already exists on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
-# -or-
-# dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
+# dbserver_engine = sqlalchemy.create_engine(DATABASE_SERVER_URI,pool_recycle=180) # connect to server
+# existing_databases = dbserver_engine.execute("SHOW DATABASES;")
+# existing_databases = [d[0] for d in existing_databases]
+# # for database in existing_databases:
+# #     print("...database {0} on dbserver {1}".format(database, DATABASE_SERVER_URI))
+# if DATABASE_NAME not in existing_databases:
+#     dbserver_engine.execute("CREATE DATABASE {db}".format(db=DATABASE_NAME))
+#     log_info('###DATABASE###', "{0} database CREATED on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
+# else:
+#     log_info('###DATABASE###', "database {0} already exists on DBserver {1}".format(DATABASE_NAME, DATABASE_SERVER))
+# # -or-
+# # dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
+# # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
 # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
-dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
-dbserver_engine.dispose()
+# dbserver_engine.dispose()
 
-log_info('###DATABASE###', 'create tables if not exists')
-from .module_administration.models import User, Department, Role
-from .module_authorization.models import Subscriber, ContactMessage
-from .models import Visit, VisitPoint, Page_Visit
+# log_info('###DATABASE###', 'create tables if not exists')
+# from .module_administration.models import User, Department, Role
+# from .module_authorization.models import Subscriber, ContactMessage
+# from .models import Visit, VisitPoint, Page_Visit
 
-# recreate tables etc
-log_info('###DATABASE###', 'tables created')
-db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
-existing_tables_before = db_engine.execute('SHOW TABLES;')
-existing_tables_before = [d[0] for d in existing_tables_before]
-#print('   ', 'database-init', __name__, 'tables before')
-#list_tables(db_engine)
+# # recreate tables etc
+# log_info('###DATABASE###', 'tables created')
+# db_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=180) # connect to database
+# existing_tables_before = db_engine.execute('SHOW TABLES;')
+# existing_tables_before = [d[0] for d in existing_tables_before]
+# #print('   ', 'database-init', __name__, 'tables before')
+# #list_tables(db_engine)
 
 log_info('###DATABASE###', 'db.create_all(app=app)')
 db.create_all(app=app)
 #db.session.commit()
 #print(db.__dir__.__name__)
 
-existing_tables_after = db_engine.execute('SHOW TABLES;')
-existing_tables_after = [d[0] for d in existing_tables_after]
-created = 0
-for table in existing_tables_after:
-    if table not in existing_tables_before:
-        created = created + 1
+# existing_tables_after = db_engine.execute('SHOW TABLES;')
+# existing_tables_after = [d[0] for d in existing_tables_after]
+# created = 0
+# for table in existing_tables_after:
+#     if table not in existing_tables_before:
+#         created = created + 1
 
-log_info('###DATABASE###',"{0} tables created in database {1}".format(created,DATABASE_NAME))
-db_engine.dispose()
+# log_info('###DATABASE###',"{0} tables created in database {1}".format(created,DATABASE_NAME))
+# db_engine.dispose()
 
 ################################################################################
 ################################################################################
@@ -546,10 +644,10 @@ def inject_configuration_parameters_as_variables():
         ,DATABASE_URI=app.config['SQLALCHEMY_DATABASE_URI']
         ,DATABASE_SERVER_URI=app.config['DATABASE_SERVER_URI']
         ,DB_URI=app.config['DATABASE_URI']
-        ,RECAPTCHA_SITE_KEY=app.config['RECAPTCHA_SITE_KEY']
-        ,RECAPTCHA_SECRET_KEY=app.config['RECAPTCHA_SECRET_KEY']
-        ,RECAPTCHA_PUBLIC_KEY=app.config['RECAPTCHA_SITE_KEY']
-        ,RECAPTCHA_PRIVATE_KEY=app.config['RECAPTCHA_SECRET_KEY']
+        # ,RECAPTCHA_SITE_KEY=app.config['RECAPTCHA_SITE_KEY']
+        # ,RECAPTCHA_SECRET_KEY=app.config['RECAPTCHA_SECRET_KEY']
+        ,RECAPTCHA_PUBLIC_KEY=app.config['RECAPTCHA_PUBLIC_KEY']
+        ,RECAPTCHA_PRIVATE_KEY=app.config['RECAPTCHA_PRIVATE_KEY']
         ,LAYOUTS_FOLDER=app.config['LAYOUTS_FOLDER']
         ,TEMPLATES_FOLDER=app.config['TEMPLATES_FOLDER']
         ,FORMS_FOLDER=app.config['FORMS_FOLDER']
@@ -931,7 +1029,15 @@ def inject_utility_functions():
 log_info('###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
 log_info('###SQLALCHEMY_POOL_TIMEOUT####', app.config['SQLALCHEMY_POOL_TIMEOUT'])
 log_info('###SQLALCHEMY_POOL_SIZE####', app.config['SQLALCHEMY_POOL_SIZE'])
-log_info('###FINISHED: FLASK-APP-created&ready###')
 #print('####################db.pool_recycle########',db.pool_recycle)
 #log_info('#############################################################')
+################################################################################
+################################################################################
+################################################################################
+## debug_config
+################################################################################
+################################################################################
+debug_config()
+################################################################################
+log_info('###FINISHED: FLASK-APP-created&ready###')
 log_module_finish('website_app:__init__')

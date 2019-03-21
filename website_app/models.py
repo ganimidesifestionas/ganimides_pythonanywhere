@@ -6,7 +6,6 @@ from werkzeug.security import check_password_hash
 from .import db
 from .import login_manager
 
-
 # Define a reusable base model for other database tables to inherit (will be part of all defined tables)
 class Base(db.Model):
     __abstract__  = True

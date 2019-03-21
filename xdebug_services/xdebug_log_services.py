@@ -2,13 +2,14 @@ import sys
 import re
 import inspect
 from datetime import datetime
-
+debug_log_services_eyecatch = 'app'
 default_debug_onoff = True
 default_debug_level = 9
 level = 0
 offset = ''
 trailer = ''
 Components = []
+ConfigurationItems = {}
 ModulesDictionary = {}
 components_stack = {}
 modules_NoDebug = {}
@@ -23,12 +24,13 @@ prefix = ''
 suffix = ''
 prefix_timestamp = False
 suffix_timestamp = False
-active_module = ''
 caller = ''
 thisModule = ''
+last_active_module = '?'
+active_folder = ''
+active_module = ''
 active_component = ''
 active_component_type = ''
-last_active_module = '?'
 active_component_debug_enabled = False
 active_component_debug_level = 9
 global_debug_enabled = True
@@ -594,10 +596,12 @@ def set_global_debug(onoff='ON'):
 ##########################################
 def init_this_module():
     global thisModule
+    global components_stack
     caller = sys._getframe(1)  # Obtain calling frame
     thisModule = caller.f_globals['__name__']
     message = '***log debug module set to ({})'.format(thisModule)
     log_info(message)
+    #components_stack = {}
 ##########################################
 def set_debug_defaults(onoff='ON',debuglevel=9):
     global default_debug_onoff
@@ -652,19 +656,29 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
     else:
         debugOnOff = False
         debugOnOff_Str = 'OFF'
+    found = False
+    for ix, item in enumerate(Components):
+        if item[0] == componentKey:
+            Components[ix] = [componentKey, CalculatedPriority, debugOnOff_Str, debugOnOff, debugLevel, folder, module, component, component_type]
+            found = True
+            #print(ix,componentKey,'already')
+    if not found:
+        Components.append([componentKey, CalculatedPriority, debugOnOff_Str, debugOnOff, debugLevel, folder, module, component, component_type])
 
-    Components.append([componentKey, CalculatedPriority, debugOnOff_Str, debugOnOff, debugLevel])
     # sort list with key the second array element which is the priority
     Components.sort(key=takeSecond, reverse=False) 
     #ModulesDictionary.update({componentKey:[debugOnOff, debugLevel]})
     #print(ModulesDictionary)
-    message = '***debug levels for module "{}" component "{}" compo-type "{}" set to ({}-{}) with priority {}.'.format(module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
+    message = '***debug levels for folder "{}" module "{}" component "{}" compo-type "{}" set to ({}-{}) with priority {}.'.format(folder, module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
     log_info(message)
 ##########################################
-def retrieve_activecomponent_debug_info(module_name='', component_name='', component_type=''):
+def retrieve_activecomponent_debug_info(folder_name='', module_name='', component_name='', component_type=''):
     global ModulesDictionary
     global Components
+    global active_folder
     global active_module
+    global active_component
+    global active_component_type
     global last_active_module
     global active_component_debug_enabled
     global active_component_debug_level
@@ -676,30 +690,71 @@ def retrieve_activecomponent_debug_info(module_name='', component_name='', compo
         active_component_debug_level = 0
         return
 
+    if not folder_name:
+        folder_name = active_folder
     if not module_name:
         module_name = active_module
     if not component_name:
         component_name = active_component
+    if not component_type:
+        component_type = active_component_type
+    if not(folder_name):
+        folder_name='*'
+    if not(module_name):
+        module_name='*'
+    if not(component_name):
+        component_name='*'
+    if not(component_type):
+        component_type='*'
 
-    activeKey = active_module+'.*'
-    if component_type:
-        activeKey = active_module+'.'+component_type
+    activeKey = module_name+'.'+component_name+'.'+component_type
+    #print('search for ',activeKey)
+
     #weighted_matches = []
     found = False
-    i = 0
-    for moduleArray in Components:
-        i = i + 1
+    for ix, moduleArray in enumerate(Components):
         module = moduleArray[0]
+        # print(ix, module,'----------------------------------------------')
+        # print (ix, 'folder',folder_name,'-->',moduleArray[5])
+        # print (ix, 'module',module_name,'-->',moduleArray[6])
+        # print (ix, 'component',component_name,'-->',moduleArray[7])
+        # print (ix, 'type',component_type,'-->',moduleArray[8])
+        # wrkmodule = module
         priority = moduleArray[1]
         onoffStr = moduleArray[2]
         onoff = moduleArray[3]
         debuglevel = moduleArray[4]
-        m = module.replace('*', r'[\w.]*')
-        p0 = r'^' + m + r'\.[\w.]*'
-        p1 = r'[\w.]*' + m + r'\.[\w.]*'
-        p2 = r'[\w.]*\.' + m + r'[\w.]*'
-        px = r'[\w.]*\.' + m + r'[\w.]*'
-        match = re.search(px, activeKey)
+        match = False
+        px=''
+        print(ix,module_name,moduleArray[6])
+        print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
+        print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
+        if folder_name == moduleArray[5] or moduleArray[5] in ('','*'):
+            if module_name == moduleArray[6] or moduleArray[6] in ('','*') \
+            or str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')) \
+            or str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')) >= 0:
+                # print(ix,module_name,moduleArray[6])
+                # print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
+                # print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
+                if component_name == moduleArray[7] or moduleArray[7] in ('','*'):
+                    if component_type == moduleArray[8] or moduleArray[8] in ('','*'):
+                        match = True
+
+        # m = module.replace('*', r'[\w]*')
+        # m = m.replace('.', r'\.')
+        # p0 = r'^' + m + r'\.[\w.]*'
+        # p1 = r'[\w.]*' + m + r'\.[\w.]*'
+        # p2 = r'[\w.]*\.' + m + r'[\w.]*'
+        # px = r'[\w.]*\.' + m + r'[\w.]*'
+        # px = r'[\w.]*\.' + m
+        # match = re.search(px, activeKey)
+        # #print(activeKey.find(module+'.'))
+        # #print(activeKey.find('.'+module+'.'), activeKey, module)
+        # wrkmodule=module.replace(activeKey,'')
+        # wrkmodule=module.replace('*','')
+        # wrkmodule=module.replace('.','')
+        # print(activeKey, module, '-->', wrkmodule)
+        
         # match0 = re.search(p0, activeKey)
         # match1 = re.search(p1, activeKey)
         # if match1:
@@ -715,7 +770,11 @@ def retrieve_activecomponent_debug_info(module_name='', component_name='', compo
 
         if match:
             found = True
-            #print ('xxxx', activeKey, i, module, 'MATCHED', onoff, debuglevel)
+            #print ('xxxx found', ix, activeKey,'-->',px, '-->', module, 'MATCHED', onoff, debuglevel)
+            # print ('folder',folder_name,'-->',moduleArray[5])
+            # print ('module',module_name,'-->',moduleArray[6])
+            # print ('component',component_name,'-->',moduleArray[7])
+            # print ('type',component_type,'-->',moduleArray[8])
             active_component_debug_enabled = onoff
             active_component_debug_level = debuglevel
         #else:
