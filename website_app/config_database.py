@@ -8,22 +8,23 @@ EYECATCH = 'DATABASE'
 
 #os.environ[COMPANY_NAME+'_'+APPLICATION_NAME+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
 #####################################################################
-EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT')
+EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT').replace("'",'')
 if not EXECUTION_ENVIRONMENT:
     EXECUTION_ENVIRONMENT = 'localhost'
-EXECUTION_MODE = os.environ.get('EXECUTION_MODE')
+EXECUTION_MODE = os.environ.get('EXECUTION_MODE').replace("'",'')
 #if not EXECUTION_MODE:
 #    EXECUTION_MODE = 'design'
-SERVER = os.environ.get('SERVER')
+SERVER = os.environ.get('SERVER').replace("'",'')
 if not SERVER:
    SERVER = 'localhost'
-DATABASE_SERVER = os.environ.get('DATABASE_SERVER')
+DATABASE_SERVER = os.environ.get('DATABASE_SERVER').replace("'",'')
 if not DATABASE_SERVER:
    DATABASE_SERVER = 'localhost'
-DATABASE_NAME = os.environ.get('DATABASE_NAME')
-DATABASE_USER = os.environ.get('DATABASE_USER')
-DATABASE_PASS = os.environ.get('DATABASE_PASS')
-DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX')
+DATABASE_NAME = os.environ.get('DATABASE_NAME').replace("'",'')
+DATABASE_USER = os.environ.get('DATABASE_USER').replace("'",'')
+print('@@@@@@@@@',DATABASE_USER)
+DATABASE_PASS = os.environ.get('DATABASE_PASS').replace("'",'')
+DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX').replace("'",'')
 if not DATABASE_CONNECTION_PREFIX:
     DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
 #####################################################################
@@ -132,7 +133,11 @@ pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = pythonanywhere_ifestionas_DA
 #####################################################################################################
 DATABASE_HOST_ADDRESS = DATABASE_SERVER
 DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX + DATABASE_USER + ':' + DATABASE_PASS + '@' + DATABASE_HOST_ADDRESS
+print('@@@@@@@@',DATABASE_USER,DATABASE_SERVER_URI)
+DATABASE_SERVER_URI = '{}{}:{}@{}'.format(DATABASE_CONNECTION_PREFIX, DATABASE_USER, DATABASE_PASS,DATABASE_HOST_ADDRESS)
+print('@@@@@@@@',DATABASE_USER,DATABASE_SERVER_URI)
 DATABASE_URI = DATABASE_SERVER_URI + '/' + DATABASE_NAME
+print('@@@@@@@@',DATABASE_URI)
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
 
 
