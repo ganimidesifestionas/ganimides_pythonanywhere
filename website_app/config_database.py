@@ -8,22 +8,20 @@ EYECATCH = 'DATABASE'
 
 #os.environ[COMPANY_NAME+'_'+APPLICATION_NAME+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
 #####################################################################
-EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT')
-if not EXECUTION_ENVIRONMENT:
-    EXECUTION_ENVIRONMENT = 'localhost'
-EXECUTION_MODE = os.environ.get('EXECUTION_MODE')
-#if not EXECUTION_MODE:
-#    EXECUTION_MODE = 'design'
-SERVER = os.environ.get('SERVER')
-if not SERVER:
-   SERVER = 'localhost'
-DATABASE_SERVER = os.environ.get('DATABASE_SERVER')
+EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT').replace("'", '')
+EXECUTION_MODE = os.environ.get('EXECUTION_MODE').replace("'", '')
+SERVER = os.environ.get('SERVER').replace("'", '')
+DATABASE_SERVER = os.environ.get('DATABASE_SERVER').replace("'", '')
+DATABASE_NAME = os.environ.get('DATABASE_NAME').replace("'", '')
+DATABASE_USER = os.environ.get('DATABASE_USER').replace("'", '')
+DATABASE_PASS = os.environ.get('DATABASE_PASS').replace("'", '')
+DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX').replace("'", '')
 if not DATABASE_SERVER:
    DATABASE_SERVER = 'localhost'
-DATABASE_NAME = os.environ.get('DATABASE_NAME')
-DATABASE_USER = os.environ.get('DATABASE_USER')
-DATABASE_PASS = os.environ.get('DATABASE_PASS')
-DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX')
+if not SERVER:
+   SERVER = 'localhost'
+if not EXECUTION_ENVIRONMENT:
+    EXECUTION_ENVIRONMENT = 'localhost'
 if not DATABASE_CONNECTION_PREFIX:
     DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
 #####################################################################
@@ -95,6 +93,7 @@ pythonanywhere_ifestionas_DATABASE_URI = pythonanywhere_ifestionas_DATABASE_SERV
 pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = pythonanywhere_ifestionas_DATABASE_URI
 
 #pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ifestionas:philea13@ifestionas.mysql.pythonanywhere-services.com/ifestionas$ganimides_db'
+#DATABASE_URI=                             'mysql+pymysql://''ifestionas':'philea13'@'ganimedes.mysql.pythonanywhere-services.com'/'ifestionas$ganimides_db' [config]
 #pythonanywhere_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimides:philea13@ganimides.mysql.pythonanywhere-services.com/ganimides$ganimides_db'
 #localhost_SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ifestionas_db'
 #localhost_SQLALCHEMY_TEST_DATABASE_URI = 'mysql+pymysql://ganimedes:philea13@localhost/ganimedes_db_test'
@@ -131,11 +130,11 @@ pythonanywhere_ifestionas_SQLALCHEMY_DATABASE_URI = pythonanywhere_ifestionas_DA
 #####################################################################################################
 #####################################################################################################
 DATABASE_HOST_ADDRESS = DATABASE_SERVER
-DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX + DATABASE_USER + ':' + DATABASE_PASS + '@' + DATABASE_HOST_ADDRESS
-DATABASE_URI = DATABASE_SERVER_URI + '/' + DATABASE_NAME
+#DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX + DATABASE_USER + ':' + DATABASE_PASS + '@' + DATABASE_HOST_ADDRESS
+#DATABASE_URI = DATABASE_SERVER_URI + '/' + DATABASE_NAME
+DATABASE_SERVER_URI = '{}{}:{}@{}'.format(DATABASE_CONNECTION_PREFIX, DATABASE_USER, DATABASE_PASS, DATABASE_HOST_ADDRESS)
+DATABASE_URI = '{}/{}'.format(DATABASE_SERVER_URI, DATABASE_NAME)
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
-
-
 #####################################################################################################
 #####################################################################################################
 #store in os.environ in order to be used in subsequent configuration
