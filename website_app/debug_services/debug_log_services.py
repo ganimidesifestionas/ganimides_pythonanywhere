@@ -130,6 +130,20 @@ def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
         message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
         print(message)
 ##########################################
+def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    caller = sys._getframe(1)  # Obtain calling frame
+    active_module = caller.f_globals['__name__']
+    retrieve_activecomponent_debug_info()
+    if (active_component_debug_enabled and active_component_debug_level > 3) or debug_log_services_level.find('CONFIG') >= 0:
+        msg = 'config_param: {0}={1}'.format(name, value)
+        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+        print(message)
+##########################################
 def log_url_param(name='', value=''):
     global offset
     global trailer

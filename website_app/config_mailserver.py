@@ -71,14 +71,14 @@ else:
         MAIL_APIKEY_PRIVATE = GOOGLE_MAIL_APIKEY_PRIVATE
 
 ################################################################
-log_variable('MAIL_SERVER', MAIL_SERVER)
-log_variable('MAIL_PORT', MAIL_PORT)
-log_variable('MAIL_USE_TLS', MAIL_USE_TLS)
-log_variable('MAIL_USE_SSL', MAIL_USE_SSL)
-log_variable('MAIL_USERNAME', MAIL_USERNAME)
-log_variable('MAIL_PASSWORD', MAIL_PASSWORD)
-log_variable('MAIL_APIKEY_PUBLIC', MAIL_APIKEY_PUBLIC)
-log_variable('MAIL_APIKEY_PRIVATE', MAIL_APIKEY_PRIVATE)
+log_config_param('MAIL_SERVER', MAIL_SERVER)
+log_config_param('MAIL_PORT', MAIL_PORT)
+log_config_param('MAIL_USE_TLS', MAIL_USE_TLS)
+log_config_param('MAIL_USE_SSL', MAIL_USE_SSL)
+log_config_param('MAIL_USERNAME', MAIL_USERNAME)
+log_config_param('MAIL_PASSWORD', MAIL_PASSWORD)
+log_config_param('MAIL_APIKEY_PUBLIC', MAIL_APIKEY_PUBLIC)
+log_config_param('MAIL_APIKEY_PRIVATE', MAIL_APIKEY_PRIVATE)
 ################################################################
 
 log_module_finish('mailserver_configuration')

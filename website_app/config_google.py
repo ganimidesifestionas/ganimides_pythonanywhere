@@ -57,19 +57,19 @@ RECAPTCHA_PRIVATE_KEY = GOOGLE_RECAPTCHA_PRIVATE_KEY
 os.environ['RECAPTCHA_PUBLIC_KEY'] = GOOGLE_RECAPTCHA_PUBLIC_KEY
 os.environ['RECAPTCHA_PRIVATE_KEY'] = GOOGLE_RECAPTCHA_PRIVATE_KEY
 
-log_variable('localhost_GOOGLE_RECAPTCHA_SITE_KEY', localhost_GOOGLE_RECAPTCHA_SITE_KEY)
-log_variable('localhost_GOOGLE_RECAPTCHA_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_SECRET_KEY)
-log_variable('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-log_variable('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+log_config_param('localhost_GOOGLE_RECAPTCHA_SITE_KEY', localhost_GOOGLE_RECAPTCHA_SITE_KEY)
+log_config_param('localhost_GOOGLE_RECAPTCHA_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_SECRET_KEY)
+log_config_param('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+log_config_param('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
 
-log_variable('pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY)
-log_variable('pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY)
-log_variable('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-log_variable('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY)
+log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY)
+log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
 
-log_variable('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
-log_variable('RECAPTCHA_PUBLIC_KEY', GOOGLE_RECAPTCHA_PUBLIC_KEY)
-log_variable('RECAPTCHA_PRIVATE_KEY', GOOGLE_RECAPTCHA_PRIVATE_KEY)
+log_config_param('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
+log_config_param('RECAPTCHA_PUBLIC_KEY', GOOGLE_RECAPTCHA_PUBLIC_KEY)
+log_config_param('RECAPTCHA_PRIVATE_KEY', GOOGLE_RECAPTCHA_PRIVATE_KEY)
 
 log_module_finish('google_configuration')
 
@@ -77,15 +77,15 @@ log_module_finish('google_configuration')
 #     log_module_start('google_configuration')
 #     EYECATCH = 'GOOGLE'
 #     print('localhost_GOOGLE_RECAPTCHA_SITE_KEY', Config.localhost_GOOGLE_RECAPTCHA_SITE_KEY)
-#     log_variable('localhost_GOOGLE_RECAPTCHA_SITE_KEY', Config.localhost_GOOGLE_RECAPTCHA_SITE_KEY)
-#     # log_variable('localhost_GOOGLE_RECAPTCHA_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_SECRET_KEY)
-#     # log_variable('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-#     # log_variable('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+#     log_config_param('localhost_GOOGLE_RECAPTCHA_SITE_KEY', Config.localhost_GOOGLE_RECAPTCHA_SITE_KEY)
+#     # log_config_param('localhost_GOOGLE_RECAPTCHA_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_SECRET_KEY)
+#     # log_config_param('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+#     # log_config_param('localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', localhost_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
 
-#     # log_variable('pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY)
-#     # log_variable('pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY)
-#     # log_variable('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
-#     # log_variable('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
+#     # log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SITE_KEY)
+#     # log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_SECRET_KEY)
+#     # log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SITE_KEY)
+#     # log_config_param('pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY', pythonanywhere_GOOGLE_RECAPTCHA_INVISIBLE_SECRET_KEY)
 #     log_module_finish('google_configuration')
 
 #####################################################

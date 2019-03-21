@@ -121,18 +121,18 @@ os.environ["DATABASE_URI"] = DATABASE_URI
 os.environ["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 
 ################################################################
-log_variable('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
-log_variable('EXECUTION_MODE', EXECUTION_MODE)
-log_variable('SERVER', SERVER)
-log_variable('DATABASE_SERVER', DATABASE_SERVER)
-log_variable('DATABASE_NAME', DATABASE_NAME)
-log_variable('DATABASE_USER', DATABASE_USER)
-log_variable('DATABASE_PASS', DATABASE_PASS)
-log_variable('DATABASE_CONNECTION_PREFIX', DATABASE_CONNECTION_PREFIX)
-log_variable('DATABASE_HOST_ADDRESS', DATABASE_HOST_ADDRESS)
-log_variable('DATABASE_SERVER_URI', DATABASE_SERVER_URI)
-log_variable('DATABASE_URI', DATABASE_URI)
-log_variable('SQLALCHEMY_DATABASE_URI', SQLALCHEMY_DATABASE_URI)
+log_config_param('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
+log_config_param('EXECUTION_MODE', EXECUTION_MODE)
+log_config_param('SERVER', SERVER)
+log_config_param('DATABASE_SERVER', DATABASE_SERVER)
+log_config_param('DATABASE_NAME', DATABASE_NAME)
+log_config_param('DATABASE_USER', DATABASE_USER)
+log_config_param('DATABASE_PASS', DATABASE_PASS)
+log_config_param('DATABASE_CONNECTION_PREFIX', DATABASE_CONNECTION_PREFIX)
+log_config_param('DATABASE_HOST_ADDRESS', DATABASE_HOST_ADDRESS)
+log_config_param('DATABASE_SERVER_URI', DATABASE_SERVER_URI)
+log_config_param('DATABASE_URI', DATABASE_URI)
+log_config_param('SQLALCHEMY_DATABASE_URI', SQLALCHEMY_DATABASE_URI)
 ################################################################
 
 log_module_finish('database_configuration')
