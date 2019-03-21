@@ -12,28 +12,49 @@ EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT')
 if not EXECUTION_ENVIRONMENT:
     EXECUTION_ENVIRONMENT = 'localhost'
 EXECUTION_MODE = os.environ.get('EXECUTION_MODE')
-if not EXECUTION_MODE:
-    EXECUTION_MODE = 'design'
-SERVER = os.environ.get('DATABASE_SERVER')
+#if not EXECUTION_MODE:
+#    EXECUTION_MODE = 'design'
+SERVER = os.environ.get('SERVER')
 if not SERVER:
-    SERVER = 'localhost'
+   SERVER = 'localhost'
+DATABASE_SERVER = os.environ.get('DATABASE_SERVER')
+if not DATABASE_SERVER:
+   DATABASE_SERVER = 'localhost'
+DATABASE_NAME = os.environ.get('DATABASE_NAME')
+DATABASE_USER = os.environ.get('DATABASE_USER')
+DATABASE_PASS = os.environ.get('DATABASE_PASS')
+DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX')
+if not DATABASE_CONNECTION_PREFIX:
+    DATABASE_CONNECTION_PREFIX = 'mysql+pymysql://'
 #####################################################################
 if EXECUTION_ENVIRONMENT == 'localhost':
-    if not SERVER:
-        SERVER = 'localhost'
     if not EXECUTION_MODE:
         EXECUTION_MODE = 'design'
+    if not SERVER:
+        SERVER = 'localhost'
+    if not DATABASE_SERVER:
+        DATABASE_SERVER = 'localhost'
+    if not DATABASE_NAME:
+        DATABASE_NAME = 'ifestionas_db'
 else:
     if EXECUTION_ENVIRONMENT == 'pythonanywhere':
-        if not SERVER:
-            SERVER = 'pythonanywhere-ifestionas'
         if not EXECUTION_MODE:
             EXECUTION_MODE = 'production'
-    else:
         if not SERVER:
-            SERVER = 'pythonanywhere-ganimedes'
+            SERVER = 'pythonanywhere'
+        if not DATABASE_SERVER:
+            DATABASE_SERVER = 'ganimedes.mysql.pythonanywhere-services.com'
+        if not DATABASE_NAME:
+            DATABASE_NAME = 'ifestionas$ganimides_db'
+    else:
         if not EXECUTION_MODE:
             EXECUTION_MODE = 'testing'
+        if not SERVER:
+            SERVER = 'heroku'
+        if not DATABASE_SERVER:
+            DATABASE_SERVER = 'ganimedes.mysql.pythonanywhere-services.com'
+        if not DATABASE_NAME:
+            DATABASE_NAME = 'ifestionas$ganimides_db'
 
 ################################################################
 ### database connections
@@ -42,7 +63,6 @@ else:
 
 #server:localhost , database:ifestionas_db
 localhost_DATABASE_HOST_ADDRESS = 'localhost'
-
 localhost_DATABASE_NAME = 'ifestionas_db'
 localhost_DATABASE_USER = 'ganimedes'
 localhost_DATABASE_PASS = 'philea13'
@@ -98,7 +118,7 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
     DATABASE_SERVER = pythonanywhere_ganimedes_DATABASE_SERVER
     DATABASE_SERVER_URI = pythonanywhere_ganimedes_DATABASE_SERVER_URI
     DATABASE_URI = pythonanywhere_ganimedes_DATABASE_URI
-    if SERVER == 'pythonanywhere-ifestionas':
+    if DATABASE_SERVER == 'pythonanywhere-ifestionas':
         DATABASE_HOST_ADDRESS = pythonanywhere_ifestionas_DATABASE_HOST_ADDRESS
         DATABASE_NAME = pythonanywhere_ifestionas_DATABASE_NAME
         DATABASE_USER = pythonanywhere_ifestionas_DATABASE_USER
@@ -107,9 +127,15 @@ if EXECUTION_ENVIRONMENT == 'pythonanywhere':
         DATABASE_SERVER = pythonanywhere_ifestionas_DATABASE_SERVER
         DATABASE_SERVER_URI = pythonanywhere_ifestionas_DATABASE_SERVER_URI
         DATABASE_URI = pythonanywhere_ifestionas_DATABASE_URI
-
+#####################################################################################################
+#####################################################################################################
+#####################################################################################################
+DATABASE_HOST_ADDRESS = DATABASE_SERVER
+DATABASE_SERVER_URI = DATABASE_CONNECTION_PREFIX + DATABASE_USER + ':' + DATABASE_PASS + '@' + DATABASE_HOST_ADDRESS
+DATABASE_URI = DATABASE_SERVER_URI + '/' + DATABASE_NAME
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
-
+#####################################################################################################
+#####################################################################################################
 #store in os.environ in order to be used in subsequent configuration
 os.environ["EXECUTION_ENVIRONMENT"] = EXECUTION_ENVIRONMENT
 os.environ["EXECUTION_MODE"] = EXECUTION_MODE
@@ -119,7 +145,6 @@ os.environ["DATABASE_NAME"] = DATABASE_NAME
 os.environ["DATABASE_SERVER_URI"] = DATABASE_SERVER_URI
 os.environ["DATABASE_URI"] = DATABASE_URI
 os.environ["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-
 ################################################################
 log_config_param('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
 log_config_param('EXECUTION_MODE', EXECUTION_MODE)
