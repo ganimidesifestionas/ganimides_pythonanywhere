@@ -35,8 +35,8 @@ if SERVER_INI_FILE and os.path.isfile(SERVER_INI_FILE) and os.access(SERVER_INI_
     config.read(SERVER_INI_FILE)
     for section in config:
         for key in config[section]:
-            os.environ[key] = config[section][key]
-            print('......config_param', key, config[section][key])
+            os.environ[key.upper()] = config[section][key]
+            print('......config_param', key.upper(), config[section][key])
 else:
     print('......warning: Either the file is missing or not readable', 'SERVER_INI_FILE =', SERVER_INI_FILE)
 print('...finish-server.ini')
