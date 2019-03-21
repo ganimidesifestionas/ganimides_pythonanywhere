@@ -113,7 +113,8 @@ def set_cookies_etc_before_request():
     if request.base_url.lower().find('/static/') >= 0 :
         return
 
-    log_module_start('@app.before_request')
+    log_request_start(request.base_url)
+    log_start('@app.before_request')
 
     log_info('save necessary cookies')
 
@@ -208,12 +209,13 @@ def set_cookies_etc_before_request():
     
     session.modified = True
 
-    log_module_finish('@app.before_request')
+    log_finish('@app.before_request')
 
 @app.after_request
 def set_cookies_after_request(response):
-    log_module_start('@app.after_request')
-    log_module_finish('@app.after_request')
+    log_start('@app.after_request')
+    log_finish('@app.after_request')
+    log_request_finish(request.base_url)
     return response
 
 ###########################################################################

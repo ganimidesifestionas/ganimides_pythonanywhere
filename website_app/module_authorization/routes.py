@@ -424,9 +424,9 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         try:
-            captcha_response = request.form['g-recaptcha-response']
+            captcha_response = request.form.get('g-recaptcha-response')
         except:
-            captcha_response = '????'
+            captcha_response = None
         if not(is_human(captcha_response)):
             # Log invalid attempts
             flash('Sorry ! Bots are not allowed.','error')
@@ -508,9 +508,9 @@ def login():
     if form.validate_on_submit():
         log_info('LoginForm form',request.method,'---NO-ERRORS')
         try:
-            captcha_response = request.form['g-recaptcha-response']
+            captcha_response = request.form.get('g-recaptcha-response')
         except:
-            captcha_response = '????'
+            captcha_response = None
         if not(is_human(captcha_response)):
             log_info('####Log invalid attempts### here')
             flash("Sorry ! Bots are not allowed.",'error')
@@ -1140,7 +1140,7 @@ def forgetpassword():
             form.email.data=current_user.email
     if request.method=='POST':
         if form.validate_on_submit():
-            captcha_response = request.form['g-recaptcha-response']
+            captcha_response = request.form.get('g-recaptcha-response')
             if not(is_human(captcha_response)):
                 flash("Sorry ! Bots are not allowed.",'error')
             else:
@@ -1432,9 +1432,9 @@ def loginForm():
         form.eyecatch.data = 'tispaolas'
         log_info('start server side validations...')
         try:
-            captcha_response = request.form['g-recaptcha-response']
+            captcha_response = request.form.get('g-recaptcha-response')
         except:
-            captcha_response = '???'
+            captcha_response = None
         if not(is_human(captcha_response)):
             flash("Sorry ! Bots are not allowed.",'error')
         else:
@@ -1500,9 +1500,9 @@ def registrationForm():
         dummy = 1
     else:
         try:
-            captcha_response = request.form['g-recaptcha-response']
+            captcha_response = request.form.get('g-recaptcha-response')
         except:
-            captcha_response = '???'
+            captcha_response = None
         if not(is_human(captcha_response)):
             flash("Sorry ! Bots are not allowed.",'error')
         else:
@@ -1627,10 +1627,10 @@ def forgetpasswordsplashform():
         form = forgetPasswordForm()
     else:
         form = forgetPasswordForm()
-        form.email.data=email
+        #form.email.data=email
 
     if form.validate_on_submit():
-        captcha_response = request.form['g-recaptcha-response']
+        captcha_response = request.form.get('g-recaptcha-response')
         if not(is_human(captcha_response)):
             flash("Sorry ! Bots are not allowed.",'error')
         else:

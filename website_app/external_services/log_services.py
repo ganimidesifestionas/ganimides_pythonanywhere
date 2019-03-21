@@ -64,7 +64,7 @@ def client_IP():
 
 
 def get_client_info_dictionary():
-    log_module_start('get_client_info_dictionary')
+    log_start('get_client_info_dictionary')
     clientDictionary = {}
     if 'language' in session:
         lang = session['language']
@@ -91,11 +91,11 @@ def get_client_info_dictionary():
     clientDictionary.update({'lat' : lat})
     clientDictionary.update({'lon' : lon})
     log_variable('clientDictionary',clientDictionary)
-    log_module_finish('get_client_info_dictionary')
+    log_finish('get_client_info_dictionary')
     return clientDictionary
 
 def set_geolocation_from_ip_on_visitpoint(ip, visitpoint):
-    log_module_start('set_geolocation_from_ip_on_visitpoint')
+    log_start('set_geolocation_from_ip_on_visitpoint')
 
     ipa_info = get_geolocation_info_from_IP(ip)
     if ipa_info:
@@ -117,10 +117,10 @@ def set_geolocation_from_ip_on_visitpoint(ip, visitpoint):
         # visitpoint.currency = ipa_info['currency']
         # visitpoint.connection = ipa_info['connection']
         # visitpoint.security = ipa_info['security']
-        log_module_finish('set_geolocation_from_ip_on_visitpoint')
+        log_finish('set_geolocation_from_ip_on_visitpoint')
 
 def set_geolocation_info_on_visitpoint(lat,lon,visitpoint):
-    log_module_start('set_geolocation_info_on_visitpoint')
+    log_start('set_geolocation_info_on_visitpoint')
     geolocation_info = get_geolocation_info(lat, lon)
     if geolocation_info:
         visitpoint.geolocation_type = 'geolocation'
@@ -147,7 +147,7 @@ def set_geolocation_info_on_visitpoint(lat,lon,visitpoint):
         # visitpoint.currency = geolocation_info['currency']
         # visitpoint.connection = geolocation_info['connection']
         # visitpoint.security = geolocation_info['security']
-    log_module_finish('set_geolocation_info_on_visitpoint')
+    log_finish('set_geolocation_info_on_visitpoint')
 # def xget_IPA_info(clientip):
 #     print('###'+__name__+'###', 'get_IPA_info', 'clientip =',clientip)
 #     if not clientip:
@@ -341,7 +341,7 @@ def get_next_visitNumber():
 ##########################################################################################################
 def log_visitpoint():
     #print('###'+__name__+'###', 'log_visitpoint [start]', 'session clientIPA=',session.get('clientIPA'))
-    log_module_start('log_visitpoint')
+    log_start('log_visitpoint')
 
     clientDictionary = get_client_info_dictionary()
     clientip = clientDictionary['clientip']
@@ -423,11 +423,11 @@ def log_visitpoint():
             session['longitude'] = str(visitpoint.longitude)
             session.modified = True
     #print('###'+__name__+'###','log_visitpoint [finish]', visitpoint)
-    log_module_finish('log_visitpoint')
+    log_finish('log_visitpoint')
     return visitpoint
 ##########################################################################################################
 def log_visit(visitpoint=None):
-    log_module_start('log_visit')
+    log_start('log_visit')
     if 'VisitID' not in session:
         visitpoint = log_visitpoint()
         # if not visitpoint or ('VisitPointID' not in session) or not session.get('VisitPointID') or not session.get('clientIPA'):
@@ -467,11 +467,11 @@ def log_visit(visitpoint=None):
         if 'VisitNumber' not in session:
             session['VisitNumber'] = visit.visitNumber
     #print('###'+__name__+'###', 'log_visit [finish]', visit)
-    log_module_finish('log_visit')
+    log_finish('log_visit')
     return visit
 ##########################################################################################################
 def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', pageTemplate_page='', pageTemplate_form=''):
-    log_module_start('log_page_visit')
+    log_start('log_page_visit')
     visit = log_visit()
     #visitid=visit.id
     visitid=session.get('VisitID')
@@ -500,13 +500,17 @@ def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', 
     db.session.commit()
     session['page_visit_id'] = page_visit.id
     #print('###'+__name__+'###', 'log_page_visit [finish]', page_visit)
-    log_module_finish('log_page_visit')
+    log_finish('log_page_visit')
+
+##########################################################################################################
+##########################################################################################################
+##########################################################################################################
+### log functions used in rootes and views
+##########################################################################################################
+##########################################################################################################
 ##########################################################################################################
 def set_geolocation(latitude, longitude):
-    set_log_suffix_timestamp(0)
-    set_log_suffix(__name__,'')
-    log_module_start('set_geolocation')
-    #print('###'+__name__+'###', 'set_geolocation [start]')
+    log_start('set_geolocation')
     session['geolocation'] = [latitude, longitude]
     visitpoint = log_visitpoint()
     if 'VisitID' not in session:
@@ -517,16 +521,10 @@ def set_geolocation(latitude, longitude):
         visitpoint_ID = visitpoint.id
         db.session.commit()
     set_geolocation_info_on_visitpoint(latitude, longitude, visitpoint)
-    #print('###'+__name__+'###', 'set_geolocation [finish]',visit, visitpoint)
-    log_module_finish('set_geolocation')
-##########################################################################################################
-##########################################################################################################
-##########################################################################################################
-### log functions used in rootes and views
-##########################################################################################################
-##########################################################################################################
+    log_finish('set_geolocation')
 ##########################################################################################################
 def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
+    #log_start('log_page')
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')
     session['pageID'] = pageID
     session['lastpage'] = pageFunction
@@ -556,44 +554,47 @@ def log_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page
         , request.url
         , session.get('active_module')
         )
-    #print(msg)
     log_info(msg)
     #print(session['clientIPA'], 'page', session['pageID'], request.method, request.url, '<--'+session.get('active_module'))
     log_page_visit('page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s page:%s %s %s %s', session['clientIPA'], session['pageID'], request.method, request.url, '### '+__name__+' ###')
     #app.logger.info('***page={0}***ip={1}***visit={2}***'.format(pageID, session.get('clientIPA'), session.get('VisitNumber')))
+    #log_finish('log_page')
 
 def log_route(pageName, pageFunction='', pageTemplate='', pageTemplate_page='', page_template_form=''):
+    #log_start('log_route')
     routeID = pageName.upper().replace('_', '-').replace(' ', '-')
-    print(session['clientIPA'], 'route', routeID, request.method, request.url, '<--'+session.get('active_module'))
+    msg = '{} {} [{}] [{}] {} <--{}'.format(
+        session['clientIPA']
+        , 'route'
+        , routeID
+        , request.method
+        , request.url
+        , session.get('active_module')
+        )
+    log_info(msg)
+    #print(session['clientIPA'], 'route', routeID, request.method, request.url, '<--'+session.get('active_module'))
     log_page_visit('route', routeID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('--%s route:%s %s %s %s', session['clientIPA'], session['routeID'], request.method, request.url, '### '+__name__+' ###')
     #app.logger.info('***route={0}***ip={1}***visit={2}***'.format(routeID, session.get('clientIPA'), session.get('VisitNumber')))
+    #log_finish('log_route')
 
 def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
+    #log_start('log_splash_page')
     pageID = pageName.upper().replace('_', '-').replace(' ', '-')
-    print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '<--'+session.get('active_module'))
+    msg = '{} {} [{}] [{}] {} <--{}'.format(
+        session['clientIPA']
+        , 'splash-page'
+        , pageID
+        , request.method
+        , request.url
+        , session.get('active_module')
+        )
+    log_info(msg)
+    #print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '<--'+session.get('active_module'))
     log_page_visit('splash_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
     #app.logger.info('***splash={0}***ip={1}***visit={2}***'.format(pageID, session.get('clientIPA'), session.get('VisitNumber')))
-
-# def log_info(msg):
-#     print('   ', msg)
-
-# def log_variable(name='', value=''):
-#     msg = '{0}={1}'.format(name, value)
-#     print('   ', 'var', msg)
-
-# def log_url_param(name='', value=''):
-#     msg = '{0}={1}'.format(name, value)
-#     print('   ', 'url-param', msg)
-
-# def log_module_start(module_name):
-#     print(app.modules_stack, 'start', module_name)
-#     app.modules_stack.append(module_name)
-
-# def log_module_finish(module_name):
-#     print(app.modules_stack, 'finish', module_name)
-#     app.modules_stack.pop(len(app.modules_stack))
+    #log_finish('log_splash_page')
 
 
 if __name__ == '__main__':
