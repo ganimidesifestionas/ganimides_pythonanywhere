@@ -7,7 +7,7 @@ log_module_start('database_configuration')
 EYECATCH = 'DATABASE'
 
 #os.environ[COMPANY_NAME+'_'+APPLICATION_NAME+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
-#####################################################################
+######################################################################
 EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT').replace("'", '')
 EXECUTION_MODE = os.environ.get('EXECUTION_MODE').replace("'", '')
 SERVER = os.environ.get('SERVER').replace("'", '')
