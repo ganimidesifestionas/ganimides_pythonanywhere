@@ -33,8 +33,12 @@ if SERVER_INI_FILE and os.path.isfile(SERVER_INI_FILE) and os.access(SERVER_INI_
     os.environ["SERVER_INI_FILE"] = SERVER_INI_FILE
     config = configparser.ConfigParser()
     config.read(SERVER_INI_FILE)
+    i=0
     for section in config:
+        i=i+1
+        k=0
         for key in config[section]:
+            k=k+1
             os.environ[key.upper()] = config[section][key]
             print('......config_param', key.upper(), config[section][key])
 else:
