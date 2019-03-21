@@ -204,10 +204,13 @@ app.config.from_pyfile(config_file, silent=False) # instance-folders configurati
 
 #########################################################################################
 config_name = app.config.get('EXECUTION_ENVIRONMENT')
+print('@@@@@@@@@-1',config_name)
 if os.getenv('EXECUTION_ENVIRONMENT', ''):
     config_name = os.getenv('EXECUTION_ENVIRONMENT')
+    print('@@@@@@@@@-2',config_name)
 if not config_name:
     config_name = 'localhost'
+    print('@@@@@@@@@-3',config_name)
 config_name = config_name.replace("'",'')
 #log_info('CONFIG-STEP-2 EXECUTION_ENVIRONMENT', config_name, 'from environment_config in .config.py')
 app.config.from_object(environment_config[config_name]) # object-based default configuration
