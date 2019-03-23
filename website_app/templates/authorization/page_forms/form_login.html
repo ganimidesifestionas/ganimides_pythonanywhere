@@ -1,13 +1,16 @@
 {% set form_title='login' %}
 {% set form_onclose_url='' %}
-
+{% set form_close_link='' %}
+{% set form_close_caption='' %}
 <form class="" id="LoginForm" action="{{ url_for('authorization.loginForm') }}" method="post" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ loginform.hidden_tag() }}
         <!--header-->
         <div class="modal-header align-items-center">
             {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {#% if is_splashform %#}
             {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {#% endif %#}
         </div>
 
         <!--body-->
@@ -16,7 +19,7 @@
                 <div class="p-0">
                     {% include [language_fullpathfile('messages_display_errors_exceptfielderrors.html',CURRENT_LANGUAGE,'COMPONENT'), fullpathfile('messages_display_errors_exceptfielderrors.html','COMPONENT','authorization')] %}
                     <div class="p-0 left">
-                        <!--===================================================-->
+                        <!--================cccc===================================-->
                         <!--
                         <div class="form-group d-flex flex-column">
                             {{ loginform.eyecatch.label }}
@@ -79,11 +82,12 @@
 
         <!-- form footer -->
         <div class="modal-footer d-flex justify-content-end">
-            <div class="">
+            <div class="mr-2">
                 {% include include_files('form_close_button.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
             </div>
             <div class="">
                 {{loginform.submit(class="btn btn-sm btn-warning button_submit")}}
+                {#% include include_files('form_submit_button.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %#}
             </div>
         </div>
 

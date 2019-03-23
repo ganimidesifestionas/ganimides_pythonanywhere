@@ -1,11 +1,14 @@
+import os
 import sys
 import re
 import inspect
 from datetime import datetime
-debug_log_services_eyecatch = 'app'
-debug_log_services_level = 'WARNING'
+global_debug_OFF = False
+global_debug_enabled = True
+debug_log_services_level = 'WARNING;ERROR;IMPORTANT'
 default_debug_onoff = True
 default_debug_level = 9
+debug_log_services_eyecatch = '[]'
 level = 0
 offset = ''
 trailer = ''
@@ -34,8 +37,6 @@ active_component = ''
 active_component_type = ''
 active_component_debug_enabled = False
 active_component_debug_level = 9
-global_debug_enabled = True
-
 ##########################################
 def log_info(msg, m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -43,12 +44,13 @@ def log_info(msg, m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    retrieve_activecomponent_debug_info()
-    if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('INFO') >= 0:
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('INFO') >= 0:
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
 ##########################################
 def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -56,16 +58,17 @@ def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    # retrieve_activecomponent_debug_info()
-    # if active_component_debug_enabled and active_component_debug_level > 1:
-    if (active_component_debug_enabled and active_component_debug_level > 1) \
-        or debug_log_services_level.find('WARNING') >= 0 \
-        or debug_log_services_level.find('INFO') >= 0:
-        msg = 'WARNING:{}'.format(msg)
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        # retrieve_activecomponent_debug_info()
+        # if active_component_debug_enabled and active_component_debug_level > 1:
+        if (active_component_debug_enabled and active_component_debug_level > 1) \
+            or debug_log_services_level.find('WARNING') >= 0 \
+            or debug_log_services_level.find('INFO') >= 0:
+            msg = 'WARNING:{}'.format(msg)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
 ##########################################
 def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -73,17 +76,12 @@ def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    #retrieve_activecomponent_debug_info()
-    #if active_component_debug_enabled and active_component_debug_level > 0:
-        #caller = sys._getframe(1)  # Obtain calling frame
-        #caller = inspect.currentframe().f_back
-        #print("Called from module", caller.f_globals['__name__'])
-        #print(offset+'ERROR:'+msg , caller.f_globals['__name__'], m1, m2 ,m3 ,m4, m5, trailer)
-    msg = 'ERROR:{}'.format(msg)
-    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-    print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        msg = 'ERROR:{}'.format(msg)
+        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+        print(message)
 ##########################################
 def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -91,13 +89,47 @@ def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    retrieve_activecomponent_debug_info()
-    if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
-        msg = '{0}={1}'.format(name, value)
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
+            msg = '{0}={1}'.format(name, value)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
+##########################################
+def log_env_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
+            msg = 'env_param: {0}={1}'.format(name, value)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
+##########################################
+def log_file(name='', value='', m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) \
+            or debug_log_services_level.find('VARIABLE') >=0 \
+            or debug_log_services_level.find('FILE') >=0 \
+            :
+            msg = 'file-{0}={1}'.format(name, value)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
 ##########################################
 def log_variable_short(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -105,16 +137,17 @@ def log_variable_short(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    retrieve_activecomponent_debug_info()
-    if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
-        valueStr = str(value)
-        if len(valueStr)>37:
-            valueStr = valueStr[0:37] + '...' 
-        msg = '{0}={1}'.format(name, valueStr)
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
+            valueStr = str(value)
+            if len(valueStr)>37:
+                valueStr = valueStr[0:37] + '...' 
+            msg = '{0}={1}'.format(name, valueStr)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
 ##########################################
 def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -122,13 +155,14 @@ def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    retrieve_activecomponent_debug_info()
-    if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('PARAM')>=0:
-        msg = 'param: {0}={1}'.format(name, value)
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('PARAM')>=0:
+            msg = 'param: {0}={1}'.format(name, value)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
 ##########################################
 def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -136,13 +170,33 @@ def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    retrieve_activecomponent_debug_info()
-    if (active_component_debug_enabled and active_component_debug_level > 3) or debug_log_services_level.find('CONFIG') >= 0:
-        msg = 'config_param: {0}={1}'.format(name, value)
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 3) or debug_log_services_level.find('CONFIG') >= 0:
+            msg = 'config_param: {0}={1}'.format(name, value)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
+##########################################
+def log_important(msg, m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        # retrieve_activecomponent_debug_info()
+        # if active_component_debug_enabled and active_component_debug_level > 1:
+        if (active_component_debug_enabled and active_component_debug_level > 1) \
+            or debug_log_services_level.find('IMPORTANT') >= 0 \
+            or debug_log_services_level.find('WARNING') >= 0 \
+            or debug_log_services_level.find('INFO') >= 0:
+            msg = 'WARNING:{}'.format(msg)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
 ##########################################
 def log_url_param(name='', value=''):
     global offset
@@ -150,13 +204,14 @@ def log_url_param(name='', value=''):
     global active_module
     global caller
     global debug_log_services_level
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-    retrieve_activecomponent_debug_info()
-    if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('URL')>=0:
-        msg = 'url-param {0}={1}'.format(name, value)
-        message = formatted_message(msg=msg)
-        print(message)
+    if global_debug_enabled:
+        caller = sys._getframe(1)  # Obtain calling frame
+        active_module = caller.f_globals['__name__']
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('URL')>=0:
+            msg = 'url-param {0}={1}'.format(name, value)
+            message = formatted_message(msg=msg)
+            print(message)
 ##########################################
 def log_start(component_name='', component_type=''):
     global active_module
@@ -171,28 +226,28 @@ def log_start(component_name='', component_type=''):
     global active_component_debug_enabled
     global active_component_debug_level
     global debug_log_services_level
+    if global_debug_enabled:
+        active_component = component_name
+        active_component_type = component_type
+        xcaller = sys._getframe(1)  # Obtain calling frame
+        xactive_moduleX = xcaller.f_globals['__name__']
+        if thisModule != xactive_moduleX:
+            caller = xcaller
+            active_module = xactive_moduleX
 
-    active_component = component_name
-    active_component_type = component_type
-    xcaller = sys._getframe(1)  # Obtain calling frame
-    xactive_moduleX = xcaller.f_globals['__name__']
-    if thisModule != xactive_moduleX:
-        caller = xcaller
-        active_module = xactive_moduleX
+        retrieve_activecomponent_debug_info(active_module, active_component, active_component_type)
+        if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
+            if active_component_type:
+                ctype = active_component_type + '-'
+            else:
+                ctype = ''
+            msg = '{}start [{}] from'.format(ctype, component_name)
+            message = formatted_message(msg=msg)
+            print(message)
 
-    retrieve_activecomponent_debug_info(active_module, active_component, active_component_type)
-    if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
-        if active_component_type:
-            ctype = active_component_type + '-'
-        else:
-            ctype = ''
-        msg = '{}start [{}] from'.format(ctype, component_name)
-        message = formatted_message(msg=msg)
-        print(message)
-
-    level = level + 1
-    components_stack.update({level : [active_component, active_module, active_component_type]})
-    offset = set_offset(level)
+        level = level + 1
+        components_stack.update({level : [active_component, active_module, active_component_type]})
+        offset = set_offset(level)
 ##########################################
 def log_finish(component_name='', component_type=''):
     global offset
@@ -207,73 +262,73 @@ def log_finish(component_name='', component_type=''):
     global active_component_debug_enabled
     global active_component_debug_level
     global debug_log_services_level
+    if global_debug_enabled:
+        xcaller = sys._getframe(1)  # Obtain calling frame
+        xactive_moduleX = xcaller.f_globals['__name__']
+        if thisModule != xactive_moduleX:
+            caller = xcaller
+            active_module = xactive_moduleX
 
-    xcaller = sys._getframe(1)  # Obtain calling frame
-    xactive_moduleX = xcaller.f_globals['__name__']
-    if thisModule != xactive_moduleX:
-        caller = xcaller
-        active_module = xactive_moduleX
+        last_lev = -1
+        last_component = '?'
+        last_module = '?'
+        last_component_type = '?'
 
-    last_lev = -1
-    last_component = '?'
-    last_module = '?'
-    last_component_type = '?'
+        lev = -1
+        for z in components_stack.items():
+            last_lev = z[0]
+            x = z[1]
+            last_component = x[0]
+            last_module = x[1]
+            last_component_type = x[2]
+            #print('==',x[0],x[1],x[2])
+            if x[0] == component_name and x[1] == active_module:
+                lev = z[0]
+                component_name = x[0]
+                module_name = x[1]
+                component_type = x[2]
+        
+        #if not found or not privided take the last
+        if lev == -1 : 
+            lev = last_lev
+            component_name = last_component
+            module_name = last_module
+            component_type = last_component_type
 
-    lev = -1
-    for z in components_stack.items():
-        last_lev = z[0]
-        x = z[1]
-        last_component = x[0]
-        last_module = x[1]
-        last_component_type = x[2]
-        #print('==',x[0],x[1],x[2])
-        if x[0] == component_name and x[1] == active_module:
-            lev = z[0]
-            component_name = x[0]
-            module_name = x[1]
-            component_type = x[2]
+        offset = set_offset(lev-1)
+
+        retrieve_activecomponent_debug_info(module_name, component_name, component_type)
+        if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
+            if component_type:
+                ctype = component_type + '-'
+            else:
+                ctype = ''
+            msg = '{}finish [{}] from'.format(ctype, component_name)
+            message = formatted_message(msg=msg)
+            print(message)
     
-    #if not found or not privided take the last
-    if lev == -1 : 
-        lev = last_lev
-        component_name = last_component
-        module_name = last_module
-        component_type = last_component_type
+        rem = 0
+        for x in components_stack.items():
+            if x[0] >= lev:
+                rem = rem +1
+            else:        
+                level = x[0]
 
-    offset = set_offset(lev-1)
+        #print('rem',rem,level)
+        i = 1
+        while i <= rem:
+            components_stack.popitem()    
+            i = i + 1
 
-    retrieve_activecomponent_debug_info(module_name, component_name, component_type)
-    if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
-        if component_type:
-            ctype = component_type + '-'
-        else:
-            ctype = ''
-        msg = '{}finish [{}] from'.format(ctype, component_name)
-        message = formatted_message(msg=msg)
-        print(message)
-   
-    rem = 0
-    for x in components_stack.items():
-        if x[0] >= lev:
-            rem = rem +1
-        else:        
-            level = x[0]
+        level = 0
+        for z in components_stack.items():
+            level = z[0]
+            x = z[1]
+            active_component = x[0]
+            active_module = x[1]
+            active_component_type = x[2]
 
-    #print('rem',rem,level)
-    i = 1
-    while i <= rem:
-        components_stack.popitem()    
-        i = i + 1
-
-    level = 0
-    for z in components_stack.items():
-        level = z[0]
-        x = z[1]
-        active_component = x[0]
-        active_module = x[1]
-        active_component_type = x[2]
-
-    offset = set_offset(level)
+        offset = set_offset(level)
  #########################################
 def set_offset(lev):
     global offset
@@ -387,7 +442,6 @@ def log_process_finish(component_name=''):
     caller = sys._getframe(1)  # Obtain calling frame
     active_module = caller.f_globals['__name__']
     log_finish(component_name, component_type='process')
-
 ###############################################
 ###############################################
 ###############################################
@@ -703,6 +757,10 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
     Components.sort(key=takeSecond, reverse=False) 
     #ModulesDictionary.update({componentKey:[debugOnOff, debugLevel]})
     #print(ModulesDictionary)
+    if component_type and component_type != '*':
+        cfgkey = 'DEBUG_'+component_type.upper()
+        os.environ[cfgkey] = debugOnOff_Str
+
     message = 'debug levels for folder "{}" module "{}" component "{}" compo-type "{}" set to ({}-{}) priority {}.'.format(folder, module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
     log_info(message)
 ##########################################

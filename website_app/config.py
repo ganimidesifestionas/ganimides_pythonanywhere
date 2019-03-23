@@ -2,8 +2,6 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 filename = os.path.basename(__file__)
-RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', '')
-print ('xxxxxxxxxxx',RECAPTCHA_PUBLIC_KEY)
 
 class Config(object):
     """Common configurations"""
@@ -13,10 +11,15 @@ class Config(object):
     #    
     EYECATCH = 'MYAPP'
     DEBUG = True
+    DEBUG_TYPES = {}
+    DEBUG_VERSION = ''
+    DEBUG_INCLUDES = False
+    FLASK_DEBUG = 1
 
     # Secret key for signing cookies
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'appconfig-aeiotheosomegasgeometreip9Bv<3Eid9%$i01'
     SECURITY_PASSWORD_SALT = 'appconfig-aeiotheosomegasgeometreip9Bvtispaolas'
+
     # company, application ids
     COMPANY_NAME = os.environ.get('COMPANY_NAME', 'Leandrou Technology Forward')
     APPLICATION_NAME = os.environ.get('APPLICATION_NAME', 'WEBSITE')
@@ -66,8 +69,6 @@ class Config(object):
         ,'gr': 'greece.png'
         ,'cy': 'cyprus.png'
     }
-    DEBUG_TYPES = {}
-    DEBUG_VERSION = ''
 
     SPLASHFORM_LOGIN = 'splashform_login.html'
     SPLASHFORM_REGISTRATION = 'splashform_registration.html'
@@ -148,6 +149,11 @@ class Config(object):
     # Use a secure, unique and absolutely secret key for signing the data.
     CSRF_SESSION_KEY = "aeiotheosomegasgeometreibobbistarr"
 
+    @classmethod
+    def init_cfg(cls, app):
+        if os.environ.get('DATABASE_DERVER'):
+            print('@@@@@@@@@@@',os.environ.get('DATABASE_DERVER'))
+
 #    @staticmethod
 #    def init_app(app):
 #        pass
@@ -155,8 +161,9 @@ class Config(object):
 class DesignConfig(Config):
     """Design mode configurations"""
     EYECATCH = 'MYAPP-DESIGN'
-    DEBUG = False
+    DEBUG = True
     TESTING = True
+    DEBUG_INCLUDES = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -170,8 +177,9 @@ class DesignConfig(Config):
 class DevelopmentConfig(Config):
     """Development mode configurations"""
     EYECATCH = 'MYAPP-DEVELOPMENT'
-    DEBUG = False
+    DEBUG = True
     TESTING = True
+    DEBUG_INCLUDES = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -185,21 +193,21 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     """Testing mode configurations"""
     EYECATCH = 'MYAPP-TESTING'
-    DEBUG = False
+    DEBUG = True
     TESTING = True
+    DEBUG_INCLUDES = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    DEBUG_TYPES = {
-        '*'
-        }
-    DEBUG_VERSION = '32'
+    DEBUG_TYPES = {}
+    DEBUG_VERSION = ''
 
 class SandBoxConfig(Config):
     """Sandbox mode configurations"""
     EYECATCH = 'MYAPP-SANDBOX'
-    DEBUG = False
+    DEBUG = True
     TESTING = True
+    DEBUG_INCLUDES = False
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -211,6 +219,7 @@ class ProductionConfig(Config):
     EYECATCH = 'MYAPP-PRODUCTION'
     DEBUG = False
     TESTING = False
+    DEBUG_INCLUDES = False
     WTF_CSRF_ENABLED = True
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -220,15 +229,14 @@ class ProductionConfig(Config):
 class FlaskConfig(Config):
     """Flask configurations"""
     EYECATCH = 'APP-FLASK'
-    DEBUG = False
+    DEBUG = True
     TESTING = True
+    FLASK_DEBUG = 1
     RECAPTCHA_IS_GOOGLE = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    DEBUG_TYPES = {
-        '*'
-        }
+    DEBUG_TYPES = {}
     DEBUG_VERSION = ''
 
 class xProductionConfig(Config):

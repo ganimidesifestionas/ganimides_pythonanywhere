@@ -19,7 +19,7 @@ app.app_context().push()
 from .models import Subscriber, ContactMessage
 from .. debug_services.debug_log_services import *
 
-#log_module_start('authorization_database')
+#log_start('authorization_database')
 
 DATABASE_SERVER = app.config['DATABASE_SERVER']
 DATABASE_SERVER_URI = app.config['DATABASE_SERVER_URI']
@@ -33,7 +33,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
 def create_database():
-    log_module_start('create_database')
+    log_start('create_database')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -55,10 +55,10 @@ def create_database():
     # dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
     # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
     dbserver_engine.dispose()
-    log_module_finish('create_database')
+    log_finish('create_database')
 
 def create_all_tables_auto():
-    log_module_start('create_all_tables_auto')
+    log_start('create_all_tables_auto')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -80,10 +80,10 @@ def create_all_tables_auto():
             created = created + 1
     log_info("{0} tables created in database {1}".format(created,DATABASE_NAME))
     db_engine.dispose()
-    log_module_finish('create_all_tables_auto')
+    log_finish('create_all_tables_auto')
 
 def create_all_tables_manually():
-    log_module_start('create_all_tables_manually')
+    log_start('create_all_tables_manually')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -113,11 +113,11 @@ def create_all_tables_manually():
 
     db_engine.dispose()
     log_info("{0} tables created in database {1}".format(created,DATABASE_NAME))
-    log_module_finish('create_all_tables_manually')
+    log_finish('create_all_tables_manually')
 
 
 def create_subscribers():
-    log_module_start('create_subscribers')
+    log_start('create_subscribers')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -139,7 +139,7 @@ def create_subscribers():
             log_info('subscriber created:', thisUser)
     #db.session.commit()
     log_info("{0} Subscribers created in database {1}".format(created, DATABASE_NAME))
-    log_module_finish('create_subscribers')
+    log_finish('create_subscribers')
 
 def list_tables(db_engine):
     global DATABASE_SERVER
@@ -168,7 +168,7 @@ def tables_list(db_engine):
     return tables_list
 
 def init_database():
-    log_module_start('init_database')
+    log_start('init_database')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -179,9 +179,9 @@ def init_database():
     create_all_tables_auto()
     #create_all_tables_manually()
     #create_subscribers()
-    log_module_finish('init_database')
+    log_finish('init_database')
 
-#log_module_finish('authorization_database')
+#log_finish('authorization_database')
 
 if __name__ == '__main__':
     cls()# now, to clear the screen

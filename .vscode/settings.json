@@ -3,12 +3,24 @@
 	// Maximum amount of characters per line (0 = disable).
     ,"html.format.wrapLineLength": 0
     
+    /*
     ,"python.formatting.autopep8Args": [
         "--max-line-length", "240", "--experimental"
-    ]
+    ],
+    */
+    
     /*
     ,"python.linting.pylintArgs": [
         "--load-plugins", "pylint_django"
     ]
     */
+    
+    ,"python.linting.pylintArgs": [
+        "--max-line-length=255"
+    ]
+
+    ,"python.formatting.autopep8Args": [
+        "--max-line-length=255"
+    ]
+
 }

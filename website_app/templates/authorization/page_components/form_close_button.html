@@ -1,8 +1,8 @@
+<!--START:form_close_button.html-->
 {% if form_close_link %}
-<input class="btn btn-sm mybtn-close mybtn-submit mr-2" type=button 
-onClick="location.href='{{ url_for(form_close_link) }}'" 
-value='Close'>
+<input class="btn btn-sm btn_close mr-2" type=button onClick="location.href='{{ url_for(form_close_link) }}'" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" title='{{form_close_caption}}' value='Close'>
 {% else %}
-<button type="button" class="btn btn-sm btn-default mybtn-close mr-2" data-dismiss="modal">Close</button>
+{% set url=session.get("lastpageURL") %}
+<input class="btn btn-sm btn_close mr-2" type=button onClick="location.href='{{ url }}'" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" title='{{form_close_caption}}' value='Close'>
 {% endif %}
-
+<!--END:form_close_button.html-->

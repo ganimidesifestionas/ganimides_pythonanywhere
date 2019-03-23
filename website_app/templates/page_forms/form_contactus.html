@@ -1,6 +1,7 @@
 {% set form_title='contact us' %}
 {% set form_onclose_url='' %}
-
+{% set form_close_link='' %}
+{% set form_close_caption='' %}
 {% set secure_text='Your information is secured and protected.' %}
 {% set include_mcafee='Y' %}
 <form style="xwidth:100%" class="d-flex flex-column contactus_form" id="formContactUs" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
@@ -8,9 +9,11 @@
         {{ contactusform.hidden_tag() }}
 
         <div class="modal-header align-items-center">
-                {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-                {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-            </div>
+            {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {% if is_splashform %}
+            {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {% endif %}
+        </div>
 
         <div class="xauthorization-form-line"></div>
 
@@ -106,7 +109,7 @@
                                         <span style="color:red">{% if contactusform.contact_message.flags.required %}*{% endif %}</span>
                                     </div>
                                 </div>
-                                {{ contactusform.contact_message(class="form-control input-style",placeholder="your message...") }}
+                                {{ contactusform.contact_message(class="form-control input-style",rows="6",placeholder="your message...") }}
                                 {% for error in contactusform.contact_message.errors %}
                                 <span class="text-error-note" style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
@@ -118,24 +121,22 @@
             </div>
         </div>
 
-        <div class="xauthorization-form-line"></div>
-
         <!--footer-->
         <div class="modal-footer d-flex justify-content-start">
             <div class="">
                 {% if not(current_user.is_authenticated) %}
                 <div class="d-flex mt-0 mb-0 p-0">
                     <div class="align-self-center">Already Registered?&nbsp;</div>
-                    <div class="align-self-center"><a class="btn btn-info btn-sm mybtn-submit" href="{{url_for('authorization.login')}}">Login</a></div>
+                    {% include include_files('button_login.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 </div>
                 {% endif %}
             </div>
             <div class="d-flex flex-grow-1 justify-content-end">
                 <div class="mr-2">
-                    <button type="button" class="btn btn-sm btn-default mybtn-close" data-dismiss="modal">Close</button>
+                    {% include include_files('form_close_button.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 </div>
                 <div class=''>
-                    <button type="submit" class="btn btn-sm btn-warning button_submit">Submit</button>
+                    {% include include_files('form_submit_button.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 </div>
             </div>
         </div>

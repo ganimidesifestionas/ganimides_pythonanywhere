@@ -596,6 +596,23 @@ def log_splash_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='
     #app.logger.info('***splash={0}***ip={1}***visit={2}***'.format(pageID, session.get('clientIPA'), session.get('VisitNumber')))
     #log_finish('log_splash_page')
 
+def log_self_page(pageName, pageFunction, pageTemplate='', pageTemplate_page='', page_template_form=''):
+    #log_start('log_splash_page')
+    pageID = pageName.upper().replace('_', '-').replace(' ', '-')
+    msg = '{} {} [{}] [{}] {} <--{}'.format(
+        session['clientIPA']
+        , 'selfservice-page'
+        , pageID
+        , request.method
+        , request.url
+        , session.get('active_module')
+        )
+    log_info(msg)
+    #print(session['clientIPA'], 'splash-page', pageID, request.method, request.url, '<--'+session.get('active_module'))
+    log_page_visit('selfservice_page', pageID, request.url, pageFunction, pageTemplate, pageTemplate_page, page_template_form)
+    #app.logger.info('***splash={0}***ip={1}***visit={2}***'.format(pageID, session.get('clientIPA'), session.get('VisitNumber')))
+    #log_finish('log_splash_page')
+
 
 if __name__ == '__main__':
     log_info('test.....')

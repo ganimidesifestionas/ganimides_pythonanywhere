@@ -28,7 +28,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
 from .. external_services.email_services import send_email
 from .. external_services.token_services import generate_unique_sessionID, generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
-from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, RealClientIPA
+from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_self_page, RealClientIPA
 from .. debug_services.debug_log_services import *
 
 # Import module forms
@@ -81,8 +81,9 @@ authorization = Blueprint('authorization', __name__, url_prefix='/authorization'
 ###########################################################################
 @authorization.before_request
 def set_cookies():
-    log_module_start('@authorization.before_request')
+    log_function_start('@authorization.before_request')
     session['active_module'] = __name__
+    session['splash_form']=''
     if not session.get('sessionID'):
         token = generate_unique_sessionID()
         session['sessionID'] = token
@@ -107,12 +108,13 @@ def set_cookies():
             app.contactusform.contact_message.data = ''
 
     session.modified = True
-    log_module_finish('@authorization.before_request')
+    log_function_finish('@authorization.before_request')
 
 @authorization.after_request
 def set_cookies_after_request(response):
-    log_module_start('@authorization.after_request')
-    log_module_finish('@authorization.after_request')
+    log_function_start('@authorization.after_request')
+    session['splash_form']=''
+    log_function_finish('@authorization.after_request')
     return response
 
 ###########################################################################
@@ -123,7 +125,7 @@ def set_cookies_after_request(response):
 ###########################################################################
 ###########################################################################
 def init_session_cookies():
-    log_module_start('init_session_cookies')
+    log_function_start('init_session_cookies')
     if 'urls' not in session:
         session['urls'] = []
         log_variable('session[urls]', session.get('urls'))
@@ -152,7 +154,7 @@ def init_session_cookies():
         session['lastpageURL'] = url_for('authorization.homepage')
         log_variable('session[lastpageURL]', session.get('lastpageURL'))
 
-    log_module_finish('init_session_cookies')
+    log_function_finish('init_session_cookies')
 
 def getConfig(key):
     with app.app_context():
@@ -169,7 +171,7 @@ def flash_errors(form):
 def send_mobileconfirmation_sms(parCode):
     """ Send a mobile confirmation Code via SMS
     """
-    log_module_start('send_mobileconfirmation_sms')
+    log_function_start('send_mobileconfirmation_sms')
     log_param('confirmation Code',parCode)
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
     subscriber.mobileConfirmationCode = parCode
@@ -183,13 +185,13 @@ def send_mobileconfirmation_sms(parCode):
     subject = "please confirm your mobile"
     result = send_email(subscriber.email,subject,sms_message)
     log_variable('result', result)
-    log_module_finish('send_mobileconfirmation_sms')
+    log_function_finish('send_mobileconfirmation_sms')
     return(result)
 
 def send_email_test(parEmail):
     """ Send a test email
     """
-    log_module_start('send_email_test')
+    log_function_start('send_email_test')
     log_param('email',parEmail)
     token = generate_confirmation_token(parEmail)
     log_variable('token', token)
@@ -200,13 +202,13 @@ def send_email_test(parEmail):
     subject = "Please confirm your email"
     result = send_email(parEmail, subject, html)
     log_variable('result', result)
-    log_module_finish('send_email_test')
+    log_function_finish('send_email_test')
     return result
 
 def send_emailconfirmation_email(parEmail):
     """ Send an email confirmation email
     """
-    log_module_start('send_emailconfirmation_email')
+    log_function_start('send_emailconfirmation_email')
     log_param('email',parEmail)
 
     subscriber = Subscriber.query.filter_by(email=parEmail).first()
@@ -224,13 +226,13 @@ def send_emailconfirmation_email(parEmail):
     subject = "Please confirm your email"
     result = send_email(subscriber.email, subject, html)
     log_variable('result', result)
-    log_module_finish('send_emailconfirmation_email')
+    log_function_finish('send_emailconfirmation_email')
     return result
 
 def send_passwordreset_email(parEmail):
     """ Send a password reset email
     """
-    log_module_start('send_passwordreset_email')
+    log_function_start('send_passwordreset_email')
     log_param('email',parEmail)
 
     token = generate_confirmation_token(parEmail)
@@ -242,13 +244,13 @@ def send_passwordreset_email(parEmail):
     subject = "Password Reset"
     result = send_email(parEmail, subject, html)
     log_variable('result', result)
-    log_module_finish('send_passwordreset_email')
+    log_function_finish('send_passwordreset_email')
     return result
 
 def send_messagereceiveconfirmation_email(parEmail,parContactID):
     """ Send an email to confirm message receive
     """
-    log_module_start('send_messagereceiveconfirmation_email')
+    log_function_start('send_messagereceiveconfirmation_email')
     log_param('email',parEmail)
     log_param('contactid',parContactID)
 
@@ -262,18 +264,18 @@ def send_messagereceiveconfirmation_email(parEmail,parContactID):
     subject = "message receive confirmation"
     result = send_email(parEmail, subject, html)
     log_variable('result', result)
-    log_module_finish('send_messagereceiveconfirmation_email')
+    log_function_finish('send_messagereceiveconfirmation_email')
     return result
 
 def is_human(parCaptchaResponse):
     """ Validating recaptcha response from google server
         Returns True captcha test passed for submitted form else returns False.
     """
-    log_module_start('is_human')
+    log_function_start('is_human')
     log_param('captcha_response', parCaptchaResponse)
 
-    secret = app.config.get('RECAPTCHA_SECRET_KEY')
-    log_variable('RECAPTCHA_SECRET_KEY', secret)
+    secret = app.config.get('RECAPTCHA_PRIVATE_KEY')
+    log_variable('RECAPTCHA_PRIVATE_KEY', secret)
     request_url = "https://www.google.com/recaptcha/api/siteverify"
     log_variable('request_url', request_url)
     payload = {'response':parCaptchaResponse, 'secret':secret}
@@ -282,11 +284,11 @@ def is_human(parCaptchaResponse):
     log_variable('response', response)
     response_text = json.loads(response.text)
     log_variable('response_text', response_text)
-    log_module_finish('is_human')
+    log_function_finish('is_human')
     return response_text['success']
 
 def fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailConfirmForm,mobileConfirmForm,passwordchangeForm,avatarUploadForm):
-    log_module_start('fillin_profile_forms')
+    log_function_start('fillin_profile_forms')
 
     log_variable('current_user.id', current_user.id)
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
@@ -340,24 +342,24 @@ def fillin_profile_forms(subscriber,profileDisplayForm,profileChangeForm,emailCo
     avatarUploadForm.photo.data=subscriber.avatarImageFile
     log_variable('avatarUploadForm', avatarUploadForm)
 
-    log_module_finish('fillin_profile_forms')
+    log_function_finish('fillin_profile_forms')
     return('OK')
 
 def allowed_file(parFileName):
-    log_module_start('allowed_file')
+    log_function_start('allowed_file')
     log_param('filename',parFileName)
     log_variable("app.config['ALLOWED_EXTENSIONS']",app.config['ALLOWED_EXTENSIONS'])
     OK = '.' in parFileName and \
            parFileName.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
     log_variable('result',OK)
-    log_module_finish('allowed_file')
+    log_function_finish('allowed_file')
     return OK
 
 ##########################################
 #put this after @ decorator
 ##########################################
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SITE_KEY'))
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SECRET_KEY'))
+#how to get a config variable app.config.get('RECAPTCHA_PRIVATE_KEY'))
+#how to get a config variable app.config.get('RECAPTCHA_PUBLIC_KEY'))
 
 #request.method:              GET
 #request.url:                 http://127.0.0.1:5000/alert/dingding/test?x=y
@@ -612,7 +614,7 @@ def userprofile():
     page_function = 'userprofile'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = '*'
-    log_page(page_name, page_function, page_template, page_form)
+    log_self_page(page_name, page_function, page_template, page_form)
 
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -654,7 +656,7 @@ def userprofilechange():
     page_function = 'userprofilechange'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = ''
-    log_page(page_name, page_function, page_template, page_form)
+    log_self_page(page_name, page_function, page_template, page_form)
 
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -816,7 +818,7 @@ def passwordchange():
     page_function = 'passwordchange'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = ''
-    log_page(page_name, page_function, page_template, page_form)
+    log_self_page(page_name, page_function, page_template, page_form)
 
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -871,7 +873,7 @@ def upload_avatar():
     page_function = 'upload_avatar'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = 'form_avatar_upload.html'
-    log_page(page_name, page_function, page_template, page_form)
+    log_self_page(page_name, page_function, page_template, page_form)
 
     subscriber = Subscriber.query.filter_by(id=current_user.id).first()
     varTitle='User Profile : '+subscriber.firstName+' '+subscriber.lastName
@@ -964,7 +966,7 @@ def mobileconfirm():
     page_function = 'mobileconfirm'
     page_template = 'authorization/page_templates/userprofile_template.html'
     page_form = 'form_mobile_confirmation.html'
-    log_page(page_name, page_function, page_template, page_form)
+    log_self_page(page_name, page_function, page_template, page_form)
 
     # fill-in the forms from the DB
     profileDisplayForm = UserProfileDisplayForm()
@@ -1179,6 +1181,7 @@ def logout():
     log_route('logout', 'logout')
     logout_user()
     flash('You have successfully logged out.','success')
+    log_route('logout', 'logout')
     log_view_finish('@authorization.logout')
     return redirect(session.get('lastpageURL'))
 
@@ -1418,6 +1421,7 @@ def loginForm():
         log_info('forgetPassword button pushed...')
         log_info('return template [{0}] with splash_form={1} and forgetpasswordform=...'.format(session.get('lastpageHTML'),'forgetpassword'))
         log_view_finish('@authorization.loginForm')
+        session['splash_form']='forgetpassword'
         return render_template(
             session.get('lastpageHTML')
             ,forgetpasswordform=forgetPasswordForm()
@@ -1481,6 +1485,7 @@ def loginForm():
 
     log_info('return template [{0}] with splash_form={1} and loginform=...'.format(session.get('lastpageHTML'),'login'))
     log_view_finish('@authorization.loginForm')
+    session['splash_form']='login'
     return render_template(session.get('lastpageHTML')
         ,splash_form='login'
         ,loginform=form
@@ -1513,6 +1518,7 @@ def registrationForm():
                 loginform = LoginForm()
                 loginform.email.data = form.email.data
                 log_view_finish('@authorization.registrationForm')
+                session['splash_form']='login'
                 return render_template(session.get('lastpageHTML')
                     ,splash_form='login'
                     ,loginform=loginform
@@ -1561,6 +1567,7 @@ def registrationForm():
     #print('REGISTRATION-FORM','RETURN',session.get('lastpageHTML'),'with splash_form','registration')
     log_variable('lastpageHTML', session.get('lastpageHTML'))
     log_view_finish('@authorization.registrationForm')
+    session['splash_form']='registration'
     return render_template(session.get('lastpageHTML')
         ,registrationform=form
         ,splash_form='registration'
@@ -1609,6 +1616,7 @@ def contactForm():
 
     log_variable('lastpageHTML', session.get('lastpageHTML'))
     log_view_finish('@authorization.contactForm')
+    session['splash_form']='contactus'
     return render_template(
         session.get('lastpageHTML')
         ,contactusform=form
@@ -1649,6 +1657,7 @@ def forgetpasswordsplashform():
                     flash(ErrorMsg, 'error')
 
     log_view_finish('@authorization.forgetpasswordsplashform')
+    session['splash_form']='forgetpassword'
     return render_template(session.get('lastpageHTML')
         ,forgetpasswordform=form
         ,splash_form='forgetpassword'

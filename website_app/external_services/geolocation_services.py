@@ -2,10 +2,10 @@ import requests
 from ..debug_services.debug_log_services import *
 ##########################################################################################################
 def get_geolocation_info_from_IP(ip=None):
-    log_module_start('get_geolocation_info_from_IP')
+    log_start('get_geolocation_info_from_IP')
     if not ip:
         log_error('get_geolocation_info_from_IP requires input','ip address')
-        log_module_finish('get_geolocation_info_from_IP')
+        log_finish('get_geolocation_info_from_IP')
         return None
     if not ip:
         ip = '127.0.0.1'
@@ -19,11 +19,14 @@ def get_geolocation_info_from_IP(ip=None):
     #IPSTACK_URL_CMD = 'http://api.ipstack.com/{0}?access_key={1}'
     path = 'http://api.ipstack.com/{0}?access_key={1}'.format(ip, '4022cfd2249c3431953ecf599152892e')
     log_variable('apistack geolocation path', path)
-    r = requests.post(path)
+    response = {}
+    try:
+        r = requests.post(path)
+    except:
+        r = None
     #print(r)
     #reply_code=r.status_code
     # if not r.status_code == requests.codes.ok:
-    response = {}
     if r:
         response = r.json()
         #log_variable('apistack geolocation result', response)
@@ -32,10 +35,11 @@ def get_geolocation_info_from_IP(ip=None):
         loc = response['location']
         for key, value in loc.items():
             log_variable('geolocationDictionary location '+key+'=', value)
-        log_module_finish('get_geolocation_info_from_IP')
+        log_finish('get_geolocation_info_from_IP')
         return response
     else:
-        log_module_finish('get_geolocation_info_from_IP')
+        log_warning('api.ipstack.com is not available...')
+        log_finish('get_geolocation_info_from_IP')
         return None
     #res = response.json()
         #print(res)
@@ -43,7 +47,7 @@ def get_geolocation_info_from_IP(ip=None):
     #reply_code=r.status_code
 ##########################################################################################################
 def get_geolocation_info(latitude, longitude):
-    log_module_start('get_geolocation_info')
+    log_start('get_geolocation_info')
     geolocationDictionary = {}
     geolocationDictionary.update({'latitude' : latitude})
     geolocationDictionary.update({'longitude' : longitude})
@@ -54,13 +58,17 @@ def get_geolocation_info(latitude, longitude):
     # api_url = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     path = 'https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}'.format(latitude,longitude,GOOGLE_MAPS_API_KEY)
     log_variable('apistack geolocation path', path)
-    r = requests.post(path)
+    try:
+        r = requests.post(path)
+    except:
+        log_warning('https://maps.googleapis.com/maps/... is NOT AVAILABLE....')
+        r = None
     #print(r)
     #reply_code=r.status_code
     #print(requests.codes.ok)
     #log_variable('reply status', r.status_code)
     if not r.status_code == requests.codes.ok:
-        log_module_finish('get_geolocation_info')
+        log_finish('get_geolocation_info')
         return None
     if r:
         response = r.json()
@@ -72,7 +80,7 @@ def get_geolocation_info(latitude, longitude):
         results = response.get('results')
         #log_variable('results',results)
         if status != 'OK':
-            log_module_finish('get_geolocation_info')
+            log_finish('get_geolocation_info')
             return None
         for res in results:
             types = res.get('types')
@@ -116,15 +124,15 @@ def get_geolocation_info(latitude, longitude):
         for geoname in geolocationDictionary.items():
             log_variable('geolocationDictionary', geoname)
 
-        log_module_finish('get_geolocation_info')
+        log_finish('get_geolocation_info')
         return geolocationDictionary
 ##########################################################################################################
 ##########################################################################################################
 #print(__name__)
 if __name__ == '__main__':
-    log_module_start('geolocation_services')
+    log_start('geolocation_services')
     get_geolocation_info(35.123647 , 33.367925)
     get_geolocation_info_from_IP('127.0.0.1')
-    log_module_finish('geolocation_services')
+    log_finish('geolocation_services')
     log_info('finish.....')
     #log_variable('test', 'test')

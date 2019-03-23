@@ -1,12 +1,17 @@
 {% set form_title='contact us' %}
 {% set form_onclose_url='' %}
+{% set form_close_link='' %}
+{% set form_close_caption='' %}
+
 <form class="" id="ContactUsForm" action="{{ url_for('authorization.contactForm') }}" method="post" role="form" autocomplete="on" validate>
     <fieldset>
         {{ contactusform.hidden_tag() }}
 
         <div class="modal-header align-items-center">
                 {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                {% if is_splashform %}
                 {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                {% endif %}
             </div>
     
         <div class="horizontal_line"></div>

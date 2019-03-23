@@ -44,8 +44,8 @@ from .debug_services.debug_log_services import *
 ##########################################
 #put this after @ decorator
 ##########################################
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SITE_KEY'))
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SECRET_KEY'))
+#how to get a config variable app.config.get('RECAPTCHA_PRIVATE_KEY'))
+#how to get a config variable app.config.get('RECAPTCHA_PUBLIC_KEY'))
 #request.method:              GET
 #request.url:                 http://127.0.0.1:5000/alert/dingding/test?x=y
 #request.base_url:            http://127.0.0.1:5000/alert/dingding/test
@@ -225,7 +225,12 @@ def set_cookies_after_request(response):
 ###########################################################################
 ###########################################################################
 ###########################################################################
-
+def set_deviceandscreen_properties(width, height, devicepixelratio):
+    session['screen_width'] = width
+    session['screen_height'] = height
+    session['device_pixelration'] = devicepixelratio
+    session['splash_forms_width'] = str(width - 100)+'px'
+    return
 #############################################################
 #############################################################
 #############################################################
@@ -385,6 +390,17 @@ def location():
     set_geolocation(latitude, longitude)
     log_route('geolocation', 'geolocation')
     return('')
+@app.route('/deviceandscreen', methods=['POST'])
+def deviceandscreen():
+    width = request.json.get('width')
+    height = request.json.get('height')
+    devicepixelratio = request.json.get('devicepixelratio')
+    session['device'] = [width, height, devicepixelratio]
+    log_variable('device', session.get('device'))
+    set_deviceandscreen_properties(width, height, devicepixelratio)
+    log_route('deviceandscreen', 'deviceandscreen')
+    return('')
+
 #############################################################
 #############################################################
 #############################################################

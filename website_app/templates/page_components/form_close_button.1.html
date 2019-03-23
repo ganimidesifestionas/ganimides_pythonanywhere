@@ -1,0 +1,8 @@
+{% if form_close_link %}
+<input class="btn btn-sm mybtn-close mybtn-submit mr-2" type=button 
+onClick="location.href='{{ url_for(form_close_link) }}'" 
+value='Close'>
+{% else %}
+<button type="button" class="btn btn-sm btn-default mybtn-close mr-2" data-dismiss="modal">Close</button>
+{% endif %}
+

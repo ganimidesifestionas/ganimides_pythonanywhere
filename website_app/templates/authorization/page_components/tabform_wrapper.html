@@ -1,7 +1,13 @@
-{#% import "bootstrap/utils.html" as utils %#}
-{#% import "bootstrap/wtf.html" as wtf %#}
-
 {% set is_tabform=True %}
+
+{% set formtabs=[] %}
+{% if form1_file %}
+{% set formtabs[0]=[form1_file , form1_tab_text] %}
+{% endif %}
+
+{% set userprofile_is_active='active' %}
+{% include include_files('form_userprofile.html',type='FORM',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+
 
 {% set userprofile_is_active='active' %}
 {% set userprofile_show='active show' %}

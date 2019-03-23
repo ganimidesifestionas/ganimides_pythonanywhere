@@ -25,135 +25,135 @@
     ###
 -->
 <div class="d-flex p-0 justify-content-between top_header_line">
-        <div class="col-5 p-0 m-0">
-            <!--dummy-->`
+    <div class="col-5 p-0 m-0">
+        <!--dummy-->`
+    </div>
+    <div class="d-flex col-2 justify-content-center align-items-center p-0">
+        <div class="align-self-center p-0">
+            <a class="" href="/"><img id="logo" style="width:3rem;height:3rem;" class="" src="{{image_file('ganimides_logoB3.gif')}}" alt="{{COMPANY_NAME}}" /></a>
         </div>
-        <div class="d-flex col-2 justify-content-center align-items-center p-0">
-            <div class="align-self-center p-0">
-                    <a class="" href="/"><img id="logo" style="width:3rem;height:3rem;" class="" src="{{image_file('ganimides_logoB3.gif')}}" alt="{{COMPANY_NAME}}" /></a>
+    </div>
+    <div class="d-flex col-5 p-0 m-0">
+        <nav class="navbar navbar-expand-xl w-100 justify-content-between p-0 m-0">
+            <!-- Toggler/collapsibe Button -->
+            <div class="d-flex bg-light p-1 border" style="border-radius:3px">
+                <button id="supportmenu-toggler" class="navbar-toggler supportmenu-toggler m-0 p-0" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fas fa-align-justify text-primary"></span>
+                </button>
             </div>
-        </div>
-        <div class="d-flex col-5 p-0 m-0">
-            <nav class="navbar navbar-expand-xl w-100 justify-content-between p-0 m-0">
-                <!-- Toggler/collapsibe Button -->
-                <div class="d-flex">
-                    <button id="supportmenu-toggler" class="navbar-toggler supportmenu-toggler m-0 p-0" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="fas fa-align-justify"></span>
-                    </button>
-                </div>
-                <!-- SUPPORT MENU  -->
-                <div id="SupportMenu" class="collapse navbar-collapse p-0 support_menu">
-                    {% include include_files('search_inline_form.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
-                    <ul class="navbar-nav ml-auto">
-                        {% if not(current_user.is_authenticated) %}
-                        <!-- option-2:login or register -->
-                        <li class="{{login_active}} nav-item">
-                            <!--
+            <!-- SUPPORT MENU  -->
+            <div id="SupportMenu" class="collapse navbar-collapse p-0 support_menu">
+                {% include include_files('search_inline_form.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+                <ul class="navbar-nav ml-auto">
+                    {% if not(current_user.is_authenticated) %}
+                    <!-- option-2:login or register -->
+                    <li class="{{login_active}} nav-item">
+                        <!--
                             <a class="nav-link" data-toggle="tooltip" title="" data-placement="top" href="{{url_for('authorization.loginForm')}}">Login</a>
                             -->
-                            <a class="nav-link" data-toggle="modal" href="#login_modal_form">Login</a>
-                        </li>
-                        <li class="{{register_active}} nav-item">
-                            <!--
+                        <a class="nav-link" data-toggle="modal" href="#login_modal_form">Login</a>
+                    </li>
+                    <li class="{{register_active}} nav-item">
+                        <!--
                             <a class="nav-link" data-toggle="tooltip" title="" data-placement="top" href="{{url_for('authorization.registrationForm')}}">Register</a>
                             -->
-                            <a class="nav-link" data-toggle="modal" href="#registration_modal_form">Register</a>
-                        </li>
-                        {% else %}
-                        <!-- option-2:logout -->
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tooltip" title="logout" data-placement="bottom" href="{{url_for('authorization.logout')}}">Logout</a>
-                        </li>
+                        <a class="nav-link" data-toggle="modal" href="#registration_modal_form">Register</a>
+                    </li>
+                    {% else %}
+                    <!-- option-2:logout -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tooltip" title="logout" data-placement="bottom" href="{{url_for('authorization.logout')}}">Logout</a>
+                    </li>
+                    {% endif %}
+                    <!-- option-2:help -->
+                    <li class="{{help_active}} nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-split text-nowrap" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
+                        <div class="dropdown-menu dropdown-menu-right p-0 m-0 menu_dropdown_list" aria-labelledby="helpDropdownList">
+                            <a class="dropdown-item p-1" href="/myBank">MyBank</a>
+                            <a class="dropdown-item p-1" href="{{url_for('myGame')}}">MyGame</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item p-1" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
+                            <a class="dropdown-item p-1" href="{{ url_for('test_google_api') }}">test geolocation api</a>
+                            <a class="dropdown-item p-1" href="{{ url_for('test_cookiesconsent') }}">Test Cookies Consent</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
+                            <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
+                            <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">beautifull styles</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item p-1" href="https://www.rocketlawyer.co.uk/">Rocket Lawyer</a>
+                            <a class="dropdown-item p-1" href="https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp">bootstrap4</a>
+                            <a class="dropdown-item p-1" href="https://summerofcode.withgoogle.com/?csw=1">Summer Code Project</a>
+                            <a class="dropdown-item p-1" href="http://flask-sqlalchemy.pocoo.org/2.3/config/">SQLalchemy-config</a>
+                            <a class="dropdown-item p-1" href="http://flask-sqlalchemy.pocoo.org/2.3/quickstart/">SQLalchemy-quickstart</a>
+                            <a class="dropdown-item p-1" href="https://sqlalchemy-migrate.readthedocs.io/en/latest/download.html">SQLalchemy-migrate</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
+                        </div>
+                    </li>
+                    <!-- option-3:language -->
+                    <li class="nav-item dropdown">
+                        <!--show the active language-->
+                        {% for language in AVAILABLE_LANGUAGES.items() %}
+                        {% if CURRENT_LANGUAGE == language[0] %}
+                        {% set language_picture=flag_file(language[1][1]) %}
+                        <a class="nav-link dropdown-toggle dropdown-toggle-split text-nowrap" href="#" id="languageDropdownList" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <img style="width:1.5rem;height:1.5rem;" class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
+                        </a>
                         {% endif %}
-                        <!-- option-2:help -->
-                        <li class="{{help_active}} nav-item dropdown">
-                            <a class="nav-link dropdown-toggle dropdown-toggle-split text-nowrap" href="{{url_for('prototypes')}}" id="ProtoTypesDropdownList" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Help&nbsp;</a>
-                            <div class="dropdown-menu dropdown-menu-right p-0 m-0 menu_dropdown_list" aria-labelledby="helpDropdownList">
-                                <a class="dropdown-item p-1" href="/myBank">MyBank</a>
-                                <a class="dropdown-item p-1" href="{{url_for('myGame')}}">MyGame</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item p-1" href="{{ url_for('authorization.sendtestemail') }}">send test email</a>
-                                <a class="dropdown-item p-1" href="{{ url_for('test_google_api') }}">test geolocation api</a>
-                                <a class="dropdown-item p-1" href="{{ url_for('test_cookiesconsent') }}">Test Cookies Consent</a>                                
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-carousel-5-single-multiple-horizontal-and-vertical-sliding-demos/">Carousel</a>
-                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-form-customized-styles-6-online-examples/">Forms</a>
-                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">beautifull styles</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item p-1" href="https://www.rocketlawyer.co.uk/">Rocket Lawyer</a>
-                                <a class="dropdown-item p-1" href="https://www.w3schools.com/bootstrap4/bootstrap_navbar.asp">bootstrap4</a>
-                                <a class="dropdown-item p-1" href="https://summerofcode.withgoogle.com/?csw=1">Summer Code Project</a>
-                                <a class="dropdown-item p-1" href="http://flask-sqlalchemy.pocoo.org/2.3/config/">SQLalchemy-config</a>
-                                <a class="dropdown-item p-1" href="http://flask-sqlalchemy.pocoo.org/2.3/quickstart/">SQLalchemy-quickstart</a>
-                                <a class="dropdown-item p-1" href="https://sqlalchemy-migrate.readthedocs.io/en/latest/download.html">SQLalchemy-migrate</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item p-1" href="https://www.jquery-az.com/bootstrap-select-5-beautiful-styles/">Select</a>
-                            </div>
-                        </li>
-                        <!-- option-3:language -->
-                        <li class="nav-item dropdown">
-                            <!--show the active language-->
+                        {% endfor %}
+                        <!--show the other languages as menu-->
+                        <div class="dropdown-menu  dropdown-menu-right p-0 menu_dropdown_list" aria-labelledby="languageDropdownList">
                             {% for language in AVAILABLE_LANGUAGES.items() %}
-                            {% if CURRENT_LANGUAGE == language[0] %}
+                            {% if CURRENT_LANGUAGE != language[0] %}
                             {% set language_picture=flag_file(language[1][1]) %}
-                            <a class="nav-link dropdown-toggle dropdown-toggle-split text-nowrap" href="#" id="languageDropdownList" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <a class="dropdown-item p-1" href="{{ url_for('set_language', language=language[0]) }}">
                                 <img style="width:1.5rem;height:1.5rem;" class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
                             </a>
                             {% endif %}
                             {% endfor %}
-                            <!--show the other languages as menu-->
-                            <div class="dropdown-menu  dropdown-menu-right p-0 menu_dropdown_list" aria-labelledby="languageDropdownList">
-                                {% for language in AVAILABLE_LANGUAGES.items() %}
-                                {% if CURRENT_LANGUAGE != language[0] %}
-                                {% set language_picture=flag_file(language[1][1]) %}
-                                <a class="dropdown-item p-1" href="{{ url_for('set_language', language=language[0]) }}">
-                                    <img style="width:1.5rem;height:1.5rem;" class="menu_image" src="{{language_picture}}" alt="{{language[1][1]}}" />&nbsp;{{language[1][0]}}
-                                </a>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                        </li>
+                        </div>
+                    </li>
 
-                        <!-- option-4:loggin user profile -->
-                        <li class="nav-item dropdown">
-                            {% if current_user.is_authenticated %}
-                            <a class="nav-link dropdown-toggle  dropdown-toggle-split" href="#" id="usermenu1" role="button" data-toggle="dropdown" aria-expanded="false">
-                                {% if current_user.avatarImageFile %}
-                                {% set avatarImageFile=current_user.avatarImageFile %}
-                                {% else %}
-                                {% set avatarImageFile=image_file('icon_avatar_default.png') %}
-                                {% endif %}
-                                <img style="width:1.5rem;height:1.5rem;" class="menu_image rounded-circle border border-lightgray" alt="" src='{{avatarImageFile}}'>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right p-0 m-0 menu_dropdown_list" aria-labelledby="usermenu1">
-                                <a class="dropdown-item" href="#">Signed-in as {{ current_user.firstName.lower() }}</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="{{ url_for('authorization.logout') }}">Logout</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="{{ url_for('authorization.userprofile') }}">Your Profile</a>
-                                <a class="dropdown-item" href="{{ url_for('authorization.userprofilechange') }}">Change Profile</a>
-                                <a class="dropdown-item" href="{{ url_for('authorization.passwordchange') }}">Change Password</a>
-                                <a class="dropdown-item" href="{{ url_for('authorization.upload_avatar') }}">Change Your Avatar</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                {% if not(current_user.mobileConfirmed) and current_user.mobile %}
-                                <a class="dropdown-item" href="{{ url_for('authorization.mobileconfirm') }}">Confirm Your Mobile</a>
-                                {% endif %}
-                                {% if not(current_user.emailConfirmed) %}
-                                <a class="dropdown-item" href="{{ url_for('authorization.emailconfirmrequest') }}">Confirm Your Email</a>
-                                {% endif %}
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                {% if current_user.passwordreset %}
-                                <a class="dropdown-item" href="{{ url_for('authorization.password_reset',email='*') }}">Reset Your Password</a>
-                                {% else %}
-                                <a class="dropdown-item" href="{{ url_for('authorization.forgetpassword') }}">Forgot Your Password?</a>
-                                {% endif %}
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="#">Setting</a>
-                                <div class="dropdown-divider p-0 m-0"></div>
-                                <a class="dropdown-item" href="#">Help</a>
-                            </div>
+                    <!-- option-4:loggin user profile -->
+                    <li class="nav-item dropdown">
+                        {% if current_user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle  dropdown-toggle-split" href="#" id="usermenu1" role="button" data-toggle="dropdown" aria-expanded="false">
+                            {% if current_user.avatarImageFile %}
+                            {% set avatarImageFile=current_user.avatarImageFile %}
                             {% else %}
-                            <!--
+                            {% set avatarImageFile=image_file('icon_avatar_default.png') %}
+                            {% endif %}
+                            <img style="width:1.5rem;height:1.5rem;" class="menu_image rounded-circle border border-lightgray" alt="" src='{{avatarImageFile}}'>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right p-0 m-0 menu_dropdown_list" aria-labelledby="usermenu1">
+                            <a class="dropdown-item" href="#">Signed-in as {{ current_user.firstName.lower() }}</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item" href="{{ url_for('authorization.logout') }}">Logout</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item" href="{{ url_for('authorization.userprofile') }}">Your Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.userprofilechange') }}">Change Profile</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.passwordchange') }}">Change Password</a>
+                            <a class="dropdown-item" href="{{ url_for('authorization.upload_avatar') }}">Change Your Avatar</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            {% if not(current_user.mobileConfirmed) and current_user.mobile %}
+                            <a class="dropdown-item" href="{{ url_for('authorization.mobileconfirm') }}">Confirm Your Mobile</a>
+                            {% endif %}
+                            {% if not(current_user.emailConfirmed) %}
+                            <a class="dropdown-item" href="{{ url_for('authorization.emailconfirmrequest') }}">Confirm Your Email</a>
+                            {% endif %}
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            {% if current_user.passwordreset %}
+                            <a class="dropdown-item" href="{{ url_for('authorization.password_reset',email='*') }}">Reset Your Password</a>
+                            {% else %}
+                            <a class="dropdown-item" href="{{ url_for('authorization.forgetpassword') }}">Forgot Your Password?</a>
+                            {% endif %}
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item" href="#">Setting</a>
+                            <div class="dropdown-divider p-0 m-0"></div>
+                            <a class="dropdown-item" href="#">Help</a>
+                        </div>
+                        {% else %}
+                        <!--
                     <a class="nav-link dropdown-toggle  dropdown-toggle-split" href="#" id="usermenu2" role="button" data-toggle="dropdown" aria-expanded="false">
                         <img class="menu_image rounded-circle" alt="" src="/static/images/icon_user_not_loggedIn.png">
                     </a>
@@ -162,18 +162,18 @@
                         <a class="dropdown-item" href="{x url_for('authorization.register') }}"><span class="glyphicon glyphicon-user"></span> Register</a>
                     </div>
                     -->
-                            {% endif %}
-                        </li>
-                        <!-- option-5:admin -->
-                        <li class="nav-item dropdown">
-                            {% if current_user.is_authenticated %}
-                            <a class="nav-link blue-tooltip" data-toggle="tooltip" title="Administration" data-placement="bottom" href="{{url_for('administration.adminpage',action_tab='*')}}">Admin</a>
-                            {% else %}
-                            <a class="nav-link red-tooltip" data-toggle="tooltip" title="Administration" data-placement="bottom" href="{{url_for('administration.adminpage',action_tab='*')}}">Admin</a>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+                        {% endif %}
+                    </li>
+                    <!-- option-5:admin -->
+                    <li class="nav-item dropdown">
+                        {% if current_user.is_authenticated %}
+                        <a class="nav-link blue-tooltip" data-toggle="tooltip" title="Administration" data-placement="bottom" href="{{url_for('administration.adminpage',action_tab='*')}}">Admin</a>
+                        {% else %}
+                        <a class="nav-link red-tooltip" data-toggle="tooltip" title="Administration" data-placement="bottom" href="{{url_for('administration.adminpage',action_tab='*')}}">Admin</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 </div>

@@ -29,7 +29,8 @@ from .. external_services.email_services import send_email
 #from .. external_services.token_services import generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
 #from .. external_services.log_services import *
 from .. external_services.token_services import generate_unique_sessionID, generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
-from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_info, log_variable, RealClientIPA
+from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_self_page, RealClientIPA
+
 from .. debug_services.debug_log_services import *
 
 # Import module forms
@@ -233,8 +234,8 @@ def copy_user_to_subscriber(user,action):
 ##########################################
 #put this after @ decorator
 ##########################################
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SITE_KEY'))
-#how to get a config variable app.config.get('GOOGLE_RECAPTCHA_SECRET_KEY'))
+#how to get a config variable app.config.get('RECAPTCHA_PUBLIC_KEY'))
+#how to get a config variable app.config.get('RECAPTCHA_PRIVATE_KEY'))
 
 #request.method:              GET
 #request.url:                 http://127.0.0.1:5000/alert/dingding/test?x = y

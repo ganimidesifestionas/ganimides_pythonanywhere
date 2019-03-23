@@ -1,13 +1,18 @@
 {% set form_title='upload your avatar' %}
 {% set form_onclose_url=url_for('authorization.userprofile') %}
+{#% set form_close_link='authorization.userprofile' %#}
+{#% set form_close_caption='your profile' %#}
+
 <form class="" id="uploadavatar" action="{{ url_for('authorization.upload_avatar') }}" method="post" enctype="multipart/form-data" role="form" autocomplete="on" novalidate>
     <fieldset>
         {{ avatarupload_form.hidden_tag() }}
 
         <div class="modal-header align-items-center">
             {% include include_files('form_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            {% if is_splashform %}
             {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-        </div>
+            {% endif %}
+    </div>
 
         <div class="modal-body">
             <div class="d-flex flex-column ">

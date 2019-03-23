@@ -2,20 +2,22 @@
 import os
 from website_app.debug_services.debug_log_services import *
 
-log_module_start('database_configuration')
+log_start('database_configuration')
 
 EYECATCH = 'DATABASE'
 
 #os.environ[COMPANY_NAME+'_'+APPLICATION_NAME+'_'+'EXECUTION_ENVIRONMENT']='pythonanywhere'
 ######################################################################
-EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT').replace("'", '')
-EXECUTION_MODE = os.environ.get('EXECUTION_MODE').replace("'", '')
-SERVER = os.environ.get('SERVER').replace("'", '')
-DATABASE_SERVER = os.environ.get('DATABASE_SERVER').replace("'", '')
-DATABASE_NAME = os.environ.get('DATABASE_NAME').replace("'", '')
-DATABASE_USER = os.environ.get('DATABASE_USER').replace("'", '')
-DATABASE_PASS = os.environ.get('DATABASE_PASS').replace("'", '')
-DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX').replace("'", '')
+#retrieve config params from instance server.ini that have been created as environment variables
+######################################################################
+EXECUTION_ENVIRONMENT = os.environ.get('EXECUTION_ENVIRONMENT')
+EXECUTION_MODE = os.environ.get('EXECUTION_MODE')
+SERVER = os.environ.get('SERVER')
+DATABASE_SERVER = os.environ.get('DATABASE_SERVER')
+DATABASE_NAME = os.environ.get('DATABASE_NAME')
+DATABASE_USER = os.environ.get('DATABASE_USER')
+DATABASE_PASS = os.environ.get('DATABASE_PASS')
+DATABASE_CONNECTION_PREFIX = os.environ.get('DATABASE_CONNECTION_PREFIX')
 if not DATABASE_SERVER:
    DATABASE_SERVER = 'localhost'
 if not SERVER:
@@ -53,7 +55,6 @@ else:
             DATABASE_SERVER = 'ganimedes.mysql.pythonanywhere-services.com'
         if not DATABASE_NAME:
             DATABASE_NAME = 'ifestionas$ganimides_db'
-
 ################################################################
 ### database connections
 ################################################################
@@ -161,4 +162,4 @@ log_config_param('DATABASE_URI', DATABASE_URI)
 log_config_param('SQLALCHEMY_DATABASE_URI', SQLALCHEMY_DATABASE_URI)
 ################################################################
 
-log_module_finish('database_configuration')
+log_finish('database_configuration')

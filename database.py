@@ -19,7 +19,7 @@ from website_app.debug_services.debug_log_services import *
 app = application
 app.app_context().push()
 
-#log_module_start('application_databases')
+#log_start('application_databases')
 
 DATABASE_SERVER = app.config['DATABASE_SERVER']
 DATABASE_SERVER_URI = app.config['DATABASE_SERVER_URI']
@@ -33,7 +33,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
 def create_database():
-    log_module_start('create_database')
+    log_start('create_database')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -53,7 +53,7 @@ def create_database():
     # dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
     # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
     dbserver_engine.dispose()
-    log_module_finish('create_database')
+    log_finish('create_database')
 
 def create_all_tables_auto():
     log_start('create_all_tables_auto')
@@ -293,7 +293,7 @@ def init_database():
     create_users()
     log_finish('init_database')
 
-#log_module_finish('application_databases')
+#log_finish('application_databases')
 
 if __name__ == '__main__':
     cls() # now, to clear the screen

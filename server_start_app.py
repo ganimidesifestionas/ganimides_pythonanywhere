@@ -10,46 +10,76 @@ import os
 import os.path
 from os import environ
 import configparser
+
 print('### start: server_start_app')
+
 thisfile = os.path.abspath(__file__)
 thisDir = os.path.dirname(__file__)
+thisFileName = os.path.basename(__file__)
 exec_folder = os.path.abspath(os.path.dirname(__file__))
 server_config_folder = os.path.dirname(exec_folder)
 server_ini_filename = 'server.ini'
 server_config_filename = 'server_config.py'
-SERVER_INI_FILE = os.path.join(server_config_folder, server_ini_filename)
-SERVER_CONFIG_FILE = os.path.join(server_config_folder, server_config_filename)
+server_ini_file = os.path.join(server_config_folder, server_ini_filename)
+server_config_file = os.path.join(server_config_folder, server_config_filename)
+server_relative_config_path = "..\\"
 ################################################################
-print('...__file__', __file__)
-print('...DirName', thisDir)
-print('...exec_folder', exec_folder)
-print('...server_config_folder', server_config_folder)
-print('...SERVER_INI_FILE', SERVER_INI_FILE)
-print('...SERVER_CONFIG_FILE', SERVER_CONFIG_FILE)
-#print (os.path.isfile(SERVER_CONFIG_FILE))
+# print('...Server_Startup_Program =', __file__)
+# print('...Server_Startup_Folder =', thisDir)
+# print('...Server_Startup_ProgramName =', thisFileName)
+# print('...Server_Exec_Folder =', exec_folder)
+# print('...Server_Config_Folder =', server_config_folder)
+# print('...server_ini_file =', server_ini_file)
+# print('...server_config_file =', server_config_file)
+# print('...server_ini_file_name =', server_ini_filename)
+# print('...server_config_file_name =', server_config_filename)
+# print('...server_relative_config_path =', server_relative_config_path)
+#print (os.path.isfile(server_config_file))
+################################################################
+ServerDictionary = {}
+ServerDictionary.update({'Server_Startup_Program':__file__})
+ServerDictionary.update({'Server_Startup_Folder':thisDir})
+ServerDictionary.update({'Server_Startup_Program_Name':thisFileName})
+ServerDictionary.update({'Server_Startup_Execfolder':exec_folder})
+ServerDictionary.update({'Server_Config_Folder':server_config_folder})
+ServerDictionary.update({'server_ini_file_Name':server_ini_filename})
+ServerDictionary.update({'server_config_file_Name':server_config_filename})
+ServerDictionary.update({'server_ini_file':server_ini_file})
+ServerDictionary.update({'server_config_file':server_config_file})
+ServerDictionary.update({'server_relative_config_path':server_relative_config_path})
+
+for serveritem in ServerDictionary:
+    os.environ[serveritem.upper()] = ServerDictionary.get(serveritem)
+    print('...env param: '+serveritem.upper()+' =', os.environ.get(serveritem.upper()))
+################################################################
 print('...start-server.ini')
-if SERVER_INI_FILE and os.path.isfile(SERVER_INI_FILE) and os.access(SERVER_INI_FILE, os.R_OK):
-    print('......server_ini_file FOUND...', SERVER_INI_FILE)
-    os.environ["SERVER_INI_FILE"] = SERVER_INI_FILE
+if server_ini_file and os.path.isfile(server_ini_file) and os.access(server_ini_file, os.R_OK):
+    print('......server_ini_file FOUND...', server_ini_file)
     config = configparser.ConfigParser()
-    config.read(SERVER_INI_FILE)
-    i=0
+    config.read(server_ini_file)
+    i = 0
     for section in config:
-        i=i+1
-        k=0
+        i = i + 1
+        k = 0
+        print('......', i, 'server.ini section =', section)
         for key in config[section]:
-            k=k+1
-            os.environ[key.upper()] = config[section][key]
-            print('......config_param', key.upper(), config[section][key])
+            k = k + 1
+            os.environ[key.upper()] = config[section][key].replace("'", "")
+            print('.........', k, 'config_param', key.upper(), config[section][key])
 else:
-    print('......warning: Either the file is missing or not readable', 'SERVER_INI_FILE =', SERVER_INI_FILE)
+    print('......warning:', 'server_ini_file NOT-FOUND:[', server_ini_file, '] Either the file is missing or not readable')
 print('...finish-server.ini')
 
-if SERVER_CONFIG_FILE and os.path.isfile(SERVER_CONFIG_FILE) and os.access(SERVER_CONFIG_FILE, os.R_OK):
-    print('...server_config_file FOUND...', SERVER_CONFIG_FILE)
-    os.environ["SERVER_CONFIG_FILE"] = SERVER_CONFIG_FILE
+#for debug: list all env params
+# for envitem in os.environ:
+#     print('...env param: '+envitem+' =', os.environ.get(envitem))
+
+if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
+    print('...server_config_file FOUND...', server_config_file)
 else:
-    print('...warning: Either the file is missing or not readable', 'SERVER_CONFIG_FILE =', SERVER_CONFIG_FILE)
+    print('...warning:', 'server_config_file NOT-FOUND:[', server_config_file, '] Either the file is missing or not readable')
+
+#exit(0)
 
 print('...start-import flask app from website_app')
 from website_app import app
@@ -77,6 +107,7 @@ if __name__ == '__main__':
     msg = 'app started on [{}] port {} ...'.format(HOST, PORT)
     print('###', msg)
     print('')
-    app.run(HOST, PORT, debug=False)
+    #debug=True autoreloads flask when a change has been detected
+    app.run(HOST, PORT, debug=True)
     print('')
     print('### APP FINISH')

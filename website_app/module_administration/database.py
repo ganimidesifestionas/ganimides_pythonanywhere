@@ -19,7 +19,7 @@ app.app_context().push()
 from .models import User, Department, Role
 from .. debug_services.debug_log_services import *
 
-#log_module_start('administration_database')
+#log_start('administration_database')
 
 DATABASE_SERVER = app.config['DATABASE_SERVER']
 DATABASE_SERVER_URI = app.config['DATABASE_SERVER_URI']
@@ -34,7 +34,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
 def create_database():
-    log_module_start('create_database')
+    log_start('create_database')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -56,10 +56,10 @@ def create_database():
     # dbserver_engine.execute("CREATE DATABASE IF NOT EXISTS {db}".format(db=DATABASE_NAME))
     # dbserver_engine.execute("USE {db}".format(db=DATABASE_NAME))
     dbserver_engine.dispose()
-    log_module_finish('create_database')
+    log_finish('create_database')
 
 def create_all_tables_auto():
-    log_module_start('create_all_tables_auto')
+    log_start('create_all_tables_auto')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -79,10 +79,10 @@ def create_all_tables_auto():
             created = created + 1
     log_info("{0} tables created in database {1}".format(created,DATABASE_NAME))
     db_engine.dispose()
-    log_module_finish('create_all_tables_auto')
+    log_finish('create_all_tables_auto')
 
 def create_all_tables_manually():
-    log_module_start('create_all_tables_manually')
+    log_start('create_all_tables_manually')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -115,10 +115,10 @@ def create_all_tables_manually():
             created = created + 1
     db_engine.dispose()
     log_info("{0} tables created in database {1}".format(created,DATABASE_NAME))
-    log_module_finish('create_all_tables_manually')
+    log_finish('create_all_tables_manually')
 
 def create_roles():
-    log_module_start('create_roles')
+    log_start('create_roles')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -146,10 +146,10 @@ def create_roles():
         log_info('role created:', thisrole)
     db.session.commit()
     log_info("{0} Roles created in database {1}".format(created, DATABASE_NAME))
-    log_module_finish('create_roles')
+    log_finish('create_roles')
 
 def create_departments():
-    log_module_start('create_departments')
+    log_start('create_departments')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -177,10 +177,10 @@ def create_departments():
         log_info('Department created:', thisDpmt)
     db.session.commit()
     log_info("{0} Departments created in database {1}".format(created, DATABASE_NAME))
-    log_module_finish('create_departments')
+    log_finish('create_departments')
 
 def create_users():
-    log_module_start('create_users')
+    log_start('create_users')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -201,7 +201,7 @@ def create_users():
             log_info('user created:', thisUser)
     db.session.commit()
     log_info("{0} Subscribers created in database {1}".format(created, DATABASE_NAME))
-    log_module_finish('create_users')
+    log_finish('create_users')
 
 def list_tables(db_engine):
     global DATABASE_SERVER
@@ -227,7 +227,7 @@ def tables_list(db_engine):
     return tables_list
 
 def init_database():
-    log_module_start('init_database')
+    log_start('init_database')
     global DATABASE_SERVER
     global DATABASE_SERVER_URI
     global DATABASE_NAME
@@ -240,9 +240,9 @@ def init_database():
     create_roles()
     create_departments()
     create_users()
-    log_module_finish('init_database')
+    log_finish('init_database')
 
-#log_module_finish('administration_database')
+#log_finish('administration_database')
 
 if __name__ == '__main__':
     cls()# now, to clear the screen
