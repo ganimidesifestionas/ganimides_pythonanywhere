@@ -99,6 +99,7 @@ app_config_filename = 'app_config.py'
 app_ini_file = os.path.join(app_config_folder, app_ini_filename)
 app_config_file = os.path.join(app_config_folder, app_config_filename)
 app_relative_config_path = '..\{}'.format(thisFolderName)
+app_relative_config_path = ''
 ################################################################
 # print('...App_Startup_Program =', __file__)
 # print('...App_Startup_Folder =', thisDir)
@@ -131,6 +132,8 @@ for appitem in AppDictionary:
 ################################################################
 app_relative_config_path = os.environ.get('APP_RELATIVE_CONFIG_PATH')
 server_relative_config_path = os.environ.get('SERVER_RELATIVE_CONFIG_PATH')
+app_Startup_Folder = os.environ.get('APP_STARTUP_FOLDER')
+log_warning('***' , 'app_Startup_Folder', app_Startup_Folder)
 log_warning('***' , 'app_relative_config_path', app_relative_config_path)
 log_warning('***' , 'server_relative_config_path', server_relative_config_path)
 ################################################################
@@ -150,8 +153,8 @@ log_warning('***' , 'server_relative_config_path', server_relative_config_path)
 ################################################################################
 ################################################################################
 log_info('###CREATE FLASK-APP###', 'app = Flask(__name__, instance_relative_config=True)')
-app = Flask(__name__, instance_relative_config=True)
-#app = Flask(__name__, instance_path=thisDir)
+#app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__, instance_path=app_Startup_Folder)
 #x=get_instance_folder_path()
 #log_variable('get_instance_folder_path', x)
 log_variable('app', app)
@@ -242,8 +245,9 @@ log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'EYECATCH---', app.co
 config_name = 'google'
 config_file_name = 'config_google.py'
 config_file = '..\website_app\config_google.py'
+config_file = 'config_google.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
-app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
 log_info('CONFIG-STEP-5 google apps', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
@@ -252,7 +256,7 @@ config_name = 'geolocation'
 config_file_name = 'config_geolocation.py'
 config_file = '..\website_app\config_geolocation.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
-app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
 log_info('CONFIG-STEP-6 geolocation', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
@@ -261,7 +265,7 @@ config_name = 'mailserver'
 config_file_name = 'config_mailserver.py'
 config_file = '..\website_app\config_mailserver.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
-app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
 log_info('CONFIG-STEP-7 mailserver', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
@@ -290,7 +294,7 @@ config_name = 'database'
 config_file_name = 'config_database.py'
 config_file = '..\website_app\config_database.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
-app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
 log_info('CONFIG-STEP-6 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
@@ -301,7 +305,7 @@ config_file_name = 'config_sqlalchemy.py'
 config_file = '..\config_sqlalchemy.py'
 config_file = '..\website_app\config_database.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
-app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
+app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
 log_info('CONFIG-STEP-7 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 log_start('config_checkpoint_1')
