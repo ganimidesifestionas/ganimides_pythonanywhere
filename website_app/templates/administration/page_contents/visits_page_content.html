@@ -7,6 +7,7 @@
                     <th scope="col">DT</th>
                     <th scope="col">IP</th>
                     <th scope="col" colspan="2">visit point</th>
+                    <th scope="col">pages</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                     <td> {{ visit.ip }} </td>
                     <td> {{ visit.visitpoint.country_name }} </td>
                     <td> {{ visit.visitpoint.city }} </td>
+                    <td> {{ visit.pagesVisited }} </td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -477,9 +477,9 @@ def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', 
     visitid=session.get('VisitID')
     #make sure is numeric
     try:
-        dummy = visitid -1
+        dummy = visitid - 1
     except:
-        visitid=1
+        visitid = 1
 
     clientDictionary = get_client_info_dictionary()
     lang = clientDictionary['lang']
@@ -497,6 +497,7 @@ def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', 
         , sessionID=session.get('sessionID')
     )
     db.session.add(page_visit)
+    visit.pagesVisited = visit.pagesVisited + 1
     db.session.commit()
     session['page_visit_id'] = page_visit.id
     #print('###'+__name__+'###', 'log_page_visit [finish]', page_visit)

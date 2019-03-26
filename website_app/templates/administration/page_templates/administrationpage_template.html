@@ -9,6 +9,6 @@
 
 {% set content_page_template="administrationpageslayout_pagecontenttemplate.html" %}
 {% block content %}
-{% include appfolder('MASTERLAYOUT',active_module)+version_file("administrationpageslayout.html",execution_mode,design_type,design_version) %}
+{% include include_files('administrationpageslayout.html',type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
 {% endblock %}
 <!--ENDOF--page_template = "users_table_template"-->

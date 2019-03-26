@@ -12,6 +12,6 @@
 {% set formlink_page1 = ["authorization.userprofile","your profile","","button"] %}
 
 {% block content %}
-{% include include_files(page_layout,type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+{% include include_files('page_layout.html',type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
 {% endblock %}
 <!--ENDOF--page_template = "authorization_forms_template"-->

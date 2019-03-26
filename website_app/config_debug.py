@@ -8,6 +8,10 @@ from website_app.debug_services.debug_log_services import *
 
 
 def debug_config_on_startup():
+    if os.environ.get('GLOBAL_DEBUG').upper() in ('OFF', '0', 'FALSE'):
+        set_global_debug('OFF')
+    else:
+        set_global_debug('ON')
     log_start('debug_config_on_startup')
     set_global_debug('OFF')
     set_debug_defaults(onoff='ON', debuglevel=9)
@@ -16,8 +20,11 @@ def debug_config_on_startup():
 
 
 def debug_config():
+    if os.environ.get('GLOBAL_DEBUG').upper() in ('OFF', '0', 'FALSE'):
+        set_global_debug('OFF')
+    else:
+        set_global_debug('ON')
     log_start('debug_config')
-    set_global_debug('OFF')
     set_debug_defaults(onoff='OFF', debuglevel=9)
     set_debug_level(module='*', component='*', component_type='include', priority=89, debugOnOff='OFF', debugLevel=9)
     # set_debug_level(module='website_app', debugOnOff='OFF', debugLevel=9)

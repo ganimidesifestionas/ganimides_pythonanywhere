@@ -1,0 +1,12 @@
+            <div class="page_history d-flex align-items-center py-0">
+                <span style="text-decoration:none;line-height:1">
+                    {% set ns = namespace() %}
+                    {% set ns.pageix=0 %}
+                    {% set ns.pagecolorix=0 %}
+                    {% for pg in session['pages'] %}
+                    {% set ns.pageix=ns.pageix+1 %}
+                    {% set url=session['urls'][ns.pageix-1] %}
+                    <a href="{{url}}" style="font-weight:400;" class="btn btn-sm badge badge-secondary">{{pg}}</a>
+                    {% endfor %}
+                </span>
+            </div>

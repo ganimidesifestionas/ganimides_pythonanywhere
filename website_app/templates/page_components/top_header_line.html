@@ -36,10 +36,11 @@
     <div class="d-flex col-5 p-0 m-0">
         <nav class="navbar navbar-expand-xl w-100 justify-content-between p-0 m-0">
             <!-- Toggler/collapsibe Button -->
-            <div class="d-flex bg-light p-1 border" style="border-radius:3px">
-                <button id="supportmenu-toggler" class="navbar-toggler supportmenu-toggler m-0 p-0" type="button" data-toggle="collapse" data-target="#SupportMenu" aria-controls="SupportMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="fas fa-align-justify text-primary"></span>
-                </button>
+            <div class="d-flex justify-content-center m-0 p-0">
+                {% set button_id="supportmenu-toggler" %}
+                {% set button_class="supportmenu_toggler" %}
+                {% set button_menu_controlled="SupportMenu" %}
+                {% include include_files('button_menu_toggler_tria.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
             </div>
             <!-- SUPPORT MENU  -->
             <div id="SupportMenu" class="collapse navbar-collapse p-0 support_menu">

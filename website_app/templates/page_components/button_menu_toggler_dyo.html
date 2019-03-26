@@ -1,0 +1,13 @@
+<!--START:button_menu_toggler_dyo.html-->
+<!--input:
+    button_id="mainmenu-toggler" 
+    button_class="mainmenu_toggler" 
+    button_menu_controlled="GlobalMenu" 
+    button_background="bg-light"
+    button_text_color="text-info"
+-->
+{% set button_text_color="text-danger" %}
+{% set button_background="bg-light" %}
+{% set button_border="border border-danger" %}
+{% include include_files('button_menu_toggler.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+<!--FINISH:button_menu_toggler_dyo.html-->

@@ -129,12 +129,12 @@ class Visit(Base):
     id = db.Column(db.Integer, primary_key=True)
     visitNumber = db.Column(db.Integer, nullable=True, default=0)
     visitDT = db.Column(db.DateTime, nullable=False)
-    sessionID=db.Column(db.String(255), nullable=True, default='')
+    sessionID = db.Column(db.String(255), nullable=True, default='')
     #ip = db.Column(db.String(60), index=True)
     #latitude = db.Column(db.Numeric(15,12), index=True)
     #longitude = db.Column(db.Numeric(15,12), index=True)
     visitpoint_ID = db.Column(db.Integer, db.ForeignKey('visitpoints.id'))
-
+    pagesVisited = db.Column(db.Integer, nullable=True, default=0)
     def __repr__(self):
         return '<visit: {0}({1}) {2} visitpoint:{3}>'.format(self.id, self.visitNumber, self.visitDT, self.visitpoint_ID)
     def __str__(self):

@@ -1,0 +1,15 @@
+<div class="gps_info d-flex align-items-center py-0">
+    <span style="text-decoration:none;line-height:1">
+        <span style="font-weight:400" class="d-none d-md-inline badge badge-warning">{{session.get('continent_name')}}</span>
+        <span style="font-weight:400" class="badge badge-success">{{session.get('country_name')}}</span>
+        <span style="font-weight:400" class="d-none d-md-inline badge badge-info">{{session.get('region_name')}}</span>
+        {% if session.get('region_name') != session.get('city') %}
+        <span style="font-weight:400" class="d-none d-lg-inline badge badge-primary">{{session.get('city')}}</span>
+        {% endif %}
+        {% set href="https://www.google.co.uk/maps/place/@{0},{1}".format(session.get('longitude'),session.get('longitude')) %}
+        {% set href=href+"" %}
+        <a target="_blank" href="{{href}}">
+            <span style="font-weight:400" class="d-none d-lg-inline badge badge-secondary">{{session.get('latitude')}},{{session.get('longitude')}}</span>
+        </a>
+    </span>
+</div>

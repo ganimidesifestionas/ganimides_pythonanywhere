@@ -1,0 +1,23 @@
+<!--START:button_menu_toggler.html-->
+<!--input:
+    button_id="mainmenu-toggler" 
+    button_class="mainmenu_toggler" 
+    button_menu_controlled="GlobalMenu" 
+    button_background="bg-light"
+    button_text_color="text-info"
+-->
+{% if not button_text_color %}
+{% set button_text_color="text-white" %}
+{% endif %}
+{% if not button_background %}
+{% set button_background="bg-danger" %}
+{% endif %}
+{% if not button_border %}
+{% set button_border="border" %}
+{% endif %}
+<div class="d-flex m-0 p-0">
+    <button id="{{button_id}}" class="navbar-toggler {{button_background}} {{button_class}} {{button_border}} m-0 p-1" style="border-radius:3px" type="button" data-toggle="collapse" data-target="#{{button_menu_controlled}}" aria-controls="{{button_menu_controlled}}" aria-expanded="false" aria-label="{{button_menu_controlled}} Toggle navigation">
+        <span style="font-weight:900" class="fas fa-align-justify {{button_text_color}}"></span>
+    </button>
+</div>
+<!--FINISH:button_menu_toggler.html-->

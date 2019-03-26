@@ -1,0 +1,12 @@
+<!--START:button_menu_toggler_ena.html-->
+<!--input:
+    button_id="supportmenu-toggler" 
+    button_class="supportmenu_toggler" 
+    button_menu_controlled="SupportMenu" 
+    button_background="bg-light"
+    button_text_color="text-info"
+-->
+{% set button_text_color="text-info" %}
+{% set button_background="bg-light" %}
+{% include include_files('button_menu_toggler.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+<!--FINISH:button_menu_toggler_ena.html-->

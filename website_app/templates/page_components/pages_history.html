@@ -1,12 +1,83 @@
-            <div class="page_history d-flex align-items-center py-0">
-                <span style="text-decoration:none;line-height:1">
-                    {% set ns = namespace() %}
-                    {% set ns.pageix=0 %}
-                    {% set ns.pagecolorix=0 %}
-                    {% for pg in session['pages'] %}
-                    {% set ns.pageix=ns.pageix+1 %}
-                    {% set url=session['urls'][ns.pageix-1] %}
-                    <a href="{{url}}" style="font-weight:400;" class="btn btn-sm badge badge-secondary">{{pg}}</a>
-                    {% endfor %}
-                </span>
-            </div>
+<!--START:pages_history.html -->
+<!--input:
+    badges_color: auto , colors, gray, ....
+    toggler_color: 
+-->
+{% if toggler_color in ("one","dyo","tria","light") %}
+{% set button_menu_toggler_file = "button_menu_toggler_"+toggler_color+".html" %}
+{% else %}
+{% set button_menu_toggler_file = "button_menu_toggler_light.html"%}
+{% endif %}
+
+<nav class="navbar navbar-expand-lg w-100 justify-content-center p-0 m-0">
+    <!-- Toggler/collapsibe Button -->
+    <div class="d-flex justify-content-center m-0 p-0">
+        {% set button_id="PagesHistoryMenu" %}
+        {% set button_class="pages_history_menu" %}
+        {% set button_menu_controlled="PagesHistoryMenu" %}
+        {% include include_files(button_menu_toggler_file,type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+    </div>
+
+    <!-- pages history MENU collapsibleNavbar -->
+    <div id="PagesHistoryMenu" class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            {% set ns = namespace() %}
+            {% set ns.pagestotal=0 %}
+            {% for pg in session['pages'] %}
+            {% set ns.pagestotal=ns.pagestotal+1 %}
+            {% endfor %}
+            {% if ns.pagestotal <= 2 %}
+            {% set display_option='' %}
+            {% elif ns.pagestotal <=4 %}
+            {% set display_option='d-none d-sm-inline' %}
+            {% elif ns.pagestotal <=6 %}
+            {% set display_option='d-none d-md-inline' %}
+            {% elif ns.pagestotal <=8 %}
+            {% set display_option='d-none d-lg-inline' %}
+            {% else %}
+            {% set display_option="d-none d-xl-inline" %}
+            {% endif %}
+
+            {% set ns.pageix=0 %}
+            {% set ns.pagecolorix=0 %}
+            {% for pg in session['pages'] %}
+            {% set ns.pageix=ns.pageix+1 %}
+            {% set url=session['urls'][ns.pageix-1] %}
+
+            {% set ns.pagecolorix=ns.pagecolorix+1 %}
+            {% if ns.pagecolorix > 7 %}
+            {% set ns.pagecolorix=1 %}
+            {% endif %}
+            {% if ns.pagecolorix==1 %}
+            {% set pg_color="badge-warning" %}
+            {% elif ns.pagecolorix==2 %}
+            {% set pg_color="badge-primary" %}
+            {% elif ns.pagecolorix==3 %}
+            {% set pg_color="badge-secondary" %}
+            {% elif ns.pagecolorix==4 %}
+            {% set pg_color="badge-success" %}
+            {% elif ns.pagecolorix==5 %}
+            {% set pg_color="badge-danger" %}
+            {% elif ns.pagecolorix==6 %}
+            {% set pg_color="badge-info" %}
+            {% elif ns.pagecolorix==7 %}
+            {% set pg_color="badge-dark" %}
+            {% endif %}
+
+            {% if badges_color in ("colors","auto") %}
+            {% set badge_color = pg_color %}
+            {% elif badges_color in ("gray","secondary") %}
+            {% set badge_color = "badge-secondary" %}
+            {% else %}
+            {% set badge_color = badges_color %}
+            {% endif %}
+            <li class="nav-item p-0 float-right">
+                <a data-toggle="tooltip" title="" data-placement="top" style="font-weight:400" class="nav-link p-1 ml-1 mt-1 badge {{badge_color}} text-warning" href="{{url}}">{{pg}}</a>
+            </li>
+
+            {% endfor %}
+            <!--------------------->
+        </ul>
+    </div>
+</nav>
+<!--END:pages_history.html -->

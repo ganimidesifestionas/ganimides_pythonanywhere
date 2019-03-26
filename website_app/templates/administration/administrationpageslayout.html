@@ -1,6 +1,6 @@
 <!--BEGIN--pageslayout = "administrationpageslayout"-->
+{% set active_module = "administration" %}
 {% set pageslayout = "administrationpageslayout" %}
-
 {% if not(content_page_template) %}
 {% set content_page_template="administrationpageslayout_pagecontenttemplate.html" %}
 {%endif%}
@@ -47,45 +47,9 @@
 {% if page_middle_image %}
 {% set page_middle_image_file = image_file(page_middle_image) %}
 {% endif %}
-
-{% if page_summary_image %}
-{% set page_summary_image_file = image_file(page_summary_image) %}
-{% endif %}
-
 {% if page_bottom_image %}
 {% set page_bottom_image_file = image_file(page_bottom_image) %}
 {% endif %}
-
-{% if carousel %}
-{% set page_carousel_file = page_file(carousel) %}
-{% set language_page_carousel_file=language_file(page_carousel_file,CURRENT_LANGUAGE) %}
-{% endif %}
-
-{% if top_carousel %}
-{% set page_top_carousel_file = page_file(top_carousel) %}
-{% set language_page_top_carousel_file=language_file(page_top_carousel_file,CURRENT_LANGUAGE) %}
-{% endif %}
-
-{% if middle_carousel %}
-{% set page_middle_carousel_file = page_file(middle_carousel) %}
-{% set language_page_middle_carousel_file=language_file(page_middle_carousel_file,CURRENT_LANGUAGE) %}
-{% endif %}
-
-{% if summary_carousel %}
-{% set page_summary_carousel_file = page_file(summary_carousel) %}
-{% set language_page_summary_carousel_file=language_file(page_summary_carousel_file,CURRENT_LANGUAGE) %}
-{% endif %}
-
-{% if bottom_carousel %}
-{% set page_bottom_carousel_file = page_file(bottom_carousel) %}
-{% set language_page_bottom_carousel_file=language_file(page_bottom_carousel_file,CURRENT_LANGUAGE) %}
-{% endif %}
-
-{% if inpage_carousel %}
-{% set page_inpage_carousel_file = page_file(inpage_carousel) %}
-{% set language_page_inpage_carousel_file=language_file(page_inpage_carousel_file,CURRENT_LANGUAGE) %}
-{% endif %}
-
 
 {% if not(link_page1) %}{% set link_page1="" %}{% endif %}
 {% if not(link_page2) %}{% set link_page2="" %}{% endif %}
@@ -97,38 +61,63 @@
 {% if not(link_page8) %}{% set link_page8="" %}{% endif %}
 {% if not(link_page9) %}{% set link_page9="" %}{% endif %}
 {% set LinkPagesArray = [link_page1 ,link_page2, link_page3, link_page4 ,link_page5, link_page6, link_page7,link_page8, link_page9] %}
-
+{% set ns = namespace() %}
+{% set ns.items=0 %}
 {% set LinkPages=0 %}
 {% for pageLink in LinkPagesArray %}
 {% if pageLink[0] %}
-{% set LinkPages=LinkPages+1 %}
+{% set ns.items=ns.items+1 %}
 {% endif %}
 {% endfor %}
+{% set LinkPages=ns.items %}
+
 {% if next_page %}
-{% set LinkPages=LinkPages+1 %}
+{#% set LinkPages=LinkPages+1 %#}
 {% endif %}
 {% if previous_page %}
-{% set LinkPages=LinkPages+1 %}
+{#% set LinkPages=LinkPages+1 %#}
 {% endif %}
 
-<div class="d-flex flex-column w-100 ">
-    <div class="d-flex flex-row w-100 text-black">
-        <div class="d-flex flex-column flex-grow-1 justify-content-start">
-            {% include [
-            appfolder('LAYOUT_COMPONENT',active_module)+version_file(content_page_template,execution_mode,page_content_template_design,page_content_template_version)
-            ,appfolder('LAYOUT_COMPONENT','')+version_file(content_page_template,execution_mode,page_content_template_design,page_content_template_version)
-            ]
-            %}
+{% if not(formlink_page1) %}{% set formlink_page1="" %}{% endif %}
+{% if not(formlink_page2) %}{% set formlink_page2="" %}{% endif %}
+{% if not(formlink_page3) %}{% set formlink_page3="" %}{% endif %}
+{% if not(formlink_page4) %}{% set formlink_page4="" %}{% endif %}
+{% if not(formlink_page5) %}{% set formlink_page5="" %}{% endif %}
+{% if not(formlink_page6) %}{% set formlink_page6="" %}{% endif %}
+{% if not(formlink_page7) %}{% set formlink_page7="" %}{% endif %}
+{% if not(formlink_page8) %}{% set formlink_page8="" %}{% endif %}
+{% if not(formlink_page9) %}{% set formlink_page9="" %}{% endif %}
+{% set FormLinkPagesArray = [formlink_page1 ,formlink_page2, formlink_page3, formlink_page4 ,formlink_page5, formlink_page6, formlink_page7,formlink_page8, formlink_page9] %}
+{% set FormLinkPages=0 %}
+{% set ns.items=0 %}
+{% for pageLink in FormLinkPagesArray %}
+{% if pageLink[0] %}
+{% set ns.items=ns.items+1 %}
+{% endif %}
+{% endfor %}
+{% set FormLinkPages=ns.items %}
+<div class="d-flex flex-column w-100 administration_page">
+    <div class="d-flex flex-row w-100 justify-content-center">
+
+        {% if page_left_content1 %}
+        <div class="d-flex flex-column justify-content-start">
+            {% include include_files(page_left_content1,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
+        {% endif %}
+
+        <div class="d-flex flex-column flex-grow-1 justify-content-start administration_page">
+            {% include include_files(content_page_template,type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
+
+        {% if page_right_content1 %}
+        <div class="d-flex flex-column justify-content-start">
+            {% include include_files(page_right_content1,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
+        {% endif %}
+
     </div>
-    <div class="w-100 internal_use_line p-2">
-        {% include [
-        language_fullpathfile('internaluse_line.html',CURRENT_LANGUAGE,'COMPONENT','administration')
-        ,fullpathfile('internaluse_line.html','COMPONENT','administration')
-        ,language_fullpathfile('internaluse_line.html',CURRENT_LANGUAGE,'COMPONENT','')
-        ,fullpathfile('internaluse_line.html','COMPONENT','')
-        ]
-        %}
+    <div style="color:orange;" class="w-100 internal_use_line py-1 text-center">
+        {% include include_files('internaluse_line.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
     </div>
 </div>
 <!--ENDOF--pageslayout = "administrationpageslayout"-->
