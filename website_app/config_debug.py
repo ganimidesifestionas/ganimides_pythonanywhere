@@ -9,7 +9,7 @@ from website_app.debug_services.debug_log_services import *
 
 def debug_config_on_startup():
     log_start('debug_config_on_startup')
-    set_global_debug('ON')
+    set_global_debug('OFF')
     set_debug_defaults(onoff='ON', debuglevel=9)
     log_finish('debug_config_on_startup')
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -17,7 +17,7 @@ def debug_config_on_startup():
 
 def debug_config():
     log_start('debug_config')
-    set_global_debug('ON')
+    set_global_debug('OFF')
     set_debug_defaults(onoff='OFF', debuglevel=9)
     set_debug_level(module='*', component='*', component_type='include', priority=89, debugOnOff='OFF', debugLevel=9)
     # set_debug_level(module='website_app', debugOnOff='OFF', debugLevel=9)
