@@ -497,7 +497,7 @@ def log_page_visit(pageType, pageID, pageURL, pageFunction='', pageTemplate='', 
         , sessionID=session.get('sessionID')
     )
     db.session.add(page_visit)
-    visit.pagesVisited = visit.pagesVisited + 1
+    visit.pagesVisitedCount = visit.pagesVisitedCount + 1
     db.session.commit()
     session['page_visit_id'] = page_visit.id
     #print('###'+__name__+'###', 'log_page_visit [finish]', page_visit)
