@@ -165,7 +165,7 @@ class Page_Visit(Base):
     visit_ID = db.Column(db.Integer, db.ForeignKey('visits.id'))
 
     def __repr__(self):
-        return '<page_visit:{0} page:{1}>'.format(self.id, self.pageID, self.visit_ID)
+        return '<page_visit:{0} page:{1}>'.format(self.id, self.pageID)
 
 class xContactMessage(db.Model):
     """

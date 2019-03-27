@@ -1,0 +1,14 @@
+<!--BEGIN--page_template = "administration_forms_template"-->
+{% extends "webapppageslayout.html" %}
+{% set active_module = 'administration' %}
+{% set page_title = "" %}
+{% set page_logo = "" %}
+{% set next_page = "" %}
+{% set previous_page = "" %}
+{% set content_page="administration_pages_page_content.html" %}
+
+{% set content_page_template="administrationpageslayout_pagecontenttemplate.html" %}
+{% block content %}
+{% include include_files('administrationpageslayout.html',type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+{% endblock %}
+<!--ENDOF--page_template = "administration_forms_template"-->

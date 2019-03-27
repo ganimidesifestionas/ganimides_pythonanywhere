@@ -21,6 +21,18 @@
 {% set users_is_active='' %}
 {% set users_show='' %}
 {%endif%}
+{% if activeTAB=='visits' %}
+{% set visits_is_active='active' %}
+{% set visits_show='active show' %}
+{% set users_is_active='' %}
+{% set users_show='' %}
+{%endif%}
+{% if activeTAB=='visitpoints' %}
+{% set visitpoints_is_active='active' %}
+{% set visitpoints_show='active show' %}
+{% set users_is_active='' %}
+{% set users_show='' %}
+{%endif%}
 
 <div class="d-flex flex-column">
     <div class="p-0">
@@ -42,7 +54,7 @@
 
                 <!-- users table-readonly -->
                 <div id="users" class="tab-pane fade {{users_show}} left">
-                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                    <div class="d-flex justify-content-start administration-page xtabform-borders border border-top-0">
                         <div class="">
                             {% include [language_fullpathfile('users_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('users_page_content.html','PAGE',active_module)] %}
                         </div>
@@ -51,7 +63,7 @@
 
                 <!-- roles table change-->
                 <div id="roles" class="tab-pane fade {{roles_show}} left">
-                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                    <div class="d-flex justify-content-start administration-page xtabform-borders border border-top-0">
                         <div class="">
                             {% include [language_fullpathfile('roles_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('roles_page_content.html','PAGE',active_module)] %}
                         </div>
@@ -60,7 +72,7 @@
 
                 <!-- departments table-->
                 <div id="departments" class="tab-pane fade {{departments_show}} left">
-                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                    <div class="d-flex justify-content-start administration-page xtabform-borders border border-top-0">
                         <div class="">
                             {% include [language_fullpathfile('departments_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('departments_page_content.html','PAGE',active_module)] %}
                         </div>
@@ -69,7 +81,7 @@
 
                 <!-- visitpoints table-->
                 <div id="visitpoints" class="tab-pane fade {{visitpoints_show}} left">
-                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                    <div class="d-flex justify-content-start administration-page xtabform-border sborder border-top-0">
                         <div class="">
                             {% include [language_fullpathfile('visitpoints_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visitpoints_page_content.html','PAGE',active_module)] %}
                         </div>
@@ -78,7 +90,7 @@
 
                 <!-- visits table-->
                 <div id="visits" class="tab-pane fade {{visits_show}} left">
-                    <div class="d-flex justify-content-center administration-page xtabform-borders">
+                    <div class="d-flex justify-content-start administration-page xtabform-borders border border-top-0">
                         <div class="">
                             {% include [language_fullpathfile('visits_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visits_page_content.html','PAGE',active_module)] %}
                         </div>

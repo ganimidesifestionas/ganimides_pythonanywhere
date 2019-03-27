@@ -28,10 +28,11 @@
 
 
         <!--3:page-content-->
-        <div class="d-flex flex-wrap flex-row justify-content-center">
+        <div class="d-flex flex-wrap flex-row justify-content-start">
 
             <!--3.1:page-content-left-->
             <div class="">
+                {% include include_files('administration_leftside_menu.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 {% if page_content_left %}
                 {% include include_files(page_content_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
@@ -40,24 +41,24 @@
             <!--3.2:page-content-->
             <div class="d-flex flex-column">
                 <!--3.2.1:page-header:page-logo,title,buttons-->
-                <div class="d-flex flex-wrap flex-column justify-content-center mt-1 mb-1">
+                <div class="d-flex flex-wrap flex-column justify-content-start mt-1 mb-1 adminstration_page">
 
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-start align-items-center">
+                        {% if page_image %}
                         <div class="d-flex align-items-center">
-                            {% if page_image %}
                             <img style="width:5rem;height:5rem;" src={{page_image}} class="document-image_icon" />
-                            {% endif %}
                         </div>
+                        {% endif %}
+                        {% if page_title %}
                         <div class="d-flex align-items-center">
-                            <div class="container">
-                                {% if page_title %}
+                            <div class="container m-0 p-0">
                                 <h4 class="page_title m-0 p-0">{{page_title}}</h4>
-                                {% endif %}
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
                             {% include include_files('form_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
                         </div>
+                        {% endif %}
                     </div>
 
                     <div class="d-flex justify-content-end align-items-end">
@@ -100,7 +101,7 @@
         </div>
 
         <!--4:content-bottom-->
-        <div class="d-flex flex-wrap justify-content-center">
+        <div class="d-flex flex-wrap justify-content-start">
             <div class="d-flex">
                 {% if page_content_bottom_left %}
                 {% include include_files(page_content_bottom_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
@@ -121,7 +122,7 @@
         </div>
 
         <!--10:page-bottom-->
-        <div class="d-flex flex-wrap flex-row justify-content-center">
+        <div class="d-flex flex-wrap flex-row justify-content-start">
             <div class="d-flex">
                 {% if page_bottom_left %}
                 {% include include_files(page_bottom_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}

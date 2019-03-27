@@ -238,6 +238,10 @@ class FlaskConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEBUG_TYPES = {}
     DEBUG_VERSION = ''
+class PaginationConfig(Config):
+    """Flask configurations"""
+    EYECATCH = 'APP-FLASK-PAGINATION'
+    PER_PAGE = 2
 
 class xProductionConfig(Config):
     EYECATCH = 'MYAPP-PRODUCTION'
@@ -347,5 +351,6 @@ environment_config = {
 #####################################################
 app_config = {
     'flask' : FlaskConfig
+    ,'pagination' : PaginationConfig
 }
 #####################################################

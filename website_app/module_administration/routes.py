@@ -7,6 +7,7 @@ import json
 import time
 import inspect
 from datetime import datetime
+from math import ceil
 
 # Import the database object from the main app module
 from .. import db
@@ -21,6 +22,9 @@ from flask import g, session, abort, Response
 from flask import Blueprint
 from flask import current_app as app
 from flask_login import current_user, login_required, login_user, logout_user
+from flask_paginate import Pagination, get_page_parameter, get_page_args
+from sqlalchemy import func
+
 # Import password / encryption helper tools
 #from werkzeug import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
@@ -45,7 +49,7 @@ from ..models import VisitPoint, Visit
 administration = Blueprint('administration', __name__, url_prefix='/administration')
 #from . import module_administration as administration
 
-
+#PER_PAGE = 20
 
 def check_admin():
 	"""
@@ -227,6 +231,37 @@ def copy_user_to_subscriber(user,action):
         else:
             flash('an activation email has been sent to {}.'.format(subscriber.email),'warning')
             print('   activation email sent.')
+class xPagination(object):
+
+    def __init__(self, page, per_page, total_count):
+        self.page = page
+        self.per_page = per_page
+        self.total_count = total_count
+
+    @property
+    def pages(self):
+        return int(ceil(self.total_count / float(self.per_page)))
+
+    @property
+    def has_prev(self):
+        return self.page > 1
+
+    @property
+    def has_next(self):
+        return self.page < self.pages
+
+    def iter_pages(self, left_edge=2, left_current=2,
+                   right_current=5, right_edge=2):
+        last = 0
+        for num in xrange(1, self.pages + 1):
+            if num <= left_edge or \
+               (num > self.page - left_current - 1 and \
+                num < self.page + right_current) or \
+               num > self.pages - right_edge:
+                if last + 1 != num:
+                    yield None
+                yield num
+                last = num
 ###########################################################################
 ###########################################################################
 ###########################################################################
@@ -276,8 +311,28 @@ def homepage():
     log_route(page_name, page_function)
     return redirect(url_for('administration.adminpage',action_tab = ''))
 
+
+# @administration.route('/users/', defaults={'page': 1})
+# @administration.route('/users/page/<int:page>')
+# def show_users(page):
+#     count = count_all_users()
+#     users = get_users_for_page(page, PER_PAGE, count)
+#     if not users and page != 1:
+#         abort(404)
+#     pagination = Pagination(page, PER_PAGE, count)
+#     return render_template('users.html',
+#         pagination=pagination,
+#         users=users
+#     )
+
+@administration.route('/adminpage/', defaults={'action_tab':''} , methods = ['GET', 'POST'])
 @administration.route('/adminpage/<action_tab>', methods = ['GET', 'POST'])
-def adminpage(action_tab='users'):
+def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspageNum=0):
+    print('###1-action_tab', action_tab)
+    print('###1-userspageNum', userspageNum)
+    print('###1-visitspageNum', visitspageNum)
+    print('###1-visitpointspageNum', visitpointspageNum)
+    print('')
     page_name = 'adminpage'
     page_function = 'adminpage'
     page_template = 'administration/page_templates/administrationpage_template.html'
@@ -285,34 +340,324 @@ def adminpage(action_tab='users'):
     page_form = ''
     log_page(page_name, page_function, page_template, page_template_page, page_form)
     log_url_param('action_tab',action_tab)
-    if not action_tab or action_tab == '*':
-        action_tab = 'users'
-    users = User.query.all()
+    # if not action_tab or action_tab == '*':
+    #     action_tab = 'users'
+    #print('###2-action_tab', action_tab)
+    #log_url_param('action_tab',action_tab)
+    #log_url_param('page',page)
+    # page = request.args.get(get_page_parameter(), type=int, default=1)
+    # print('###---param page', page)
+    userspageNum = request.args.get('userspageNum', type=int, default=1)
+    visitspageNum = request.args.get('visitspageNum', type=int, default=1)
+    visitpointspageNum = request.args.get('visitpointspageNum', type=int, default=1)
+    print('###2-action_tab', action_tab)
+    print('###2-userspageNum', userspageNum)
+    print('###2-visitspageNum', visitspageNum)
+    print('###2-visitpointspageNum', visitpointspageNum)
+    print('')
+    if not action_tab:
+        if userspageNum > 0:
+            action_tab = 'users'
+        else:
+            if visitspageNum > 0:
+                action_tab = 'visits'
+            else:
+                if visitpointspageNum > 0:
+                    action_tab = 'visitpoints'
+                else:
+                    action_tab = 'users'
+    print('###3-action_tab', action_tab)
+    print('###3-userspageNum', userspageNum)
+    print('###3-visitspageNum', visitspageNum)
+    print('###3-visitpointspageNum', visitpointspageNum)
+    print('')
+
+    # if action_tab.lower == 'visits':
+    #     visitspageNum = page
+    # else:
+    #     if action_tab.lower == 'visitpoints':
+    #         visitpointspageNum = page
+    #     else:
+    #         userspageNum = page
+
+    log_url_param('action_tab',action_tab)
+    log_url_param('userspageNum',userspageNum)
+    log_url_param('visitspageNum',visitspageNum)
+    log_url_param('visitpontspageNum',visitpointspageNum)
+
+    #users = get_users_for_page(userspage, PER_PAGE, userscount)
+    #userspagination1 = User.query.order_by(User.id).paginate(userspageNum, app.config.get('PER_PAGE',2), False)
+
+    search = False
+    q = request.args.get('q')
+    if q:
+        search = True
+
+    #print('###1.userspageNum', userspageNum)
+    #page = request.args.get('userspageNum', type=int, default=page)
+    #print('###3.userspageNum', userspageNum)
+
+    #users = User.query.all()
+    # #print('############users1:', users.count(User.id))
+    # c = 0
+    # for user in users:
+    #     c = c + 1
+    #     print(c,user)
+    # print('############users1a:', c)
+    # count User records, without
+    # using a subquery.
+    #session.query(func.count(User.id))
+    #db.session.commit()
+    #userscount = User.query.all(func.count(User.id))
+    #User.query.filter(UserImage.user_id == 1).count()
+    # userscount = User.query.all().count()
+    # print('############users2:', userscount)
+    # userscount = db.session.query(User).all().count(User.id)
+    # print('############users3:', userscount)
+    total_users = db.session.query(func.count(User.id)).scalar() 
+    #print('############total_users:', total_users)
+    #Pagination.__init__()
+    #pagination = Pagination(page_parameter='page')
+    #pagination = Pagination(per_page_parameter='pp')
+    #total = g.cur.fetchone()[0]
+    #page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    #print('############1params:', page, per_page, offset)
+    page, per_page, offset = get_page_args(page_parameter='userspageNum', per_page_parameter='per_page')
+    #print('############2params:', page, per_page, offset)
+    sql = 'select name from users order by name limit {}, {}'\
+        .format(offset, per_page)
+    #print('############sql:', sql)
+    #users = User.query.all()
+    #users = User.query.order_by(User.userName).limit(offset,per_page).all()
+    users = User.query.order_by(User.userName).paginate(page=userspageNum, per_page=per_page).items
+    #g.cur.execute(sql)
+    #users = g.cur.fetchall()
+    # pagination = get_pagination(page=page,
+    #                             per_page=per_page,
+    #                             total=userscount,
+    #                             record_name='users',
+    #                             format_total=True,
+    #                             format_number=True,
+    #                             )
+# def get_pagination(**kwargs):
+#     kwargs.setdefault('record_name', 'records')
+#     return Pagination(
+#         css_framework=get_css_framework(),
+#                       link_size=get_link_size(),
+#                       alignment=get_alignment(),
+#                       show_single_page=show_single_page_or_not(),
+#                       **kwargs
+#                       )
+    page, per_page, offset = get_page_args(page_parameter='userspageNum', per_page_parameter='per_page')
+    #print('users_page',page)
+    href = url_for('administration.adminpage', action_tab='users', userspageNum='0').replace('=0','={0}')
+    #print('href_users',href)
+    #print('users_page',userspageNum)
+    userspagination = Pagination(
+        page=page,
+        total=total_users,
+        search=search,
+        record_name='users',
+        css_framework=app.config.get('CSS_FRAMEWORK', 'bootstrap4'),
+        link_size=app.config.get('LINK_SIZE', 'sm'),
+        alignment=app.config.get('LINK_ALIGNMENT', ''),
+        show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
+        per_page=app.config.get('PER_PAGE', 10),
+        page_parameter='page',
+        href=href,
+        )
+    print('users_page',userspagination.page)
+    #userspagination = Pagination(page=userspageNum, total=userscount, search=search, record_name='users')
+    #print('#####per_page', userspagination.per_page)
+    # 'page' is the default name of the page parameter, it can be customized
+    # e.g. Pagination(page_parameter='p', ...)
+    # or set PAGE_PARAMETER in config file
+    # also likes page_parameter, you can customize for per_page_parameter
+    # you can set PER_PAGE_PARAMETER in config file
+    # e.g. Pagination(per_page_parameter='pp')
+    #log_variable('userspagination.info', userspagination.info)
+    #log_variable('userspagination.links', userspagination.links)
+
+    # existingISG = ISG.query \
+    # .filter(or_(ISG.coouserspaginationrdinator_status == 'IAT Verified', ISG.coordinator_status == 'New')) \
+    # .order_by("isg.id desc") \
+    # .paginate(page,per_page,error_out=False)
+    #users = User.query.all()
+    #if not users and page != 1:
+    #    abort(404)
+    # = Pagination(userspageNum, PER_PAGE, userscount)
+    #users = userspagination.items
+
+    # users_nexturl = None
+    # users_prevurl = None
+    # if userspagination.has_next:
+    #     #users_nexturl = url_for('administration.adminpage', action_tab='users', userspageNum=userspagination.next_num, visitspageNum=1, visitpointspageNum=1)
+    #     users_nexturl = url_for('administration.adminpage', action_tab='users', pages='{1,1,1,1}')
+    # if userspagination.has_prev:
+    #     #users_prevurl = url_for('administration.adminpage', action_tab='users', userspageNum=userspagination.prev_num, visitspageNum=1, visitpointspageNum=1)
+    #     users_nexturl = url_for('administration.adminpage', action_tab='users', pages='{1,1,1,1}')
+
     roles = Role.query.all()
     departments = Department.query.all()
-    visitpoints = VisitPoint.query.all()
-    visitpoints = VisitPoint.query.order_by(VisitPoint.lastvisitDT.desc()).limit(100).all()
+    
+    #visitpoints
+    total_visitpoints = db.session.query(func.count(VisitPoint.id)).scalar() 
+    log_variable('total_visitpoints:', total_visitpoints)
+    visitpoints = VisitPoint.query.order_by(VisitPoint.lastvisitDT.desc()).paginate(page=visitpointspageNum, per_page=per_page).items
+    #visitpointspagination = Pagination(page=visitpointspageNum, total=total_visitpoints, search=search, record_name='visitpoints')
+    page, per_page, offset = get_page_args(page_parameter='visitpointspageNum', per_page_parameter='per_page')
+    #print('visitpoints_page',page)
+    href=url_for('administration.adminpage',action_tab='visitpoints',visitpointspageNum='0').replace('=0','={0}')
+    #print('href_visitpoints',href)
+    #print('visitpoints_page',visitpointspageNum)
+    visitpointspagination = Pagination(
+        page=page,
+        total=total_visitpoints,
+        search=search,
+        record_name='visit points',
+        css_framework=app.config.get('CSS_FRAMEWORK', 'bootstrap4'),
+        link_size=app.config.get('LINK_SIZE', 'sm'),
+        alignment=app.config.get('LINK_ALIGNMENT', ''),
+        show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
+        per_page=app.config.get('PER_PAGE', 10),
+        page_parameter='page',
+        href=href
+        )
+    print('visitpoints_page',visitpointspagination.page)
+
+    #visitpoints = VisitPoint.query.all()
+    #visitpoints = VisitPoint.query.order_by(VisitPoint.lastvisitDT.desc()).limit(100).all()
+
+
+
     #visits = Visit.query.all()
     # visits = Visit.query
     #                 # .filter_by(party_id=form.party.data)
     #                 # .filter_by(topic_id=form.topic.data)
-    #                 .join('visitpoint')
+    #                 .join('VisitPoint')
     #                 .all()
-    visits = Visit.query.join('visitpoint').order_by(Visit.visitDT.desc()).limit(15).all()
+
+
+    #visits
+    total_visits = db.session.query(func.count(Visit.id)).scalar() 
+    log_variable('total_visits:', total_visits)
+    visits = Visit.query.join('visitpoint').order_by(Visit.visitDT.desc()).paginate(page=visitspageNum, per_page=per_page).items
+    page, per_page, offset = get_page_args(page_parameter='visitspageNum', per_page_parameter='per_page')
+    #print('visits_page1',page)
+    href=url_for('administration.adminpage',action_tab='visits',visitspageNum='0').replace('=0','={0}')
+    #href: Add custom href for links - this supports forms with post method. MUST contain {0} to format page number        
+    #print('visits_page2',visitspageNum)
+    #print('href_visits',href)
+    #visitspagination = Pagination(page=visitspageNum, total=total_visits, search=search, record_name='visits')
+    visitspagination = Pagination(
+        page=page,
+        total=total_visits,
+        search=search,
+        record_name='visits',
+        css_framework=app.config.get('CSS_FRAMEWORK', 'bootstrap4'),
+        link_size=app.config.get('LINK_SIZE', 'sm'),
+        alignment=app.config.get('LINK_ALIGNMENT', ''),
+        show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
+        per_page=app.config.get('PER_PAGE', 10),
+        page_parameter='page',
+        href=href,
+        )
+    print('visits_page',visitspagination.page)
+
     #print(users)
     #print(roles)
     #print(departments)
     #print(visitpoints)
     #print(visits)
+    #print('###action_tab',action_tab)
 
     return render_template('administration/page_templates/administrationpage_template.html'
+    , title="administration"
+    , activeTAB=action_tab
     , users=users
     , roles=roles
     , departments=departments
     , visitpoints=visitpoints
     , visits=visits
-    , title="administration"
-    , activeTAB=action_tab
+    , usersPagination=userspagination
+    , visitsPagination=visitspagination
+    , visitpointsPagination=visitpointspagination
+    )
+
+@administration.route('/visits', methods=['GET'])
+def visitspage():
+    page_name = 'visitspage'
+    page_function = 'visitspage'
+    page_template = 'administration/page_templates/administrationpage_template.html'
+    page_template_page = ''
+    page_form = ''
+    log_page(page_name, page_function, page_template, page_template_page, page_form)
+    visitspageNum = request.args.get('page', type=int, default=1)
+    log_url_param('page',visitspageNum)
+    search = False
+    q = request.args.get('q')
+    if q:
+        search = True
+    total_visits = db.session.query(func.count(Visit.id)).scalar() 
+    log_variable('total_visits:', total_visits)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    visits = Visit.query.join('visitpoint').order_by(Visit.visitDT.desc()).paginate(page=visitspageNum, per_page=per_page).items
+    visitspagination = Pagination(
+        page=page,
+        total=total_visits,
+        search=search,
+        record_name='visits',
+        page_parameter='page',
+        css_framework=app.config.get('CSS_FRAMEWORK', 'bootstrap4'),
+        link_size=app.config.get('LINK_SIZE', 'sm'),
+        alignment=app.config.get('LINK_ALIGNMENT', ''),
+        show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
+        per_page=app.config.get('PER_PAGE', 10),
+        )
+    print('visits_page',visitspagination.page)
+    return render_template('administration/page_templates/administration_pages_template.html'
+        ,title="visits"
+        ,displayPage="visits_page_content.1.html"
+        ,visits=visits
+        ,visitsPagination=visitspagination
+    )
+
+@administration.route('/visitpoints', methods=['GET'])
+def visitpointspage():
+    page_name = 'visitpointspage'
+    page_function = 'visitpointspage'
+    page_template = 'administration/page_templates/administrationpage_template.html'
+    page_template_page = ''
+    page_form = ''
+    log_page(page_name, page_function, page_template, page_template_page, page_form)
+    visitpointspageNum = request.args.get('page', type=int, default=1)
+    log_url_param('page',visitpointspageNum)
+    search = False
+    q = request.args.get('q')
+    if q:
+        search = True
+    total_visitpoints = db.session.query(func.count(VisitPoint.id)).scalar() 
+    log_variable('total_visitpoints:', total_visitpoints)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    visitpoints = VisitPoint.query.order_by(VisitPoint.lastvisitDT.desc()).paginate(page=visitpointspageNum, per_page=per_page).items
+    visitpointspagination = Pagination(
+        page=page,
+        total=total_visitpoints,
+        search=search,
+        record_name='visit points',
+        page_parameter='page',
+        css_framework=app.config.get('CSS_FRAMEWORK', 'bootstrap4'),
+        link_size=app.config.get('LINK_SIZE', 'sm'),
+        alignment=app.config.get('LINK_ALIGNMENT', ''),
+        show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
+        per_page=app.config.get('PER_PAGE', 10),
+        )
+    print('visitpoints_page',visitpointspagination.page)
+    return render_template('administration/page_templates/administration_pages_template.html'
+        ,title="visit points"
+        ,displayPage="visitpoints_page_content.1.html"
+        ,visitpoints=visitpoints
+        ,visitpointsPagination=visitpointspagination
     )
 
 @administration.route('/useredit/<action>/<int:id>', methods = ['GET', 'POST'])

@@ -1,27 +1,37 @@
-<div class="admin-container text-black">
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="visits">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">DT</th>
-                    <th scope="col">IP</th>
-                    <th scope="col" colspan="2">visit point</th>
-                    <th scope="col">pages</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for visit in visits %}
-                <tr id={{ visit.id }}>
-                    <th scope="row">{{ visit.visitNumber }}</th>
-                    <td>{{ visit.visitDT }}</td>
-                    <td> {{ visit.ip }} </td>
-                    <td> {{ visit.visitpoint.country_name }} </td>
-                    <td> {{ visit.visitpoint.city }} </td>
-                    <td> {{ visit.pagesVisitedCount }} </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="admin-container border border-primary">
+    <div class="d-flex flex-column">
+        <div class="d-flex m-0 p-0 align-items-center justify-content-end">
+            {{ visitsPagination.info }}
+            {{ visitsPagination.links }}
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="visits">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">DT</th>
+                        <th scope="col">IP</th>
+                        <th scope="col" colspan="2">visit point</th>
+                        <th scope="col">pages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for visit in visits %}
+                    <tr id={{ visit.id }}>
+                        <th scope="row">{{ visit.visitNumber }}</th>
+                        <td>{{ visit.visitDT }}</td>
+                        <td> {{ visit.ip }} </td>
+                        <td> {{ visit.visitpoint.country_name }} </td>
+                        <td> {{ visit.visitpoint.city }} </td>
+                        <td> {{ visit.pagesVisitedCount }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex m-0 p-0 align-items-center justify-content-end">
+            {{ visitsPagination.links }}
+        </div>
+
     </div>
 </div>

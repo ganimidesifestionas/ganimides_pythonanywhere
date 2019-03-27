@@ -237,9 +237,16 @@ config_name = 'flask'
 app.config.from_object(app_config[config_name]) # object-based default configuration
 log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
+# #########################################################################################
+# config_name = 'pagination'
+# #log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'from app_config in .config.py')
+# app.config.from_object(app_config[config_name]) # object-based default configuration
+# log_info('CONFIG-STEP-2 FLASK_CONFIGURATION', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+# print('###PER_PAGE', app.config.get('PER_PAGE'))
+    
+# #########################################################################################
+
 #... more apps here
-
-
 
 #########################################################################################
 config_name = 'google'
@@ -298,7 +305,6 @@ app.config.from_pyfile(config_file_name, silent=False) # instance-folders config
 log_info('CONFIG-STEP-6 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
-
 #########################################################################################
 config_name = 'sqlalchemy'
 config_file_name = 'config_sqlalchemy.py'
@@ -308,6 +314,15 @@ config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
 app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
 log_info('CONFIG-STEP-7 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
+
+#########################################################################################
+config_name = 'pagination'
+config_file_name = 'config_pagination.py'
+config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
+app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
+log_info('CONFIG-STEP-8', config_name, config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+#########################################################################################
+
 log_start('config_checkpoint_1')
 log_info('@@@check', 'EXECUTION_MODE---', app.config['EXECUTION_MODE'])
 log_info('@@@check', 'SERVER---', app.config['SERVER'])

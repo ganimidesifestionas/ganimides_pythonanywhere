@@ -1,37 +1,49 @@
 <div class="admin-container text-black">
-    <div class="table-responsive">
-        <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="users">
-            <thead>
-                <tr>
-                    <th scope="col">UserName</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Job Title</th>
-                    <th scope="col">Mobile</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Company</th>
-                    <th scope="col">Role(s)</th>
-                    <td colspan="2" align="center"><a data-toggle="tooltip" title="add" data-placement="top" href="{{ url_for('administration.useredit', action='add', id=0) }}"><i class="fas fa-plus-square"></a></td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                <tr id={{ user.id }}>
-                    <th scope="row">{{ user.userName }}</th>
-                    <td>{{ user.email }}</td>
-                    <td> {{ user.firstName }} </td>
-                    <td> {{ user.lastName }} </td>
-                    <td> {{ user.jobTitle }} </td>
-                    <td> {{ user.mobile }} </td>
-                    <td> {{ user.department}} </td>
-                    <td> {{ user.company }} </td> 
-                    <td> {{ user.user_roles2 }} </td>
-                    <td align="center"><a data-toggle="tooltip" title="edit" data-placement="top" href="{{ url_for('administration.useredit', action='edit', id=user.id) }}"><i class="fas fa-edit"></a></td>
-                    <td align="center"><a data-toggle="tooltip" title="delete" data-placement="top" href="{{ url_for('administration.useredit', action='delete', id=user.id) }}"><i class="fas fa-trash-alt"></a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="d-flex flex-column">
+        <div class="d-flex m-0 p-0 align-items-center justify-content-end">
+            {{ usersPagination.info }}
+            {{ usersPagination.links }}
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="users">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">UserName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Company</th>
+                        <th scope="col">Role(s)</th>
+                        <td colspan="2" align="center"><a data-toggle="tooltip" title="add" data-placement="top" href="{{ url_for('administration.useredit', action='add', id=0) }}"><i class="fas fa-plus-square"></a></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#% for user in usersPagination.items %#}
+                    {% for user in users %}
+                    <tr id={{ user.id }}>
+                        <td>{{ loop.index + usersPagination.skip }}</td>
+                        <th scope="row">{{ user.userName }}</th>
+                        <td>{{ user.email }}</td>
+                        <td> {{ user.firstName }} </td>
+                        <td> {{ user.lastName }} </td>
+                        <td> {{ user.jobTitle }} </td>
+                        <td> {{ user.mobile }} </td>
+                        <td> {{ user.department}} </td>
+                        <td> {{ user.company }} </td>
+                        <td> {{ user.user_roles2 }} </td>
+                        <td align="center"><a data-toggle="tooltip" title="edit" data-placement="top" href="{{ url_for('administration.useredit', action='edit', id=user.id) }}"><i class="fas fa-edit"></a></td>
+                        <td align="center"><a data-toggle="tooltip" title="delete" data-placement="top" href="{{ url_for('administration.useredit', action='delete', id=user.id) }}"><i class="fas fa-trash-alt"></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex m-0 p-0 align-items-center justify-content-start">
+            {{ usersPagination.links }}
+        </div>
     </div>
 </div>
