@@ -1,0 +1,20 @@
+<!--START:page_close_icon.html-->
+{% if page_close_url %}
+{% set url=page_close_url %}
+{% elif page_close_link %}
+{% set url=url_for(page_close_link) %}
+{% else %}
+{#% set url=session.get("lastpageURL","#") %#}
+{#% set page_close_caption="back to "+session.get("lastpage",'...') %#}
+{% set url="" %}
+{% endif %}
+{% if url %}
+<div class="d-flex p-0 m-0">
+    <h2 class="m-0 p-0">
+        <a class="float-right close_icon p-0 m-0" href="{{url}}" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" title='{{page_close_caption}}'>
+            <i class="far fa-window-close"></i>
+        </a>
+    </h2>
+</div>
+{% endif %}
+<!--END:page_close_icon.html-->

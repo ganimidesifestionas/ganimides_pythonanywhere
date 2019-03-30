@@ -1,0 +1,10 @@
+<nav class="navbar navbar-expand-sm p-0">
+    <ul class="navbar-nav">
+        {% if request.path != url_for('administration.visitspage') %}          
+        <li class="nav-item mr-1"><a href="{{url_for('administration.visitspage')}}" class="nav-link py-0 px-1 btn btn-light btn-sm" style="xborder:1px solid teal;border-radius:1em">Visits &raquo;</a></li>
+        {% endif %}          
+        {% if request.path != url_for('administration.visitpointspage') %}          
+        <li class="nav-item mr-0"><a href="{{url_for('administration.visitpointspage')}}" class="nav-link py-0 px-1 btn btn-light btn-sm" style="xborder:1px solid teal;border-radius:1em">VisitPoints &raquo;</a></li>
+        {% endif %}          
+    </ul>
+</nav>

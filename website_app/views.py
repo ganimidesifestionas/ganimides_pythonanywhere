@@ -2,6 +2,13 @@
 Routes and views for the flask application.
 """
 #import logging
+#from __future__ import unicode_literals
+#import sqlite3
+#from flask_paginate import Pagination, get_page_args
+#import click
+#click.disable_unicode_literals_warning = True
+
+
 from datetime import datetime
 from datetime import timedelta
 #import time
@@ -18,6 +25,8 @@ from flask import request
 from flask import redirect
 #from flask import url_for
 from flask import session
+from flask import g, current_app
+
 #from flask import logging
 #from flask import jsonify
 from flask_login import current_user, login_required #, login_user, logout_user
@@ -72,6 +81,12 @@ from .debug_services.debug_log_services import *
 #############################################################
 #############################################################
 #############################################################
+@app.teardown_request
+def teardown(error):
+    if hasattr(g, 'conn'):
+        print('TEARDOWN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',error)
+        g.conn.close()
+
 @app.before_first_request
 def init_cookies_etc_before_first_request():
     log_module_start('@app.before_first_request')

@@ -1,11 +1,11 @@
 <div class="table-container text-black" style="overflow: auto; max-height: 80vh">
     <div class="table-responsive">
-        <table class="table table-hover table-striped table-borderless  mb-0 pb-0" id="departments">
+        <table class="table table-hover table-striped table-borderless  mb-0 pb-0" id="departmentstable">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <td colspan="2" align="center"><a data-toggle="tooltip" title="add" data-placement="top" href="{{ url_for('administration.roleedit', action='add', id=0) }}"><i class="fas fa-plus-square"></a></td>
+                    <td colspan="2" align="center"><a data-toggle="tooltip" title="add" data-placement="top" href="{{ url_for('administration.departmentedit', action='add', id=0) }}"><i class="fas fa-plus-square"></a></td>
                 </tr>
             </thead>
             <tbody>

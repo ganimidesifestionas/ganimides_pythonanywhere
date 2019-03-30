@@ -1,0 +1,24 @@
+{% if form_close_link %}
+<div class="d-flex float-right p-0 m-0">
+    <a class="float-right form_close_button p-0 m-0"
+    style="color:blue; font-weight:900" 
+    href="{{url_for(form_close_link)}}"
+    data-dismiss="modal" 
+    aria-label="Close"
+    data-toggle="tooltip" title='{{form_close_caption}}'
+    >
+    <span class="far fa-times-circle p-0 m-0"></span>
+</a>
+</div>
+{% else %}
+<div class="d-flex float-right p-0 m-0">
+        <a class="float-right form_close_button p-0 m-0"
+        style="color:blue; font-weight:900" 
+        data-dismiss="modal" 
+        aria-label="Close"
+        data-toggle="tooltip" title='{{form_close_caption}}'
+        >
+        <span class="far fa-times-circle p-0 m-0"></span>
+    </a>
+    </div>        
+{% endif %}

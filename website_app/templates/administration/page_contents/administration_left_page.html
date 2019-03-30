@@ -1,0 +1,52 @@
+{% set help_list_of_routes=['/prototypes','/mybank','/mygame'] %}
+{% set login_active='' %}
+{% set register_active='' %}
+{% set help_active='' %}
+{% if request.path[-6:]=='/login' %}
+{% set login_active='active' %}
+{% endif %}
+{% if request.path.find('/register')>=0 %}
+{% set login_active='' %}
+{% set help_active='' %}
+{% set register_active='active' %}
+{% endif %}
+{% for option in help_list_of_routes %}
+{% if request.path.find(option) >=0 %}
+{% set login_active='' %}
+{% set register_active='' %}
+{% set help_active='active' %}
+{% endif %}
+{% endfor %}
+
+<div class="d-flex flex-column xcol-2 p-0 mr-1">
+    <!--nav class="navbar navbar-expand-xl w-100 justify-content-between p-0 m-0">-->
+        <!-- Toggler/collapsibe Button -->
+        <div class="d-flex justify-content-center m-0 p-0">
+            {% set button_id="AdminMenu-toggler" %}
+            {% set button_class="AdminMenu_toggler" %}
+            {% set button_menu_controlled="AdminMenu" %}
+            {% include include_files('button_menu_toggler.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        </div>
+        <!-- SUPPORT MENU  -->
+        <div id="AdminMenu" class="collapse navbar-collapse p-0 support_menu">
+            <nav class="nav flex-column">
+
+                {% set xactive='' %}
+                {% if request.path == url_for('administration.visitspage') %}
+                {% set xactive='disabled' %}
+                {% endif %}
+                <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for('administration.visitspage')}}">Visits &raquo;</a>
+                {% set xactive='' %}
+                {% if request.path == url_for('administration.visitpointspage') %}
+                {% set xactive='disabled' %}
+                {% endif %}
+                <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for('administration.visitpointspage')}}">VisitPoints &raquo;</a>
+                {% set xactive='' %}
+                {% if request.path == url_for('administration.usersadmin') %}
+                {% set xactive='disabled' %}
+                {% endif %}
+                <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-warning btn-sm" href="{{url_for('administration.usersadmin')}}">Users Admin &raquo;</a>
+            </nav>
+        </div>
+    <!--/nav>-->
+</div>

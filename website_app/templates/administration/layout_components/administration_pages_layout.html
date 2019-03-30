@@ -1,0 +1,140 @@
+<!--BEGIN--layoutpagecontenttemplate = "administrationpageslayout_pagecontenttemplate"-->
+<div class="d-flex flex-column justify-content-start col-12 m-0 mb-3 p-0 administration_page">
+    <div class="d-flex flex-column justify-content-start col-12 m-0 p-0">
+
+        <!--1:messages-->
+        <div class="d-flex flex-wrap flex-row justify-content-between m-0 p-0">
+            <div class="d-flex mr-2">
+                {% include include_files('messages_display_excepterrors.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            <div class="d-flex">
+            </div>
+            <div class="d-flex ml-2">
+            </div>
+        </div>
+
+        <!--2:template links -->
+        {% if template_page_links %}
+        <div class="d-flex flex-wrap flex-row justify-content-between m-0 p-0">
+            <div class="d-flex flex-grow-1 justify-content-end align-items-end">
+                <div class="d-flex flex-row p-0 m-0">
+                    <div class="d-flex flex-grow-1 justify-content-end align-self-center p-0 m-0 links_menu">
+                        {% include include_files(template_page_links,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!--3:page-content-->
+        <div class="d-flex flex-wrap flex-row justify-content-start">
+            <!--3.1:page-content-left ie leftside menu-->
+            {% if page_content_left %}
+            <div class="">
+                {% include include_files(page_content_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            {% endif %}
+
+            <!--3.2:page-content-->
+            <div class="d-flex flex-column m-0">
+                <div class="d-flex flex-column m-0 p-0 pr-1 pl-1 pb-1" style="{{page_content_style}}">
+                    <!--3.2.1:page-header:page-logo,title,link-buttons-->
+                    <div class="d-flex flex-wrap flex-column justify-content-start xmt-1 xmb-1 adminstration_page">
+
+                        {% if template_image or template_title or template_icon %}
+                        <div class="d-flex justify-content-center align-items-center mb-1">
+                            <div class="modal-header align-items-center pr-0">
+                                {% include include_files('template_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!--formlinks-->
+                        <div class="d-flex justify-content-end align-items-end">
+                            <div class="d-flex flex-row p-0 m-0">
+                                <div class="d-flex flex-grow-1 justify-content-end align-self-center p-0 m-0 links_menu">
+                                    {% if page_image or page_title %}
+                                    <span style="margin-top:0rem">
+                                        {% else %}
+                                        <span style="margin-top:0rem">
+                                            {% endif%}
+                                            {% include include_files('formlinks_menu.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--3.2.2:page-content-->
+                    {% if page_content %}
+                    <div class="container m-0 p-0">
+                        {% include include_files(page_content,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    </div>
+                    {% endif %}
+
+                    <!--3.2.3:page-content-footer-->
+                    {% if page_content_footer %}
+                    <div class="d-flex justify-content-end">
+                        {% include include_files(page_content_footer,type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!--3.1:page-content-right ie rightside menu-->
+            {% if page_content_right %}
+            <div class="">
+                {% include include_files(page_content_right,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            {% endif %}
+
+        </div>
+
+        <!--4:content-bottom-->
+        {% if page_content_bottom_left or page_content_bottom_ceneter or page_content_bottom_right %}
+        <div class="d-flex flex-wrap justify-content-start">
+            {% if page_content_bottom_left %}
+            <div class="d-flex">
+                {% include include_files(page_content_bottom_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            {% endif %}
+            {% if page_content_bottom_center %}
+            <div class="d-flex">
+                <div class="container">
+                    {% include include_files(page_content_bottom_center,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                </div>
+            </div>
+            {% endif %}
+            {% if page_content_bottom_right %}
+            <div class="d-flex">
+                {% include include_files(page_content_bottom_right,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!--10:page-bottom-->
+        {% if page_bottom_left or page_bottom_center or page_bottom_right %}
+        <div class="d-flex flex-wrap flex-row justify-content-start">
+            {% if page_bottom_left %}
+            <div class="d-flex">
+                {% include include_files(page_bottom_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            {% endif %}
+            {% if page_bottom_center %}
+            <div class="d-flex">
+                <div class="container">
+                    {% include include_files(page_bottom_center,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                </div>
+            </div>
+            {% endif %}
+            {% if page_bottom_right %}
+            <div class="d-flex">
+                {% include include_files(page_bottom_right,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!--ENDOF--layoutpagecontenttemplate = "administrationpageslayout_pagecontenttemplate"-->

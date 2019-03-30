@@ -1,0 +1,805 @@
+{% set execution_mode = "" %}
+{% set design_type = "bootstrap" %}
+{% set design_type = "" %}
+{% set design_version = "" %}
+
+{% set design_version_header = "" %}
+{% set design_version_header_menu = "" %}
+
+{% set design_version_footer = "" %}
+{% set design_version_footer_navigationline = "" %}
+{% set design_version_footer_menu = "" %}
+{% set design_version_footer_copywrite = "" %}
+
+{% set design_version_pagecontent = "" %}
+{% set design_version_page_content_template = "" %}
+{% set design_version_page_definition = "" %}
+{% set design_version_internaluse = "" %}
+
+{% set design_version_left = "" %}
+{% set design_version_right = "" %}
+
+{#% set splash_forms = [] %#}
+{#% set splash_form = session['splash_form'] %#}
+
+<!DOCTYPE html>
+<html lang="en" class="gr__getbootstrap_com">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    -->
+        <meta name="description" content="ganimides business technology management">
+        <meta name="keywords" content="business, technology, strategy, digital, transformation, development, innovation, fintec, banking">
+        <meta name="author" content="philippos leandrou">
+
+        <title>ganimedes business technology</title>
+
+        <!-- FONTS from google -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine|Inconsolata|Droid+Sans" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou">
+        <!--<link rel="stylesheet" hrefhttps://fonts.googleapis.com/css?family=Tangerine:bold,bolditalic|Inconsolata:italic|Droid+Sans' />-->
+
+        <!-- ICONS from google -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- RECAPTCHA from google -->
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+
+        <!-- icons from FONTAWESOME -->
+        <!--
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+        <!-- BOOTSTRAP -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+        <!------ Include the above in your HEAD tag ---------->
+
+        <!-- MATERIALIZE -->
+        <!-- Compiled and minified CSS -->
+        <!--
+    <link rel="stylesheet" href="xhttps://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    -->
+
+        <!-- Compiled and minified JavaScript -->
+        <!--
+    <script src="xhttps://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    -->
+
+        <!-- css styles
+    <link rel="stylesheet" type="text/css" href="/static/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/base_styles.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/authorization.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/administration.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/banners.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/mysite.css" />
+    -->
+        <!--
+    <link rel="stylesheet" type="text/css" href="/static/css/customizations.css" />
+    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <script src="/static/scripts/on_contentloaded_event.js"></script>
+    -->
+
+        <link rel="shortcut icon" href="{{url_for('static', filename='images/ganimides_logoB3.gif')}}">
+        <!--<link rel="icon" href="https://getbootstrap.com/favicon.ico">-->
+        <!--<link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}">-->
+        <style>
+            html {
+                font-size: 1rem;
+                color: red;
+                background-color: black;
+            }
+
+            body {
+                background-color: powderblue;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            p {
+                color: red;
+            }
+
+            @media only screen and (-webkit-min-device-pixel-ratio: 1),
+            only screen and (min--moz-device-pixel-ratio: 1),
+            only screen and (-o-min-device-pixel-ratio: 1/1),
+            only screen and (min-device-pixel-ratio: 1) {
+                html {
+                    font-size: 1rem;
+                }
+
+                p {
+                    color: #7A7A7A;
+                    color: #856404
+                }
+            }
+
+            @media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+            only screen and (min--moz-device-pixel-ratio: 1.25),
+            only screen and (-o-min-device-pixel-ratio: 1.25/1),
+            only screen and (min-device-pixel-ratio: 1.25) {
+                html {
+                    font-size: 0.78rem;
+                }
+
+                p {
+                    color: black;
+                    color: #856404
+                }
+            }
+
+            @media only screen and (-webkit-min-device-pixel-ratio: 2),
+            only screen and (min--moz-device-pixel-ratio: 2),
+            only screen and (-o-min-device-pixel-ratio: 2/1),
+            only screen and (min-device-pixel-ratio: 2) {
+                html {
+                    font-size: 0.78rem;
+                }
+
+                p {
+                    color: blue;
+                    color: #856404
+                }
+            }
+
+            .top_header_line {
+                background-color: white;
+            }
+
+            .top_brand_line {
+                background-color: white;
+            }
+
+            .top_menu_line {
+                background-color: white;
+            }
+
+            .top_information_line {
+                background-color: white;
+            }
+
+            .footer {
+                background-color: black;
+            }
+
+            /*
+        .footer_menu_line {
+            background-color: black;
+        }
+        .footer_navigation_line {
+            background-color: white;
+        }
+        .footer_copywrite_line {
+            background-color: black;
+        }
+        .footer_social_media_menu {
+            background-color: black;
+        }
+        .footer_menu {
+            background-color: black;
+        }
+        */
+            .internal_use_line {
+                background-color: white;
+                color: orange
+            }
+
+            .content_page {
+                background-color: white;
+                color: #856404
+            }
+
+            .content_page h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .internalportal {
+                background-color: white;
+                color: #856404
+            }
+
+            .internalportal h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .authorization_page {
+                background-color: white;
+                color: #856404
+            }
+
+            .authorization_page h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .authorization_form {
+                background-color: white;
+                color: #856404
+            }
+
+            .authorization_form h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .adminstration_page {
+                background-color: white;
+                color: #856404
+            }
+
+            .adminstration_page h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .adminstration_form {
+                background-color: white;
+                color: #856404
+            }
+
+            .adminstration_form h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .adminstration_page dl,
+            ol,
+            ul {
+                margin-top: 0;
+                margin-bottom: 0rem;
+            }
+
+            .cookies_consent_form {
+                background-color: white;
+                color: #856404
+            }
+
+            .cookies_consent_form h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .contactus_form {
+                background-color: white;
+                color: #856404
+            }
+
+            .contactus_form h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .document_page {
+                background-color: white;
+                color: #856404
+            }
+
+            .document_page h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+            .summary_cell {
+                background-color: white;
+                color: #856404
+            }
+
+            .summary_cell h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: inherit;
+            }
+
+/* Important styles */
+#toggle {
+    display: block;
+    width: 28px;
+    height: 30px;
+    margin: 30px auto 10px;
+  }
+  
+  #toggle span:after,
+  #toggle span:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -9px;
+  }
+  #toggle span:after{
+    top: 9px;
+  }
+  #toggle span {
+    position: relative;
+    display: block;
+  }
+  
+  #toggle span,
+  #toggle span:after,
+  #toggle span:before {
+    width: 100%;
+    height: 5px;
+    background-color: #888;
+    transition: all 0.3s;
+    backface-visibility: hidden;
+    border-radius: 2px;
+  }
+  
+  /* on activation */
+  #toggle.on span {
+    background-color: transparent;
+  }
+  #toggle.on span:before {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  #toggle.on span:after {
+    transform: rotate(-45deg) translate(7px, -8px);
+  }
+  
+
+        </style>
+        <!--
+        only screen and ( min-resolution: 200dpi),
+        only screen and ( min-resolution: 1.25dppx)
+        -->
+
+    </head>
+
+    <body data-gr-c-s-loaded="true">
+        <!--
+    <script src="./Browser viewport size tester __ benfrain.com_files/jquery-latest.js.download"></script>
+   -->
+        <script>
+            $(document).ready(function (e) {
+                store_screen_size();
+                showViewportSize();
+                get_and_store_GeoLocation();
+            });
+
+            $(window).resize(function (e) {
+                store_screen_size();
+                showViewportSize();
+            });
+
+            function showViewportSize() {
+                var the_width = $(window).width();
+                var the_height = $(window).height();
+                var dpr = getDevicePixelRatio();
+                var the_size = the_width + 'w x h' + the_height + '-dpr=' + dpr;
+                $('#width').text(the_width);
+                $('#height').text(the_height);
+                $('#screensize').text(the_size);
+            }
+
+            function getDevicePixelRatio() {
+                var ratio = 1;
+                // To account for zoom, change to use deviceXDPI instead of systemXDPI
+                if (window.screen.systemXDPI !== undefined && window.screen.logicalXDPI !== undefined && window.screen.systemXDPI > window.screen.logicalXDPI) {
+                    // Only allow for values > 1
+                    ratio = window.screen.systemXDPI / window.screen.logicalXDPI;
+                }
+                else if (window.devicePixelRatio !== undefined) {
+                    ratio = window.devicePixelRatio;
+                }
+                //alert(ratio)
+                return ratio;
+            };
+
+            function store_screen_size() {
+                var width = $(window).width();
+                var height = $(window).height();
+                var dpr = getDevicePixelRatio();
+                $.ajax({
+                    type: 'POST',
+                    url: '/deviceandscreen',
+                    data: JSON.stringify({ 'width': width, 'height': height, 'devicepixelratio': dpr }, null, '\t'),
+                    contentType: 'application/json;charset=UTF-8'
+                });
+            }
+
+            /*
+            function showMobile() {
+                alert("shalimar")
+                document.width = "356px";
+
+                id = "ganimideshtml"
+                //var mobileDiv=
+                //var mobileDiv= document.querySelector('#ganimedeshtml');
+                //mobileDiv.style.width = "356px";
+                // Get child Elements and add css according to your responsive need
+                // eg
+                //var childElement1 = document.querySelector(".just-example-child-element");
+                //childElement1.style.width = "50%";
+                //childElement1.style.fontSize = "15px";
+                //childElement1.style.margin = "15px";
+
+                // And so on
+            }
+            */
+            /*
+            function setViewportSize(w, h) {
+                //alert('w=' + w + ' h=' + h);
+                $(window).resizeTo(w, h);
+            }
+            function quarter() {
+                window.resizeTo(
+                    window.screen.availWidth / 2,
+                    window.screen.availHeight / 2
+                );
+            }
+            function setwindowsize(win, w, h) {
+                //alert('w=' + w + ' h=' + h);
+                window.resizeTo(w, h);
+                window.focus();
+            }
+            */
+        </script>
+
+        <header>
+            <!--header is here-->
+            <!--
+        <table class="table table-sm p-0 m-0" style="width:auto">
+            <tbody>
+                <tr>
+                    <th>width:</th>
+                    <td id="width">963</td>
+                    <th>height:</th>
+                    <td id="height">674</td>
+                    <th>mobile1:</th>
+                    <td>320x480</td>
+                    <th>mobile2:</th>
+                    <td>640x960</td>
+                    <th>ipad:</th>
+                    <td>1024x768</td>
+                    <x!--
+                        <td>
+                            <a href="#" onClick="javascript:setViewportSize(400,400);">test</a>
+                            <a href="#" onClick="quarter();">test2</a>
+                        </td>
+                    --x>
+                </tr>
+            </tbody>
+        </table>
+    -->
+        </header>
+        <div class="d-flex flex-row w-100 internalportal">
+            <div class="w-10 justify-content-start p-0 m-0 bg-light">
+                &nbsp;&nbsp;
+            </div>
+            <div class="d-flex flex-column flex-grow-1 p-0 m-0">
+                <!--
+            {{session['session_expiry']}}|
+            clientIP:{{session['clientIPA']}}|
+            cookies:{{session['cookies_consent']}}-{{session['cookies_consent_time']}}|
+            visitpoint:{{session['VisitorNumber']}}|visit:{{session['VisitNumber']}}|
+            page_visit:{{session['page_visit_id']}}|
+            active_module:{{session['active_module']}}|
+            -->
+                <div class="d-flex flex-column p-0 m-0">
+                    <!--header-->
+                    {% include include_files('internalportal_layout_header.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                </div>
+                <div class="d-flex flex-row">
+                    <!--message(advertise) top banner-->
+                </div>
+                <div class="d-flex flex-column m-0 p-0">
+                    <!--splash screens here-->
+                    {% include include_files('cookies_alert.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    {% include include_files('splash_forms.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                </div>
+                <div class="d-flex flex-row">
+                    <!--block content-->
+                    <div class="d-flex flex-grow-1">
+                        <!--page content including left side-->
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                    <div class="d-flex">
+                        <!--right side content-->
+                        {% include include_files('internalportal_layout_rightside.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+                    <!--message(advertise) bottom banner-->
+                </div>
+                <div class="d-flex flex-column p-0 m=0 footer">
+                    <!--footer-->
+                    {% include include_files('internalportal_layout_footer.html',type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                </div>
+            </div>
+            <div class="w-10 text-black justify-content-end bg-light">
+                &nbsp;&nbsp;
+            </div>
+        </div>
+        <footer>
+            <!--page footer is here-->
+            <div id="banner">
+                <div id="cloud-scroll"></div>
+            </div>
+        </footer>
+        <!--black is here-->
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!--
+    <script src="/static/scripts/jquery-1.10.2.js"></script>
+    <script src="/static/scripts/bootstrap.js"></script>
+    <script src="/static/scripts/respond.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+-->
+        {% if splash_form %}
+        {% if splash_form=='contactus' %}
+        <script>
+            $('#contactus_modal_form').modal('show');
+        </script>
+        {% endif %}
+        {% if splash_form=='login' %}
+        <script>
+            $('#login_modal_form').modal('show');
+        </script>
+        {% endif %}
+        {% if splash_form=='registration' %}
+        <script>
+            $('#registration_modal_form').modal('show');
+        </script>
+        {% endif %}
+        {% if splash_form=='forgetpassword' %}
+        <script>
+            $('#forgetpassword_modal_form').modal('show');
+        </script>
+        {% endif %}
+        {% endif %}
+
+        {% if not ('cookies_consent' in session) or session.get('cookies_consent') != 'YES' %}
+        {% if session.get('active_module').lower() not in ('website_app.module_administration.routes','website_app.module_authorization.routes') %}
+        <script>
+            $('#cookies_modal_form').modal('show');
+        </script>
+        {% endif %}
+        {% endif %}
+
+        <!--
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+    <script>
+        $(window).load(function () {
+            $('#xxxxxxxcontactus_modal_form').modal('show');
+        });
+    </script>
+-->
+        <!--
+            <script src="./Fixed top navbar example for Bootstrap_files/jquery-3.3.1.slim.min.js.download" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+        <script>window.jQuery || document.write('<script src="//assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="./Fixed top navbar example for Bootstrap_files/popper.min.js.download"></script>
+        <script src="./Fixed top navbar example for Bootstrap_files/bootstrap.min.js.download"></script>
+        <iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./Fixed top navbar example for Bootstrap_files/saved_resource.html"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}" style="display: none;"></div>
+    -->
+        <!-- Optional Google Analytics: change UA-XXXXX-X to be your site's ID.
+           <script>
+               (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+               function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+               e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+               e.src='https://www.google-analytics.com/analytics.js';
+               r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+               ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+           </script>
+           -->
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!--
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+            -->
+        <!--
+    <script>
+        jQuery(function ($) {
+            checkCookie_eu();
+            function checkCookie_eu() {
+                var consent = getCookie_eu("cookies_consent");
+                /*alert(consent)*/
+                if (consent == null || consent == "" || consent == undefined) {
+                    // show notification bar
+                    //$('#cookie_directive_container').show();
+                }
+            }
+
+            b = a + datetime.timedelta(seconds = 3);
+            function setCookie_eu(c_name, value, exdays) {
+                var exdate = new Date();
+                exdate.setDate(exdate.getDate() + exdays);
+                var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+                document.cookie = c_name + "=" + c_value + "; path=/";
+                $('#cookie_directive_container').hide('slow');
+            }
+
+            function getCookie_eu(c_name) {
+                var i, x, y, ARRcookies = document.cookie.split(";");
+                for (i = 0; i < ARRcookies.length; i++) {
+                    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                    x = x.replace(/^\s+|\s+$/g, "");
+                    /*alert(x)*/
+                    if (x == c_name) {
+                        return unescape(y);
+                    }
+                }
+            }
+
+            $("#cookie_accept a").click(function () {
+                setCookie_eu("cookies_consent", 1, 2);
+            });
+
+        });
+    </script>
+    💪💜👻
+    -->
+        <script>
+            jQuery(function ($) {
+                setwindowsize(w, h);
+                function setwindowsize() {
+                    window.resizeTo(w, h);
+                }
+            });
+        </script>
+        <!---
+    geolocation
+-->
+        <script type="text/javascript">
+
+            function get_and_store_GeoLocation() {
+                var already = getCookie("geolocation");
+                //alert('geolocation_cookie:'+already)
+                if (already == null || already == "" || already == undefined) {
+                    getLocation();
+                }
+            }
+            function getLocation() {
+                if (navigator.geolocation) {
+                    // timeout at 60000 milliseconds (60 seconds)
+                    var options = { timeout: 60000 };
+                    navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+                } else {
+                    alert("Sorry, browser does not support geolocation!");
+                }
+            }
+            function showLocation(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                //alert("Latitude : " + latitude + " Longitude: " + longitude);
+                $.ajax({
+                    type: 'POST',
+                    url: '/location',
+                    data: JSON.stringify({ 'latitude': latitude, 'longitude': longitude }, null, '\t'),
+                    contentType: 'application/json;charset=UTF-8'
+                });
+                setCookie_geolocation(latitude, longitude);
+            }
+
+            function errorHandler(err) {
+                if (err.code == 1) {
+                    alert("Error: Geolocation Access is denied!");
+                } else if (err.code == 2) {
+                    alert("Error: Geolocation Position is unavailable!");
+                }
+            }
+
+            function setCookie_geolocation(lat, long) {
+                value = lat.toString() + ' - ' + long.toString();
+                duration_days = 1;
+                duration_seconds = 100;
+                var exdate = new Date();
+                exdate.setSeconds(exdate.getSeconds() + duration_seconds);
+                //exdate.setDate(exdate.getDate() + duration_days);
+                var c_value = escape(value) + ((duration_seconds == null) ? "" : "; expires=" + exdate.toUTCString());
+                document.cookie = 'geolocation' + "=" + c_value + "; path=/";
+                //alert('setCookie_geolocation='+'geolocation' + "=" + c_value)
+            }
+
+            function getCookie(c_name) {
+                var i, x, y, ARRcookies = document.cookie.split(";");
+                for (i = 0; i < ARRcookies.length; i++) {
+                    x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                    x = x.replace(/^\s+|\s+$/g, "");
+                    //alert(i+'. cookie= ['+x+']');
+                    if (x == c_name) {
+                        //alert(i+'. cookie= ['+x+']='+y);
+                        return unescape(y);
+                    }
+                }
+            }
+
+        </script>
+
+        <!--
+    <button onclick="getLocation()">Try It</button>
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+-->
+
+        {% block scripts %}{% endblock %}
+    </body>
+
+</html>

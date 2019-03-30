@@ -1,0 +1,7 @@
+{% if form_title and form_icon%}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="form_title"><i class="{{form_icon}}"></i>&nbsp;{{form_title}}</h2>
+{% elif form_title %}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="form_title">{{form_title}}</h2>
+{% elif form_icon %}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="form_title"><i class="{{form_icon}}"></i></h2>
+{% endif %}

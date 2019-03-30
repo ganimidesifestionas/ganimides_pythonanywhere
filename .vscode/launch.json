@@ -4,8 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
-        
+        /*
         {
             "name": "Django",
             "type": "python",
@@ -17,6 +16,15 @@
                 "--nothreading"
             ],
             "django": true
+        },
+        */
+        {
+            "name": "Python: my app startup (Integrated Terminal)",
+            "type": "python",
+            "request": "launch",
+            //"program": "${file}",
+            "program": "${workspaceFolder}/server_start_app.py",
+            "console": "integratedTerminal"
         },
         {
             "name": "Python: Current File (Integrated Terminal)",
@@ -80,6 +88,7 @@
             "program": "${file}",
             "console": "externalTerminal"
         },
+        /*
         {
             "name": "Python: Django",
             "type": "python",
@@ -93,5 +102,6 @@
             ],
             "django": true
         },
+        */
     ]
 }

@@ -1,0 +1,29 @@
+<!--START:page_links_menu-->
+<div class="d-flex py-1 m-0 align-items-center justify-content-end">
+        {% if LinkPages > 0 %}
+        <nav class="navbar navbar-expand-sm p-0 m-0">
+        <ul class="navbar-nav ml-auto justify-content-center">
+                <ul class="navbar-nav">
+                        {% for pageLink in LinkPagesArray %}
+                        <li class="nav-item mr-1">
+                                <a class="nav-link py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for(pageLink)}}">{{pageLink}}&raquo;
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <!-- d-none d-sm-block: display from small screens and up -->
+                        {% if previous_page %}
+                        <li class="nav-item mr-1">
+                                {% include include_files('button_previous.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+                            </li>
+                        {% endif %}
+        
+                        {% if next_page %}
+                        <li class="nav-item">
+                            {% include include_files('button_learnmore.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+                        </li>
+                        {% endif %}
+            </ul>
+    </nav>
+    {% endif %}
+</div>
+<!--FINISH:page_links_menu-->

@@ -400,10 +400,12 @@ from sqlalchemy import exc
 from sqlalchemy import event
 from sqlalchemy import select
 DATABASE_URI = app.config['DATABASE_URI']
-some_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=80) # connect to database
+some_engine = sqlalchemy.create_engine(DATABASE_URI, pool_recycle=80)  # connect to database
+#e = create_engine("mysql+pymysql://scott:tiger@mysql57/test?charset=utf8mb4&binary_prefix=true", echo=True)
+
 @event.listens_for(some_engine, "engine_connect")
 def ping_connection(connection, branch):
-    log_info('@@@@@@@@@@@@@@@@@@@ping_connection')
+    print('###__INIT__###','@@@@ping_connection')
     if branch:
         # "branch" refers to a sub-connection of a connection,
         # we don't want to bother pinging on these.
@@ -414,7 +416,7 @@ def ping_connection(connection, branch):
     save_should_close_with_result = connection.should_close_with_result
     connection.should_close_with_result = False
 
-    log_info('@@@@@@@@@@@@@@@@@@@try select 1')
+    print('###__INIT__###','@@@@try select 1')
     try:
         # run a SELECT 1.   use a core select() so that
         # the SELECT of a scalar value without a table is
@@ -436,7 +438,7 @@ def ping_connection(connection, branch):
             raise
     finally:
         # restore "close with result"
-        log_info('@@@@@@@@@@@@@@@@@@@close with result')
+        print('###__INIT__###','@@@@close with result')
         connection.should_close_with_result = save_should_close_with_result
 
 
@@ -462,10 +464,10 @@ login_manager.login_view = "authorization.login"
 ################################################################################
 #log_info('')
 log_start('###Migration-MANAGER###')
-migrate = Migrate(app, db)
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
-#manager.run(db)
+# migrate = Migrate(app, db)
+# manager = Manager(app)
+# manager.add_command('db', MigrateCommand)
+# #manager.run(db)
 log_finish('###Migration-MANAGER###')
 ################################################################################
 ################################################################################
@@ -495,22 +497,22 @@ log_start('###ERROR_HANDLERS###')
 log_info('@app.errorhandler(403)','render_template(error_pages/403.html, title=Forbidden)')
 @app.errorhandler(403)
 def forbidden(error):
-    log_info('@app.errorhandler(403) title=Forbidden)')
+    print('###__INIT__###','@@@app.errorhandler(403) title=Forbidden)')
     return render_template('error_pages/403.html', title='Forbidden'), 403
 
 log_info('@app.errorhandler(404)','render_template(error_pages/404.html, title=Page Not Found)')
 @app.errorhandler(404)
 def page_not_found(error):
-    log_info('@app.errorhandler(404) title=Page Not Found)')
+    print('###__INIT__###','@@@app.errorhandler(404) title=Page Not Found)')
     varPageName = str(request._get_current_object())
-    log_variable('varPageName', varPageName)
+    print('###__INIT__###','@@@varPageName', varPageName)
     #return render_template('error_pages/404.html', title='Page Not Found', PageNotFound=varPageName), 404
     return render_template('error_pages/404.html', title='Page Not Found')
 
 log_info('@app.errorhandler(500)','render_template(error_pages/500.html, title=Server Error)')
 @app.errorhandler(500)
 def internal_server_error(error):
-    log_info('@app.errorhandler(500) title=Server Error)')
+    print('###__INIT__###','@@@app.errorhandler(500) title=Server Error)')
     return render_template('error_pages/500.html', title='Server Error'), 500
 
 log_finish('###ERROR_HANDLERS###')
@@ -648,6 +650,7 @@ def ping_connection(connection, branch):
     if branch:
         # "branch" refers to a sub-connection of a connection,
         # we don't want to bother pinging on these.
+        print('###__INIT__###', 'ping_connection-branch @@@@event.listens_for',"engine_connect",some_engine)
         return
 
     # turn off "close with result".  This flag is only used with
@@ -659,6 +662,7 @@ def ping_connection(connection, branch):
         # run a SELECT 1.   use a core select() so that
         # the SELECT of a scalar value without a table is
         # appropriately formatted for the backend
+        print('###__INIT__###', 'ping_connection-try(select([1])) @@@@event.listens_for',"engine_connect")
         connection.scalar(select([1]))
     except exc.DBAPIError as err:
         # catch SQLAlchemy's DBAPIError, which is a wrapper
@@ -666,16 +670,20 @@ def ping_connection(connection, branch):
         # attribute which specifies if this connection is a "disconnect"
         # condition, which is based on inspection of the original exception
         # by the dialect in use.
+        print('###__INIT__###', 'ping_connection-except(select([1])) @@@@event.listens_for',"engine_connect")
         if err.connection_invalidated:
             # run the same SELECT again - the connection will re-validate
             # itself and establish a new connection.  The disconnect detection
             # here also causes the whole connection pool to be invalidated
             # so that all stale connections are discarded.
+            print('###__INIT__###', 'ping_connection-except-err.connection_invalidated-retry @@@@event.listens_for',"engine_connect")
             connection.scalar(select([1]))
         else:
+            print('###__INIT__###', 'ping_connection-except-raise-exception @@@@event.listens_for',"engine_connect")
             raise
     finally:
         # restore "close with result"
+        print('###__INIT__###', 'ping_connection-finally:restore close with result @@@@event.listens_for',"engine_connect")
         connection.should_close_with_result = save_should_close_with_result
 
 log_finish('###DATABASE###_sqlalchemy.create_engine')
@@ -712,8 +720,10 @@ def write_to_disk(name, surname, email):
 #from yourapplication.database import db_session
 @app.teardown_appcontext
 def shutdown_session(exception=None):
-    log_info('###SERVER_APP_RUNNING###','@app.teardown_appcontext:','db_session.remove()')
-    #db.db_session.remove()
+    if exception:
+        print('###__INIT__###', exception,'@app.teardown_appcontext:','db_session.remove()')
+        print('###__INIT__### exception is:', exception)
+        #db.db_session.remove()
 
 @app.context_processor
 def inject_configuration_parameters_as_variables():

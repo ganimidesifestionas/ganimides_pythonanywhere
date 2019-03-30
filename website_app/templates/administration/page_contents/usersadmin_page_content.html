@@ -1,0 +1,125 @@
+{% set page_title="Users Administration" %}
+{% set page_icon="fas fa-user-tag" %}
+{% set page_links = "_pagelinks.html" %}
+{% set next_page_url=url_for("administration.visitspage") %}
+{% set next_page_caption="Visits" %}
+
+{% set page_close_url="" %}
+{% set page_close_caption="go back" %}
+{% set page_logo = "" %}
+{% set next_page = "" %}
+{% set previous_page = "" %}
+{% set is_tab_form=True %}
+
+{% set users_is_active='active' %}
+{% set users_show='active show' %}
+{% set roles_is_active='' %}
+{% set roles_show='' %}
+{% set departments_is_active='' %}
+{% set departments_show='' %}
+{% set visitpoints_is_active='' %}
+{% set visitpoints_show='' %}
+{% set visits_is_active='' %}
+{% set visits_show='' %}
+
+{% if activeTAB=='roles' %}
+{% set roles_is_active='active' %}
+{% set roles_show='active show' %}
+{% set users_is_active='' %}
+{% set users_show='' %}
+{%endif%}
+{% if activeTAB=='departments' %}
+{% set departments_is_active='active' %}
+{% set departments_show='active show' %}
+{% set users_is_active='' %}
+{% set users_show='' %}
+{%endif%}
+{% if activeTAB=='visits' %}
+{% set visits_is_active='active' %}
+{% set visits_show='active show' %}
+{% set users_is_active='' %}
+{% set users_show='' %}
+{%endif%}
+{% if activeTAB=='visitpoints' %}
+{% set visitpoints_is_active='active' %}
+{% set visitpoints_show='active show' %}
+{% set users_is_active='' %}
+{% set users_show='' %}
+{%endif%}
+
+<div class="d-flex flex-column m-0 p-0">
+    <div class="d-flex flex-row justify-content-end p-0" style="transform: translate(0%, 0%);">
+        {% include include_files(page_links,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        {% if next_page_url %}
+        {% include include_files('button_next.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        {% endif %}
+    </div>
+
+    <!-- title -->
+    <div class="modal-header align-items-center pr-0 border-bottom-0" style="margin-top:-1.5em">
+        {% include include_files('page_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('page_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+    </div>
+    <!-- Nav tabs -->
+    <div class="left">
+        <ul class="nav nav-tabs " role="tablist">
+            <li class="nav-item {{users_is_active}}"><a class="nav-link {{users_show}}" href="#users" data-toggle="tab">Users</a></li>
+            <li class="nav-item {{roles_is_active}}"><a class="nav-link {{roles_show}}" href="#roles" data-toggle="tab">Roles</a></li>
+            <li class="nav-item {{departments_is_active}}"><a class="nav-link {{departments_show}}" href="#departments" data-toggle="tab">Departments</a></li>
+            <!--
+            <li class="nav-item {{visits_is_active}}"><a class="nav-link {{visits_show}}" href="#visits" data-toggle="tab">Visits</a></li>
+            <li class="nav-item {{visitpoints_is_active}}"><a class="nav-link {{visitpoints_show}}" href="#visitpoints" data-toggle="tab">Visit Points</a></li>
+            -->
+        </ul>
+    </div>
+
+    <!-- Tab panes -->
+    <div class="tab-content left">
+
+        <!-- users table-readonly -->
+        <div id="users" class="tab-pane fade {{users_show}} left">
+            <div class="d-flex justify-content-start border border-top-0 border-right-0 border-left-0">
+                <div class="">
+                    {% include [language_fullpathfile('users_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('users_page_content.html','PAGE',active_module)] %}
+                </div>
+            </div>
+        </div>
+
+        <!-- roles table change-->
+        <div id="roles" class="tab-pane fade {{roles_show}} left">
+            <div class="d-flex justify-content-start border border-top-0 border-right-0 border-left-0">
+                <div class="">
+                    {% include [language_fullpathfile('roles_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('roles_page_content.html','PAGE',active_module)] %}
+                </div>
+            </div>
+        </div>
+
+        <!-- departments table-->
+        <div id="departments" class="tab-pane fade {{departments_show}} left">
+            <div class="d-flex justify-content-start border border-top-0 border-right-0 border-left-0">
+                <div class="">
+                    {% include [language_fullpathfile('departments_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('departments_page_content.html','PAGE',active_module)] %}
+                </div>
+            </div>
+        </div>
+        <!--
+        -- visitpoints table--
+        <div id="visitpoints" class="tab-pane fade {{visitpoints_show}} left">
+            <div class="d-flex justify-content-start border border-top-0 border-right-0 border-left-0">
+                <div class="">
+                    {#% include [language_fullpathfile('visitpoints_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visitpoints_page_content.html','PAGE',active_module)] %#}
+                </div>
+            </div>
+        </div>
+
+        -- visits table--
+        <div id="visits" class="tab-pane fade {{visits_show}} left">
+            <div class="d-flex justify-content-start border border-top-0 border-right-0 border-left-0">
+                <div class="">
+                    {#% include [language_fullpathfile('visits_page_content.html',CURRENT_LANGUAGE,'PAGE',active_module), fullpathfile('visits_page_content.html','PAGE',active_module)] %#}
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+</div>

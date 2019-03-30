@@ -34,6 +34,7 @@ from .. external_services.email_services import send_email
 #from .. external_services.log_services import *
 from .. external_services.token_services import generate_unique_sessionID, generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
 from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_self_page, RealClientIPA
+from .. external_services.graphs import build_graph
 
 from .. debug_services.debug_log_services import *
 
@@ -309,7 +310,7 @@ def homepage():
     page_name = 'administration-home'
     page_function = 'homepage'
     log_route(page_name, page_function)
-    return redirect(url_for('administration.adminpage',action_tab = ''))
+    return redirect(url_for('administration.usersadmin',action_tab = ''))
 
 
 # @administration.route('/users/', defaults={'page': 1})
@@ -325,18 +326,18 @@ def homepage():
 #         users=users
 #     )
 
-@administration.route('/adminpage/', defaults={'action_tab':''} , methods = ['GET', 'POST'])
-@administration.route('/adminpage/<action_tab>', methods = ['GET', 'POST'])
-def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspageNum=0):
+@administration.route('/usersadmin/', defaults={'action_tab':''} , methods = ['GET', 'POST'])
+@administration.route('/usersadmin/<action_tab>', methods = ['GET', 'POST'])
+def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspageNum=0):
     print('###1-action_tab', action_tab)
     print('###1-userspageNum', userspageNum)
     print('###1-visitspageNum', visitspageNum)
     print('###1-visitpointspageNum', visitpointspageNum)
     print('')
-    page_name = 'adminpage'
-    page_function = 'adminpage'
-    page_template = 'administration/page_templates/administrationpage_template.html'
-    page_template_page = ''
+    page_name = 'useradmin'
+    page_function = 'useradmin'
+    page_template = 'administration/page_templates/administration_pages_template.html'
+    page_template_page = 'usersadmin_page_content.html'
     page_form = ''
     log_page(page_name, page_function, page_template, page_template_page, page_form)
     log_url_param('action_tab',action_tab)
@@ -450,7 +451,7 @@ def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspa
 #                       )
     page, per_page, offset = get_page_args(page_parameter='userspageNum', per_page_parameter='per_page')
     #print('users_page',page)
-    href = url_for('administration.adminpage', action_tab='users', userspageNum='0').replace('=0','={0}')
+    href = url_for('administration.usersadmin', action_tab='users', userspageNum='0').replace('=0','={0}')
     #print('href_users',href)
     #print('users_page',userspageNum)
     userspagination = Pagination(
@@ -491,11 +492,11 @@ def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspa
     # users_nexturl = None
     # users_prevurl = None
     # if userspagination.has_next:
-    #     #users_nexturl = url_for('administration.adminpage', action_tab='users', userspageNum=userspagination.next_num, visitspageNum=1, visitpointspageNum=1)
-    #     users_nexturl = url_for('administration.adminpage', action_tab='users', pages='{1,1,1,1}')
+    #     #users_nexturl = url_for('administration.usersadmin', action_tab='users', userspageNum=userspagination.next_num, visitspageNum=1, visitpointspageNum=1)
+    #     users_nexturl = url_for('administration.usersadmin', action_tab='users', pages='{1,1,1,1}')
     # if userspagination.has_prev:
-    #     #users_prevurl = url_for('administration.adminpage', action_tab='users', userspageNum=userspagination.prev_num, visitspageNum=1, visitpointspageNum=1)
-    #     users_nexturl = url_for('administration.adminpage', action_tab='users', pages='{1,1,1,1}')
+    #     #users_prevurl = url_for('administration.usersadmin', action_tab='users', userspageNum=userspagination.prev_num, visitspageNum=1, visitpointspageNum=1)
+    #     users_nexturl = url_for('administration.usersadmin', action_tab='users', pages='{1,1,1,1}')
 
     roles = Role.query.all()
     departments = Department.query.all()
@@ -507,7 +508,7 @@ def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspa
     #visitpointspagination = Pagination(page=visitpointspageNum, total=total_visitpoints, search=search, record_name='visitpoints')
     page, per_page, offset = get_page_args(page_parameter='visitpointspageNum', per_page_parameter='per_page')
     #print('visitpoints_page',page)
-    href=url_for('administration.adminpage',action_tab='visitpoints',visitpointspageNum='0').replace('=0','={0}')
+    href=url_for('administration.usersadmin',action_tab='visitpoints',visitpointspageNum='0').replace('=0','={0}')
     #print('href_visitpoints',href)
     #print('visitpoints_page',visitpointspageNum)
     visitpointspagination = Pagination(
@@ -544,7 +545,7 @@ def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspa
     visits = Visit.query.join('visitpoint').order_by(Visit.visitDT.desc()).paginate(page=visitspageNum, per_page=per_page).items
     page, per_page, offset = get_page_args(page_parameter='visitspageNum', per_page_parameter='per_page')
     #print('visits_page1',page)
-    href=url_for('administration.adminpage',action_tab='visits',visitspageNum='0').replace('=0','={0}')
+    href=url_for('administration.usersadmin',action_tab='visits',visitspageNum='0').replace('=0','={0}')
     #href: Add custom href for links - this supports forms with post method. MUST contain {0} to format page number        
     #print('visits_page2',visitspageNum)
     #print('href_visits',href)
@@ -570,26 +571,26 @@ def adminpage(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspa
     #print(visitpoints)
     #print(visits)
     #print('###action_tab',action_tab)
-
-    return render_template('administration/page_templates/administrationpage_template.html'
-    , title="administration"
-    , activeTAB=action_tab
-    , users=users
-    , roles=roles
-    , departments=departments
-    , visitpoints=visitpoints
-    , visits=visits
-    , usersPagination=userspagination
-    , visitsPagination=visitspagination
-    , visitpointsPagination=visitpointspagination
+    return render_template(
+        'administration/page_templates/administration_pages_template.html',
+        displayPage='usersadmin_page_content.html',
+        activeTAB=action_tab,
+        users=users,
+        roles=roles,
+        departments=departments,
+        visitpoints=visitpoints,
+        visits=visits,
+        usersPagination=userspagination,
+        visitsPagination=visitspagination,
+        visitpointsPagination=visitpointspagination,
     )
 
 @administration.route('/visits', methods=['GET'])
 def visitspage():
     page_name = 'visitspage'
     page_function = 'visitspage'
-    page_template = 'administration/page_templates/administrationpage_template.html'
-    page_template_page = ''
+    page_template = 'administration/page_templates/administration_pages_template.html'
+    page_template_page = 'visits_page_content.html'
     page_form = ''
     log_page(page_name, page_function, page_template, page_template_page, page_form)
     visitspageNum = request.args.get('page', type=int, default=1)
@@ -614,20 +615,55 @@ def visitspage():
         show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
         per_page=app.config.get('PER_PAGE', 10),
         )
-    print('visits_page',visitspagination.page)
-    return render_template('administration/page_templates/administration_pages_template.html'
-        ,title="visits"
-        ,displayPage="visits_page_content.1.html"
-        ,visits=visits
-        ,visitsPagination=visitspagination
+    print('visits_page', visitspagination.page)
+    
+    xvisits = db.session.query(func.date(Visit.date_created),func.count(Visit.id)).group_by(func.date(Visit.date_created)).all()
+    #visitsX = db.session.query(func.date(Visit.date_created)).group_by(func.date(Visit.date_created)).all()
+    #visitsY = db.session.query(func.count(Visit.id)).group_by(func.date(Visit.date_created)).all()
+    #print ('################',xvisits)
+    #print ('################',visitsX)
+    #print('################', visitsY)
+    X = []
+    Y = []
+    for x in xvisits:
+        X.append(x[0]) 
+        Y.append(x[1])
+    print('#####',X)
+    print('#####',Y)
+    # #These coordinates could be stored in DB
+    x1 = [0, 1, 2, 3, 4]
+    y1 = [10, 30, 40, 5, 50]
+    x2 = [0, 1, 2, 3, 4]
+    y2 = [50, 30, 20, 10, 50]
+    x3 = [0, 1, 2, 3, 4]
+    y3 = [0, 30, 10, 5, 30]
+
+    graph1_url = build_graph(x1,y1)
+    graph2_url = build_graph(x2,y2)
+    #graph3_url = build_graph(x3,y3)
+    graph3_url = build_graph(X,Y)
+
+    # return render_template('graphs.html',
+    # graph1=graph1_url,
+    # graph2=graph2_url,
+    # graph3=graph3_url)
+
+    return render_template(
+        'administration/page_templates/administration_pages_template.html',
+        displayPage="visits_page_content.html",
+        visits=visits,
+        visitsPagination=visitspagination,
+        graph1=graph1_url,
+        graph2=graph2_url,
+        graph3=graph3_url
     )
 
 @administration.route('/visitpoints', methods=['GET'])
 def visitpointspage():
     page_name = 'visitpointspage'
     page_function = 'visitpointspage'
-    page_template = 'administration/page_templates/administrationpage_template.html'
-    page_template_page = ''
+    page_template = 'administration/page_templates/administration_pages_template.html'
+    page_template_page = 'visitpoints_page_content.html'
     page_form = ''
     log_page(page_name, page_function, page_template, page_template_page, page_form)
     visitpointspageNum = request.args.get('page', type=int, default=1)
@@ -653,11 +689,11 @@ def visitpointspage():
         per_page=app.config.get('PER_PAGE', 10),
         )
     print('visitpoints_page',visitpointspagination.page)
-    return render_template('administration/page_templates/administration_pages_template.html'
-        ,title="visit points"
-        ,displayPage="visitpoints_page_content.1.html"
-        ,visitpoints=visitpoints
-        ,visitpointsPagination=visitpointspagination
+    return render_template(
+        'administration/page_templates/administration_pages_template.html',
+        displayPage="visitpoints_page_content.html",
+        visitpoints=visitpoints,
+        visitpointsPagination=visitpointspagination,
     )
 
 @administration.route('/useredit/<action>/<int:id>', methods = ['GET', 'POST'])
@@ -710,7 +746,7 @@ def useredit(action, id):
         log_variable('post_action',post_action)
 
         if post_action.lower() in ['cancel','close'] :
-            return redirect(url_for('administration.adminpage',action_tab = 'users'))
+            return redirect(url_for('administration.usersadmin',action_tab = 'users'))
 
         if not(form.validate_on_submit()):
             #form input has errors
@@ -727,14 +763,14 @@ def useredit(action, id):
                 userName = user.email
                 if user is None:
                     flash("user record {id} not found".format(id = id),'warning')
-                    return redirect(url_for('administration.adminpage',action_tab = 'users'))
+                    return redirect(url_for('administration.usersadmin',action_tab = 'users'))
                 # delete subscriber record
                 copy_user_to_subscriber(user,'delete')
                 # delete from db
                 db.session.delete(user)
                 db.session.commit()
                 flash("user [{u}] deleted".format(u = userName),'success')
-                return redirect(url_for('administration.adminpage',action_tab = 'users'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'users'))
 
             #add record
             if action.lower()=='add':
@@ -766,7 +802,7 @@ def useredit(action, id):
                         copy_user_to_subscriber(user,'add')
                         db.session.commit()
                         flash("user [{u}] added".format(u = user.email),'success')
-                        return redirect(url_for('administration.adminpage',action_tab = 'users'))
+                        return redirect(url_for('administration.usersadmin',action_tab = 'users'))
 
             #change record
             #if action.lower() not in ['add','delete','']:
@@ -774,7 +810,7 @@ def useredit(action, id):
             user = User.query.filter_by(id = id).first()
             if user is None:
                 flash("user record {id} not found".format(id = id),'warning')
-                return redirect(url_for('administration.adminpage',action_tab = 'users'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'users'))
 
             if (user.email == form.email.data
                 and user.firstName == form.firstName.data
@@ -788,7 +824,7 @@ def useredit(action, id):
             ):
                 copy_user_to_subscriber(user,'change')
                 flash('Nothing changed!','info')
-                return redirect(url_for('administration.adminpage',action_tab = 'users'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'users'))
 
             ok = True
             if user.email  != form.email.data:
@@ -819,14 +855,14 @@ def useredit(action, id):
                 db.session.commit()
                 flash("user {r} updated".format(r = userName),'success')
 
-                return redirect(url_for('administration.adminpage',action_tab = 'users'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'users'))
 
     #load user edit page
-    return render_template('administration/page_templates/administration_forms_template.html'
-            , title='User'
-            , formPage='form_user_edit.html'
-            , useredit_form=form
-            )
+    return render_template(
+        'administration/page_templates/administration_forms_template.html',
+        formPage='form_user_edit.html',
+        useredit_form=form,
+        )
 
 #tispaolas
 @administration.route('/roleedit/<action>/<int:id>', methods = ['GET', 'POST'])
@@ -875,7 +911,7 @@ def roleedit(action,id):
                 post_action = ''
         log_variable('***post_action',post_action)
         if post_action.lower() in ['cancel','close'] :
-            return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+            return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
 
         if not(form.validate_on_submit()):
             #form input has errors
@@ -892,11 +928,11 @@ def roleedit(action,id):
                 roleName = role.name
                 if role is None:
                     flash("role record {id} not found".format(id = id),'warning')
-                    return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+                    return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
                 db.session.delete(role)
                 db.session.commit()
                 flash("role [{r}] deleted".format(r = roleName),'success')
-                return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
 
             #add record
             if action.lower()=='add':
@@ -915,7 +951,7 @@ def roleedit(action,id):
                         db.session.add(role)
                         db.session.commit()
                         flash("role [{name}] added".format(name = role.name),'success')
-                        return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+                        return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
 
             #update record
             #if action.lower() not in ['add','delete','']:
@@ -923,13 +959,13 @@ def roleedit(action,id):
             role = Role.query.filter_by(id = id).first()
             if role is None:
                 flash("role record {id} not found".format(id = id),'warning')
-                return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
 
             if (role.name == form.name.data
                 and role.description == form.description.data
                 ):
                 flash('Nothing changed!','info')
-                return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
 
             ok = True
             if role.name  != form.name.data:
@@ -951,7 +987,7 @@ def roleedit(action,id):
                 # update role in database
                 db.session.commit()
                 flash("role {r} updated".format(r = VarRoleName),'success')
-                return redirect(url_for('administration.adminpage',action_tab = 'roles'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'roles'))
 
     #load role edit page
     return render_template('administration/page_templates/administration_forms_template.html'
@@ -1007,7 +1043,7 @@ def departmentedit(action,id):
                 post_action = ''
         log_variable('***post_action',post_action)
         if post_action.lower() in ['cancel','close'] :
-            return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+            return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
 
         if not(form.validate_on_submit()):
             #form input has errors
@@ -1023,11 +1059,11 @@ def departmentedit(action,id):
                 VarDepartmentName = department.name
                 if department is None:
                     flash("department record {id} not found (internal error)".format(id = id),'warning')
-                    return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+                    return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
                 db.session.delete(department)
                 db.session.commit()
                 flash("department [{0}] deleted".format(VarDepartmentName),'success')
-                return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
 
             #add record
             if action.lower()=='add':
@@ -1047,20 +1083,20 @@ def departmentedit(action,id):
                         db.session.add(department)
                         db.session.commit()
                         flash("department [{0}] added".format(department.name),'success')
-                        return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+                        return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
 
             #change record
             action = 'Update'
             department = Department.query.filter_by(id = id).first()
             if department is None:
                 flash("department record {id} not found".format(id = id),'warning')
-                return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
 
             if (department.name == form.name.data
                 and department.description == form.name.description
                 ):
                 flash('Nothing changed!','info')
-                return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
 
             ok = True
             if department.name  != form.name.data:
@@ -1082,7 +1118,7 @@ def departmentedit(action,id):
                 # update department in database
                 db.session.commit()
                 flash("department {0} updated".format(VarDepartmentName),'success')
-                return redirect(url_for('administration.adminpage',action_tab = 'departments'))
+                return redirect(url_for('administration.usersadmin',action_tab = 'departments'))
 
     #load department edit page
     return render_template('administration/page_templates/administration_forms_template.html'

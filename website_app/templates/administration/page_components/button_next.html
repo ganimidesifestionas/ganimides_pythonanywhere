@@ -1,0 +1,19 @@
+<!--START:button_next-->
+{% if next_page %}
+{% set url=url_for(next_page) %}
+{% endif %}
+{% if next_page_url %}
+{% set url=next_page_url %}
+{% endif %}
+{% if next_page_caption %}
+{% set caption=next_page_caption %}
+{% endif %}
+{% if request.path != url %}
+{% if url %}
+<a href="{{url}}" ) style="xborder:1px solid teal;border-radius:1em" class="btn btn-sm btn-light my-1 my-sm-0 mx-1 mx-sm-0 py-0 d-flex">
+    {{caption}}&nbsp; &raquo;
+    <!--<i class="material-icons">exit_to_app</i>-->
+</a>
+{% endif %}
+{% endif %}
+<!--FINISH:button_next-->

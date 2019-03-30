@@ -1,55 +1,69 @@
-<div class="admin-container text-black">
-    <div class="d-flex flex-column">
-        <div class="d-flex m-0 p-1 align-items-center justify-content-end">
+{% set page_title="VisitPoints" %}
+{% set page_icon="fas fa-globe-europe" %}
+{% set page_links = "visits_pagelinks.html" %}
+{% set next_page_url=url_for("administration.usersadmin",action_tab='users') %}
+{% set next_page_caption="Users Admin" %}
+<div class="d-flex flex-column m-0 p-0">
+    {% if not is_tab_form %}
+    <div class="d-flex flex-row justify-content-end p-0" style="transform: translate(0%, 0%);">
+        {% include include_files(page_links,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        {% if next_page_url %}
+        {% include include_files('button_next.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        {% endif %}
+    </div>
+    <div class="modal-header align-items-center pr-0" style="margin-top:-1.5em">
+        {% include include_files('page_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        {% include include_files('page_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+    </div>
+    {% endif %}
+
+    <div class="d-flex flex-row m-0 p-0 mt-1 align-items-center justify-content-between">
+        <div class="d-flex mr-1 flex-grow-1">
+            {{ visitpointsPagination.links }}
+        </div>
+        <div class="ml-2" style="">
             {{ visitpointsPagination.info }}
-            {{ visitpointsPagination.links }}
         </div>
+    </div>
 
-        <div class="table-responsive">
-            <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="visitpoints">
-                <thead>
-                    <tr>
-                        <th scope="col">IP</th>
-                        <th scope="col">#</th>
-                        <th scope="col">Visits Count</th>
-                        <th scope="col">last Visit</th>
-                        <th scope="col">first Visit</th>
-                        <th scope="col">Continent</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Region</th>
-                        <th scope="col">City</th>
-                        <th scope="col">latitude</th>
-                        <th scope="col">longitude</th>
-                        <!--
-                    <th scope="col">Visits</th>
-                    -->
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for visitpoint in visitpoints %}
-                    <tr id={{ visitpoint.id }}>
-                        <th scope="row">{{ visitpoint.ip }}</th>
-                        <td>{{ visitpoint.visitpointNumber }}</td>
-                        <td> {{ visitpoint.visitsCount }} </td>
-                        <td> {{ visitpoint.firstvisitDT }} </td>
-                        <td> {{ visitpoint.lastvisitDT }} </td>
-                        <td> {{ visitpoint.continent_name }} </td>
-                        <td> {{ visitpoint.country_name }} </td>
-                        <td> {{ visitpoint.region_name }} </td>
-                        <td> {{ visitpoint.city }} </td>
-                        <td> {{ visitpoint.latitude }} </td>
-                        <td> {{ visitpoint.longitude }} </td>
-                        <!--
-                    <td> {{ visitpoint.visits }} </td>
-                    -->
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="d-flex m-0 p-0 align-items-center justify-content-end">
-            {{ visitpointsPagination.links }}
-        </div>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="visitpointstable">
+            <thead>
+                <tr>
+                    <th scope="col">IP</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Visits Count</th>
+                    <th scope="col">last Visit</th>
+                    <th scope="col">first Visit</th>
+                    <th scope="col">Continent</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">City</th>
+                    <th scope="col">latitude</th>
+                    <th scope="col">longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for visitpoint in visitpoints %}
+                <tr id={{ visitpoint.id }}>
+                    <th scope="row">{{ visitpoint.ip }}</th>
+                    <td>{{ visitpoint.visitpointNumber }}</td>
+                    <td> {{ visitpoint.visitsCount }} </td>
+                    <td> {{ visitpoint.firstvisitDT }} </td>
+                    <td> {{ visitpoint.lastvisitDT }} </td>
+                    <td> {{ visitpoint.continent_name }} </td>
+                    <td> {{ visitpoint.country_name }} </td>
+                    <td> {{ visitpoint.region_name }} </td>
+                    <td> {{ visitpoint.city }} </td>
+                    <td> {{ visitpoint.latitude }} </td>
+                    <td> {{ visitpoint.longitude }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+    <div class="d-flex m-0 p-0 align-items-center justify-content-end">
+        {{ visitpointsPagination.links }}
     </div>
 </div>

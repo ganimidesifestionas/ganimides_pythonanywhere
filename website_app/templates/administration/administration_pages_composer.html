@@ -1,8 +1,7 @@
-<!--BEGIN--pageslayout = "administrationpageslayout"-->
+<!--BEGIN--administration_pages_composer-->
 {% set active_module = "administration" %}
-{% set pageslayout = "administrationpageslayout" %}
-{% if not(content_page_template) %}
-{% set content_page_template="administrationpageslayout_pagecontenttemplate.html" %}
+{% if not(page_content_template_layout) %}
+{% set page_content_template_layout="administration_pages_layout.html" %}
 {%endif%}
 {% if not(page_content_template_version) %}
 {% set page_content_template_version="" %}
@@ -17,20 +16,18 @@
 {% set page_content_design="" %}
 {%endif%}
 
-
-{% set page_content_file = page_file(content_page) %}
-{% set language_page_content_file=language_file(page_content_file,CURRENT_LANGUAGE) %}
+{% set page_content=template_page_content %}
 
 {% set page_image = '' %}
-{% if page_logo %}
-{% set page_image = image_file(page_logo) %}
-{%endif%}
-
 {% set page_top_image_file = "" %}
 {% set page_inpage_image_file = "" %}
 {% set page_middle_image_file = "" %}
 {% set page_summary_image_file = "" %}
 {% set page_bottom_image_file = "" %}
+
+{% if page_logo %}
+{% set page_image = image_file(page_logo) %}
+{%endif%}
 
 {% if page_top_image %}
 {% set page_top_image_file = image_file(page_top_image) %}
@@ -98,15 +95,14 @@
 {% set FormLinkPages=ns.items %}
 <div class="d-flex flex-column w-100 administration_page">
     <div class="d-flex flex-row w-100 justify-content-center">
-
         {% if page_left_content1 %}
         <div class="d-flex flex-column justify-content-start">
             {% include include_files(page_left_content1,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
         {% endif %}
 
-        <div class="d-flex flex-column flex-grow-1 justify-content-start administration_page">
-            {% include include_files(content_page_template,type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+        <div class="d-flex flex-column flex-grow-1 justify-content-start">
+            {% include include_files(page_content_template_layout,type='LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
 
         {% if page_right_content1 %}
@@ -114,10 +110,9 @@
             {% include include_files(page_right_content1,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
         {% endif %}
-
     </div>
     <div style="color:orange;" class="w-100 internal_use_line py-1 text-center">
         {% include include_files('internaluse_line.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
     </div>
 </div>
-<!--ENDOF--pageslayout = "administrationpageslayout"-->
+<!--ENDOF--administration_pages_composer-->

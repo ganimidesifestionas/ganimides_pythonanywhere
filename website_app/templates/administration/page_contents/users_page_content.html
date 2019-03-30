@@ -1,11 +1,16 @@
 <div class="admin-container text-black">
     <div class="d-flex flex-column">
-        <div class="d-flex m-0 p-0 align-items-center justify-content-end">
-            {{ usersPagination.info }}
-            {{ usersPagination.links }}
-        </div>
+        <div class="d-flex flex-row m-0 p-0 mt-1 align-items-center justify-content-between">
+                <div class="d-flex ml-1 mr-1 flex-grow-1">
+                    {{ usersPagination.links }}
+                </div>
+                <div class="ml-2 mr-1" style="">
+                    {{ usersPagination.info }}
+                </div>
+            </div>
+        
         <div class="table-responsive">
-            <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="users">
+            <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="userstable">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

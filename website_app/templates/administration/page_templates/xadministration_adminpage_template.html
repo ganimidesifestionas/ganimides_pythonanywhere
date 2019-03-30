@@ -1,16 +1,18 @@
-<!--BEGIN--page_template = "administration_forms_template"-->
+<!--BEGIN--page_template = "users_table_template"-->
 {% extends "internalportal_layout.html" %}
 {% set active_module = 'administration' %}
-{% set page_title = "" %}
+{% set page_title = title %}
+{% set page_icon="fas fa-user-tag" %}
+{% set page_close_url=url_for("administration.usersadmin",action_tab='roles') %}
 {% set page_logo = "" %}
 {% set next_page = "" %}
 {% set previous_page = "" %}
 {% set template_page_composer="administration_pages_composer.html" %}
 {% set template_page_layout="administration_pages_layout.html" %}
-{% set template_page_content="administration_forms_page_content.html" %}
+{% set template_page_content="administration_usersadmin_content.html" %}
 {% set page_content_left="administration_left_page.html" %}
-{% set page_content_style="border:2px dotted orange;border-radius:0em" %}
+{% set page_content_style="" %}
 {% block content %}
 {% include include_files(template_page_composer,type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
 {% endblock %}
-<!--ENDOF--page_template = "administration_forms_template"-->
+<!--ENDOF--page_template = "users_table_template"-->

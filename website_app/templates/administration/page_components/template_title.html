@@ -1,0 +1,9 @@
+{% if template_title and template_icon%}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="template_title"><i class="{{template_icon}}"></i>&nbsp;{{template_title}}</h2>
+{% elif template_title and template_image%}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="template_title"><img style="width:5rem;height:5rem;" src={{template_image}} class="template_image" />{{template_title}}</h2>
+{% elif template_title %}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="template_title">{{template_title}}</h2>
+{% elif template_icon %}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="template_title"><i class="{{template_icon}}"></i></h2>
+{% endif %}

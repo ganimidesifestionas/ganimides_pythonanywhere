@@ -1,0 +1,12 @@
+<!--START:form_close_button.html-->
+{% if form_close_url %}
+{% set url=form_close_url %}
+{% elif form_close_link %}
+{% set url=url_for(form_close_link) %}
+{% else %}
+{% set url=session.get("lastpageURL","#") %}
+{% endif %}
+<div class="d-flex p-0 m-0">
+    <input class="btn btn-sm btn_close mr-2" type=button onClick="location.href='{{ url }}'" data-dismiss="modal" aria-label="Close" data-toggle="tooltip" title='{{form_close_caption}}' value='Close'>
+</div>
+<!--END:form_close_button.html-->

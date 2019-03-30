@@ -1,0 +1,7 @@
+{% if page_title and page_icon%}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="page_title"><i class="{{page_icon}}"></i>&nbsp;{{page_title}}</h2>
+{% elif page_title %}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="page_title">{{page_title}}</h2>
+{% elif page_icon %}
+<h2 class="modal-title mx-auto form_title m-0 p-0" id="page_title"><i class="{{page_icon}}"></i></h2>
+{% endif %}

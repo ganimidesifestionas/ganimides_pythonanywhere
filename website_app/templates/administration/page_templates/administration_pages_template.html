@@ -1,14 +1,29 @@
-<!--BEGIN--page_template = "administration_forms_template"-->
-{% extends "webapppageslayout.html" %}
+<!--BEGIN--page_template = "administration_pages_template"-->
+{% extends "internalportal_layout.html" %}
 {% set active_module = 'administration' %}
-{% set page_title = "" %}
-{% set page_logo = "" %}
-{% set next_page = "" %}
-{% set previous_page = "" %}
-{% set content_page="administration_pages_page_content.html" %}
-
-{% set content_page_template="administrationpageslayout_pagecontenttemplate.html" %}
+<!--start:params from routes or views-->
+{% if title %}
+{% set template_title = title %}
+{% endif%}
+{% if image %}
+{% set template_image = image %}
+{% endif%}
+{% if icon %}
+{% set template_icon = icon %}
+{% endif%}
+<!--endof:params from routes or views-->
+{% set page_title="" %}
+{% set page_icon="" %}
+{% set page_logo= "" %}
+{% set page_close_url="" %}
+{% set next_page="" %}
+{% set previous_page= "" %}
+{% set template_page_composer="administration_pages_composer.html" %}
+{% set template_page_layout="administration_pages_layout.html" %}
+{% set template_page_content="administration_pages_page_content.html" %}
+{% set page_content_left="administration_left_page.html" %}
+{% set page_content_style="border:1px dotted lightgray;border-radius:0em" %}
 {% block content %}
-{% include include_files('administrationpageslayout.html',type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+{% include include_files(template_page_composer,type='PAGE_LAYOUT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
 {% endblock %}
-<!--ENDOF--page_template = "administration_forms_template"-->
+<!--ENDOF--page_template = "administration_pages_template"-->
