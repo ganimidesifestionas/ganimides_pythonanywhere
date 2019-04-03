@@ -30,8 +30,8 @@
             "name": "Python: Current File (Integrated Terminal)",
             "type": "python",
             "request": "launch",
-            //"program": "${file}",
-            "program": "${workspaceFolder}/server_start_app.py",
+            "program": "${file}",
+            //"program": "${workspaceFolder}/server_start_app.py",
             "console": "integratedTerminal"
         },
         {

@@ -36,7 +36,7 @@ from .. external_services.email_services import send_email
 #from .. external_services.log_services import *
 from .. external_services.token_services import generate_unique_sessionID, generate_confirmation_token, confirm_token, generate_mobileconfirmation_code
 from .. external_services.log_services import set_geolocation, client_IP, log_visit, log_page, log_route, log_splash_page, log_self_page, RealClientIPA
-from .. external_services.graphs import * #build_graph
+from .. external_services.graphs import build_graph
 
 from .. debug_services.debug_log_services import *
 
@@ -589,7 +589,6 @@ def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointsp
 
 @administration.route('/visits', methods=['GET'])
 def visitspage():
-    log_view_start('visitspage')
     page_name = 'visitspage'
     page_function = 'visitspage'
     page_template = 'administration/page_templates/administration_pages_template.html'
@@ -597,7 +596,7 @@ def visitspage():
     page_form = ''
     log_page(page_name, page_function, page_template, page_template_page, page_form)
     visitspageNum = request.args.get('page', type=int, default=1)
-    log_url_param('page', visitspageNum)
+    log_url_param('page',visitspageNum)
     search = False
     q = request.args.get('q')
     if q:
@@ -618,98 +617,60 @@ def visitspage():
         show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
         per_page=app.config.get('PER_PAGE', 10),
         )
-    log_variable('visitspagination.page', visitspagination.page)
-
-    #visits per day    
-    log_info('### visits per day###')
-    dvisits = db.session.query(func.date(Visit.date_created),func.count(Visit.id)).group_by(func.date(Visit.date_created)).all()
+    print('visits_page', visitspagination.page)
+    
+    xvisits = db.session.query(func.date(Visit.date_created),func.count(Visit.id)).group_by(func.date(Visit.date_created)).all()
+    mvisits = db.session.query(func.year(Visit.date_created),func.month(Visit.date_created), func.count(Visit.id)).group_by(func.year(Visit.date_created),func.month(Visit.date_created)).all()
     tdy = date.today()
     visits_perday = []
-    for item in dvisits:
-        diff = tdy - item[0]
-        #log_variable(item[0], diff.days)
-        visits_perday.append([diff.days, item[1]])
-    X = []
-    Y = []
-    for item in visits_perday:
-        X.append(item[0]) 
-        Y.append(item[1])
-    log_info('### X=', X)
-    log_info('### y=', Y)
-    graph1_url = build_graph(X, Y, 'visits per day','days','visits')
+    for x in xvisits:
+        diff = tdy - x[0]
+        print(tdy, x[0], diff.days)
+        visits_perday.append([diff.days,x[1]])
     
-    #visits per month    
-    log_info('### visits per month###')
-    mvisits = db.session.query(func.year(Visit.date_created),func.month(Visit.date_created), func.count(Visit.id)).group_by(func.year(Visit.date_created), func.month(Visit.date_created)).order_by(func.year(Visit.date_created), func.month(Visit.date_created)).all()
     visits_permonth = []
-    for item in mvisits:
-        mo = '{}-{}'.format(item[0], item[1])
-        log_variable(mo, item[2])
-        visits_permonth.append([mo, item[2]])
+    for x in mvisits:
+        mo = '{}-{}'.format(x[0],x[1])
+        print(mo,x[2])
+        visits_permonth.append([mo,x[2]])
+            
     X = []
     Y = []
-    for item in visits_permonth:
-        X.append(item[0]) 
-        Y.append(item[1])
-    log_info('### X=', X)
-    log_info('### y=', Y)
-    graph2_url = build_barchart_vertical(X, Y, 'visits per month','months','visits')
+    for x in visits_perday:
+        X.append(x[0]) 
+        Y.append(x[1])
+    print('##### X=',X)
+    print('##### y=', Y)
+    
+    XX = []
+    YY = []
+    for x in visits_permonth:
+        XX.append(x[0]) 
+        YY.append(x[1])
+    print('##### X=',XX)
+    print('##### y=', YY)
 
-    #visits per city    
-    log_info('### visits per city###')
-    xvisits = db.session.query(Visit.id, VisitPoint.city, VisitPoint.region_name, VisitPoint.country_name, func.count(Visit.id)).join(VisitPoint, VisitPoint.id == Visit.visitpoint_ID).group_by(VisitPoint.city, VisitPoint.region_name, VisitPoint.country_name).order_by(VisitPoint.city).all()
-    visits_percity = []
-    for item in xvisits:
-        cty = '{}-{}-{}'.format(item[1], item[2], item[3])
-        log_variable(cty,item[4])
-        cty = '{}'.format(item[1])
-        visits_percity.append([cty, item[4]])
-    X = []
-    Y = []
-    for item in visits_percity:
-        X.append(item[0]) 
-        Y.append(item[1])
-    log_info('### X=', X)
-    log_info('### y=', Y)
-    graph3_url = build_barchart_vertical(X, Y, 'visits per city', 'cities', 'visits')
 
-    #visits per country    
-    log_info('### visits per country###')
-    #sub_query = db.session.query(Visit.id ,VisitPoint.country_name).join(VisitPoint, VisitPoint.id == Visit.visitpoint_ID).subquery()
-    #print('ssss',sub_query)
-    #query = db.session.query(Visit.id, VisitPoint.country_name).join(VisitPoint, VisitPoint.id == Visit.visitpoint_ID).all()
-    #print('qqq',query)
-    # query = query.outerjoin(
-    #     sub_query, and_(
-    #         sub_query.c.personId == CalendarEventAttendee.personId, 
-    #         sub_query.c.eventId == CalendarEventAttendee.eventId)
-    #     )
-    # results = query.all()
-    # #xxvisits = db.session.query(Visit.visitNumber, VisitPoint.country_name).all()
-    # xxvisits = Visit.query(Visit.visitNumber, VisitPoint.country_name).join('visitpoint')
-    # #.order_by(Visit.visitDT.desc())
-    # #.paginate(page=visitspageNum, per_page=per_page).items
-    # log_variable('xxvisits',xxvisits)
-    # log_variable('xxvisits',len(xxvisits))
+    # #These coordinates could be stored in DB
+    x1 = [0, 1, 2, 3, 4]
+    y1 = [10, 30, 40, 5, 50]
+    x2 = [0, 1, 2, 3, 4]
+    y2 = [50, 30, 20, 10, 50]
+    x3 = [0, 1, 2, 3, 4]
+    y3 = [0, 30, 10, 5, 30]
 
-    #xxvisits = db.session.query(Visit.visitNumber, VisitPoint.country_name, func.count(Visit.id)).group_by(VisitPoint.country_name).all()
-    #log_variable('xxvisits',xxvisits)
-    #xvisits = db.session.query(VisitPoint.country_name, func.count(Visit.id)).group_by(VisitPoint.country_name).all()
-    xvisits = db.session.query(Visit.id, VisitPoint.country_name, func.count(Visit.id)).join(VisitPoint, VisitPoint.id == Visit.visitpoint_ID).group_by(VisitPoint.country_name).order_by(VisitPoint.country_name).all()
-    visits_percountry = []
-    for item in xvisits:
-        log_variable(item[1], item[2])
-        visits_percountry.append([item[1], item[2]])
-    X = []
-    Y = []
-    for item in visits_percountry:
-        X.append(item[0]) 
-        Y.append(item[1])
-    log_info('### X=', X)
-    log_info('### y=', Y)
-    graph4_url = build_barchart_vertical(X, Y, 'visits per country', 'country', 'visits')
+    graph1_url = build_graph(x1,y1)
+    graph2_url = build_graph(x2,y2)
+    #graph3_url = build_graph(x3,y3)
+    graph3_url = build_graph(X,Y)
+    graph3_url = build_graph(XX,YY)
+    #print(graph3_url)
+    
+    # return render_template('graphs.html',
+    # graph1=graph1_url,
+    # graph2=graph2_url,
+    # graph3=graph3_url)
 
-    log_view_finish('visitspage')
     return render_template(
         'administration/page_templates/administration_pages_template.html',
         displayPage="visits_page_content.html",
@@ -717,8 +678,7 @@ def visitspage():
         visitsPagination=visitspagination,
         graph1=graph1_url,
         graph2=graph2_url,
-        graph3=graph3_url,
-        graph4=graph4_url,
+        graph3=graph3_url
     )
 
 @administration.route('/visitpoints', methods=['GET'])

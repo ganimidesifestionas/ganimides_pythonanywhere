@@ -8,6 +8,10 @@ global_debug_enabled = True
 debug_log_services_level = 'WARNING;ERROR;IMPORTANT'
 default_debug_onoff = True
 default_debug_level = 9
+module_trace_enabled = True
+message_compressed_enabled = False
+max_message_length = 40
+max_module_trace_length = 40
 debug_log_services_eyecatch = '[]'
 level = 0
 offset = ''
@@ -82,6 +86,24 @@ def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
         msg = 'ERROR:{}'.format(msg)
         message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
         print(message)
+##########################################
+def log_system_message(msg, m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    #if global_debug_enabled:
+    caller = sys._getframe(1)  # Obtain calling frame
+    active_module = caller.f_globals['__name__']
+        # retrieve_activecomponent_debug_info()
+        # if active_component_debug_enabled and active_component_debug_level > 1:
+        #if (active_component_debug_enabled and active_component_debug_level > 1) \
+        #    or debug_log_services_level.find('WARNING') >= 0 \
+        #    or debug_log_services_level.find('INFO') >= 0:
+    msg = 'SYSTEM-WARNING:{}'.format(msg)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    print(message)
 ##########################################
 def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
     global offset
@@ -662,19 +684,58 @@ def set_global_debug(onoff='ON'):
     global global_debug_enabled 
     if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
         global_debug_enabled = True
+        message = 'global debug set ON'
     else:
         global_debug_enabled = False
+        message = 'global debug set OFF'
+    log_system_message(message)
 ##########################################
 def set_debug_log_services_level(lev='WARNING'): #WARNING , ERROR, INFO, BEGIN-END VARIABLE PARAMETER URL
     lev = lev.upper()
     debug_log_services_level = lev
+    message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
+    log_system_message(message)
+##########################################
 def set_debug_log_services_level_remove(lev='WARNING'):
     lev = lev.upper()
     debug_log_services_level = debug_log_services_level.replace(lev,'')
+    message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
+    log_system_message(message)
+##########################################
 def set_debug_log_services_level_add(lev='WARNING'):
     lev = lev.upper()
     if debug_log_services_level.find(lev) < 0:
         debug_log_services_level = debug_log_services_level + ';' + lev
+    message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
+    log_system_message(message)
+##########################################
+def set_log_message_compress_onoff(onoff='OFF'):
+    global message_compressed_enabled 
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        message_compressed_enabled = True
+        message = 'message compress set ON'
+    else:
+        message_compressed_enabled = True
+        message = 'message compress set OFF'
+    log_system_message(message)
+##########################################
+def set_log_moduletrace_onoff(onoff):
+    global module_trace_enabled 
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        module_trace_enabled = True
+        message = 'module_trace set ON'
+    else:
+        module_trace_enabled = False
+        message = 'module_trace set OFF'
+    log_system_message(message)
+##########################################
+def set_log_moduletrace_maxlength(len=40):
+    global max_module_trace_length 
+    max_module_trace_length = len
+##########################################
+def set_log_message_maxlength(len=40):
+    global max_message_length
+    max_message_length = 40
 ##########################################
 ##########################################
 ##########################################
@@ -688,10 +749,10 @@ def init_this_module():
     caller = sys._getframe(1)  # Obtain calling frame
     thisModule = caller.f_globals['__name__']
     message = 'log debug module set to ({})'.format(thisModule)
-    log_info(message)
+    log_system_message(message)
     components_stack = {}
 ##########################################
-def set_debug_defaults(onoff='ON',debuglevel=9):
+def set_debug_defaults(onoff='ON', debuglevel=9):
     global default_debug_onoff
     global default_debug_level
     global active_module
@@ -710,6 +771,88 @@ def set_debug_defaults(onoff='ON',debuglevel=9):
         default_debug_onoff_Str = 'ON'
     message = 'log debug defaults set to ({}-{})'.format(default_debug_onoff_Str, default_debug_level)
     log_info(message)
+
+##########################################
+def config_from_environment_variables():
+    for item in os.environ:
+        if item.upper().find('DEBUG_') == 0:
+            what = item.upper().replace('DEBUG_', '').lower()
+            val = os.environ.get(item).upper()
+            if val not in ('OFF', 'ON'):
+                valonoff = 'OFF'
+            else:
+                valonoff = val
+            print(item, what, val)
+            if what.upper().find('MODULE_') == 0:
+                typ = 'MODULE'
+                name = what.upper().replace('MODULE_', '').lower()
+                print(item, what, typ, name, valonoff)
+                set_debug_level(module=name, debugOnOff=valonoff, debugLevel=9)
+            elif what.upper().find('FOLDER_') == 0:
+                typ = 'FOLDER'
+                name = what.upper().replace('FOLDER_', '').lower()
+                print(item, what, typ, name, valonoff)
+                set_debug_level(folder=name, debugOnOff=valonoff, debugLevel=9)
+            elif what.upper().find('TYPE_') == 0:
+                typ = 'COMPONENT_TYPE'
+                name = what.upper().replace('TYPE_', '').lower()
+                set_debug_level(component_type=name, debugOnOff=valonoff, debugLevel=9)
+                print(item, what, typ, name, valonoff)
+            elif what.upper().find('LEVEL') == 0:
+                typ = 'LEVEL'
+                name = name.upper().replace('LEVEL', '').lower()
+                print(item, what, typ, name, val)
+                if name.upper().find('_ADD') == 0:
+                    set_debug_log_services_level_add(lev=val)
+                elif name.upper().find('_REMOVE') == 0:
+                    set_debug_log_services_level_remove(lev=val)
+                else:
+                    set_debug_log_services_level(lev=val)
+            elif what.upper().find('GLOBAL') == 0:
+                typ = 'GLOBAL_DEBUG'
+                name = ''
+                print(item, what, typ, name, valonoff)
+                set_global_debug(valonoff)
+            elif what.upper().find('DEFAULT') == 0:
+                typ = 'DEFAULTS'
+                name = ''
+                print(item, what, typ, name, valonoff)
+                set_debug_defaults(onoff=valonoff, debuglevel=9)
+            elif what.upper().find('TIMESTAMP') == 0:
+                typ = 'TIMESTAMP'
+                name = name.upper().replace('TIMESTAMP', '').lower()
+                print(item, what, typ, name, valonoff)
+                if name.upper().find('_LEFT') == 0:
+                    set_log_prefix_timestamp(valonoff)
+                else:
+                    set_log_suffix_timestamp(valonoff)
+            elif what.upper().find('MODULE_TRACE') == 0:
+                typ = 'MODULE_TRACE'
+                name = name.upper().replace('MODULE_TRACE', '').lower()
+                print(item, what, typ, name, valonoff)
+                set_log_moduletrace_onoff(valonoff)
+            elif what.upper().find('MESSAGE_COMPRESS') == 0:
+                typ = 'MESSAGE_COMPRESS'
+                name = name.upper().replace('MESSAGE_COMPRESS', '').lower()
+                print(item, what, typ, name, valonoff)
+                set_log_message_compress_onoff(valonoff)
+            elif what.upper().find('MAX_MESSAGE_LENGTH') == 0:
+                typ = 'MAX_MESSAGE_LENGTH'
+                name = name.upper().replace('MAX_MESSAGE_LENGTH', '').lower()
+                print(item, what, typ, name, valonoff)
+                mlen=int(val)
+                set_log_message_maxlength(mlen)
+            elif what.upper().find('MAX_MODULETRACE_LENGTH') == 0:
+                typ = 'MAX_MODULETRACE_LENGTH'
+                name = name.upper().replace('MAX_MODULETRACE_LENGTH', '').lower()
+                print(item, what, typ, name, valonoff)
+                mlen=int(val)
+                set_log_moduletrace_maxlength(mlen)
+            else:
+                typ = 'COMPONENT'
+                name = what.lower()
+                print(item, what, typ, name, valonoff)
+                set_debug_level(component=name, debugOnOff=valonoff, debugLevel=9)
 ##########################################
 # take second element for sort
 def takeSecond(elem):
@@ -759,10 +902,12 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
     #print(ModulesDictionary)
     if component_type and component_type != '*':
         cfgkey = 'DEBUG_'+component_type.upper()
-        os.environ[cfgkey] = debugOnOff_Str
+        os.environ[cfgkey] = debugOnOff_Str.upper()
+        message = 'environment variable {} set to {}'.format(cfgkey, debugOnOff_Str)
+        log_system_message(message)
 
     message = 'debug levels for folder "{}" module "{}" component "{}" compo-type "{}" set to ({}-{}) priority {}.'.format(folder, module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
-    log_info(message)
+    log_system_message(message)
 ##########################################
 def retrieve_activecomponent_debug_info(folder_name='', module_name='', component_name='', component_type=''):
     global ModulesDictionary
@@ -779,6 +924,7 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
     if not global_debug_enabled:
         active_component_debug_enabled = False
         active_component_debug_level = 0
+        #print ('===global_debug_enabled is OFF')
         return
 
     if not folder_name:
@@ -790,13 +936,13 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
     if not component_type:
         component_type = active_component_type
     if not(folder_name):
-        folder_name='*'
+        folder_name = '*'
     if not(module_name):
-        module_name='*'
+        module_name = '*'
     if not(component_name):
-        component_name='*'
+        component_name = '*'
     if not(component_type):
-        component_type='*'
+        component_type = '*'
 
     activeKey = module_name+'.'+component_name+'.'+component_type
     #print('search for ',activeKey)
@@ -819,15 +965,15 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
         # print(ix,module_name,moduleArray[6])
         # print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
         # print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
-        if folder_name == moduleArray[5] or moduleArray[5] in ('','*'):
-            if module_name == moduleArray[6] or moduleArray[6] in ('','*') \
+        if folder_name == moduleArray[5] or moduleArray[5] in ('', '*'):
+            if module_name == moduleArray[6] or moduleArray[6] in ('', '*') \
             or str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')) \
             or str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')) >= 0:
                 # print(ix,module_name,moduleArray[6])
                 # print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
                 # print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
-                if component_name == moduleArray[7] or moduleArray[7] in ('','*'):
-                    if component_type == moduleArray[8] or moduleArray[8] in ('','*'):
+                if component_name == moduleArray[7] or moduleArray[7] in ('', '*'):
+                    if component_type == moduleArray[8] or moduleArray[8] in ('', '*'):
                         match = True
 
         # m = module.replace('*', r'[\w]*')
@@ -860,7 +1006,7 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
 
         if match:
             found = True
-            #print ('xxxx found', ix, activeKey,'-->',px, '-->', module, 'MATCHED', onoff, debuglevel)
+            #print ('===FOUND', ix, activeKey,'-->',px, '-->', module, 'MATCHED', onoff, debuglevel)
             # print ('folder',folder_name,'-->',moduleArray[5])
             # print ('module',module_name,'-->',moduleArray[6])
             # print ('component',component_name,'-->',moduleArray[7])
@@ -890,6 +1036,8 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5=''):
         message = message + ' {}'.format(p5)
     message = '{} [{}]'.format(message , active_module)
     return message
+
+
 ##########################################
 ##########################################
 ##########################################
@@ -918,6 +1066,7 @@ def testx():
         i=i+1
 
 if __name__ == '__main__':
+    #tests
     #global Components
     set_debug_defaults(onoff='ON', debuglevel=9)
     set_debug_level(module='webapp', debugOnOff='OFF', debugLevel=9)

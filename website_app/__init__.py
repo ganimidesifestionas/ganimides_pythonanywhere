@@ -949,7 +949,7 @@ def inject_utility_functions():
         if rootfile1 != file1:
             x.append(rootfile1)
         #if app.config.get('DEBUG_INCLUDES') \
-        if os.environ.get('DEBUG_INCLUDE') != 'OFF' :
+        if os.environ.get('DEBUG_INCLUDE') in ('ON', True) :
             print('###include_files###=',x)
         return x
 

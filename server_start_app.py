@@ -2,9 +2,6 @@
 This script runs the ganimides_website application using a development server.
 """
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#from server_debug_config import server_debug_config
-#server_debug_config()
-#from website_app.debug_services.debug_log_services import *
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 import os
 import os.path

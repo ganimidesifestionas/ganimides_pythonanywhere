@@ -172,7 +172,7 @@ class DesignConfig(Config):
         , 'TEMPLATE'
         , '*'
         }
-    DEBUG_VERSION = '34'
+    DEBUG_VERSION = '' # add a specific version here
 
 class DevelopmentConfig(Config):
     """Development mode configurations"""
@@ -188,7 +188,7 @@ class DevelopmentConfig(Config):
         , 'TEMPLATE'
         , '*'
         }
-    DEBUG_VERSION = '33'
+    DEBUG_VERSION = ''
 
 class TestingConfig(Config):
     """Testing mode configurations"""

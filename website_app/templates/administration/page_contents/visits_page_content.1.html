@@ -4,10 +4,9 @@
 {% set next_page_url=url_for("administration.usersadmin",action_tab='users') %}
 {% set next_page_caption="Users Admin" %}
 
-<!--div class="container">-->
-<div class="row">
-    <div class="col-sm border border-info m-0 p-0">
-        <div class="container">
+<div class="container">
+    <div class="row border border-danger">
+        <div class="d-flex flex-column m-0 p-0">
             {% if not is_tab_form %}
             <div class="d-flex flex-row justify-content-end p-0" style="transform: translate(0%, 0%);">
                 {% include include_files(page_links,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
@@ -29,7 +28,7 @@
                     {{ visitsPagination.info }}
                 </div>
             </div>
-            <div class="table-responsive-sm">
+            <div class="table-responsive">
                 <table class="table table-hover table-striped table-borderless mb-0 pb-0" id="visitstable">
                     <thead>
                         <tr>
@@ -58,21 +57,27 @@
                 {{ visitsPagination.links }}
             </div>
         </div>
-    </div>
-    <div class="col-sm-5 border border-info">
-        <img class="img-fluid border border-danger" src='{{graph1}}'></img>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm border border-info">
-        <img class="img-fluid border border-danger" src='{{graph2}}'></img>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm border border-info">
-        <img class="img-fluid border border-danger" src='{{graph3}}'></img>
-    </div>
-    <div class="col-sm border border-info">
-        <img class="img-fluid border border-danger" src='{{graph4}}'></img>
+        <div class="d-flex flex-column justify-content-start align-items-start">
+            <div class="container border border-info">
+                <div class="row border border-danger">
+                    <div class="border">
+                        <img src='{{graph1}}'></img>
+                    </div>
+                    <div class="border">
+                        <img src='{{graph2}}'></img>
+                    </div>
+                </div>
+            </div>
+            <div class="container border border-info">
+                <div class="row border border-danger">
+                    <div class="col-sm border">
+                        <img src='{{graph3}}'></img>
+                    </div>
+                    <div class="col-sm border">
+                        <img src='{{graph4}}'></img>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

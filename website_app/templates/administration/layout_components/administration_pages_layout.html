@@ -27,19 +27,20 @@
         {% endif %}
 
         <!--3:page-content-->
-        <div class="d-flex flex-wrap flex-row justify-content-start">
+        <div class="d-flex xflex-wrap flex-row justify-content-start" style="border:3px dotted green">
+
             <!--3.1:page-content-left ie leftside menu-->
             {% if page_content_left %}
-            <div class="">
+            <div class="border border-danger">
                 {% include include_files(page_content_left,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
             </div>
             {% endif %}
 
             <!--3.2:page-content-->
-            <div class="d-flex flex-column m-0">
-                <div class="d-flex flex-column m-0 p-0 pr-1 pl-1 pb-1" style="{{page_content_style}}">
+            <div class="d-flex flex-column m-0 align-items-start" style="border:3px dotted blue">
+                <div class="w-100 m-0 p-0 xpr-1 xpl-1 xpb-1" style="border:3px dotted orange; {{xpage_content_style}}">
                     <!--3.2.1:page-header:page-logo,title,link-buttons-->
-                    <div class="d-flex flex-wrap flex-column justify-content-start xmt-1 xmb-1 adminstration_page">
+                    <div class="d-flex flex-wrap flex-column justify-content-start xadminstration_page" style="border:3px dotted red">
 
                         {% if template_image or template_title or template_icon %}
                         <div class="d-flex justify-content-center align-items-center mb-1">
@@ -67,8 +68,14 @@
 
                     <!--3.2.2:page-content-->
                     {% if page_content %}
-                    <div class="container m-0 p-0">
-                        {% include include_files(page_content,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                    <div class="w-100 m-0 p-0" style="border:3px dotted teal;">
+                        <div class="container-fluid" style="border:5px solid black">
+                            <!--
+                        -->
+                            {% include include_files(page_content,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
+                        </div>
+                        <!--
+                        -->
                     </div>
                     {% endif %}
 

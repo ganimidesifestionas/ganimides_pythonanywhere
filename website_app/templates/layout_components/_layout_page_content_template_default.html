@@ -108,7 +108,7 @@
         <!--5.0:dummy margin-->
         {% set content_top_margin='' %}
         {% if not page_image and not page_title and not content_page_top_left and not content_page_top_center and not content_page_top_right%}
-            {% set content_top_margin='mt-4' %}
+        {% set content_top_margin='mt-4' %}
         {% endif %}
 
 
@@ -135,11 +135,11 @@
                 </div>
                 <div class="d-flex flex-row justify-content-end align-items-center">
                     {% if contactus_button %}
-                        {% include include_files('contact_us.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
+                    {% include include_files('contact_us.html',type='COMPONENT',module='',language=CURRENT_LANGUAGE) ignore missing %}
                     {% endif %}
                 </div>
             </div>
-            <div class="align-self-center">
+            <div class="d-flex align-self-start">
                 {% if content_page_right %}
                 {% include include_files(content_page_right,type='PAGE',module='',language=CURRENT_LANGUAGE) ignore missing %}
                 {% endif %}
