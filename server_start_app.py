@@ -1,5 +1,5 @@
 """
-This script runs the ganimides_website application using a development server.
+This script runs the ganimides_website application.
 """
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -7,104 +7,73 @@ import os
 import os.path
 from os import environ
 import configparser
+from server_init import initialize_server
 
 print('### start: server_start_app')
 
-thisfile = os.path.abspath(__file__)
-thisDir = os.path.dirname(__file__)
-thisFileName = os.path.basename(__file__)
-exec_folder = os.path.abspath(os.path.dirname(__file__))
-server_config_folder = os.path.dirname(exec_folder)
-server_ini_filename = 'server.ini'
-server_config_filename = 'server_config.py'
-server_ini_file = os.path.join(server_config_folder, server_ini_filename)
-server_config_file = os.path.join(server_config_folder, server_config_filename)
-server_relative_config_path = "..\\"
-################################################################
-# print('...Server_Startup_Program =', __file__)
-# print('...Server_Startup_Folder =', thisDir)
-# print('...Server_Startup_ProgramName =', thisFileName)
-# print('...Server_Exec_Folder =', exec_folder)
-# print('...Server_Config_Folder =', server_config_folder)
-# print('...server_ini_file =', server_ini_file)
-# print('...server_config_file =', server_config_file)
-# print('...server_ini_file_name =', server_ini_filename)
-# print('...server_config_file_name =', server_config_filename)
-# print('...server_relative_config_path =', server_relative_config_path)
-#print (os.path.isfile(server_config_file))
-################################################################
-ServerDictionary = {}
-ServerDictionary.update({'Server_Startup_Program':__file__})
-ServerDictionary.update({'Server_Startup_Folder':thisDir})
-ServerDictionary.update({'Server_Startup_Program_Name':thisFileName})
-ServerDictionary.update({'Server_Startup_Execfolder':exec_folder})
-ServerDictionary.update({'Server_Config_Folder':server_config_folder})
-ServerDictionary.update({'server_ini_file_Name':server_ini_filename})
-ServerDictionary.update({'server_config_file_Name':server_config_filename})
-ServerDictionary.update({'server_ini_file':server_ini_file})
-ServerDictionary.update({'server_config_file':server_config_file})
-ServerDictionary.update({'server_relative_config_path':server_relative_config_path})
-
-for serveritem in ServerDictionary:
-    os.environ[serveritem.upper()] = ServerDictionary.get(serveritem)
-    print('...env param: '+serveritem.upper()+' =', os.environ.get(serveritem.upper()))
-################################################################
-print('...start-server.ini')
-if server_ini_file and os.path.isfile(server_ini_file) and os.access(server_ini_file, os.R_OK):
-    print('......server_ini_file FOUND...', server_ini_file)
-    config = configparser.ConfigParser()
-    config.read(server_ini_file)
-    i = 0
-    for section in config:
-        i = i + 1
-        k = 0
-        print('......', i, 'server.ini section =', section)
-        for key in config[section]:
-            k = k + 1
-            os.environ[key.upper()] = config[section][key].replace("'", "")
-            print('.........', k, 'config_param', key.upper(), config[section][key])
-else:
-    print('......warning:', 'server_ini_file NOT-FOUND:[', server_ini_file, '] Either the file is missing or not readable')
-print('...finish-server.ini')
-
-#for debug: list all env params
-# for envitem in os.environ:
-#     print('...env param: '+envitem+' =', os.environ.get(envitem))
-
-if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
-    print('...server_config_file FOUND...', server_config_file)
-else:
-    print('...warning:', 'server_config_file NOT-FOUND:[', server_config_file, '] Either the file is missing or not readable')
-
-#exit(0)
-
-print('...start-import flask app from website_app')
+initialize_server(startupProgram_fullpathfile=__file__, server_ini_filename='server.ini', debug=False, print_env_params=False, print_all_env_params=False)
+print('   ###start: import flask app from website_app')
 from website_app import app
-print('...finish-import flask app from website_app')
+print('   ###finish: import flask app from website_app')
+
+print('   ###start: Init databases')
 from database import init_database as init_application_database
 from website_app.module_authorization.database import init_database as init_authorization_database
 from website_app.module_administration.database import init_database as init_administration_database
-print('...###INIT DATABASES START')
-init_administration_database()
-init_authorization_database()
-init_application_database()
-print('...###INIT DATABASES FINISH')
+# init_administration_database()
+# init_authorization_database()
+# init_application_database()
+print('   ###finish: Init databases')
+
 print('### finish: server_start_app')
 if __name__ == '__main__':
     print('')
     print('### START APP')
+
+    # print all config params
+    # if app.config.get('DEBUG_STARTUP'):
+    #     keylist = sorted(app.config.items())
+    #     for key in keylist:
+    #         print('   app-cfg-Key {}={}'.format(key[0], key[1]))
+
+    # print all env params
+    # if app.config.get('DEBUG_STARTUP'):
+    #     print('')
+    #     for envitem in os.environ:
+    #         print('   env param {}={}'.format(envitem, os.environ.get(envitem)))
+
+    # exit(0)
     HOST = environ.get('SERVER_HOST', 'localhost')
     try:
         PORT = int(environ.get('SERVER_PORT', '5555'))
     except ValueError:
         PORT = 5555
+    print('   SERVER_HOST set to {} (from app.config)'.format(HOST))
+    print('   SERVER_PORT set to {} (from app.config)'.format(PORT))
+
     debugOption = True
-    msg = 'app.run(HOST={}, PORT={}, debug={})'.format(HOST, PORT, debugOption)
+    use_reloaderOption = False
+    if app.config.get('USE_RELOADER'):
+        print('   USE_RELOADER option set ON (from app.config)')
+        use_reloaderOption = True
+    else:
+        print('   USE_RELOADER option set OFF (from app.config)')
+        use_reloaderOption = False
+    if app.config.get('FLASK_DEBUG'):
+        print('   DEBUG option set OFF (from app.config)')
+        debugOption = False
+    else:
+        print('   DEBUG option set ON  (from app.config)')
+        debugOption = True
+
+    msg = 'app.run(HOST={}, PORT={}, debug={},use_reloader={})'.format(HOST, PORT, debugOption, use_reloaderOption)
     print('### about to execute:', msg)
+
     msg = 'app started on [{}] port {} ...'.format(HOST, PORT)
     print('###', msg)
     print('')
-    #debug=True autoreloads flask when a change has been detected
-    app.run(HOST, PORT, debug=True)
+    # debug=True autoreloads flask when a change has been detected
+    # use_reloaderOption=False avoid compiling twice
+    app.run(HOST, PORT, debug=debugOption, use_reloader=use_reloaderOption)
     print('')
     print('### APP FINISH')

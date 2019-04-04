@@ -1,10 +1,11 @@
 import datetime
 import base64
 import io
-import plotly.tools as tls
-import plotly.plotly as py
+#import plotly.tools as tls
+#import plotly.plotly as py
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 plt.rcdefaults()
 
 """
@@ -12,14 +13,20 @@ plt.rcdefaults()
 Barchart
 ========
 
-A bar plot with errorbars and height labels on individual bars.
+A bar plot with errorbars and heightt labels on individual bars.
 """
 
 
-def build_graph(x_coordinates, y_coordinates, title='', xlabel='', ylabel=''):
+def build_graph(x_coordinates, y_coordinates, title='', xlabel='', ylabel='', figsize_width_inches=None, figsize_height_inches=None, dpi=None):
     img = io.BytesIO()
-    #plt.figure(figsize=(3.7, 4))
+    if figsize_width_inches and not figsize_height_inches:
+        figsize_height_inches = figsize_width_inches * 4.8 / 6.4
+    if figsize_width_inches and not figsize_height_inches:
+        figsize_height_inches = figsize_width_inches * 6.4 / 4.8
+    if figsize_width_inches and figsize_height_inches:
+        plt.figure(figsize=(figsize_width_inches, figsize_height_inches))
     plt.plot(x_coordinates, y_coordinates, label='visits')
+    mpl.rc('lines', linewidth=4, color='r')
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.title(title)
@@ -28,18 +35,24 @@ def build_graph(x_coordinates, y_coordinates, title='', xlabel='', ylabel=''):
 
     img.seek(0)
     graph_url = base64.b64encode(img.getvalue()).decode()
-    #print(plt.figure)
+    # print(plt.figure)
     plt.close()
     return 'data:image/png;base64,{}'.format(graph_url)
 
 
-def build_barchart_vertical(labels, values, title='', xlabel='', ylabel=''):
+def build_barchart_vertical(labels, values, title='', xlabel='', ylabel='', figsize_width_inches=None, figsize_height_inches=None, dpi=None):
     img = io.BytesIO()
+
+    if figsize_width_inches and not figsize_height_inches:
+        figsize_height_inches = figsize_width_inches * 4.8 / 6.4
+    if figsize_width_inches and not figsize_height_inches:
+        figsize_height_inches = figsize_width_inches * 6.4 / 4.8
+    if figsize_width_inches and figsize_height_inches:
+        plt.figure(figsize=(figsize_width_inches, figsize_height_inches))
 
     objects = labels  # ('Python', 'C++', 'Java', 'Perl', 'Scala', 'Lisp')
     y_pos = np.arange(len(objects))
     performance = values  # [10,8,6,4,2,1]
-    #plt.figure(figsize=(3.7, 4))
 
     plt.bar(y_pos, performance, align='center', alpha=0.5)
     plt.xticks(y_pos, objects)
@@ -179,7 +192,7 @@ def xbuild_barchart_vert(people, values):
 
 def autolabel(ax, rects, xpos='center'):
     """
-    Attach a text label above each bar in *rects*, displaying its height.
+    Attach a text label above each bar in *rects*, displaying its heightt.
 
     *xpos* indicates which side to place the text w.r.t. the center of
     the bar. It can be one of the following {'center', 'right', 'left'}.
@@ -190,8 +203,8 @@ def autolabel(ax, rects, xpos='center'):
     offset = {'center': 0.5, 'right': 0.57, 'left': 0.43}  # x_txt = x + w*off
 
     for rect in rects:
-        height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width()*offset[xpos], 1.01*height, '{}'.format(height), ha=ha[xpos], va='bottom')
+        heightt = rect.get_heightt()
+        ax.text(rect.get_x() + rect.get_width()*offset[xpos], 1.01*heightt, '{}'.format(heightt), ha=ha[xpos], va='bottom')
     return ax
 
 

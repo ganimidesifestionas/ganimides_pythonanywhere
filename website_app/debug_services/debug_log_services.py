@@ -10,8 +10,13 @@ default_debug_onoff = True
 default_debug_level = 9
 module_trace_enabled = True
 message_compressed_enabled = False
-max_message_length = 40
-max_module_trace_length = 40
+
+max_line_length = 160
+max_message_length = 120
+max_module_trace_length = 60
+message_display_mode = 'FIX-MESSAGE'  #'FIX-MODULE' #'FIX-MESSAGE' #'FIX-LINE' #'FLOAT'
+message_prefix = ''
+system_message_prefix = ''
 debug_log_services_eyecatch = '[]'
 level = 0
 offset = ''
@@ -88,6 +93,45 @@ def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
         print(message)
 ##########################################
 def log_system_message(msg, m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    global system_message_prefix
+
+    #if global_debug_enabled:
+    caller = sys._getframe(1)  # Obtain calling frame
+    active_module = caller.f_globals['__name__']
+        # retrieve_activecomponent_debug_info()
+        # if active_component_debug_enabled and active_component_debug_level > 1:
+        #if (active_component_debug_enabled and active_component_debug_level > 1) \
+        #    or debug_log_services_level.find('WARNING') >= 0 \
+        #    or debug_log_services_level.find('INFO') >= 0:
+    msg = '{}system-message:{}'.format(system_message_prefix, msg)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    print(message)
+##########################################
+def log_system_info(msg, m1='', m2='', m3='', m4='', m5=''):
+    global offset
+    global trailer
+    global active_module
+    global caller
+    global debug_log_services_level
+    global system_message_prefix
+    #if global_debug_enabled:
+    caller = sys._getframe(1)  # Obtain calling frame
+    active_module = caller.f_globals['__name__']
+        # retrieve_activecomponent_debug_info()
+        # if active_component_debug_enabled and active_component_debug_level > 1:
+        #if (active_component_debug_enabled and active_component_debug_level > 1) \
+        #    or debug_log_services_level.find('WARNING') >= 0 \
+        #    or debug_log_services_level.find('INFO') >= 0:
+    msg = '{}system-info:{}'.format(system_message_prefix, msg)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    print(message)
+##########################################
+def log_system_warning(msg, m1='', m2='', m3='', m4='', m5=''):
     global offset
     global trailer
     global active_module
@@ -730,12 +774,53 @@ def set_log_moduletrace_onoff(onoff):
     log_system_message(message)
 ##########################################
 def set_log_moduletrace_maxlength(len=40):
-    global max_module_trace_length 
+    global max_module_trace_length
     max_module_trace_length = len
+    message = 'module_trace_length set to {}'.format(len)
+    log_system_message(message)
 ##########################################
-def set_log_message_maxlength(len=40):
+def set_log_message_maxlength(len=120):
     global max_message_length
-    max_message_length = 40
+    max_message_length = len
+    message = 'message_length set to {}'.format(len)
+    log_system_message(message)
+##########################################
+def set_log_message_maxlinelength(len=160):
+    global max_line_length
+    max_line_length = len
+    message = 'message_line_length set to {}'.format(len)
+    log_system_message(message)
+##########################################
+def set_log_message_format(fmt='FIX-MESSAGE'):
+    global message_display_mode
+    #'FIX-MESSAGE' #'FIXED-MODULE' #'FIX-MESSAGE' #'FIXED-LINE' #'FLOAT'
+    fmt = fmt.upper()
+    if fmt.find('FIX') >= 0:
+        if fmt.find('MES') >= 0 or fmt.find('MSG') >= 0:
+            fmt = 'FIX-MESSAGE'
+        elif fmt.find('LIN') >= 0:
+            fmt = 'FIX-LINE'
+        elif fmt.find('MOD') >= 0 or fmt.find('TRAC') >= 0:
+            fmt = 'FIX-MODULE'
+        else:
+            fmt = 'FIX-MESSAGE'
+    else:
+        fmt = 'FLOAT'
+    message_display_mode = fmt.upper()
+    message = 'message_display_mode set to {}'.format(fmt)
+    log_system_message(message)
+
+def set_log_message_prefix(prfix=''):
+    global message_prefix
+    message_prefix = prfix
+    message = 'message_prefix set to [{}]'.format(prfix)
+    log_system_message(message)
+
+def set_log_system_message_prefix(prfix=''):
+    global system_message_prefix
+    system_message_prefix = prfix
+    message = 'system_message_prefix set to [{}]'.format(prfix)
+    log_system_message(message)
 ##########################################
 ##########################################
 ##########################################
@@ -782,26 +867,26 @@ def config_from_environment_variables():
                 valonoff = 'OFF'
             else:
                 valonoff = val
-            print(item, what, val)
+            #print(item, what, val)
             if what.upper().find('MODULE_') == 0:
                 typ = 'MODULE'
                 name = what.upper().replace('MODULE_', '').lower()
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_debug_level(module=name, debugOnOff=valonoff, debugLevel=9)
             elif what.upper().find('FOLDER_') == 0:
                 typ = 'FOLDER'
                 name = what.upper().replace('FOLDER_', '').lower()
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_debug_level(folder=name, debugOnOff=valonoff, debugLevel=9)
             elif what.upper().find('TYPE_') == 0:
                 typ = 'COMPONENT_TYPE'
                 name = what.upper().replace('TYPE_', '').lower()
                 set_debug_level(component_type=name, debugOnOff=valonoff, debugLevel=9)
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
             elif what.upper().find('LEVEL') == 0:
                 typ = 'LEVEL'
                 name = name.upper().replace('LEVEL', '').lower()
-                print(item, what, typ, name, val)
+                #print(item, what, typ, name, val)
                 if name.upper().find('_ADD') == 0:
                     set_debug_log_services_level_add(lev=val)
                 elif name.upper().find('_REMOVE') == 0:
@@ -811,17 +896,17 @@ def config_from_environment_variables():
             elif what.upper().find('GLOBAL') == 0:
                 typ = 'GLOBAL_DEBUG'
                 name = ''
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_global_debug(valonoff)
             elif what.upper().find('DEFAULT') == 0:
                 typ = 'DEFAULTS'
                 name = ''
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_debug_defaults(onoff=valonoff, debuglevel=9)
             elif what.upper().find('TIMESTAMP') == 0:
                 typ = 'TIMESTAMP'
                 name = name.upper().replace('TIMESTAMP', '').lower()
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 if name.upper().find('_LEFT') == 0:
                     set_log_prefix_timestamp(valonoff)
                 else:
@@ -829,29 +914,29 @@ def config_from_environment_variables():
             elif what.upper().find('MODULE_TRACE') == 0:
                 typ = 'MODULE_TRACE'
                 name = name.upper().replace('MODULE_TRACE', '').lower()
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_log_moduletrace_onoff(valonoff)
             elif what.upper().find('MESSAGE_COMPRESS') == 0:
                 typ = 'MESSAGE_COMPRESS'
                 name = name.upper().replace('MESSAGE_COMPRESS', '').lower()
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_log_message_compress_onoff(valonoff)
             elif what.upper().find('MAX_MESSAGE_LENGTH') == 0:
                 typ = 'MAX_MESSAGE_LENGTH'
                 name = name.upper().replace('MAX_MESSAGE_LENGTH', '').lower()
-                print(item, what, typ, name, valonoff)
-                mlen=int(val)
+                #print(item, what, typ, name, valonoff)
+                mlen = int(val)
                 set_log_message_maxlength(mlen)
             elif what.upper().find('MAX_MODULETRACE_LENGTH') == 0:
                 typ = 'MAX_MODULETRACE_LENGTH'
                 name = name.upper().replace('MAX_MODULETRACE_LENGTH', '').lower()
-                print(item, what, typ, name, valonoff)
-                mlen=int(val)
+                #print(item, what, typ, name, valonoff)
+                mlen = int(val)
                 set_log_moduletrace_maxlength(mlen)
             else:
                 typ = 'COMPONENT'
                 name = what.lower()
-                print(item, what, typ, name, valonoff)
+                #print(item, what, typ, name, valonoff)
                 set_debug_level(component=name, debugOnOff=valonoff, debugLevel=9)
 ##########################################
 # take second element for sort
@@ -1023,7 +1108,14 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
 def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5=''):
     global offset
     global active_module
-    message = '{0}{1}'.format(offset, msg)
+    global max_message_length
+    global max_module_trace_length
+    global max_line_length
+    global message_display_mode
+    global message_prefix
+    global system_message_prefix
+
+    message = '{}{}{}'.format(message_prefix, offset, msg)
     if p1:
         message = message + ' {}'.format(p1)
     if p2:
@@ -1034,8 +1126,63 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5=''):
         message = message + ' {}'.format(p4)
     if p5:
         message = message + ' {}'.format(p5)
-    message = '{} [{}]'.format(message , active_module)
-    return message
+    
+    global max_message_length
+    global max_module_trace_length
+    global max_line_length
+    global message_display_mode
+
+    #method 1
+    if message_display_mode.upper() == 'FIX-MESSAGE':
+        msg1 = message[0:max_message_length]
+        len_left = len(msg1)
+        len_spaces = max_message_length - len_left
+        msg = '{}{}'.format(msg1, ' '*len_spaces)
+        msg = msg[0:max_message_length]
+
+        right_len = max_line_length - max_message_length - 3
+        len_right = len(active_module)
+        if len_right > right_len:
+            ofs = len_right - right_len + 4
+            mod = '...' + active_module[ofs:len_right]
+        else:
+            mod = active_module
+        mod = mod[0:right_len]
+        formatted_message = '{}[{}]'.format(msg, mod)
+    elif message_display_mode.upper() == 'FIX-MODULE':
+        #method 2:
+        msg_len = max_line_length - max_module_trace_length - 3
+        msg1 = message[0:msg_len]
+        len_left = len(msg1)
+        len_spaces = msg_len - len_left
+        if len_spaces > 0:
+            msg = '{}   {}'.format(msg1, ' '*len_spaces)
+        else:
+            msg = '{}...'.format(msg1)
+
+        right_len = max_module_trace_length
+        len_right = len(active_module)
+        if len_right > right_len:
+            ofs = len_right - right_len + 3
+            mod = '...' + active_module[ofs:len_right]
+        else:
+            mod = active_module
+        formatted_message = '{}[{}]'.format(msg, mod)
+    elif message_display_mode.upper() == 'FIX-LINE':
+        #method 3:
+        len_left = len(message)
+        len_right = len(active_module)
+        len_spaces = max_line_length - (len_left + len_right + 3)
+        if len_spaces > 1:
+            msg = '{}{}[{}]'.format(message, '.'*len_spaces, active_module)
+        else:
+            msg = '{}...[{}]'.format(message, active_module)
+        formatted_message = msg[0:max_line_length]
+    else:
+        #method 3: floating msg (full)
+        formatted_message = '{}...[{}]'.format(message, active_module)
+
+    return formatted_message
 
 
 ##########################################

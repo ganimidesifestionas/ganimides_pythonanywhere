@@ -4,36 +4,37 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        /*
         {
-            "name": "Django",
+            "name": "Python:this-file on Terminal (integrated)",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/manage.py",
-            "args": [
-                "runserver",
-                "--noreload",
-                "--nothreading"
-            ],
-            "django": true
-        },
-        */
+            "program": "${file}",
+            "console": "integratedTerminal"
+        }
         {
-            "name": "Python: my app startup (Integrated Terminal)",
+            "name": "Python:my-startup-app on Terminal (integrated)",
             "type": "python",
             "request": "launch",
-            //"program": "${file}",
             "program": "${workspaceFolder}/server_start_app.py",
             "console": "integratedTerminal"
         },
+        /*
         {
-            "name": "Python: Current File (Integrated Terminal)",
+            "name": "Python: Current File",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             //"program": "${workspaceFolder}/server_start_app.py",
             "console": "integratedTerminal"
         },
+        {
+            "name": "Python: Current File (External Terminal)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "externalTerminal"
+        },
+
         {
             "name": "Python: Attach",
             "type": "python",
@@ -62,6 +63,7 @@
             ],
             "jinja": true
         },
+        */
         /*
         {
             "name": "Python: Flask",
@@ -81,13 +83,6 @@
             "jinja": true
         },
         */
-        {
-            "name": "Python: Current File (External Terminal)",
-            "type": "python",
-            "request": "launch",
-            "program": "${file}",
-            "console": "externalTerminal"
-        },
         /*
         {
             "name": "Python: Django",
@@ -95,6 +90,20 @@
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
             "console": "integratedTerminal",
+            "args": [
+                "runserver",
+                "--noreload",
+                "--nothreading"
+            ],
+            "django": true
+        },
+        */
+        /*
+        {
+            "name": "Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
             "args": [
                 "runserver",
                 "--noreload",

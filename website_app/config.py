@@ -11,10 +11,13 @@ class Config(object):
     #    
     EYECATCH = 'MYAPP'
     DEBUG = True
+    DEBUG_STARTUP = True
     DEBUG_TYPES = {}
     DEBUG_VERSION = ''
     DEBUG_INCLUDES = False
     FLASK_DEBUG = 1
+    FLASK_DEBUG = True
+    USE_RELOADER = False #avoid compiling twice during debug
 
     # Secret key for signing cookies
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'appconfig-aeiotheosomegasgeometreip9Bv<3Eid9%$i01'
@@ -161,6 +164,7 @@ class Config(object):
 class DesignConfig(Config):
     """Design mode configurations"""
     EYECATCH = 'MYAPP-DESIGN'
+    DEBUG_STARTUP = True
     DEBUG = True
     TESTING = True
     DEBUG_INCLUDES = True
@@ -173,10 +177,13 @@ class DesignConfig(Config):
         , '*'
         }
     DEBUG_VERSION = '' # add a specific version here
+    USE_RELOADER = False #avoid compiling twice during debug
+    FLASK_DEBUG = True
 
 class DevelopmentConfig(Config):
     """Development mode configurations"""
     EYECATCH = 'MYAPP-DEVELOPMENT'
+    DEBUG_STARTUP = True
     DEBUG = True
     TESTING = True
     DEBUG_INCLUDES = True
@@ -189,10 +196,13 @@ class DevelopmentConfig(Config):
         , '*'
         }
     DEBUG_VERSION = ''
+    USE_RELOADER = False #avoid compiling twice during debug
+    FLASK_DEBUG = True
 
 class TestingConfig(Config):
     """Testing mode configurations"""
     EYECATCH = 'MYAPP-TESTING'
+    DEBUG_STARTUP = True
     DEBUG = True
     TESTING = True
     DEBUG_INCLUDES = True
@@ -201,10 +211,13 @@ class TestingConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEBUG_TYPES = {}
     DEBUG_VERSION = ''
+    USE_RELOADER = False #avoid compiling twice during debug
+    FLASK_DEBUG = False
 
 class SandBoxConfig(Config):
     """Sandbox mode configurations"""
     EYECATCH = 'MYAPP-SANDBOX'
+    DEBUG_STARTUP = False
     DEBUG = True
     TESTING = True
     DEBUG_INCLUDES = False
@@ -213,10 +226,13 @@ class SandBoxConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     DEBUG_TYPES = {}
     DEBUG_VERSION = ''
+    USE_RELOADER = False #avoid compiling twice during debug
+    FLASK_DEBUG = False
 
 class ProductionConfig(Config):
     """Production mode configurations """
     EYECATCH = 'MYAPP-PRODUCTION'
+    DEBUG_STARTUP = False
     DEBUG = False
     TESTING = False
     DEBUG_INCLUDES = False
@@ -225,19 +241,22 @@ class ProductionConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG_TYPES = {}
     DEBUG_VERSION = ''
+    USE_RELOADER = False #avoid compiling twice during debug
+    FLASK_DEBUG = False
 
 class FlaskConfig(Config):
     """Flask configurations"""
     EYECATCH = 'APP-FLASK'
-    DEBUG = True
-    TESTING = True
-    FLASK_DEBUG = 1
+    #DEBUG = True
+    #TESTING = True
+    #FLASK_DEBUG = 1
     RECAPTCHA_IS_GOOGLE = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    DEBUG_TYPES = {}
-    DEBUG_VERSION = ''
+    #DEBUG_TYPES = {}
+    #DEBUG_VERSION = ''
+    #USE_RELOADER = False #avoid compiling twice during debug
 class PaginationConfig(Config):
     """Flask configurations"""
     EYECATCH = 'APP-FLASK-PAGINATION'

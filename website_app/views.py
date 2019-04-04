@@ -13,7 +13,7 @@ from datetime import datetime
 from datetime import timedelta
 #import time
 #import googlemaps
-from datetime import datetime
+#from datetime import datetime
 
 import requests
 #import json
@@ -582,7 +582,7 @@ def test_google_api():
     mapType = "satellite" #"roadmap" #"terrain"
     width = 600
     height = 300
-    markers  = "&markers=color:red|size:mid|label:VisitPoint|{},{}".format(lat,lon)
+    markers  = "&markers=color:red|size:mid|label:VisitPoint|{},{}".format(lat, lon)
     args = "center={},{}&zoom={}&size={}x{}&format=gif{}".format(lat,lon,zoomLevel,width,height,markers)
     mapType = "&maptype={}".format(mapType)
     google_maps_url = urlbase+args+mapType+key

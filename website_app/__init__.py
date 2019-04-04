@@ -20,7 +20,7 @@ from flask_migrate import Migrate, MigrateCommand
 # local imports
 from .config import app_config, environment_config, execmode_config
 from website_app.debug_services.debug_log_services import *
-from .config_debug import debug_config_on_startup, debug_config
+from .config_debug import debug_config_startup, debug_config_execution
 
 #from logging.config import dictConfig
 #from .external_services.log_services import *
@@ -63,10 +63,13 @@ logging.basicConfig(level=logging.ERROR)
 #     return app
 
 ################################################################################
-log_module_start('website_app:__init__')
+debug_config_startup()
 ################################################################################
 
-debug_config_on_startup()
+
+################################################################################
+log_module_start('app_init')
+################################################################################
 
 ### Define the database
 db = SQLAlchemy()
@@ -95,9 +98,9 @@ thisFolderName = os.path.basename(thisDir)
 exec_folder = os.path.abspath(os.path.dirname(__file__))
 app_config_folder = os.path.dirname(exec_folder)
 app_ini_filename = 'app.ini'
-app_config_filename = 'app_config.py'
+#app_config_filename = 'app_config.py'
 app_ini_file = os.path.join(app_config_folder, app_ini_filename)
-app_config_file = os.path.join(app_config_folder, app_config_filename)
+#app_config_file = os.path.join(app_config_folder, app_config_filename)
 app_relative_config_path = '..\{}'.format(thisFolderName)
 app_relative_config_path = ''
 ################################################################
@@ -122,9 +125,9 @@ AppDictionary.update({'app_Startup_Program_Name':thisFileName})
 AppDictionary.update({'app_Startup_Execfolder':exec_folder})
 AppDictionary.update({'app_Config_Folder':app_config_folder})
 AppDictionary.update({'app_ini_file_Name':app_ini_filename})
-AppDictionary.update({'app_config_file_Name':app_config_filename})
+#AppDictionary.update({'app_config_file_Name':app_config_filename})
 AppDictionary.update({'app_ini_file':app_ini_file})
-AppDictionary.update({'app_config_file':app_config_filename})
+#AppDictionary.update({'app_config_file':app_config_filename})
 AppDictionary.update({'app_relative_config_path':app_relative_config_path})
 for appitem in AppDictionary:
     os.environ[appitem.upper()] = AppDictionary.get(appitem)
@@ -170,46 +173,49 @@ log_file('app.static_folder', app.static_folder)
 #            template_folder='templates')
 #log_info('###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
 
-
 # ################################################################
 # #server config
 # ################################################################
-# server_config_file = os.environ.get('SERVER_CONFIG_FILE')
-# server_config_file_name = os.environ.get('SERVER_CONFIG_FILE_NAME')
-# #config_file = '{}\{}'.format(server_relative_config_path, server_config_file_name)
-# #log_variable('***server_config_file', server_config_file)
-# #log_variable('***relative server_config_file', config_file)
-# if server_config_file and os.path.isfile(server_config_file) and os.access(server_config_file, os.R_OK):
-#     log_info('server_config_file FOUND...', server_config_file)
-#     log_start('server_config')
-#     config_file = '{}\{}'.format(server_relative_config_path, server_config_file_name)
-#     log_info('relative config_file', config_file)
-#     app.config.from_pyfile(config_file, silent=False) # instance-folders configuration (outside source control)
-#     log_finish('server_config')
-# else:
-#     log_warning('server_config_file NOT-FOUND:[', server_config_file, '] Either the file is missing or not readable')
+# move server configuration from os.env to app.config
+config_name = 'server'
+arrEnvServerKeys = os.environ.get('SERVER_INI_KEYS').split(sep=',')
+#print("arrEnvServerKeys =",arrEnvServerKeys)
+for ix, key in enumerate(arrEnvServerKeys):
+    app.config[key] = os.environ.get(key)
+    #print(ix, 'app key from env key', key, '=', app.config.get(key))
+    msg='{}. app key from env key {}={}'.format(ix, key, app.config.get(key))
+    log_info(msg)
+log_info('CONFIG-STEP-1 SERVER_CONFIGURATION', ix, ' env keys added to app.config')
 
 ################################################################
 #app.ini
 ################################################################
-if app_ini_file and os.path.isfile(app_ini_file) and os.access(app_ini_file, os.R_OK):
-    log_info('app_ini_file FOUND...', app_ini_file)
-    log_start('app.ini')
-    os.environ["app_ini_file"] = app_ini_file
-    config = configparser.ConfigParser()
-    config.read(app_ini_file)
-    i=0
-    for section in config:
-        i=i+1
-        k=0
-        log_info('app.ini section =', section)
-        for key in config[section]:
-            k=k+1
-            os.environ[key.upper()] = config[section][key].replace("'", "")
-            log_info('...config_param', key.upper(), config[section][key])
-    log_finish('app.ini')
+for appitem in AppDictionary:
+    app.config[appitem.upper()] = AppDictionary.get(appitem)
+
+if app_ini_file and os.path.isfile(app_ini_file):
+    if os.access(app_ini_file, os.R_OK):
+        log_info('app_ini_file FOUND...', app_ini_file)
+        log_start('app.ini')
+        #os.environ["app_ini_file"] = app_ini_file
+        config = configparser.ConfigParser()
+        config.read(app_ini_file)
+        i=0
+        for section in config:
+            i = i + 1
+            k = 0
+            log_info('app.ini section =', section)
+            for key in config[section]:
+                k = k + 1
+                #os.environ[key.upper()] = config[section][key].replace("'", "")
+                app.config[key.upper()] = config[section][key].replace("'", "")
+                log_info('...config_param', key.upper(), config[section][key])
+        log_finish('app.ini')
+    else:
+        log_warning('app.ini file [', app_ini_file, '] the file is not readable')
 else:
-    log_warning('app.ini file NOT-FOUND:[', app_ini_file, '] Either the file is missing or not readable')
+    log_warning('app.ini file NOT-FOUND:[', app_ini_file, ']')
+log_info('CONFIG-STEP-2 APPLICATION_CONFIGURATION from APP.INI')
 
 ### app flask config
 ################################################################################
@@ -223,6 +229,9 @@ else:
 log_info('###CONFIGURE FLASK-APP###')
 ################################################################################
 ################################################################################
+
+
+
 ################################################################################
 config_name = os.getenv('FLASK_CONFIGURATION', 'default')
 log_variable('FLASK_CONFIGURATION',config_name)
@@ -235,8 +244,9 @@ log_variable('FLASK_CONFIGURATION',config_name)
 config_name = 'flask'
 #log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'from app_config in .config.py')
 app.config.from_object(app_config[config_name]) # object-based default configuration
-log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+log_info('CONFIG-STEP-3 FLASK_CONFIGURATION', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
+
 # #########################################################################################
 # config_name = 'pagination'
 # #log_info('CONFIG-STEP-1 FLASK_CONFIGURATION', config_name, 'from app_config in .config.py')
@@ -283,7 +293,7 @@ if os.getenv('EXECUTION_ENVIRONMENT', ''):
 if not config_name:
     config_name = 'localhost'
 app.config.from_object(environment_config[config_name]) # object-based default configuration
-log_info('CONFIG-STEP-2 EXECUTION_ENVIRONMENT', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+log_info('CONFIG-STEP-8 EXECUTION_ENVIRONMENT', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
 #########################################################################################
@@ -293,7 +303,7 @@ if os.getenv('EXECUTION_MODE', ''):
 if not config_name:
     config_name = 'design'
 app.config.from_object(execmode_config[config_name]) # object-based default configuration
-log_info('CONFIG-STEP-3 EXECUTION_MODE', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
+log_info('CONFIG-STEP-9 EXECUTION_MODE', config_name, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
 #########################################################################################
@@ -302,7 +312,7 @@ config_file_name = 'config_database.py'
 config_file = '..\website_app\config_database.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
 app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
-log_info('CONFIG-STEP-6 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+log_info('CONFIG-STEP-10 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
 #########################################################################################
@@ -312,7 +322,7 @@ config_file = '..\config_sqlalchemy.py'
 config_file = '..\website_app\config_database.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
 app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
-log_info('CONFIG-STEP-7 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+log_info('CONFIG-STEP-11 database', config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
 #########################################################################################
@@ -320,7 +330,7 @@ config_name = 'pagination'
 config_file_name = 'config_pagination.py'
 config_file = '{}\{}'.format(app_relative_config_path, config_file_name)
 app.config.from_pyfile(config_file_name, silent=False) # instance-folders configuration (outside source control)
-log_info('CONFIG-STEP-8', config_name, config_file, 'EYECATCH---', app.config.get('EYECATCH'))
+log_info('CONFIG-STEP-12', config_name, config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
 log_start('config_checkpoint_1')
@@ -1127,14 +1137,17 @@ log_info('@@@check', '###SQLALCHEMY_POOL_SIZE####', app.config['SQLALCHEMY_POOL_
 #print('####################db.pool_recycle########',db.pool_recycle)
 log_finish('config_checkpoint_3')
 ################################################################################
+log_info('###FINISHED: FLASK-APP-created&ready###')
+################################################################################
+log_module_finish('app_init')
+################################################################################
+
 ################################################################################
 ################################################################################
-## debug_config
+################################################################################
+## application debug_config
 ################################################################################
 ################################################################################
-debug_config()
+debug_config_execution()
 if app.config.get('EXECUTION_MODE') in ('sandbox', 'production'):
     set_global_debug('OFF')
-################################################################################
-log_info('###FINISHED: FLASK-APP-created&ready###')
-log_module_finish('website_app:__init__')
