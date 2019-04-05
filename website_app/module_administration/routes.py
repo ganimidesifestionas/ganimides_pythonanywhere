@@ -764,7 +764,7 @@ def visitpointspage():
         marker = "&markers=color:red|size:mid|label:{}|{},{}".format(item[3], item[1], item[2])
         print(marker)
         markers = markers + marker
-    
+
     GOOGLE_MAPS_API_KEY = 'AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
     key = '&key='+GOOGLE_MAPS_API_KEY
     urlbase = "http://maps.google.com/maps/api/staticmap?"
@@ -779,6 +779,31 @@ def visitpointspage():
     print(google_maps_url)
     #http://maps.google.com/maps/api/staticmap?center=35.113242800,35.113242800&zoom=20&size=600x300&format=gif&markers=color:red|size:mid|label:62|35.107311200,33.382265500&markers=color:red|size:mid|label:21|34.766700000,32.416700000&markers=color:red|size:mid|label:1|35.138716900,33.371984900&markers=color:red|size:mid|label:45|34.687400000,33.036600000&markers=color:red|size:mid|label:2|35.140466000,33.354214900&markers=color:red|size:mid|label:1|35.134973200,33.358484300&markers=color:red|size:mid|label:2|35.143680000,33.376665600&markers=color:red|size:mid|label:1|35.138740900,33.372069800&markers=color:red|size:mid|label:1|35.151490700,33.362477500&markers=color:red|size:mid|label:1|35.140895400,33.373621200&markers=color:red|size:mid|label:1|35.113252300,33.381192500&markers=color:red|size:mid|label:1|35.151455000,33.362346000&markers=color:red|size:mid|label:1|35.150405000,33.361973400&markers=color:red|size:mid|label:1|35.135014400,33.358621800&markers=color:red|size:mid|label:1|35.158851500,33.354931600&markers=color:red|size:mid|label:1|35.158588300,33.354714700&markers=color:red|size:mid|label:1|35.158939500,33.354862800&markers=color:red|size:mid|label:3|35.152305400,33.362499400&markers=color:red|size:mid|label:1|35.151432100,33.362543200&markers=color:red|size:mid|label:1|35.112965700,33.381079500&markers=color:red|size:mid|label:6|35.126413000,33.429859000&markers=color:red|size:mid|label:1|35.140916900,33.373584000&markers=color:red|size:mid|label:1|35.113262300,33.381192400&markers=color:red|size:mid|label:1|35.151114100,33.362521300&markers=color:red|size:mid|label:1|35.151580700,33.362433700&markers=color:red|size:mid|label:1|35.113299600,33.381181300&markers=color:red|size:mid|label:2|35.135008800,33.358396100&markers=color:red|size:mid|label:1|35.113253100,33.381191400&markers=color:red|size:mid|label:1|35.113261500,33.381185900&markers=color:red|size:mid|label:1|35.151590400,33.362587000&markers=color:red|size:mid|label:1|35.134986300,33.358374900&markers=color:red|size:mid|label:1|35.134942900,33.358573000&markers=color:red|size:mid|label:1|35.138736200,33.371980800&markers=color:red|size:mid|label:1|35.113254000,33.381164800&markers=color:red|size:mid|label:1|35.139645000,33.374158500&markers=color:red|size:mid|label:1|35.135008000,33.357919500&markers=color:red|size:mid|label:1|35.113333800,33.381190600&markers=color:red|size:mid|label:1|35.113242800,33.381174900&maptype=satellite&key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     #return redirect(google_maps_url)
+    graph2_url = google_maps_url
+
+    #visits per country    
+    log_info('### visits per country###')
+    xvisits = db.session.query(Visit.id, func.max(VisitPoint.latitude), func.max(VisitPoint.longitude), func.count(Visit.id)).join(VisitPoint, VisitPoint.id == Visit.visitpoint_ID).group_by(VisitPoint.country_name).all()
+    visits_percountry = []
+    cmarkers = ''
+    for item in xvisits:
+        lat = item[1]
+        lon = item[2]
+        marker = "&markers=color:red|size:mid|label:{}|{},{}".format(item[3], item[1], item[2])
+        print(marker)
+        cmarkers = cmarkers + marker
+    
+    zoomLevel = 1
+    mapType = "terrain" #"satellite" #"roadmap" #"terrain"
+    width = 900
+    height = 400
+    #markers  = "&markers=color:red|size:mid|label:VisitPoint|{},{}".format(lat, lon)
+    args = "center={},{}&zoom={}&size={}x{}&format=gif{}".format(lat,lon,zoomLevel,width,height,cmarkers)
+    mapType = "&maptype={}".format(mapType)
+    google_maps_url = urlbase + args + mapType + key
+    print(google_maps_url)
+    #http://maps.google.com/maps/api/staticmap?center=35.113242800,35.113242800&zoom=20&size=600x300&format=gif&markers=color:red|size:mid|label:62|35.107311200,33.382265500&markers=color:red|size:mid|label:21|34.766700000,32.416700000&markers=color:red|size:mid|label:1|35.138716900,33.371984900&markers=color:red|size:mid|label:45|34.687400000,33.036600000&markers=color:red|size:mid|label:2|35.140466000,33.354214900&markers=color:red|size:mid|label:1|35.134973200,33.358484300&markers=color:red|size:mid|label:2|35.143680000,33.376665600&markers=color:red|size:mid|label:1|35.138740900,33.372069800&markers=color:red|size:mid|label:1|35.151490700,33.362477500&markers=color:red|size:mid|label:1|35.140895400,33.373621200&markers=color:red|size:mid|label:1|35.113252300,33.381192500&markers=color:red|size:mid|label:1|35.151455000,33.362346000&markers=color:red|size:mid|label:1|35.150405000,33.361973400&markers=color:red|size:mid|label:1|35.135014400,33.358621800&markers=color:red|size:mid|label:1|35.158851500,33.354931600&markers=color:red|size:mid|label:1|35.158588300,33.354714700&markers=color:red|size:mid|label:1|35.158939500,33.354862800&markers=color:red|size:mid|label:3|35.152305400,33.362499400&markers=color:red|size:mid|label:1|35.151432100,33.362543200&markers=color:red|size:mid|label:1|35.112965700,33.381079500&markers=color:red|size:mid|label:6|35.126413000,33.429859000&markers=color:red|size:mid|label:1|35.140916900,33.373584000&markers=color:red|size:mid|label:1|35.113262300,33.381192400&markers=color:red|size:mid|label:1|35.151114100,33.362521300&markers=color:red|size:mid|label:1|35.151580700,33.362433700&markers=color:red|size:mid|label:1|35.113299600,33.381181300&markers=color:red|size:mid|label:2|35.135008800,33.358396100&markers=color:red|size:mid|label:1|35.113253100,33.381191400&markers=color:red|size:mid|label:1|35.113261500,33.381185900&markers=color:red|size:mid|label:1|35.151590400,33.362587000&markers=color:red|size:mid|label:1|35.134986300,33.358374900&markers=color:red|size:mid|label:1|35.134942900,33.358573000&markers=color:red|size:mid|label:1|35.138736200,33.371980800&markers=color:red|size:mid|label:1|35.113254000,33.381164800&markers=color:red|size:mid|label:1|35.139645000,33.374158500&markers=color:red|size:mid|label:1|35.135008000,33.357919500&markers=color:red|size:mid|label:1|35.113333800,33.381190600&markers=color:red|size:mid|label:1|35.113242800,33.381174900&maptype=satellite&key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
+    #return redirect(google_maps_url)
     graph1_url = google_maps_url
 
     return render_template(
@@ -787,6 +812,7 @@ def visitpointspage():
         visitpoints=visitpoints,
         visitpointsPagination=visitpointspagination,
         graph1=graph1_url,
+        graph2=graph2_url,
     )
 
 @administration.route('/useredit/<action>/<int:id>', methods = ['GET', 'POST'])

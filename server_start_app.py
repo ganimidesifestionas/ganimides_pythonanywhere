@@ -65,6 +65,9 @@ if __name__ == '__main__':
     else:
         print('   DEBUG option set ON  (from app.config)')
         debugOption = True
+    print('FLASK_DEBUG', app.config.get('FLASK_DEBUG'))
+    print('DEBUG', app.config.get('DEBUG'))
+    debugOption = True
 
     msg = 'app.run(HOST={}, PORT={}, debug={},use_reloader={})'.format(HOST, PORT, debugOption, use_reloaderOption)
     print('### about to execute:', msg)
