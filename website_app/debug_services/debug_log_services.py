@@ -11,12 +11,26 @@ default_debug_level = 9
 module_trace_enabled = True
 message_compressed_enabled = False
 
-max_line_length = 160
-max_message_length = 120
-max_module_trace_length = 60
+xmodules = []
+
+max_line_length = 133
+max_message_length = 90
+max_module_trace_length = 45
 message_display_mode = 'FIX-MESSAGE'  #'FIX-MODULE' #'FIX-MESSAGE' #'FIX-LINE' #'FLOAT'
+suffix_module = False
+sid_prefix = False
+sid_suffix = False
+uid_prefix = False
+uid_suffix = False
+
+message_format = 'OFFSET PREFIX MESSAGE TIMESTAMP MODULE SUFFIX SID UID'
+message_format_prefix = 'OFFSET PREFIX'
+message_format_suffix = 'TIMESTAMP MODULE SUFFIX SID UID'
+message_suffix = ''
 message_prefix = ''
-system_message_prefix = ''
+system_message_prefix = ' o '
+debug_config_message_prefix = ' o '
+debug_config_message_enabled = True
 debug_log_services_eyecatch = '[]'
 level = 0
 offset = ''
@@ -29,6 +43,7 @@ modules_NoDebug = {}
 modules_Debug_Level = {}
 moduleTypes_Debug = {}
 modules_Debug = {}
+offset_enabled = True
 offset_char = '.'
 offset_tab = 3
 sessionID = ''
@@ -40,38 +55,60 @@ suffix_timestamp = False
 caller = ''
 thisModule = ''
 last_active_module = '?'
+
 active_folder = ''
 active_module = ''
 active_component = ''
 active_component_type = ''
+#active_module_key = ''
+#previous_module_key = ''
+activeKey = ''
+active_chain = ''
+prevKey = ''
+
 active_component_debug_enabled = False
 active_component_debug_level = 9
 ##########################################
 def log_info(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('INFO') >= 0:
             message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
             print(message)
 ##########################################
-def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
+def log_checkpoint(cp='', msg='', m1='', m2='', m3='', m4='', m5=''):
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
-        # retrieve_activecomponent_debug_info()
-        # if active_component_debug_enabled and active_component_debug_level > 1:
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('CHECK') >= 0:
+            msg = ' @ checkpoint-{}:{}'.format(cp, msg)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            print(message)
+##########################################
+def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
+    global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    # global offset
+    # global trailer
+    # global active_module
+    # global caller
+    # global debug_log_services_level
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    if global_debug_enabled:
         if (active_component_debug_enabled and active_component_debug_level > 1) \
             or debug_log_services_level.find('WARNING') >= 0 \
             or debug_log_services_level.find('INFO') >= 0:
@@ -80,84 +117,86 @@ def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         msg = 'ERROR:{}'.format(msg)
         message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
         print(message)
 ##########################################
 def log_system_message(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
     global system_message_prefix
-
-    #if global_debug_enabled:
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-        # retrieve_activecomponent_debug_info()
-        # if active_component_debug_enabled and active_component_debug_level > 1:
-        #if (active_component_debug_enabled and active_component_debug_level > 1) \
-        #    or debug_log_services_level.find('WARNING') >= 0 \
-        #    or debug_log_services_level.find('INFO') >= 0:
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     msg = '{}system-message:{}'.format(system_message_prefix, msg)
     message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
     print(message)
 ##########################################
 def log_system_info(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
     global system_message_prefix
-    #if global_debug_enabled:
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-        # retrieve_activecomponent_debug_info()
-        # if active_component_debug_enabled and active_component_debug_level > 1:
-        #if (active_component_debug_enabled and active_component_debug_level > 1) \
-        #    or debug_log_services_level.find('WARNING') >= 0 \
-        #    or debug_log_services_level.find('INFO') >= 0:
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     msg = '{}system-info:{}'.format(system_message_prefix, msg)
     message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
     print(message)
 ##########################################
 def log_system_warning(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
-    #if global_debug_enabled:
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-        # retrieve_activecomponent_debug_info()
-        # if active_component_debug_enabled and active_component_debug_level > 1:
-        #if (active_component_debug_enabled and active_component_debug_level > 1) \
-        #    or debug_log_services_level.find('WARNING') >= 0 \
-        #    or debug_log_services_level.find('INFO') >= 0:
-    msg = 'SYSTEM-WARNING:{}'.format(msg)
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    global system_message_prefix
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    msg = '{}SYSTEM-WARNING:{}'.format(system_message_prefix, msg)
     message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
     print(message)
 ##########################################
-def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
+def log_system_error(msg, m1='', m2='', m3='', m4='', m5=''):
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    global system_message_prefix
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    msg = '{}SYSTEM-ERROR:{}'.format(system_message_prefix, msg)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    print(message)
+##########################################
+def log_debug_config_message(msg, m1='', m2='', m3='', m4='', m5=''):
+    global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    global debug_config_message_prefix
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    msg = '{}{}'.format(debug_config_message_prefix, msg)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    if debug_config_message_enabled:
+        print(message)
+##########################################
+def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
+    global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
             msg = '{0}={1}'.format(name, value)
@@ -165,14 +204,13 @@ def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_env_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
             msg = 'env_param: {0}={1}'.format(name, value)
@@ -180,14 +218,13 @@ def log_env_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_file(name='', value='', m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) \
             or debug_log_services_level.find('VARIABLE') >=0 \
@@ -198,14 +235,13 @@ def log_file(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_variable_short(name='', value='', m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
             valueStr = str(value)
@@ -216,14 +252,13 @@ def log_variable_short(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('PARAM')>=0:
             msg = 'param: {0}={1}'.format(name, value)
@@ -231,14 +266,13 @@ def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 3) or debug_log_services_level.find('CONFIG') >= 0:
             msg = 'config_param: {0}={1}'.format(name, value)
@@ -246,16 +280,13 @@ def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_important(msg, m1='', m2='', m3='', m4='', m5=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
-        # retrieve_activecomponent_debug_info()
-        # if active_component_debug_enabled and active_component_debug_level > 1:
         if (active_component_debug_enabled and active_component_debug_level > 1) \
             or debug_log_services_level.find('IMPORTANT') >= 0 \
             or debug_log_services_level.find('WARNING') >= 0 \
@@ -265,20 +296,44 @@ def log_important(msg, m1='', m2='', m3='', m4='', m5=''):
             print(message)
 ##########################################
 def log_url_param(name='', value=''):
-    global offset
-    global trailer
-    global active_module
-    global caller
     global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        caller = sys._getframe(1)  # Obtain calling frame
-        active_module = caller.f_globals['__name__']
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('URL')>=0:
             msg = 'url-param {0}={1}'.format(name, value)
             message = formatted_message(msg=msg)
             print(message)
 ##########################################
+def tispaolas(xcaller):
+    global thisModule
+    global caller 
+    global active_folder
+    global active_module
+    global active_component
+    global active_component_type
+    global active_chain
+    global prevKey
+
+    #if global_debug_enabled:
+    #xcaller = sys._getframe(1)  # Obtain calling frame
+    xactive_moduleX = xcaller.f_globals['__name__']
+    if thisModule != xactive_moduleX and xactive_moduleX != 'config':
+        caller = xcaller
+        #print('### (tispaolas) prev active_module:', active_module)
+        active_module = xactive_moduleX
+        active_module_key = active_module
+        active_chain = active_component_type+':'+active_module+'.'+active_component
+        #previous_module_key = ''
+
+        #print('### (tispaolas) active_module:', active_module)
+    #else:
+        #print('### (tispaolas) internal call:', active_module)
+
 def log_start(component_name='', component_type=''):
     global active_module
     global active_component
@@ -292,23 +347,19 @@ def log_start(component_name='', component_type=''):
     global active_component_debug_enabled
     global active_component_debug_level
     global debug_log_services_level
+    active_component = component_name
+    active_component_type = component_type
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        active_component = component_name
-        active_component_type = component_type
-        xcaller = sys._getframe(1)  # Obtain calling frame
-        xactive_moduleX = xcaller.f_globals['__name__']
-        if thisModule != xactive_moduleX:
-            caller = xcaller
-            active_module = xactive_moduleX
-
-        retrieve_activecomponent_debug_info(active_module, active_component, active_component_type)
+        retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
             if active_component_type:
                 ctype = active_component_type + '-'
             else:
                 ctype = ''
-            msg = '{}start [{}] from'.format(ctype, component_name)
-            message = formatted_message(msg=msg)
+            msg = '{}start [{}]'.format(ctype, component_name)
+            message = formatted_message(msg=msg,msgtype='START')
             print(message)
 
         level = level + 1
@@ -328,13 +379,12 @@ def log_finish(component_name='', component_type=''):
     global active_component_debug_enabled
     global active_component_debug_level
     global debug_log_services_level
+    global debug_log_services_level
+    active_component = component_name
+    active_component_type = component_type
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     if global_debug_enabled:
-        xcaller = sys._getframe(1)  # Obtain calling frame
-        xactive_moduleX = xcaller.f_globals['__name__']
-        if thisModule != xactive_moduleX:
-            caller = xcaller
-            active_module = xactive_moduleX
-
         last_lev = -1
         last_component = '?'
         last_module = '?'
@@ -347,7 +397,7 @@ def log_finish(component_name='', component_type=''):
             last_component = x[0]
             last_module = x[1]
             last_component_type = x[2]
-            #print('==',x[0],x[1],x[2])
+            ##print('==',x[0],x[1],x[2])
             if x[0] == component_name and x[1] == active_module:
                 lev = z[0]
                 component_name = x[0]
@@ -363,14 +413,14 @@ def log_finish(component_name='', component_type=''):
 
         offset = set_offset(lev-1)
 
-        retrieve_activecomponent_debug_info(module_name, component_name, component_type)
+        retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
             if component_type:
                 ctype = component_type + '-'
             else:
                 ctype = ''
-            msg = '{}finish [{}] from'.format(ctype, component_name)
-            message = formatted_message(msg=msg)
+            msg = '{}finish [{}]'.format(ctype, component_name)
+            message = formatted_message(msg=msg,msgtype='FINISH')
             print(message)
     
         rem = 0
@@ -380,7 +430,7 @@ def log_finish(component_name='', component_type=''):
             else:        
                 level = x[0]
 
-        #print('rem',rem,level)
+        ##print('rem',rem,level)
         i = 1
         while i <= rem:
             components_stack.popitem()    
@@ -401,16 +451,17 @@ def set_offset(lev):
     global offset_char
     global offset_tab
     offset = ''
-    offset = offset_char*(lev)*offset_tab
-    pfx = ''
-    if prefix_timestamp:
-        pfx = datetime.now().strftime("%d.%b %Y %H:%M:%S")
-    if prefix:
-        pfx = pfx + ' '+ prefix
-    if pfx:
-        offset = pfx + offset    
+    #offset = offset_char*(lev)*offset_tab
+    offset = '>'*(lev)*offset_tab
+    # pfx = ''
+    # if prefix_timestamp:
+    #     pfx = datetime.now().strftime("%d.%b %Y %H:%M:%S")
+    # if prefix:
+    #     pfx = pfx + ' '+ prefix
+    # if pfx:
+    #     offset = pfx + offset    
     offset = offset.lstrip()
-    set_trailer()
+    #set_trailer()
     return offset
 ##########################################
 def set_trailer():
@@ -426,88 +477,209 @@ def set_trailer():
     trailer = trailer.lstrip()
 ##########################################
 def log_module_start(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_start(component_name, component_type='module')
 ##########################################
 def log_module_finish(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_finish(component_name, component_type='module')
 ##########################################
 def log_route_start(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_start(component_name, component_type='route')
 ##########################################
 def log_route_finish(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_finish(component_name, component_type='route')
 ##########################################
 def log_view_start(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_start(component_name, component_type='view')
 ##########################################
 def log_view_finish(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_finish(component_name, component_type='view')
 ##########################################
 def log_request_start(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_start(component_name, component_type='request')
 ##########################################
 def log_request_finish(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_finish(component_name, component_type='request')
 ##########################################
 def log_function_start(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_start(component_name, component_type='function')
 ##########################################
 def log_function_finish(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_finish(component_name, component_type='function')
 ##########################################
 def log_process_start(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_start(component_name, component_type='process')
 ##########################################
 def log_process_finish(component_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     log_finish(component_name, component_type='process')
+###################shalimar#######################
+def log_file_start(file=__file__, component_name=''):
+    global active_module
+    global active_folder
+    global active_component
+    global active_component_type
+    #print('f=',file)
+    thisfile = os.path.abspath(file)
+    thisDir = os.path.dirname(file)
+    #print('d=',thisDir)
+    thisFileName = os.path.basename(file)
+    #print('fnm=', thisFileName)
+    file_name = os.path.splitext(thisFileName)[0]
+    thisFolderName = os.path.basename(thisDir)
+    #print('fonm=',thisFolderName)
+    exec_folder = os.path.abspath(os.path.dirname(file))
+    #print('x=',exec_folder)
+    app_config_folder = os.path.dirname(exec_folder)
+    #print('xx=',app_config_folder)
+    active_module = thisFolderName+'.'+file_name
+    active_component = component_name
+    active_component_type = 'file'
+    active_folder = exec_folder
+    log_start(component_name, component_type='file')
+###################shalimar#######################
+def log_file_finish(file=__file__, component_name=''):
+    global active_module
+    global active_folder
+    global active_component
+    global active_component_type
+    #print('f=',file)
+    thisfile = os.path.abspath(file)
+    thisDir = os.path.dirname(file)
+    #print('d=',thisDir)
+    thisFileName = os.path.basename(file)
+    #print('fnm=', thisFileName)
+    file_name = os.path.splitext(thisFileName)[0]
+    thisFolderName = os.path.basename(thisDir)
+    #print('fonm=',thisFolderName)
+    exec_folder = os.path.abspath(os.path.dirname(file))
+    #print('x=',exec_folder)
+    app_config_folder = os.path.dirname(exec_folder)
+    #print('xx=',app_config_folder)
+    active_module = thisFolderName+'.'+file_name
+    active_component = component_name
+    active_component_type = 'file'
+    active_folder = exec_folder
+    log_finish(component_name, component_type='file')
+###############################################
+def log_config_start(file=__file__, component_name=''):
+    global active_module
+    global active_folder
+    global active_component
+    global active_component_type
+    #print('f=',file)
+    thisfile = os.path.abspath(file)
+    thisDir = os.path.dirname(file)
+    #print('d=',thisDir)
+    thisFileName = os.path.basename(file)
+    #print('fnm=', thisFileName)
+    file_name = os.path.splitext(thisFileName)[0]
+    thisFolderName = os.path.basename(thisDir)
+    #print('fonm=',thisFolderName)
+    exec_folder = os.path.abspath(os.path.dirname(file))
+    #print('x=',exec_folder)
+    app_config_folder = os.path.dirname(exec_folder)
+    #print('xx=',app_config_folder)
+    active_module = thisFolderName+'.'+file_name
+    active_component = component_name
+    active_component_type = 'configuration'
+    active_folder = exec_folder
+    log_start(component_name, component_type='configuration')
+###################shalimar#######################
+def log_config_finish(file=__file__, component_name=''):
+    global active_module
+    global active_folder
+    global active_component
+    global active_component_type
+    #print('f=',file)
+    thisfile = os.path.abspath(file)
+    thisDir = os.path.dirname(file)
+    #print('d=',thisDir)
+    thisFileName = os.path.basename(file)
+    #print('fnm=', thisFileName)
+    file_name = os.path.splitext(thisFileName)[0]
+    thisFolderName = os.path.basename(thisDir)
+    #print('fonm=',thisFolderName)
+    exec_folder = os.path.abspath(os.path.dirname(file))
+    #print('x=',exec_folder)
+    app_config_folder = os.path.dirname(exec_folder)
+    #print('xx=',app_config_folder)
+    active_module = thisFolderName+'.'+file_name
+    active_component = component_name
+    active_component_type = 'configuration'
+    active_folder = exec_folder
+    log_finish(component_name, component_type='configuration')
+###############################################
+###############################################
+def log_init_start(file=__file__, component_name=''):
+    global active_module
+    global active_folder
+    global active_component
+    global active_component_type
+    #print('f=',file)
+    thisfile = os.path.abspath(file)
+    thisDir = os.path.dirname(file)
+    #print('d=',thisDir)
+    thisFileName = os.path.basename(file)
+    #print('fnm=', thisFileName)
+    file_name = os.path.splitext(thisFileName)[0]
+    thisFolderName = os.path.basename(thisDir)
+    #print('fonm=',thisFolderName)
+    exec_folder = os.path.abspath(os.path.dirname(file))
+    #print('x=',exec_folder)
+    app_config_folder = os.path.dirname(exec_folder)
+    #print('xx=',app_config_folder)
+    active_module = thisFolderName+'.'+file_name
+    active_component = component_name
+    active_component_type = 'initialization'
+    active_folder = exec_folder
+    log_start(component_name, component_type='initialization')
+###################shalimar#######################
+def log_init_finish(file=__file__, component_name=''):
+    global active_module
+    global active_folder
+    global active_component
+    global active_component_type
+    #print('f=',file)
+    thisfile = os.path.abspath(file)
+    thisDir = os.path.dirname(file)
+    #print('d=',thisDir)
+    thisFileName = os.path.basename(file)
+    #print('fnm=', thisFileName)
+    file_name = os.path.splitext(thisFileName)[0]
+    thisFolderName = os.path.basename(thisDir)
+    #print('fonm=',thisFolderName)
+    exec_folder = os.path.abspath(os.path.dirname(file))
+    #print('x=',exec_folder)
+    app_config_folder = os.path.dirname(exec_folder)
+    #print('xx=',app_config_folder)
+    active_module = thisFolderName+'.'+file_name
+    active_component = component_name
+    active_component_type = 'initialization'
+    active_folder = exec_folder
+    log_finish(component_name, component_type='initialization')
 ###############################################
 ###############################################
 ###############################################
@@ -515,18 +687,13 @@ def log_process_finish(component_name=''):
 ###############################################
 ###############################################
 ###############################################
-##########################################
+###############################################
 def set_log_prefix(sid, uid):
     global sessionID
     global UserID
     global prefix
-    global level
-    global active_module
-    global caller
-    global offset
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
-
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     sessionID = sid
     userID = uid
     prefix = ''
@@ -537,6 +704,7 @@ def set_log_prefix(sid, uid):
             prefix = prefix + ' | '+uid+'|'
         else:
             prefix = uid
+    set_debug_log_message_format()
     if active_component_debug_enabled and active_component_debug_level > 0:
         message = 'log debug prefix set to {}'.format(prefix)
         log_info(message)
@@ -545,13 +713,8 @@ def set_log_suffix(sid, uid):
     global sessionID
     global UserID
     global suffix
-    global level
-    global level
-    global active_module
-    global caller
-    global offset
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
 
     sessionID = sid
     userID = uid
@@ -563,45 +726,372 @@ def set_log_suffix(sid, uid):
             suffix = suffix + ' | '+uid+'|'
         else:
             suffix = uid
+    set_debug_log_message_format()
     if active_component_debug_enabled and active_component_debug_level > 0:
         message = 'log_suffix set to {}'.format(suffix)
         log_info(message)
 ##########################################
 def set_log_suffix_timestamp(o='ON'):
     global suffix_timestamp
-    global level
-    global level
-    global active_module
-    global caller
-    global offset
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     suffix_timestamp = False
     OnOff = "OFF"
     if o in ['ON', 1, '1', 'YES', 'Y', True]:
         suffix_timestamp = True
         OnOff = "ON"
+    set_debug_log_message_format()
     if active_component_debug_enabled and active_component_debug_level > 0:
         message = 'log debug suffix timestamp set {}'.format(OnOff)
         log_info(message)
 ##########################################
 def set_log_prefix_timestamp(o='ON'):
     global prefix_timestamp
-    global level
-    global level
-    global active_module
-    global caller
-    global offset
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     prefix_timestamp = False
     OnOff = "OFF"
     if o in ['ON', 1, '1', 'YES', 'Y', True]:
         prefix_timestamp = True
         OnOff = "ON"
+    set_debug_log_message_format()
     if active_component_debug_enabled and active_component_debug_level > 0:
         message = 'log debug prefix timestamp set {}'.format(OnOff)
         log_info(message)
+##########################################
+def set_log_timestamp_ONOFF(o='ON',position='SUFFIX'):
+    global prefix_timestamp
+    global suffix_timestamp
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    prefix_timestamp = False
+    suffix_timestamp = False
+    message = 'log debug timestamp set OFF'
+    OnOff = "OFF"
+    if position == 'PREFIX':
+        pos = 'prefix'
+        if o in ['ON', 1, '1', 'YES', 'Y', True]:
+            prefix_timestamp = True
+            OnOff = "ON"
+            message = 'log debug prefix timestamp set ON '
+    else:
+        pos = 'suffix'
+        if o in ['ON', 1, '1', 'YES', 'Y', True]:
+            suffix_timestamp = True
+            OnOff = "ON"
+            message = 'log debug suffix timestamp set ON '
+    set_debug_log_message_format()
+    if active_component_debug_enabled and active_component_debug_level > 0:
+        log_info(message)
+##########################################
+def set_log_suffix_module_ONOFF(o='ON'):
+    global suffix_module
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    suffix_module = False
+    OnOff = "OFF"
+    if o in ['ON', 1, '1', 'YES', 'Y', True]:
+        suffix_module = True
+        OnOff = "ON"
+    set_debug_log_message_format()
+    if active_component_debug_enabled and active_component_debug_level > 0:
+        message = 'log debug suffix module set {}'.format(OnOff)
+        log_info(message)
+def set_log_moduletrace_onoff(onoff):
+    global module_trace_enabled 
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        module_trace_enabled = True
+        message = 'module_trace set ON'
+    else:
+        module_trace_enabled = False
+        message = 'module_trace set OFF'
+    log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+##########################################
+def set_log_moduletrace_maxlength(len=40):
+    global max_module_trace_length
+    max_module_trace_length = len
+    set_debug_log_message_format()
+    message = 'module_trace_length set to {}'.format(len)
+    log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+##########################################
+def set_log_message_maxlength(len=120):
+    global max_message_length
+    max_message_length = len
+    set_debug_log_message_format()
+    message = 'message_length set to {}'.format(len)
+    log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+##########################################
+def set_log_message_maxlinelength(len=160):
+    global max_line_length
+    max_line_length = len
+    set_debug_log_message_format()
+    message = 'message_line_length set to {}'.format(len)
+    log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+##########################################
+def set_log_message_display_mode(fmt='FIX-MESSAGE'):
+    global message_display_mode
+    #'FIX-MESSAGE' #'FIXED-MODULE' #'FIX-MESSAGE' #'FIXED-LINE' #'FLOAT'
+    fmt = fmt.upper()
+    if fmt.find('FIX') >= 0:
+        if fmt.find('MES') >= 0 or fmt.find('MSG') >= 0:
+            fmt = 'FIX-MESSAGE'
+        elif fmt.find('LIN') >= 0:
+            fmt = 'FIX-LINE'
+        elif fmt.find('MOD') >= 0 or fmt.find('TRAC') >= 0:
+            fmt = 'FIX-MODULE'
+        else:
+            fmt = 'FIX-MESSAGE'
+    else:
+        fmt = 'FLOAT'
+    message_display_mode = fmt.upper()
+    set_debug_log_message_format()
+    message = 'message_display_mode set to {}'.format(fmt)
+    #log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+#####################################################################
+def set_log_system_message_prefix(prfix=''):
+    global system_message_prefix
+    system_message_prefix = prfix
+    set_debug_log_message_format()
+    message = 'system_message_prefix set to [{}]'.format(prfix)
+    log_debug_config_message(message)
+##########################################
+def set_debug_config_message_prefix(prfix=''):
+    global debug_config_message_prefix
+    debug_config_message_prefix = prfix
+    set_debug_log_message_format()
+    message = 'debug_config_message_prefix set to [{}]'.format(prfix)
+    log_debug_config_message(message)
+##########################################
+def set_log_message_prefix(prfix=''):
+    global message_prefix
+    message_prefix = prfix
+    set_debug_log_message_format()
+    message = 'message_prefix set to [{}]'.format(prfix)
+    log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+##########################################
+def set_log_message_compress_onoff(onoff='OFF'):
+    global message_compressed_enabled 
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        message_compressed_enabled = True
+        message = 'message compress set ON'
+    else:
+        message_compressed_enabled = True
+        message = 'message compress set OFF'
+
+    set_debug_log_message_format()
+    log_debug_config_message(message)
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+
+##############shalimar################################
+def set_debug_log_message_structure(configString='', max_message_len=0, max_module_trace_len=0, max_line_len=0, message_prefix_string='', message_suffix_string='', offset_chr='', offset_tabs=0):
+    global max_message_length
+    global max_module_trace_length
+    global max_line_length
+    global message_display_mode
+    global suffix_module
+    global prefix_timestamp
+    global suffix_timestamp
+    global message_prefix
+    global message_suffix
+    global sessionID
+    global UserID
+    global suffix
+    global prefix
+    global sid_prefix
+    global sid_suffix
+    global uid_prefix
+    global uid_suffix
+    global message_format
+    global offset_enabled
+    global offset_char
+    global offset_tab
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+
+    configString = configString.upper()
+    if configString.find('NO-MODULE') >= 0:
+        suffix_module = False
+    else:
+        suffix_module = True
+
+    if configString.find('NO-OFFSET') >= 0:
+        offset_enabled = False
+    elif configString.find('OFFSET') >= 0:
+        offset_enabled = True
+    if offset_chr:
+        offset_char = offset_chr
+    if offset_tabs > 0:
+        offset_tab = offset_tabs
+        
+    prefix_timestamp = False
+    suffix_timestamp = False
+    if configString.find('TIMESTAMP-PREFIX') >= 0:
+        prefix_timestamp = True
+    elif configString.find('TIMESTAMP-SUFFIX') >= 0:
+        suffix_timestamp = True
+
+    if configString.find('FIX-') >= 0:
+        message_display_mode = 'FIX-LINE'
+        if configString.find('FIX-MESSAGE') >= 0:
+            message_display_mode = 'FIX-MESSAGE'
+        elif configString.find('FIX-LINE') >= 0:
+            message_display_mode = 'FIX-LINE'
+        elif configString.find('FIX-MODULE') >= 0:
+            message_display_mode = 'FIX-MODULE'
+    else:
+        message_display_mode = 'FLOAT'
+
+    if configString.find('SID-PREFIX') >= 0:
+        sid_prefix = True
+    if configString.find('SID-SUFFIX') >= 0:
+        sid_suffix = True
+    if configString.find('UID-PREFIX') >= 0:
+        uid_prefix = True
+    if configString.find('UID-SUFFIX') >= 0:
+        uid_suffix = True
+
+    if message_prefix_string:
+        message_prefix = message_prefix_string
+    if message_suffix_string:
+        message_suffix = message_suffix_string
+
+    if max_message_len > 0:
+        max_message_length = max_message_len
+    if max_module_trace_len > 0:
+        max_module_trace_length = max_module_trace_len
+    if max_line_len > 0:
+        max_line_length = max_line_len
+    if max_line_length < 40:
+        max_line_length = 40
+    if max_message_length > max_line_length - 10:
+        max_message_length = max_line_length - 10
+    if max_module_trace_length > max_line_length - 10:
+        max_module_trace_length = max_line_length - 10
+    
+    set_debug_log_message_format()
+    msg = debug_log_message_structure()
+    log_debug_config_message(msg)
+###############################################
+def set_debug_log_message_format():
+    global max_message_length
+    global max_module_trace_length
+    global max_line_length
+    global message_display_mode
+    global suffix_module
+    global prefix_timestamp
+    global suffix_timestamp
+    global message_prefix
+    global message_suffix
+    global sessionID
+    global UserID
+    global suffix
+    global prefix
+    global sid_prefix
+    global sid_suffix
+    global uid_prefix
+    global uid_suffix
+    global message_format
+    global message_format_prefix
+    global message_format_suffix
+    global offset_enabled
+    global offset_char
+    global offset_tab
+    msgformat_prfx = ''
+    if offset_enabled:
+        msgformat_prfx = 'OFFSET'
+    if sid_prefix:
+        msgformat_prfx = msgformat_prfx+' SESSIONID'
+    if uid_prefix:
+        msgformat_prfx = msgformat_prfx+' USERID'
+    if prefix_timestamp:
+        msgformat_prfx = msgformat_prfx+' TIMESTAMP'
+    msgformat_prfx = msgformat_prfx+' PREFIX'
+    message_format_prefix = msgformat_prfx
+
+    msgformat_sfx = 'SUFFIX'
+    if sid_suffix:
+        msgformat_sfx = msgformat_sfx+' SESSIONID'
+    if uid_suffix:
+        msgformat_sfx = msgformat_sfx+' USERID'
+    if suffix_timestamp:
+        msgformat_sfx = msgformat_sfx+' TIMESTAMP'
+    if suffix_module:
+        msgformat_sfx = msgformat_sfx+' MODULE'
+    message_format_suffix = msgformat_sfx
+
+    message_format = message_format_prefix+' MESSAGE '+message_format_suffix
+
+    if max_line_length < 40:
+        max_line_length = 40
+    if max_message_length > max_line_length - 10:
+        max_message_length = max_line_length - 10
+    if max_module_trace_length > max_line_length - 10:
+        max_module_trace_length = max_line_length - 10
+###############################################
+def debug_log_message_structure():
+    global max_message_length
+    global max_module_trace_length
+    global max_line_length
+    global message_display_mode
+    global suffix_module
+    global prefix_timestamp
+    global suffix_timestamp
+    global message_prefix
+    global message_suffix
+    global sessionID
+    global UserID
+    global suffix
+    global prefix
+    global sid_prefix
+    global sid_suffix
+    global uid_prefix
+    global uid_suffix
+    global message_format
+    global message_format_prefix
+    global message_format_suffix
+    
+    sidprfx = ''
+    if sid_prefix:
+        sidprfx = 'SID'
+    uidprfx = ''
+    if uid_prefix:
+        uidprfx = 'UID'
+    timprfx = ''
+    if prefix_timestamp:
+        timprfx = 'TIMESTAMP'
+
+    sidsfx = ''
+    if sid_prefix:
+        sidsfx = 'SID'
+    uidsfx = ''
+    if uid_prefix:
+        uidsfx = 'UID'
+    modsfx = ''
+    if suffix_module:
+        modsfx = 'MODULE'
+    timsfx = ''
+    if suffix_timestamp:
+        timsfx = 'TIMESTAMP'
+
+    message = 'debug_log_message:{}({},{},{}),'.format(message_display_mode, max_line_length,max_message_length, max_module_trace_length)
+    # message = '{} suffix["{}" {} {} {} {}],'.format(message, message_suffix, timsfx, modsfx, sidsfx, uidsfx)
+    # message = '{} prefix[{} {} {} "{}"]'.format(message, timprfx, sidprfx, uidprfx, message_prefix)
+    message = '{} format[{}]'.format(message, message_format)
+    return message
+
 ##########################################
 ##########################################
 ##########################################
@@ -732,95 +1222,38 @@ def set_global_debug(onoff='ON'):
     else:
         global_debug_enabled = False
         message = 'global debug set OFF'
-    log_system_message(message)
+    log_debug_config_message(message)
 ##########################################
 def set_debug_log_services_level(lev='WARNING'): #WARNING , ERROR, INFO, BEGIN-END VARIABLE PARAMETER URL
     lev = lev.upper()
     debug_log_services_level = lev
     message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
-    log_system_message(message)
+    log_debug_config_message(message)
 ##########################################
 def set_debug_log_services_level_remove(lev='WARNING'):
     lev = lev.upper()
     debug_log_services_level = debug_log_services_level.replace(lev,'')
     message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
-    log_system_message(message)
+    log_debug_config_message(message)
 ##########################################
 def set_debug_log_services_level_add(lev='WARNING'):
     lev = lev.upper()
     if debug_log_services_level.find(lev) < 0:
         debug_log_services_level = debug_log_services_level + ';' + lev
     message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
-    log_system_message(message)
+    log_debug_config_message(message)
 ##########################################
-def set_log_message_compress_onoff(onoff='OFF'):
-    global message_compressed_enabled 
+def set_debug_config_message_ONOFF(onoff='OFF'):
+    global debug_config_message_enabled 
     if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
-        message_compressed_enabled = True
-        message = 'message compress set ON'
+        debug_config_message_enabled = True
+        message = 'debug config messaging set ON'
     else:
-        message_compressed_enabled = True
-        message = 'message compress set OFF'
-    log_system_message(message)
+        debug_config_message_enabled = False
+        message = 'debug config messaging set OFF'
+    #log_debug_config_message(message)
 ##########################################
-def set_log_moduletrace_onoff(onoff):
-    global module_trace_enabled 
-    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
-        module_trace_enabled = True
-        message = 'module_trace set ON'
-    else:
-        module_trace_enabled = False
-        message = 'module_trace set OFF'
-    log_system_message(message)
-##########################################
-def set_log_moduletrace_maxlength(len=40):
-    global max_module_trace_length
-    max_module_trace_length = len
-    message = 'module_trace_length set to {}'.format(len)
-    log_system_message(message)
-##########################################
-def set_log_message_maxlength(len=120):
-    global max_message_length
-    max_message_length = len
-    message = 'message_length set to {}'.format(len)
-    log_system_message(message)
-##########################################
-def set_log_message_maxlinelength(len=160):
-    global max_line_length
-    max_line_length = len
-    message = 'message_line_length set to {}'.format(len)
-    log_system_message(message)
-##########################################
-def set_log_message_format(fmt='FIX-MESSAGE'):
-    global message_display_mode
-    #'FIX-MESSAGE' #'FIXED-MODULE' #'FIX-MESSAGE' #'FIXED-LINE' #'FLOAT'
-    fmt = fmt.upper()
-    if fmt.find('FIX') >= 0:
-        if fmt.find('MES') >= 0 or fmt.find('MSG') >= 0:
-            fmt = 'FIX-MESSAGE'
-        elif fmt.find('LIN') >= 0:
-            fmt = 'FIX-LINE'
-        elif fmt.find('MOD') >= 0 or fmt.find('TRAC') >= 0:
-            fmt = 'FIX-MODULE'
-        else:
-            fmt = 'FIX-MESSAGE'
-    else:
-        fmt = 'FLOAT'
-    message_display_mode = fmt.upper()
-    message = 'message_display_mode set to {}'.format(fmt)
-    log_system_message(message)
 
-def set_log_message_prefix(prfix=''):
-    global message_prefix
-    message_prefix = prfix
-    message = 'message_prefix set to [{}]'.format(prfix)
-    log_system_message(message)
-
-def set_log_system_message_prefix(prfix=''):
-    global system_message_prefix
-    system_message_prefix = prfix
-    message = 'system_message_prefix set to [{}]'.format(prfix)
-    log_system_message(message)
 ##########################################
 ##########################################
 ##########################################
@@ -833,8 +1266,9 @@ def init_this_module():
     global components_stack
     caller = sys._getframe(1)  # Obtain calling frame
     thisModule = caller.f_globals['__name__']
+    set_debug_log_message_format()
     message = 'log debug module set to ({})'.format(thisModule)
-    log_system_message(message)
+    log_debug_config_message(message)
     components_stack = {}
 ##########################################
 def set_debug_defaults(onoff='ON', debuglevel=9):
@@ -855,8 +1289,7 @@ def set_debug_defaults(onoff='ON', debuglevel=9):
         default_debug_onoff = True
         default_debug_onoff_Str = 'ON'
     message = 'log debug defaults set to ({}-{})'.format(default_debug_onoff_Str, default_debug_level)
-    log_info(message)
-
+    log_debug_config_message(message)
 ##########################################
 def config_from_environment_variables():
     for item in os.environ:
@@ -989,10 +1422,10 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
         cfgkey = 'DEBUG_'+component_type.upper()
         os.environ[cfgkey] = debugOnOff_Str.upper()
         message = 'environment variable {} set to {}'.format(cfgkey, debugOnOff_Str)
-        log_system_message(message)
+        log_debug_config_message(message)
 
     message = 'debug levels for folder "{}" module "{}" component "{}" compo-type "{}" set to ({}-{}) priority {}.'.format(folder, module, component, component_type, debugOnOff_Str, debugLevel, CalculatedPriority)
-    log_system_message(message)
+    log_debug_config_message(message)
 ##########################################
 def retrieve_activecomponent_debug_info(folder_name='', module_name='', component_name='', component_type=''):
     global ModulesDictionary
@@ -1006,11 +1439,18 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
     global active_component_debug_level
     global default_debug_onoff
     global default_debug_level
+    global activeKey
+    global prevKey
+    global active_chain
+
     if not global_debug_enabled:
         active_component_debug_enabled = False
         active_component_debug_level = 0
         #print ('===global_debug_enabled is OFF')
         return
+    #print('### active_module is [', active_module, ']')
+    # activeKey = module_name+'.'+component_name+'.'+component_type
+    # print('### 1-search for [', activeKey, ']')
 
     if not folder_name:
         folder_name = active_folder
@@ -1030,7 +1470,12 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
         component_type = '*'
 
     activeKey = module_name+'.'+component_name+'.'+component_type
-    #print('search for ',activeKey)
+    active_chain = component_type+':'+module_name+'.'+component_name
+    # if activeKey != prevKey:
+    #     print('xxxxxxx:', activeKey)
+    #     prevKey = activeKey
+
+    #print('### search for [', activeKey, ']')
     #weighted_matches = []
     found = False
     for ix, moduleArray in enumerate(Components):
@@ -1046,7 +1491,7 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
         onoff = moduleArray[3]
         debuglevel = moduleArray[4]
         match = False
-        px=''
+        px = ''
         # print(ix,module_name,moduleArray[6])
         # print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
         # print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
@@ -1105,17 +1550,58 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
         active_component_debug_level = default_debug_level
         #print('===NOT-FOUND', activeKey, active_component_debug_enabled, active_component_debug_level)
 #############################################################
-def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5=''):
+def smart_fixlength_string(msg='?', msgfixlength=80, direction='LEFT-TO-RIGHT'):
+    direction = direction.upper().replace('_', '-').replace(' ', '-')
+    if direction == 'LEFT-TO-RIGHT':
+        actual_msg_len = len(msg)
+        if actual_msg_len > msgfixlength:
+            msg = msg[:msgfixlength - 3]+'...' #truncate upto msgfixlength-3 + ...
+        #msg = msg.ljust(msgfixlength-1)+'>' #right pad with spaces upto msgfixlength + ...
+        msg = msg + ' '* 640
+        msg = msg[:msgfixlength] #truncate upto msgfixlength + ...
+        return msg
+    else:
+        #direction.upper() == 'RIGHT-TO-LEFT':
+        actual_msg_len = len(msg)
+        if actual_msg_len > msgfixlength:
+            ofs = (actual_msg_len - msgfixlength) + 3 
+            msg = '...' + msg[ofs:]
+        msg = msg[:msgfixlength] #truncate upto msgfixlength + ...
+        return msg
+
+################################################################################
+
+################################################################################
+def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
     global offset
     global active_module
+    global activeKey
+    global active_chain
+    global system_message_prefix
+    global message_format
+    global message_format_prefix
+    global message_format_suffix
     global max_message_length
     global max_module_trace_length
     global max_line_length
     global message_display_mode
+    global suffix_module
+    global prefix_timestamp
+    global suffix_timestamp
     global message_prefix
-    global system_message_prefix
+    global message_suffix
+    global sessionID
+    global UserID
+    #global suffix
+    #global prefix
+    global sid_prefix
+    global sid_suffix
+    global uid_prefix
+    global uid_suffix
 
-    message = '{}{}{}'.format(message_prefix, offset, msg)
+
+    #message = '{}{}{}'.format(message_prefix, offset, msg)
+    message = msg
     if p1:
         message = message + ' {}'.format(p1)
     if p2:
@@ -1127,74 +1613,85 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5=''):
     if p5:
         message = message + ' {}'.format(p5)
     
-    global max_message_length
-    global max_module_trace_length
-    global max_line_length
-    global message_display_mode
+    global message_format
+    global message_format_prefix
+    global message_format_suffix
 
-    #method 1
-    if message_display_mode.upper() == 'FIX-MESSAGE':
-        msg1 = message[0:max_message_length]
-        len_left = len(msg1)
-        len_spaces = max_message_length - len_left
-        msg = '{}{}'.format(msg1, ' '*len_spaces)
-        msg = msg[0:max_message_length]
+    msg0 = ' ' + message_format_prefix.upper()
+    msg1 = msg0.replace(' OFFSET', offset.replace('>',offset_char))
+    msg2 = msg1.replace(' PREFIX', message_prefix)
+    msg3 = msg2.replace(' SUFFIX', message_suffix)
+    msg4 = msg3.replace(' TIMESTAMP', datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+    msg5 = msg4.replace(' SESSIONID', sessionID)
+    msg6 = msg5.replace(' USERID', UserID)
+    msgprfx = msg6.lstrip()
 
-        right_len = max_line_length - max_message_length - 3
-        len_right = len(active_module)
-        if len_right > right_len:
-            ofs = len_right - right_len + 4
-            mod = '...' + active_module[ofs:len_right]
-        else:
-            mod = active_module
-        mod = mod[0:right_len]
-        formatted_message = '{}[{}]'.format(msg, mod)
-    elif message_display_mode.upper() == 'FIX-MODULE':
-        #method 2:
-        msg_len = max_line_length - max_module_trace_length - 3
-        msg1 = message[0:msg_len]
-        len_left = len(msg1)
-        len_spaces = msg_len - len_left
-        if len_spaces > 0:
-            msg = '{}   {}'.format(msg1, ' '*len_spaces)
-        else:
-            msg = '{}...'.format(msg1)
+    msg0 = ' '+message_format_suffix.upper()
+    msg1 = msg0.replace(' OFFSET', offset.replace('>',offset_char))
+    msg2 = msg1.replace(' PREFIX', message_prefix)
+    msg3 = msg2.replace(' SUFFIX', message_suffix)
+    msg4 = msg3.replace(' TIMESTAMP', datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+    msg5 = msg4.replace(' SESSIONID', sessionID)
+    msg6 = msg5.replace(' USERID', UserID)
+    msg7 = msg6.replace(' MODULE', active_module)
+    msgsfx = msg7.lstrip()
 
-        right_len = max_module_trace_length
-        len_right = len(active_module)
-        if len_right > right_len:
-            ofs = len_right - right_len + 3
-            mod = '...' + active_module[ofs:len_right]
-        else:
-            mod = active_module
-        formatted_message = '{}[{}]'.format(msg, mod)
-    elif message_display_mode.upper() == 'FIX-LINE':
-        #method 3:
-        len_left = len(message)
-        len_right = len(active_module)
-        len_spaces = max_line_length - (len_left + len_right + 3)
-        if len_spaces > 1:
-            msg = '{}{}[{}]'.format(message, '.'*len_spaces, active_module)
-        else:
-            msg = '{}...[{}]'.format(message, active_module)
-        formatted_message = msg[0:max_line_length]
+    msg7 = msg6.replace('MESSAGE', message)
+    #PREFIX TIMESTAMP MODULE o MESSAGE TIMESTAMP MODULE SUFFIX SID UID'
+    #message = '{}{}{}'.format(message_prefix, offset, msg)
+    if msgtype.upper().find('START') >= 0 or msgtype.upper().find('FINISH') >= 0:
+        msg8 = '{}{} [{}]'.format(msgprfx, message, active_chain)
+        return msg8
     else:
-        #method 3: floating msg (full)
-        formatted_message = '{}...[{}]'.format(message, active_module)
+        msg8 = '{}{}'.format(msgprfx, message)
 
+    message = msg8
+
+    if not suffix_module:
+        if message_display_mode.upper().find('FIX') >=0 :
+            formatted_message = message[:max_line_length]
+        else:
+            formatted_message = message
+    else:
+        if message_display_mode.upper() == 'FIX-MESSAGE':
+            #method 1 fix-message-length
+            msg = smart_fixlength_string(message, max_message_length, 'LEFT-TO-RIGHT')
+            module_length = max_line_length - max_message_length - 2 - 1
+            mod = smart_fixlength_string(msgsfx, module_length, 'RIGHT-TO-LEFT')
+            formatted_message = '{} [{}]'.format(msg, mod)
+            formatted_message = formatted_message[0:(max_line_length)]
+        elif message_display_mode.upper() == 'FIX-MODULE':
+            #method 2: fix-module-position
+            mod = smart_fixlength_string(msgsfx, max_module_trace_length, 'RIGHT-TO-LEFT')
+            msg_length = max_line_length - max_module_trace_length - 2 - 1
+            msg = smart_fixlength_string(message, msg_length, 'LEFT-TO-RIGHT')
+            formatted_message = '{} [{}]'.format(msg, mod)
+            formatted_message = formatted_message[:max_line_length]
+        elif message_display_mode.upper() == 'FIX-LINE':
+            #method 3: fix-line-length
+            if max_line_length < (len(message) + len(msgsfx) + 2 + 1):
+                module_length = max_line_length - len(message) - 2 -1
+                if module_length > 0:
+                    mod = smart_fixlength_string(msgsfx, module_length, 'RIGHT-TO-LEFT')
+                else:
+                    mod = ''
+                msg = smart_fixlength_string(message, len(message), 'LEFT-TO-RIGHT')
+                msg = '{} [{}]'.format(msg, mod)
+                formatted_message = msg
+            else:
+                msg_length = max_line_length - len(msgsfx) - 2 - 1
+                msg = smart_fixlength_string(message, msg_length, 'LEFT-TO-RIGHT')
+                formatted_message = '{} [{}]'.format(msg, msgsfx)
+            formatted_message = formatted_message[:max_line_length]
+        elif message_display_mode.upper() == 'AUTO':
+            formatted_message = message[:max_line_length]
+        else:
+            #method 3: floating msg (full)
+            formatted_message = '{} [{}]'.format(message, msgsfx)
+        
+    #x = '{}-{}-{}-{}'.format(message_display_mode, max_line_length, max_message_length, formatted_message)
+    #formatted_message = x[0:130]
     return formatted_message
-
-
-##########################################
-##########################################
-##########################################
-### initialization                     ###
-##########################################
-##########################################
-##########################################
-init_this_module()
-##########################################
-##########################################
 ##########################################
 def testx():
     caller = sys._getframe(1)  # Obtain calling frame
@@ -1212,24 +1709,40 @@ def testx():
         print(i,'xxx[1]',inspect.stack()[1][i])
         i=i+1
 
+
+##########################################
+##########################################
+### initialization                     ###
+##########################################
+##########################################
+##########################################
+init_this_module()
+##########################################
+##########################################
+##########################################
 if __name__ == '__main__':
     #tests
     #global Components
-    set_debug_defaults(onoff='ON', debuglevel=9)
-    set_debug_level(module='webapp', debugOnOff='OFF', debugLevel=9)
-    set_debug_level(module='external_services', debugOnOff='OFF', debugLevel=9)
-    set_debug_level(module='*', component='geolocation_services', priority=88, debugOnOff='OFF', debugLevel=1)
-    set_debug_level(module='*', component='geolocation_services', component_type='view' , priority=89, debugOnOff='OFF', debugLevel=2)
-    set_debug_level(module='*', component='log_services', priority=88, debugOnOff='ON', debugLevel=9)
-    #print (Components)
-    # i = 0
-    # for x in Components:
-    #     i=i+1
-    #     print(i,x)
-    active_module = 'a.b.geolocatioxn_services'
-    retrieve_activecomponent_debug_info('view')
-    print('result:', active_module, active_component_debug_enabled, active_component_debug_level)
-    testx()
+    x = smart_fixlength_string(msg='12345678901234567890', msgfixlength=11, direction='LEFT-TO-RIGHT')
+    print (x)
+    x = smart_fixlength_string(msg='1234567890123456789X', msgfixlength=11, direction='RIGHT-TO-LEFT')
+    print (x)
+
+    # set_debug_defaults(onoff='ON', debuglevel=9)
+    # set_debug_level(module='webapp', debugOnOff='OFF', debugLevel=9)
+    # set_debug_level(module='external_services', debugOnOff='OFF', debugLevel=9)
+    # set_debug_level(module='*', component='geolocation_services', priority=88, debugOnOff='OFF', debugLevel=1)
+    # set_debug_level(module='*', component='geolocation_services', component_type='view' , priority=89, debugOnOff='OFF', debugLevel=2)
+    # set_debug_level(module='*', component='log_services', priority=88, debugOnOff='ON', debugLevel=9)
+    # #print (Components)
+    # # i = 0
+    # # for x in Components:
+    # #     i=i+1
+    # #     print(i,x)
+    # active_module = 'a.b.geolocatioxn_services'
+    # retrieve_activecomponent_debug_info('view')
+    # print('result:', active_module, active_component_debug_enabled, active_component_debug_level)
+    # testx()
     # module = '*.*.geolocation_services.*'
     # m = module.replace('.', r'\.')
     # m = m.replace('*', r'[\w.]*')

@@ -1,0 +1,47 @@
+{% set page_title="VisitPoints" %}
+{% set page_icon="fas fa-globe-europe" %}
+{% set page_links = "visits_pagelinks.html" %}
+{% set next_page_url=url_for("administration.usersadmin",action_tab='users') %}
+{% set next_page_caption="Users Admin" %}
+<div class="">
+        <div class="col-xs">
+            <div class="container">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">IP</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Visits Count</th>
+                        <th scope="col">last Visit</th>
+                        <th scope="col">first Visit</th>
+                        <th scope="col">Continent</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">City</th>
+                        <th scope="col">latitude</th>
+                        <th scope="col">longitude</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for visitpoint in visitpoints %}
+                    <tr id={{ visitpoint.id }}>
+                        <th scope="row">{{ visitpoint.ip }}</th>
+                        <td>{{ visitpoint.visitpointNumber }}</td>
+                        <td> {{ visitpoint.visitsCount }} </td>
+                        <td> {{ visitpoint.firstvisitDT }} </td>
+                        <td> {{ visitpoint.lastvisitDT }} </td>
+                        <td> {{ visitpoint.continent_name }} </td>
+                        <td> {{ visitpoint.country_name }} </td>
+                        <td> {{ visitpoint.region_name }} </td>
+                        <td> {{ visitpoint.city }} </td>
+                        <td> {{ visitpoint.latitude }} </td>
+                        <td> {{ visitpoint.longitude }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+</div>

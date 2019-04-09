@@ -2,7 +2,7 @@
 import os
 from website_app.debug_services.debug_log_services import *
 
-log_start('database_configuration')
+log_config_start(__file__, 'database_configuration')
 
 EYECATCH = 'DATABASE'
 
@@ -162,4 +162,4 @@ log_config_param('DATABASE_URI', DATABASE_URI)
 log_config_param('SQLALCHEMY_DATABASE_URI', SQLALCHEMY_DATABASE_URI)
 ################################################################
 
-log_finish('database_configuration')
+log_config_finish(__file__, 'database_configuration')

@@ -2,7 +2,7 @@
 import os
 from website_app.debug_services.debug_log_services import *
 
-log_start('geolocation_configuration')
+log_config_start(__file__, 'geolocation_configuration')
 
 EYECATCH = 'GEOLOCATION'
 
@@ -15,4 +15,4 @@ log_config_param('IPSTACK_API_ACCESSKEY', IPSTACK_API_ACCESSKEY)
 log_config_param('IPSTACK_URL', IPSTACK_URL)
 ################################################################
 
-log_finish('geolocation_configuration')
+log_config_finish(__file__, 'geolocation_configuration')

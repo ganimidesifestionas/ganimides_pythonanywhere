@@ -5,7 +5,7 @@ from website_app.debug_services.debug_log_services import *
 #.debug_log_services import *
 
 #class Config(object):
-log_module_start('google_configuration')
+log_config_start(__file__, 'google_configuration')
 EYECATCH = 'GOOGLE'
 
 #google maps
@@ -70,7 +70,7 @@ log_config_param('EXECUTION_ENVIRONMENT', EXECUTION_ENVIRONMENT)
 log_config_param('RECAPTCHA_PUBLIC_KEY', GOOGLE_RECAPTCHA_PUBLIC_KEY)
 log_config_param('RECAPTCHA_PRIVATE_KEY', GOOGLE_RECAPTCHA_PRIVATE_KEY)
 
-log_module_finish('google_configuration')
+log_config_finish(__file__, 'google_configuration')
 
 # class GoogleConfig() #Config):
 #     log_module_start('google_configuration')

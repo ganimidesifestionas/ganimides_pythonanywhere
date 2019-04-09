@@ -331,11 +331,11 @@ def homepage():
 @administration.route('/usersadmin/', defaults={'action_tab':''} , methods = ['GET', 'POST'])
 @administration.route('/usersadmin/<action_tab>', methods = ['GET', 'POST'])
 def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointspageNum=0):
-    print('###1-action_tab', action_tab)
-    print('###1-userspageNum', userspageNum)
-    print('###1-visitspageNum', visitspageNum)
-    print('###1-visitpointspageNum', visitpointspageNum)
-    print('')
+    #print('###1-action_tab', action_tab)
+    #print('###1-userspageNum', userspageNum)
+    #print('###1-visitspageNum', visitspageNum)
+    #print('###1-visitpointspageNum', visitpointspageNum)
+    #print('')
     page_name = 'useradmin'
     page_function = 'useradmin'
     page_template = 'administration/page_templates/administration_pages_template.html'
@@ -353,11 +353,11 @@ def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointsp
     userspageNum = request.args.get('userspageNum', type=int, default=1)
     visitspageNum = request.args.get('visitspageNum', type=int, default=1)
     visitpointspageNum = request.args.get('visitpointspageNum', type=int, default=1)
-    print('###2-action_tab', action_tab)
-    print('###2-userspageNum', userspageNum)
-    print('###2-visitspageNum', visitspageNum)
-    print('###2-visitpointspageNum', visitpointspageNum)
-    print('')
+    #print('###2-action_tab', action_tab)
+    #print('###2-userspageNum', userspageNum)
+    #print('###2-visitspageNum', visitspageNum)
+    #print('###2-visitpointspageNum', visitpointspageNum)
+    #print('')
     if not action_tab:
         if userspageNum > 0:
             action_tab = 'users'
@@ -369,11 +369,11 @@ def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointsp
                     action_tab = 'visitpoints'
                 else:
                     action_tab = 'users'
-    print('###3-action_tab', action_tab)
-    print('###3-userspageNum', userspageNum)
-    print('###3-visitspageNum', visitspageNum)
-    print('###3-visitpointspageNum', visitpointspageNum)
-    print('')
+    #print('###3-action_tab', action_tab)
+    #print('###3-userspageNum', userspageNum)
+    #print('###3-visitspageNum', visitspageNum)
+    #print('###3-visitpointspageNum', visitpointspageNum)
+    #print('')
 
     # if action_tab.lower == 'visits':
     #     visitspageNum = page
@@ -469,7 +469,7 @@ def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointsp
         page_parameter='page',
         href=href,
         )
-    print('users_page',userspagination.page)
+    #print('users_page',userspagination.page)
     #userspagination = Pagination(page=userspageNum, total=userscount, search=search, record_name='users')
     #print('#####per_page', userspagination.per_page)
     # 'page' is the default name of the page parameter, it can be customized
@@ -526,7 +526,7 @@ def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointsp
         page_parameter='page',
         href=href
         )
-    print('visitpoints_page',visitpointspagination.page)
+    #print('visitpoints_page',visitpointspagination.page)
 
     #visitpoints = VisitPoint.query.all()
     #visitpoints = VisitPoint.query.order_by(VisitPoint.lastvisitDT.desc()).limit(100).all()
@@ -565,7 +565,7 @@ def usersadmin(action_tab='users', userspageNum=0, visitspageNum=0, visitpointsp
         page_parameter='page',
         href=href,
         )
-    print('visits_page',visitspagination.page)
+    #print('visits_page',visitspagination.page)
 
     #print(users)
     #print(roles)
@@ -751,7 +751,7 @@ def visitpointspage():
         show_single_page=app.config.get('SHOW_SINGLE_PAGE', False),
         per_page=app.config.get('PER_PAGE', 10),
         )
-    print('visitpoints_page', visitpointspagination.page)
+    #print('visitpoints_page', visitpointspagination.page)
 
     #visits per city    
     log_info('### visits per city###')
@@ -762,7 +762,7 @@ def visitpointspage():
         lat = item[1]
         lon = item[2]
         marker = "&markers=color:red|size:mid|label:{}|{},{}".format(item[3], item[1], item[2])
-        print(marker)
+        #print(marker)
         markers = markers + marker
 
     GOOGLE_MAPS_API_KEY = 'AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY'
@@ -776,7 +776,7 @@ def visitpointspage():
     args = "center={},{}&zoom={}&size={}x{}&format=gif{}".format(lat,lon,zoomLevel,width,height,markers)
     mapType = "&maptype={}".format(mapType)
     google_maps_url = urlbase + args + mapType + key
-    print(google_maps_url)
+    #print(google_maps_url)
     #http://maps.google.com/maps/api/staticmap?center=35.113242800,35.113242800&zoom=20&size=600x300&format=gif&markers=color:red|size:mid|label:62|35.107311200,33.382265500&markers=color:red|size:mid|label:21|34.766700000,32.416700000&markers=color:red|size:mid|label:1|35.138716900,33.371984900&markers=color:red|size:mid|label:45|34.687400000,33.036600000&markers=color:red|size:mid|label:2|35.140466000,33.354214900&markers=color:red|size:mid|label:1|35.134973200,33.358484300&markers=color:red|size:mid|label:2|35.143680000,33.376665600&markers=color:red|size:mid|label:1|35.138740900,33.372069800&markers=color:red|size:mid|label:1|35.151490700,33.362477500&markers=color:red|size:mid|label:1|35.140895400,33.373621200&markers=color:red|size:mid|label:1|35.113252300,33.381192500&markers=color:red|size:mid|label:1|35.151455000,33.362346000&markers=color:red|size:mid|label:1|35.150405000,33.361973400&markers=color:red|size:mid|label:1|35.135014400,33.358621800&markers=color:red|size:mid|label:1|35.158851500,33.354931600&markers=color:red|size:mid|label:1|35.158588300,33.354714700&markers=color:red|size:mid|label:1|35.158939500,33.354862800&markers=color:red|size:mid|label:3|35.152305400,33.362499400&markers=color:red|size:mid|label:1|35.151432100,33.362543200&markers=color:red|size:mid|label:1|35.112965700,33.381079500&markers=color:red|size:mid|label:6|35.126413000,33.429859000&markers=color:red|size:mid|label:1|35.140916900,33.373584000&markers=color:red|size:mid|label:1|35.113262300,33.381192400&markers=color:red|size:mid|label:1|35.151114100,33.362521300&markers=color:red|size:mid|label:1|35.151580700,33.362433700&markers=color:red|size:mid|label:1|35.113299600,33.381181300&markers=color:red|size:mid|label:2|35.135008800,33.358396100&markers=color:red|size:mid|label:1|35.113253100,33.381191400&markers=color:red|size:mid|label:1|35.113261500,33.381185900&markers=color:red|size:mid|label:1|35.151590400,33.362587000&markers=color:red|size:mid|label:1|35.134986300,33.358374900&markers=color:red|size:mid|label:1|35.134942900,33.358573000&markers=color:red|size:mid|label:1|35.138736200,33.371980800&markers=color:red|size:mid|label:1|35.113254000,33.381164800&markers=color:red|size:mid|label:1|35.139645000,33.374158500&markers=color:red|size:mid|label:1|35.135008000,33.357919500&markers=color:red|size:mid|label:1|35.113333800,33.381190600&markers=color:red|size:mid|label:1|35.113242800,33.381174900&maptype=satellite&key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     #return redirect(google_maps_url)
     graph2_url = google_maps_url
@@ -790,7 +790,7 @@ def visitpointspage():
         lat = item[1]
         lon = item[2]
         marker = "&markers=color:red|size:mid|label:{}|{},{}".format(item[3], item[1], item[2])
-        print(marker)
+        #print(marker)
         cmarkers = cmarkers + marker
     
     zoomLevel = 1
@@ -801,7 +801,7 @@ def visitpointspage():
     args = "center={},{}&zoom={}&size={}x{}&format=gif{}".format(lat,lon,zoomLevel,width,height,cmarkers)
     mapType = "&maptype={}".format(mapType)
     google_maps_url = urlbase + args + mapType + key
-    print(google_maps_url)
+    #print(google_maps_url)
     #http://maps.google.com/maps/api/staticmap?center=35.113242800,35.113242800&zoom=20&size=600x300&format=gif&markers=color:red|size:mid|label:62|35.107311200,33.382265500&markers=color:red|size:mid|label:21|34.766700000,32.416700000&markers=color:red|size:mid|label:1|35.138716900,33.371984900&markers=color:red|size:mid|label:45|34.687400000,33.036600000&markers=color:red|size:mid|label:2|35.140466000,33.354214900&markers=color:red|size:mid|label:1|35.134973200,33.358484300&markers=color:red|size:mid|label:2|35.143680000,33.376665600&markers=color:red|size:mid|label:1|35.138740900,33.372069800&markers=color:red|size:mid|label:1|35.151490700,33.362477500&markers=color:red|size:mid|label:1|35.140895400,33.373621200&markers=color:red|size:mid|label:1|35.113252300,33.381192500&markers=color:red|size:mid|label:1|35.151455000,33.362346000&markers=color:red|size:mid|label:1|35.150405000,33.361973400&markers=color:red|size:mid|label:1|35.135014400,33.358621800&markers=color:red|size:mid|label:1|35.158851500,33.354931600&markers=color:red|size:mid|label:1|35.158588300,33.354714700&markers=color:red|size:mid|label:1|35.158939500,33.354862800&markers=color:red|size:mid|label:3|35.152305400,33.362499400&markers=color:red|size:mid|label:1|35.151432100,33.362543200&markers=color:red|size:mid|label:1|35.112965700,33.381079500&markers=color:red|size:mid|label:6|35.126413000,33.429859000&markers=color:red|size:mid|label:1|35.140916900,33.373584000&markers=color:red|size:mid|label:1|35.113262300,33.381192400&markers=color:red|size:mid|label:1|35.151114100,33.362521300&markers=color:red|size:mid|label:1|35.151580700,33.362433700&markers=color:red|size:mid|label:1|35.113299600,33.381181300&markers=color:red|size:mid|label:2|35.135008800,33.358396100&markers=color:red|size:mid|label:1|35.113253100,33.381191400&markers=color:red|size:mid|label:1|35.113261500,33.381185900&markers=color:red|size:mid|label:1|35.151590400,33.362587000&markers=color:red|size:mid|label:1|35.134986300,33.358374900&markers=color:red|size:mid|label:1|35.134942900,33.358573000&markers=color:red|size:mid|label:1|35.138736200,33.371980800&markers=color:red|size:mid|label:1|35.113254000,33.381164800&markers=color:red|size:mid|label:1|35.139645000,33.374158500&markers=color:red|size:mid|label:1|35.135008000,33.357919500&markers=color:red|size:mid|label:1|35.113333800,33.381190600&markers=color:red|size:mid|label:1|35.113242800,33.381174900&maptype=satellite&key=AIzaSyCstqUccUQdIhV69NtEGuzASxBQX5zPKXY
     #return redirect(google_maps_url)
     graph1_url = google_maps_url

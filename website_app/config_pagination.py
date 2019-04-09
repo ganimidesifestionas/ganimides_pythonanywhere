@@ -3,7 +3,7 @@
 import os
 from website_app.debug_services.debug_log_services import *
 
-log_module_start('pagination_configuration')
+log_config_start(__file__, 'pagination_configuration')
 
 EYECATCH = 'PAGINATION'
 
@@ -20,4 +20,4 @@ log_config_param('LINK_SIZE', LINK_SIZE)
 log_config_param('SHOW_SINGLE_PAGE', SHOW_SINGLE_PAGE)
 ################################################################
 
-log_module_finish('pagination_configuration')
+log_config_finish(__file__, 'pagination_configuration')

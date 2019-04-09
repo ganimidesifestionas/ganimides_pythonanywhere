@@ -2,7 +2,7 @@
 import os
 from website_app.debug_services.debug_log_services import *
 
-log_module_start('mailserver_configuration')
+log_config_start(__file__, 'mailserver_configuration')
 
 MAIL_SERVER_PROVIDER = os.environ.get('MAIL_SERVER_PROVIDER', 'GOOGLE')
 log_variable('MAIL_SERVER_PROVIDER', MAIL_SERVER_PROVIDER)
@@ -81,4 +81,4 @@ log_config_param('MAIL_APIKEY_PUBLIC', MAIL_APIKEY_PUBLIC)
 log_config_param('MAIL_APIKEY_PRIVATE', MAIL_APIKEY_PRIVATE)
 ################################################################
 
-log_module_finish('mailserver_configuration')
+log_config_finish(__file__, 'mailserver_configuration')

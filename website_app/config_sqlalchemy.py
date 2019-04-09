@@ -3,7 +3,7 @@ import os
 from website_app.debug_services.debug_log_services import *
 
 
-log_module_start('sqlalchemy_configuration')
+log_config_start(__file__, 'sqlalchemy_configuration')
 
 EYECATCH = 'SQLALCHEMY'
 
@@ -37,7 +37,7 @@ log_config_param('SQLALCHEMY_COMMIT_ON_TEARDOWN', SQLALCHEMY_COMMIT_ON_TEARDOWN)
 log_config_param('SQLALCHEMY_DATABASE_URI', SQLALCHEMY_DATABASE_URI)
 ################################################################
 
-log_module_finish('sqlalchemy_configuration')
+log_config_finish(__file__, 'sqlalchemy_configuration')
 
 
 

@@ -24,25 +24,25 @@ from website_app.module_administration.database import init_database as init_adm
 # init_authorization_database()
 # init_application_database()
 print('   ###finish: Init databases')
+# print all config params
+# if app.config.get('DEBUG_STARTUP'):
+#     keylist = sorted(app.config.items())
+#     for key in keylist:
+#         print('   app-cfg-Key {}={}'.format(key[0], key[1]))
+
+# print all env params
+# if app.config.get('DEBUG_STARTUP'):
+#     print('')
+#     for envitem in os.environ:
+#         print('   env param {}={}'.format(envitem, os.environ.get(envitem)))
+
+# exit(0)
 
 print('### finish: server_start_app')
 if __name__ == '__main__':
     print('')
     print('### START APP')
 
-    # print all config params
-    # if app.config.get('DEBUG_STARTUP'):
-    #     keylist = sorted(app.config.items())
-    #     for key in keylist:
-    #         print('   app-cfg-Key {}={}'.format(key[0], key[1]))
-
-    # print all env params
-    # if app.config.get('DEBUG_STARTUP'):
-    #     print('')
-    #     for envitem in os.environ:
-    #         print('   env param {}={}'.format(envitem, os.environ.get(envitem)))
-
-    # exit(0)
     HOST = environ.get('SERVER_HOST', 'localhost')
     try:
         PORT = int(environ.get('SERVER_PORT', '5555'))
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     print('FLASK_DEBUG', app.config.get('FLASK_DEBUG'))
     print('DEBUG', app.config.get('DEBUG'))
     debugOption = True
-
+    
     msg = 'app.run(HOST={}, PORT={}, debug={},use_reloader={})'.format(HOST, PORT, debugOption, use_reloaderOption)
     print('### about to execute:', msg)
 

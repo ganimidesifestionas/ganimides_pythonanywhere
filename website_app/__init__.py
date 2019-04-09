@@ -68,7 +68,7 @@ debug_config_startup()
 
 
 ################################################################################
-log_module_start('app_init')
+log_init_start(__file__,'app_init')
 ################################################################################
 
 ### Define the database
@@ -136,9 +136,9 @@ for appitem in AppDictionary:
 app_relative_config_path = os.environ.get('APP_RELATIVE_CONFIG_PATH')
 server_relative_config_path = os.environ.get('SERVER_RELATIVE_CONFIG_PATH')
 app_Startup_Folder = os.environ.get('APP_STARTUP_FOLDER')
-log_warning('***' , 'app_Startup_Folder', app_Startup_Folder)
-log_warning('***' , 'app_relative_config_path', app_relative_config_path)
-log_warning('***' , 'server_relative_config_path', server_relative_config_path)
+log_warning('app_Startup_Folder', app_Startup_Folder)
+log_warning('app_relative_config_path', app_relative_config_path)
+log_warning('server_relative_config_path', server_relative_config_path)
 ################################################################
 #for debug: list all env params
 # for envitem in os.environ:
@@ -183,8 +183,8 @@ arrEnvServerKeys = os.environ.get('SERVER_INI_KEYS').split(sep=',')
 for ix, key in enumerate(arrEnvServerKeys):
     app.config[key] = os.environ.get(key)
     #print(ix, 'app key from env key', key, '=', app.config.get(key))
-    msg='{}. app key from env key {}={}'.format(ix, key, app.config.get(key))
-    log_info(msg)
+    msg = '{}. app key from env key {}={}'.format(ix, key, app.config.get(key))
+    log_config_param(key, app.config.get(key))
 log_info('CONFIG-STEP-1 SERVER_CONFIGURATION', ix, ' env keys added to app.config')
 
 ################################################################
@@ -196,7 +196,7 @@ for appitem in AppDictionary:
 if app_ini_file and os.path.isfile(app_ini_file):
     if os.access(app_ini_file, os.R_OK):
         log_info('app_ini_file FOUND...', app_ini_file)
-        log_start('app.ini')
+        #log_start('app.ini')
         #os.environ["app_ini_file"] = app_ini_file
         config = configparser.ConfigParser()
         config.read(app_ini_file)
@@ -209,8 +209,8 @@ if app_ini_file and os.path.isfile(app_ini_file):
                 k = k + 1
                 #os.environ[key.upper()] = config[section][key].replace("'", "")
                 app.config[key.upper()] = config[section][key].replace("'", "")
-                log_info('...config_param', key.upper(), config[section][key])
-        log_finish('app.ini')
+                log_config_param(key.upper(), config[section][key])
+        #log_finish('app.ini')
     else:
         log_warning('app.ini file [', app_ini_file, '] the file is not readable')
 else:
@@ -234,7 +234,7 @@ log_info('###CONFIGURE FLASK-APP###')
 
 ################################################################################
 config_name = os.getenv('FLASK_CONFIGURATION', 'default')
-log_variable('FLASK_CONFIGURATION',config_name)
+log_info('FLASK_CONFIGURATION', config_name)
 #exit(0)
 # enable jinja2 extensions - i.e. continue in for loops
 #app.jinja_env.add_extension('jinja2.ext.loopcontrols')
@@ -333,17 +333,17 @@ app.config.from_pyfile(config_file_name, silent=False) # instance-folders config
 log_info('CONFIG-STEP-12', config_name, config_file, 'EYECATCH---', app.config.get('EYECATCH'))
 #########################################################################################
 
-log_start('config_checkpoint_1')
-log_info('@@@check', 'EXECUTION_MODE---', app.config['EXECUTION_MODE'])
-log_info('@@@check', 'SERVER---', app.config['SERVER'])
-log_info('@@@check', 'DATABASE_SERVER---', app.config['DATABASE_SERVER'])
-log_info('@@@check', 'DATABASE_NAME---', app.config['DATABASE_NAME'])
-log_info('@@@check', 'DATABASE_SERVER_URI---', app.config['DATABASE_SERVER_URI'])
-log_info('@@@check', 'DATABASE_URI---', app.config['DATABASE_URI'])
-log_info('@@@check', 'SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
-log_info('@@@check', 'RECAPTCHA_PUBLIC_KEY---', app.config['RECAPTCHA_PUBLIC_KEY'])
-log_info('@@@check', 'RECAPTCHA_PRIVATE_KEY---', app.config['RECAPTCHA_PRIVATE_KEY'])
-log_finish('config_checkpoint_1')
+#log_start('config_checkpoint_1')
+log_checkpoint('1', 'EXECUTION_MODE---', app.config['EXECUTION_MODE'])
+log_checkpoint('1', 'SERVER---', app.config['SERVER'])
+log_checkpoint('1', 'DATABASE_SERVER---', app.config['DATABASE_SERVER'])
+log_checkpoint('1', 'DATABASE_NAME---', app.config['DATABASE_NAME'])
+log_checkpoint('1', 'DATABASE_SERVER_URI---', app.config['DATABASE_SERVER_URI'])
+log_checkpoint('1', 'DATABASE_URI---', app.config['DATABASE_URI'])
+log_checkpoint('1', 'SQLALCHEMY_DATABASE_URI---', app.config['SQLALCHEMY_DATABASE_URI'])
+log_checkpoint('1', 'RECAPTCHA_PUBLIC_KEY---', app.config['RECAPTCHA_PUBLIC_KEY'])
+log_checkpoint('1', 'RECAPTCHA_PRIVATE_KEY---', app.config['RECAPTCHA_PRIVATE_KEY'])
+#log_finish('config_checkpoint_1')
 
 ################################################################################
 ################################################################################
@@ -365,17 +365,17 @@ app.modules_stack = []
 app.modules_stack.append(__name__)
 ##-##-####-##-####-##-####-##-####-##-##
 #log_info('Start')
-log_variable('app.homepage_html', app.homepage_html)
 ##-##-####-##-####-##-####-##-####-##-##
 ################################################################################
 ################################################################################
 ################################################################################
-log_start('config_checkpoint_2')
-log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_LOGIN'])
-log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_REGISTRATION'])
-log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_FORGETPASSWORD'])
-log_info('@@@check', 'SPLASH FORM---', app.config['SPLASHFORM_CONTACTUS'])
-log_finish('config_checkpoint_2')
+#log_start('config_checkpoint_2')
+log_checkpoint('2', 'app.homepage_html---', app.homepage_html)
+log_checkpoint('2', 'SPLASH FORM---', app.config['SPLASHFORM_LOGIN'])
+log_checkpoint('2', 'SPLASH FORM---', app.config['SPLASHFORM_REGISTRATION'])
+log_checkpoint('2', 'SPLASH FORM---', app.config['SPLASHFORM_FORGETPASSWORD'])
+log_checkpoint('2', 'SPLASH FORM---', app.config['SPLASHFORM_CONTACTUS'])
+#log_finish('config_checkpoint_2')
 ################################################################################
 ################################################################################
 ################################################################################
@@ -403,7 +403,7 @@ db.init_app(app)
 ## sqlalchemy pool
 ################################################################################
 ################################################################################
-log_info('###DATABASE###','   sqlalchemy.create_engine')
+log_info('###DATABASE###','sqlalchemy.create_engine')
 #import sqlalchemy
 #from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
@@ -473,12 +473,12 @@ login_manager.login_view = "authorization.login"
 ################################################################################
 ################################################################################
 #log_info('')
-log_start('###Migration-MANAGER###')
+log_info('###Migration-MANAGER###')
 # migrate = Migrate(app, db)
 # manager = Manager(app)
 # manager.add_command('db', MigrateCommand)
 # #manager.run(db)
-log_finish('###Migration-MANAGER###')
+#log_finish('###Migration-MANAGER###')
 ################################################################################
 ################################################################################
 ################################################################################
@@ -503,7 +503,7 @@ log_finish('###Migration-MANAGER###')
 ################################################################################
 ################################################################################
 #log_info('')
-log_start('###ERROR_HANDLERS###')
+log_info('###ERROR_HANDLERS###')
 log_info('@app.errorhandler(403)','render_template(error_pages/403.html, title=Forbidden)')
 @app.errorhandler(403)
 def forbidden(error):
@@ -525,7 +525,7 @@ def internal_server_error(error):
     print('###__INIT__###','@@@app.errorhandler(500) title=Server Error)')
     return render_template('error_pages/500.html', title='Server Error'), 500
 
-log_finish('###ERROR_HANDLERS###')
+#log_finish('###ERROR_HANDLERS###')
 ################################################################################
 ################################################################################
 ################################################################################
@@ -543,7 +543,7 @@ from . import views
 ################################################################################
 ################################################################################
 #log_info('')
-log_start('###BLUEPRINTS (SUB-APPCOMPONENTS)###')
+log_info('###BLUEPRINTS (SUB-APPCOMPONENTS)###')
 # Import modules/components using their blueprint handler variable i.e module_authoroization
 
 ### authorization module
@@ -564,7 +564,7 @@ log_info('administration_module---', 'app.register_blueprint(administration_modu
 #from app import models
 #from .admin import admin as admin_blueprint
 #app.register_blueprint(admin_blueprint, url_prefix='/admin')
-log_finish('###BLUEPRINTS (SUB-APPCOMPONENTS)###')
+#log_finish('###BLUEPRINTS (SUB-APPCOMPONENTS)###')
 ################################################################################
 ################################################################################
 ################################################################################
@@ -575,7 +575,7 @@ log_finish('###BLUEPRINTS (SUB-APPCOMPONENTS)###')
 ################################################################################
 ################################################################################
 ################################################################################
-log_start('###DATABASE### create database')
+log_info('###DATABASE### create database')
 #create the database if not exists
 # SERVER = app.config['SERVER'] # application server
 # DATABASE_SERVER = app.config['DATABASE_SERVER']
@@ -587,9 +587,9 @@ from database import init_database as init_application_database
 from website_app.module_authorization.database import init_database as init_authorization_database
 from website_app.module_administration.database import init_database as init_administration_database
 
-log_start('###DATABASE###db.create_all(app=app)')
+log_info('###DATABASE###db.create_all(app=app)')
 db.create_all(app=app)
-log_finish('###DATABASE###db.create_all(app=app)')
+#log_finish('###DATABASE###db.create_all(app=app)')
 
 init_application_database()
 init_administration_database()
@@ -639,7 +639,7 @@ init_authorization_database()
 
 # log_info('###DATABASE###',"{0} tables created in database {1}".format(created,DATABASE_NAME))
 # db_engine.dispose()
-log_finish('###DATABASE### create database')
+#log_finish('###DATABASE### create database')
 
 ################################################################################
 ################################################################################
@@ -647,7 +647,7 @@ log_finish('###DATABASE### create database')
 ## sqlalchemy pool
 ################################################################################
 ################################################################################
-log_start('###DATABASE###_sqlalchemy.create_engine')
+log_info('###DATABASE###_sqlalchemy.create_engine')
 from sqlalchemy import exc
 from sqlalchemy import event
 from sqlalchemy import select
@@ -696,7 +696,7 @@ def ping_connection(connection, branch):
         print('###__INIT__###', 'ping_connection-finally:restore close with result @@@@event.listens_for',"engine_connect")
         connection.should_close_with_result = save_should_close_with_result
 
-log_finish('###DATABASE###_sqlalchemy.create_engine')
+#log_finish('###DATABASE###_sqlalchemy.create_engine')
 ################################################################################
 ################################################################################
 ################################################################################
@@ -708,7 +708,7 @@ log_finish('###DATABASE###_sqlalchemy.create_engine')
 ################################################################################
 ################################################################################
 #log_info('')
-log_start('###FUNCTIONS & VARIABLES###')
+log_info('###FUNCTIONS & VARIABLES###')
 def get_time():
     now = datetime.now()
     time=now.strftime("%Y-%m-%dT%H:%M")
@@ -1123,23 +1123,23 @@ def inject_utility_functions():
         ,sms_template_file=sms_template_file
         ,include_files=include_files
 )
-log_finish('###FUNCTIONS & VARIABLES###')
+#log_finish('###FUNCTIONS & VARIABLES###')
 ################################################################################
 ################################################################################
 ################################################################################
 ## epiloque
 ################################################################################
 ################################################################################
-log_start('config_checkpoint_3')
-log_info('@@@check', '###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
-log_info('@@@check', '###SQLALCHEMY_POOL_TIMEOUT####', app.config['SQLALCHEMY_POOL_TIMEOUT'])
-log_info('@@@check', '###SQLALCHEMY_POOL_SIZE####', app.config['SQLALCHEMY_POOL_SIZE'])
+#log_start('config_checkpoint_3')
+log_checkpoint('3', '###SQLALCHEMY_POOL_RECYCLE####', app.config['SQLALCHEMY_POOL_RECYCLE'])
+log_checkpoint('3', '###SQLALCHEMY_POOL_TIMEOUT####', app.config['SQLALCHEMY_POOL_TIMEOUT'])
+log_checkpoint('3', '###SQLALCHEMY_POOL_SIZE####', app.config['SQLALCHEMY_POOL_SIZE'])
 #print('####################db.pool_recycle########',db.pool_recycle)
-log_finish('config_checkpoint_3')
+#log_finish('config_checkpoint_3')
 ################################################################################
-log_info('###FINISHED: FLASK-APP-created&ready###')
+log_info('###FINISHED: FLASK-APP:CREATED-CONFIG-READY###')
 ################################################################################
-log_module_finish('app_init')
+log_init_finish(__file__,'app_init')
 ################################################################################
 
 ################################################################################
