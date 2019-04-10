@@ -3,10 +3,12 @@ import sys
 import re
 import inspect
 from datetime import datetime
+from colorama import init as ColorsInit, Fore, Back, Style
+
 global_debug_OFF = False
 global_debug_enabled = True
 debug_log_services_level = 'WARNING;ERROR;IMPORTANT'
-default_debug_onoff = True
+default_debug_onoff = False
 default_debug_level = 9
 module_trace_enabled = True
 message_compressed_enabled = False
@@ -56,6 +58,10 @@ caller = ''
 thisModule = ''
 last_active_module = '?'
 
+global_counter = 0
+prev_active_chain = '+'
+
+active_color = Fore.RED
 active_folder = ''
 active_module = ''
 active_component = ''
@@ -79,7 +85,7 @@ def log_info(msg, m1='', m2='', m3='', m4='', m5=''):
     if global_debug_enabled:
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('INFO') >= 0:
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5,msgtype='info')
             print(message)
 ##########################################
 def log_checkpoint(cp='', msg='', m1='', m2='', m3='', m4='', m5=''):
@@ -92,8 +98,9 @@ def log_checkpoint(cp='', msg='', m1='', m2='', m3='', m4='', m5=''):
     if global_debug_enabled:
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('CHECK') >= 0:
-            msg = ' @ checkpoint-{}:{}'.format(cp, msg)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            msg1 = combined_message(msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            msg = ' @ checkpoint-{}:{}{}{}{}{}'.format(cp, Back.YELLOW, Fore.RED, msg1, Back.RESET, Fore.RESET)
+            message = formatted_message(msg=msg, msgtype='checkpoint')
             print(message)
 ##########################################
 def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -112,8 +119,10 @@ def log_warning(msg, m1='', m2='', m3='', m4='', m5=''):
         if (active_component_debug_enabled and active_component_debug_level > 1) \
             or debug_log_services_level.find('WARNING') >= 0 \
             or debug_log_services_level.find('INFO') >= 0:
-            msg = 'WARNING:{}'.format(msg)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            msg1 = combined_message(msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            msg = 'warning:{}{}{}{}{}'.format(Back.YELLOW, Fore.RED, msg1, Back.RESET, Fore.RESET)
+            message = formatted_message(msg=msg, msgtype='warning')
+            #message = '{}{}{}{}'.format(Back.YELLOW, Fore.RED, message, Style.RESET_ALL) 
             print(message)
 ##########################################
 def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -125,7 +134,8 @@ def log_error(msg, m1='', m2='', m3='', m4='', m5=''):
     tispaolas(xcaller)
     if global_debug_enabled:
         msg = 'ERROR:{}'.format(msg)
-        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+        message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='error', Nocolors=True)
+        message = '{}{}{}{}'.format(Back.RED, Fore.WHITE, message, Style.RESET_ALL) 
         print(message)
 ##########################################
 def log_system_message(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -137,7 +147,8 @@ def log_system_message(msg, m1='', m2='', m3='', m4='', m5=''):
     xcaller = sys._getframe(1)  # Obtain calling frame
     tispaolas(xcaller)
     msg = '{}system-message:{}'.format(system_message_prefix, msg)
-    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='system-message', Nocolors=True)
+    message = '{}{}{}{}'.format(Back.GREEN, Fore.RED, message, Style.RESET_ALL) 
     print(message)
 ##########################################
 def log_system_info(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -149,7 +160,8 @@ def log_system_info(msg, m1='', m2='', m3='', m4='', m5=''):
     xcaller = sys._getframe(1)  # Obtain calling frame
     tispaolas(xcaller)
     msg = '{}system-info:{}'.format(system_message_prefix, msg)
-    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='system-info', Nocolors=True)
+    message = '{}{}{}{}'.format(Back.GREEN, Fore.YELLOW, message, Style.RESET_ALL) 
     print(message)
 ##########################################
 def log_system_warning(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -161,7 +173,8 @@ def log_system_warning(msg, m1='', m2='', m3='', m4='', m5=''):
     xcaller = sys._getframe(1)  # Obtain calling frame
     tispaolas(xcaller)
     msg = '{}SYSTEM-WARNING:{}'.format(system_message_prefix, msg)
-    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='system-warning', Nocolors=True)
+    message = '{}{}{}{}'.format(Back.YELLOW, Fore.RED, message, Style.RESET_ALL) 
     print(message)
 ##########################################
 def log_system_error(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -173,7 +186,8 @@ def log_system_error(msg, m1='', m2='', m3='', m4='', m5=''):
     xcaller = sys._getframe(1)  # Obtain calling frame
     tispaolas(xcaller)
     msg = '{}SYSTEM-ERROR:{}'.format(system_message_prefix, msg)
-    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='system-error', Nocolors=True)
+    message = '{}{}{}{}'.format(Back.RED, Fore.WHITE, message, Style.RESET_ALL) 
     print(message)
 ##########################################
 def log_debug_config_message(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -182,10 +196,12 @@ def log_debug_config_message(msg, m1='', m2='', m3='', m4='', m5=''):
     global active_component_debug_enabled
     global global_debug_enabled
     global debug_config_message_prefix
+    global debug_config_message_enabled
     xcaller = sys._getframe(1)  # Obtain calling frame
     tispaolas(xcaller)
     msg = '{}{}'.format(debug_config_message_prefix, msg)
-    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+    message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='config-message', Nocolors=True)
+    message = '{}{}{}{}'.format(Back.BLACK, Fore.WHITE, message, Style.RESET_ALL) 
     if debug_config_message_enabled:
         print(message)
 ##########################################
@@ -200,7 +216,27 @@ def log_variable(name='', value='', m1='', m2='', m3='', m4='', m5=''):
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
             msg = '{0}={1}'.format(name, value)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='variable')
+            print(message)
+##########################################
+def log_variables(name='', value='', n2='', v2='', n3='', v3='', n4='', v4=''):
+    global debug_log_services_level
+    global active_component_debug_level
+    global active_component_debug_enabled
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    if global_debug_enabled:
+        retrieve_activecomponent_debug_info()
+        if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
+            msg = '{}={}'.format(name, value)
+            if n2 or v2:
+                msg = '{}, {}={}'.format(msg, n2, v2)
+            if n3 or v3:
+                msg = '{}, {}={}'.format(msg, n3, v3)
+            if n4 or v4:
+                msg = '{}, {}={}'.format(msg, n4, v4)
+            message = formatted_message(msg=msg, msgtype='variable')
             print(message)
 ##########################################
 def log_env_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
@@ -214,7 +250,7 @@ def log_env_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('VARIABLE')>=0:
             msg = 'env_param: {0}={1}'.format(name, value)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='env-param')
             print(message)
 ##########################################
 def log_file(name='', value='', m1='', m2='', m3='', m4='', m5=''):
@@ -231,7 +267,7 @@ def log_file(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             or debug_log_services_level.find('FILE') >=0 \
             :
             msg = 'file-{0}={1}'.format(name, value)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='file')
             print(message)
 ##########################################
 def log_variable_short(name='', value='', m1='', m2='', m3='', m4='', m5=''):
@@ -248,7 +284,7 @@ def log_variable_short(name='', value='', m1='', m2='', m3='', m4='', m5=''):
             if len(valueStr)>37:
                 valueStr = valueStr[0:37] + '...' 
             msg = '{0}={1}'.format(name, valueStr)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='variable')
             print(message)
 ##########################################
 def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
@@ -262,7 +298,7 @@ def log_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('PARAM')>=0:
             msg = 'param: {0}={1}'.format(name, value)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='param')
             print(message)
 ##########################################
 def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
@@ -276,7 +312,7 @@ def log_config_param(name='', value='', m1='', m2='', m3='', m4='', m5=''):
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 3) or debug_log_services_level.find('CONFIG') >= 0:
             msg = 'config_param: {0}={1}'.format(name, value)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='config-param')
             print(message)
 ##########################################
 def log_important(msg, m1='', m2='', m3='', m4='', m5=''):
@@ -292,7 +328,7 @@ def log_important(msg, m1='', m2='', m3='', m4='', m5=''):
             or debug_log_services_level.find('WARNING') >= 0 \
             or debug_log_services_level.find('INFO') >= 0:
             msg = 'WARNING:{}'.format(msg)
-            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5)
+            message = formatted_message(msg=msg, p1=m1, p2=m2, p3=m3, p4=m4, p5=m5, msgtype='important')
             print(message)
 ##########################################
 def log_url_param(name='', value=''):
@@ -306,7 +342,7 @@ def log_url_param(name='', value=''):
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 2) or debug_log_services_level.find('URL')>=0:
             msg = 'url-param {0}={1}'.format(name, value)
-            message = formatted_message(msg=msg)
+            message = formatted_message(msg=msg, msgtype='url-param')
             print(message)
 ##########################################
 def tispaolas(xcaller):
@@ -317,8 +353,9 @@ def tispaolas(xcaller):
     global active_component
     global active_component_type
     global active_chain
-    global prevKey
-
+    global prev_active_chain
+    global global_counter
+    global active_color
     #if global_debug_enabled:
     #xcaller = sys._getframe(1)  # Obtain calling frame
     xactive_moduleX = xcaller.f_globals['__name__']
@@ -333,6 +370,10 @@ def tispaolas(xcaller):
         #print('### (tispaolas) active_module:', active_module)
     #else:
         #print('### (tispaolas) internal call:', active_module)
+    if active_chain != prev_active_chain:
+        prev_active_chain = active_chain
+        global_counter = global_counter + 1
+        #active_color = component_color(global_counter)
 
 def log_start(component_name='', component_type=''):
     global active_module
@@ -347,11 +388,14 @@ def log_start(component_name='', component_type=''):
     global active_component_debug_enabled
     global active_component_debug_level
     global debug_log_services_level
+    global active_color
     active_component = component_name
     active_component_type = component_type
     xcaller = sys._getframe(1)  # Obtain calling frame
     tispaolas(xcaller)
     if global_debug_enabled:
+        level = level + 1
+        active_color = component_color(global_counter)
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
             if active_component_type:
@@ -359,11 +403,12 @@ def log_start(component_name='', component_type=''):
             else:
                 ctype = ''
             msg = '{}start [{}]'.format(ctype, component_name)
-            message = formatted_message(msg=msg,msgtype='START')
+            #msg = Fore.GREEN+'{}start [{}]'.format(ctype, component_name)+Style.RESET_ALL
+            #msg = 'warning:{}{}{}{}'.format(Back.YELLOW, Fore.RED, msg, Style.RESET_ALL) 
+            message = formatted_message(msg=msg, msgtype='START')
             print(message)
 
-        level = level + 1
-        components_stack.update({level : [active_component, active_module, active_component_type]})
+        components_stack.update({level : [active_component, active_module, active_component_type, active_color]})
         offset = set_offset(level)
 ##########################################
 def log_finish(component_name='', component_type=''):
@@ -380,6 +425,7 @@ def log_finish(component_name='', component_type=''):
     global active_component_debug_level
     global debug_log_services_level
     global debug_log_services_level
+    global active_color
     active_component = component_name
     active_component_type = component_type
     xcaller = sys._getframe(1)  # Obtain calling frame
@@ -389,6 +435,7 @@ def log_finish(component_name='', component_type=''):
         last_component = '?'
         last_module = '?'
         last_component_type = '?'
+        last_component_color = Fore.WHITE
 
         lev = -1
         for z in components_stack.items():
@@ -397,30 +444,36 @@ def log_finish(component_name='', component_type=''):
             last_component = x[0]
             last_module = x[1]
             last_component_type = x[2]
-            ##print('==',x[0],x[1],x[2])
+            last_component_color = x[3]
+            ##print('==',x[0],x[1],x[2],x[3])
             if x[0] == component_name and x[1] == active_module:
                 lev = z[0]
                 component_name = x[0]
                 module_name = x[1]
                 component_type = x[2]
+                component_color = x[3]
         
         #if not found or not privided take the last
-        if lev == -1 : 
+        if lev == -1: 
             lev = last_lev
             component_name = last_component
             module_name = last_module
             component_type = last_component_type
+            component_color = last_component_color
 
         offset = set_offset(lev-1)
-
+        prev_active_color = active_color
+        active_color = component_color
         retrieve_activecomponent_debug_info()
         if (active_component_debug_enabled and active_component_debug_level > 0) or debug_log_services_level.find('BEGIN-END')>=0:
             if component_type:
                 ctype = component_type + '-'
             else:
                 ctype = ''
+            #col = component_color(lev-1)
             msg = '{}finish [{}]'.format(ctype, component_name)
-            message = formatted_message(msg=msg,msgtype='FINISH')
+            #msg = Fore.RED+'{}finish [{}]'.format(ctype, component_name)+Style.RESET_ALL
+            message = formatted_message(msg=msg, msgtype='FINISH')
             print(message)
     
         rem = 0
@@ -443,6 +496,7 @@ def log_finish(component_name='', component_type=''):
             active_component = x[0]
             active_module = x[1]
             active_component_type = x[2]
+            active_color = x[3]
 
         offset = set_offset(level)
  #########################################
@@ -1091,7 +1145,64 @@ def debug_log_message_structure():
     # message = '{} prefix[{} {} {} "{}"]'.format(message, timprfx, sidprfx, uidprfx, message_prefix)
     message = '{} format[{}]'.format(message, message_format)
     return message
-
+#-------------------------------------------------------------------------
+##########################################
+##########################################
+##########################################
+### config functions                   ###
+##########################################
+##########################################
+##########################################
+def set_global_debug(onoff='ON'):
+    global global_debug_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    message = ''
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        if not global_debug_enabled:
+            global_debug_enabled = True
+            message = 'global debug set ON'
+    else:
+        if global_debug_enabled:
+            global_debug_enabled = False
+            message = 'global debug set OFF'
+    if message:
+        log_debug_config_message(message)
+##########################################
+def set_debug_defaults(onoff='ON', debuglevel=9):
+    global default_debug_onoff
+    global default_debug_level
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    message = ''
+    debugonoff = False
+    default_debug_onoff_Str = 'OFF'
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        debugonoff = True
+        default_debug_onoff_Str = 'ON'
+    if default_debug_level != debuglevel or default_debug_onoff != debugonoff:
+        default_debug_level = debuglevel
+        default_debug_onoff = debugonoff
+        message = 'log debug defaults set to {} level {}.'.format(default_debug_onoff_Str, default_debug_level)
+    if message:
+        log_debug_config_message(message)
+##########################################
+def set_debug_config_message_ONOFF(onoff='OFF', silent=False):
+    global debug_config_message_enabled
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
+    message = ''
+    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
+        thisval = True
+        msg = 'debug config messaging set ON'
+    else:
+        thisval = False
+        msg = 'debug config messaging set OFF'
+    if debug_config_message_enabled != thisval:
+        debug_config_message_enabled = thisval
+        message = msg
+    if not silent:
+        log_debug_config_message(message)
 ##########################################
 ##########################################
 ##########################################
@@ -1100,29 +1211,23 @@ def debug_log_message_structure():
 ##########################################
 ##########################################
 def set_module_debug_off(module_name):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     set_debug_level(module=module_name, component='', priority=1, debugOnOff='OFF')
     message = 'log debug set OFF for module {}'.format(module_name)
     log_info(message)
 ##########################################
 def set_module_debug_on(module_name):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     set_debug_level(module=module_name, component='', priority=1, debugOnOff='ON')
     message = 'log debug set ON for module {}'.format(module_name)
     log_info(message)
 ##########################################
 def set_module_debug_level(module_name='', debug_level=9):
-    global active_module
-    global caller
     global active_component_debug_enabled
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     retrieve_activecomponent_debug_info(module_name=module_name)
     onoff = 'OFF'
     if active_component_debug_enabled:
@@ -1141,29 +1246,23 @@ def set_module_debug_level(module_name='', debug_level=9):
 ##########################################
 ##########################################
 def set_component_debug_off(component_name='', module_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     set_debug_level(module=module_name, component=component_name, priority=2, debugOnOff='OFF')
     message = 'log debug set OFF for component {}.{}'.format(module_name, component_name)
     log_info(message)
 ##########################################
 def set_component_debug_on(component_name='', module_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     set_debug_level(module=module_name, component=component_name, priority=2, debugOnOff='ON')
     message = 'log debug set ON for component {}.{}'.format(module_name, component_name)
     log_info(message)
 ##########################################
 def set_component_debug_level(component_name='', debug_level=9, module_name=''):
-    global active_module
-    global caller
     global active_component_debug_enabled
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     retrieve_activecomponent_debug_info(module_name=module_name, component_name=component_name)
     onoff = 'OFF'
     if active_component_debug_enabled:
@@ -1182,29 +1281,23 @@ def set_component_debug_level(component_name='', debug_level=9, module_name=''):
 ##########################################
 ##########################################
 def set_componenttype_debug_off(component_type='', component_name='', module_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     set_debug_level(module=module_name, component=component_name, component_type=component_type, priority=3, debugOnOff='OFF')
     message = 'log debug set OFF for component type {}.{}.{}'.format(module_name, component_name,component_type)
     log_info(message)
 ##########################################
 def set_componenttype_debug_on(component_type='', component_name='', module_name=''):
-    global active_module
-    global caller
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     set_debug_level(module=module_name, component=component_name, component_type=component_type, priority=3, debugOnOff='ON')
     message = 'log debug set ON for component type {}.{}.{}'.format(module_name, component_name,component_type)
     log_info(message)
 ##########################################
 def set_componenttype_debug_level(component_type='', component_name='', debug_level=9, module_name=''):
-    global active_module
-    global caller
     global active_component_debug_enabled
-    caller = sys._getframe(1)  # Obtain calling frame
-    active_module = caller.f_globals['__name__']
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     retrieve_activecomponent_debug_info(module_name=module_name, component_name=component_name, component_type=component_type)
     onoff = 'OFF'
     if active_component_debug_enabled:
@@ -1214,88 +1307,47 @@ def set_componenttype_debug_level(component_type='', component_name='', debug_le
     message = 'log debug level set to {}-{} for component type {}.{}.{}'.format(onoff, debug_level, module_name, component_name, component_type)
     log_info(message)
 ##########################################
-def set_global_debug(onoff='ON'):
-    global global_debug_enabled 
-    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
-        global_debug_enabled = True
-        message = 'global debug set ON'
-    else:
-        global_debug_enabled = False
-        message = 'global debug set OFF'
-    log_debug_config_message(message)
-##########################################
 def set_debug_log_services_level(lev='WARNING'): #WARNING , ERROR, INFO, BEGIN-END VARIABLE PARAMETER URL
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     lev = lev.upper()
     debug_log_services_level = lev
     message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
     log_debug_config_message(message)
 ##########################################
 def set_debug_log_services_level_remove(lev='WARNING'):
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     lev = lev.upper()
     debug_log_services_level = debug_log_services_level.replace(lev,'')
     message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
     log_debug_config_message(message)
 ##########################################
 def set_debug_log_services_level_add(lev='WARNING'):
+    xcaller = sys._getframe(1)  # Obtain calling frame
+    tispaolas(xcaller)
     lev = lev.upper()
     if debug_log_services_level.find(lev) < 0:
         debug_log_services_level = debug_log_services_level + ';' + lev
     message = 'debug_log_services_level set to {}'.format(debug_log_services_level)
     log_debug_config_message(message)
 ##########################################
-def set_debug_config_message_ONOFF(onoff='OFF'):
-    global debug_config_message_enabled 
-    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
-        debug_config_message_enabled = True
-        message = 'debug config messaging set ON'
-    else:
-        debug_config_message_enabled = False
-        message = 'debug config messaging set OFF'
-    #log_debug_config_message(message)
-##########################################
-
-##########################################
-##########################################
-##########################################
-### support functions                  ###
-##########################################
-##########################################
-##########################################
-def init_this_module():
-    global thisModule
-    global components_stack
-    caller = sys._getframe(1)  # Obtain calling frame
-    thisModule = caller.f_globals['__name__']
-    set_debug_log_message_format()
-    message = 'log debug module set to ({})'.format(thisModule)
-    log_debug_config_message(message)
-    components_stack = {}
-##########################################
-def set_debug_defaults(onoff='ON', debuglevel=9):
-    global default_debug_onoff
-    global default_debug_level
-    global active_module
-    global caller
-    global offset
+def config_from_environment_variables(silent=False):
+    global debug_config_message_enabled
     xcaller = sys._getframe(1)  # Obtain calling frame
-    xactive_moduleX = xcaller.f_globals['__name__']
-    if thisModule != xactive_moduleX:
-        caller = xcaller
-        active_module = xactive_moduleX
-    default_debug_level = debuglevel
-    default_debug_onoff = False
-    default_debug_onoff_Str = 'OFF'
-    if onoff in ['ON', 1, '1', 'YES', 'Y', True]:
-        default_debug_onoff = True
-        default_debug_onoff_Str = 'ON'
-    message = 'log debug defaults set to ({}-{})'.format(default_debug_onoff_Str, default_debug_level)
-    log_debug_config_message(message)
-##########################################
-def config_from_environment_variables():
+    tispaolas(xcaller)
+    prevstate = debug_config_message_enabled
+    debug_config_message_enabled = True
+    if silent:
+        debug_config_message_enabled = False
+    
+    config_message_ONOFF = ""
     for item in os.environ:
         if item.upper().find('DEBUG_') == 0:
             what = item.upper().replace('DEBUG_', '').lower()
             val = os.environ.get(item).upper()
+            # if what.find('incl') >= 0:
+            #     print('xxxxxxxx')
             if val not in ('OFF', 'ON'):
                 valonoff = 'OFF'
             else:
@@ -1336,6 +1388,8 @@ def config_from_environment_variables():
                 name = ''
                 #print(item, what, typ, name, valonoff)
                 set_debug_defaults(onoff=valonoff, debuglevel=9)
+            elif what.upper().find('DEBUGLOGSERVICES') == 0:
+                config_message_ONOFF = valonoff
             elif what.upper().find('TIMESTAMP') == 0:
                 typ = 'TIMESTAMP'
                 name = name.upper().replace('TIMESTAMP', '').lower()
@@ -1371,6 +1425,46 @@ def config_from_environment_variables():
                 name = what.lower()
                 #print(item, what, typ, name, valonoff)
                 set_debug_level(component=name, debugOnOff=valonoff, debugLevel=9)
+
+    debug_config_message_enabled = prevstate
+    if config_message_ONOFF:
+        set_debug_config_message_ONOFF(config_message_ONOFF)
+##########################################
+##########################################
+##########################################
+### support functions                  ###
+##########################################
+##########################################
+##########################################
+def init_this_module():
+    global thisModule
+    global components_stack
+    caller = sys._getframe(1)  # Obtain calling frame
+    thisModule = caller.f_globals['__name__']
+    set_debug_log_message_format()
+    message = 'log debug module set to ({})'.format(thisModule)
+    log_debug_config_message(message)
+    components_stack = {}
+    #print('terminal colors test:')
+    ColorsInit(convert=True)
+    # print(Fore.WHITE)
+    # print('Fore.WHITE')
+    # print(Back.BLACK)
+    # print('Back.BLACK')
+    # print(Fore.RED + 'some red text') 
+    # print(Back.GREEN + 'and with a green background') 
+    # print(Style.DIM + 'and in dim text') 
+    # print(Fore.WHITE)
+    # print('Fore.WHITE')
+    # print(Back.BLACK)
+    # print('Back.BLACK')
+    # print(Style.RESET_ALL) 
+    # print('back to normal now') 
+    # print(Fore.WHITE)
+    # print('Fore.WHITE')
+    # print(Back.BLACK)
+    # print('Back.BLACK')
+
 ##########################################
 # take second element for sort
 def takeSecond(elem):
@@ -1381,11 +1475,10 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
     global caller
     global offset
     global Components
+    global debug_config_message_enabled
+    global active_component_debug_enabled
     xcaller = sys._getframe(1)  # Obtain calling frame
-    xactive_moduleX = xcaller.f_globals['__name__']
-    if thisModule != xactive_moduleX:
-        caller = xcaller
-        active_module = xactive_moduleX
+    tispaolas(xcaller)
 
     componentKey = folder+'.'+module+'.'+component+'.'+component_type
     CalculatedPriority = 0
@@ -1402,6 +1495,8 @@ def set_debug_level(folder='*', module='*', component='*', component_type='*', p
     if debugOnOff in ['ON', 1, '1', 'YES', 'Y', True]:
         debugOnOff = True
         debugOnOff_Str = 'ON'
+        set_global_debug('ON')
+        set_debug_defaults(onoff='OFF', debuglevel=9)
     else:
         debugOnOff = False
         debugOnOff_Str = 'OFF'
@@ -1470,42 +1565,51 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
         component_type = '*'
 
     activeKey = module_name+'.'+component_name+'.'+component_type
-    active_chain = component_type+':'+module_name+'.'+component_name
-    # if activeKey != prevKey:
-    #     print('xxxxxxx:', activeKey)
-    #     prevKey = activeKey
-
-    #print('### search for [', activeKey, ']')
-    #weighted_matches = []
+    activeKeyStr = '['+module_name+']['+component_name+']['+component_type+']'
+    active_chain = component_type + ':' + module_name + '.' + component_name
+    print_enabled = False
+    if active_chain.lower().find('xadministration') >= 0:
+        print_enabled = True
+    if print_enabled:
+        print('')
+        print('===SEARCH FOR:', activeKeyStr)
     found = False
     for ix, moduleArray in enumerate(Components):
         module = moduleArray[0]
-        # print(ix, module,'----------------------------------------------')
-        # print (ix, 'folder',folder_name,'-->',moduleArray[5])
-        # print (ix, 'module',module_name,'-->',moduleArray[6])
-        # print (ix, 'component',component_name,'-->',moduleArray[7])
-        # print (ix, 'type',component_type,'-->',moduleArray[8])
-        # wrkmodule = module
+        if print_enabled:
+            print(ix, '===SEARCH FOR:', activeKeyStr)
+            print(ix, 'key', module)
+            print (ix, 'folder',folder_name,'<--',moduleArray[5])
+            print (ix, 'module',module_name,'<--',moduleArray[6])
+            print (ix, 'component',component_name,'<--',moduleArray[7])
+            print (ix, 'type',component_type,'<--',moduleArray[8])
         priority = moduleArray[1]
         onoffStr = moduleArray[2]
         onoff = moduleArray[3]
         debuglevel = moduleArray[4]
         match = False
         px = ''
-        # print(ix,module_name,moduleArray[6])
-        # print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
-        # print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
+        # if print_enabled:
+        #     x="1 {} == {} or {} in ('', '*')".format(module_name,moduleArray[6],moduleArray[6])
+        #     print(x, '-->', module_name == moduleArray[6] or moduleArray[6] in ('', '*'))
+        #     x="2 {} find({})".format(str('.'+module_name+'.'),str('.'+moduleArray[6]+'.'))
+        #     print(x, '-->', str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
+        #     x="3 {} find({})".format(str('.'+moduleArray[6]+'.'),str('.'+module_name+'.'))
+        #     print(x, '-->', str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
+        #     x="4 {} == {} or {} in ('', '*')".format(component_name, moduleArray[7], moduleArray[7])
+        #     print(x, '-->', component_name == moduleArray[7] or moduleArray[7] in ('', '*'))
+        #     x="5 {} == {} or {} in ('', '*')".format(component_type, moduleArray[8] , moduleArray[8])
+        #     print(x, '-->', component_type == moduleArray[8] or moduleArray[8] in ('', '*'))
         if folder_name == moduleArray[5] or moduleArray[5] in ('', '*'):
             if module_name == moduleArray[6] or moduleArray[6] in ('', '*') \
-            or str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')) \
-            or str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')) >= 0:
-                # print(ix,module_name,moduleArray[6])
-                # print(ix, str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')))
-                # print(ix, str('.'+moduleArray[6]+'.').find(str('.'+module_name+'.')))
+            or str('.'+module_name+'.').find(str('.'+moduleArray[6]+'.')) >= 0 \
+            or str('.'+module_name+'.').find(str(moduleArray[6]+'.')) >= 0 \
+            or str('.'+module_name+'.').find(str('.'+moduleArray[6])) >= 0 \
+            or str('.' + moduleArray[6] + '.').find(str('.' + module_name + '.')) >= 0:
                 if component_name == moduleArray[7] or moduleArray[7] in ('', '*'):
                     if component_type == moduleArray[8] or moduleArray[8] in ('', '*'):
                         match = True
-
+        #print('--------------------------------------')
         # m = module.replace('*', r'[\w]*')
         # m = m.replace('.', r'\.')
         # p0 = r'^' + m + r'\.[\w.]*'
@@ -1536,19 +1640,20 @@ def retrieve_activecomponent_debug_info(folder_name='', module_name='', componen
 
         if match:
             found = True
-            #print ('===FOUND', ix, activeKey,'-->',px, '-->', module, 'MATCHED', onoff, debuglevel)
-            # print ('folder',folder_name,'-->',moduleArray[5])
-            # print ('module',module_name,'-->',moduleArray[6])
-            # print ('component',component_name,'-->',moduleArray[7])
-            # print ('type',component_type,'-->',moduleArray[8])
             active_component_debug_enabled = onoff
             active_component_debug_level = debuglevel
+            if print_enabled:
+                print ('===FOUND', ix, activeKey, '-->', module, 'MATCHED', onoff, debuglevel)
+            break
         #else:
             #print ('xxxx', activeKey, i, module, 'NOT MATCHED')
     if not found:
         active_component_debug_enabled = default_debug_onoff
         active_component_debug_level = default_debug_level
-        #print('===NOT-FOUND', activeKey, active_component_debug_enabled, active_component_debug_level)
+        if print_enabled:
+            print('===NOT-FOUND', activeKey, active_component_debug_enabled, active_component_debug_level)
+    if print_enabled:
+        print('')
 #############################################################
 def smart_fixlength_string(msg='?', msgfixlength=80, direction='LEFT-TO-RIGHT'):
     direction = direction.upper().replace('_', '-').replace(' ', '-')
@@ -1572,7 +1677,22 @@ def smart_fixlength_string(msg='?', msgfixlength=80, direction='LEFT-TO-RIGHT'):
 ################################################################################
 
 ################################################################################
-def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
+
+def combined_message(msg='?', p1='', p2='', p3='', p4='', p5=''):
+    message = msg
+    if p1:
+        message = message + ' {}'.format(p1)
+    if p2:
+        message = message + ' {}'.format(p2)
+    if p3:
+        message = message + ' {}'.format(p3)
+    if p4:
+        message = message + ' {}'.format(p4)
+    if p5:
+        message = message + ' {}'.format(p5)
+    return message
+
+def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='', msgtype='', Nocolors=False):
     global offset
     global active_module
     global activeKey
@@ -1598,7 +1718,12 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
     global sid_suffix
     global uid_prefix
     global uid_suffix
+    global active_color
 
+    # if active_level >= 0:
+    #     col = component_color(active_level)
+    # else:
+    #     col = fore.WHITE
 
     #message = '{}{}{}'.format(message_prefix, offset, msg)
     message = msg
@@ -1618,7 +1743,7 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
     global message_format_suffix
 
     msg0 = ' ' + message_format_prefix.upper()
-    msg1 = msg0.replace(' OFFSET', offset.replace('>',offset_char))
+    msg1 = msg0.replace(' OFFSET', offset.replace('>', offset_char))
     msg2 = msg1.replace(' PREFIX', message_prefix)
     msg3 = msg2.replace(' SUFFIX', message_suffix)
     msg4 = msg3.replace(' TIMESTAMP', datetime.now().strftime("%d.%b %Y %H:%M:%S"))
@@ -1636,11 +1761,16 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
     msg7 = msg6.replace(' MODULE', active_module)
     msgsfx = msg7.lstrip()
 
+    # if msgtype.upper() = 'WARNING':
+    #     msgtype = 'warning:'
+
     msg7 = msg6.replace('MESSAGE', message)
     #PREFIX TIMESTAMP MODULE o MESSAGE TIMESTAMP MODULE SUFFIX SID UID'
     #message = '{}{}{}'.format(message_prefix, offset, msg)
     if msgtype.upper().find('START') >= 0 or msgtype.upper().find('FINISH') >= 0:
         msg8 = '{}{} [{}]'.format(msgprfx, message, active_chain)
+        if not Nocolors:    
+            msg8 = '{}{}{}'.format(active_color, msg8, Style.RESET_ALL)
         return msg8
     else:
         msg8 = '{}{}'.format(msgprfx, message)
@@ -1649,7 +1779,7 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
 
     if not suffix_module:
         if message_display_mode.upper().find('FIX') >=0 :
-            formatted_message = message[:max_line_length]
+            formatted_message = message[:max_line_length] 
         else:
             formatted_message = message
     else:
@@ -1688,9 +1818,8 @@ def formatted_message(msg='?', p1='', p2='', p3='', p4='', p5='',msgtype=''):
         else:
             #method 3: floating msg (full)
             formatted_message = '{} [{}]'.format(message, msgsfx)
-        
-    #x = '{}-{}-{}-{}'.format(message_display_mode, max_line_length, max_message_length, formatted_message)
-    #formatted_message = x[0:130]
+    if not Nocolors:    
+        formatted_message = '{}{}{}'.format(active_color, formatted_message, Style.RESET_ALL)
     return formatted_message
 ##########################################
 def testx():
@@ -1708,6 +1837,45 @@ def testx():
     while i<=5:
         print(i,'xxx[1]',inspect.stack()[1][i])
         i=i+1
+def component_color(clevel):
+    lev = clevel - 8*int(clevel / 8)
+    if lev == 0:
+        col = Fore.CYAN
+    elif lev == 1:
+        col = Fore.BLUE
+    elif lev == 2:
+        col = Fore.MAGENTA
+    elif lev == 3:
+        col = Fore.YELLOW
+    elif lev == 4:
+        col = Fore.GREEN
+    elif lev == 5:
+        col = Fore.LIGHTBLUE_EX
+    elif lev == 6:
+        col = Fore.LIGHTMAGENTA_EX
+    elif lev == 7:
+        col = Fore.LIGHTGREEN_EX
+    else:
+        col = Fore.LIGHTRED_EX
+    return col
+# #BLACK:'\x1b[30m'
+# #BLUE:'\x1b[34m'
+# #CYAN:'\x1b[36m'
+# #GREEN:'\x1b[32m'
+# LIGHTBLACK_EX:'\x1b[90m'
+# LIGHTBLUE_EX:'\x1b[94m'
+# LIGHTCYAN_EX:'\x1b[96m'
+# LIGHTGREEN_EX:'\x1b[92m'
+# LIGHTMAGENTA_EX:'\x1b[95m'
+# LIGHTRED_EX:'\x1b[91m'
+# LIGHTWHITE_EX:'\x1b[97m'
+# LIGHTYELLOW_EX:'\x1b[93m'
+# #MAGENTA:'\x1b[35m'
+# RED:'\x1b[31m'
+# RESET:'\x1b[39m'
+# WHITE:'\x1b[37m'
+# #YELLOW: '\x1b[33m'
+    
 
 
 ##########################################

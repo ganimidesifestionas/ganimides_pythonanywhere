@@ -18,43 +18,43 @@
     {% endif %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs m-0 p-0">
-                {% set page_title="" %}
-                {% set page_icon="" %}
-                {% set page_links = "" %}
-                {% set next_page_url="" %}
-                {% set next_page_caption="" %}
-                {% include include_files('visits_table.html',type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
-            </div>
             <!--d-none d-lg-block : hide on screens smaller than large-->
-            <div class="col-xs d-none d-xl-block">
+            <div class="col-sm xd-none xd-xl-block">
                 <img class="img-fluid xborder xborder-danger" src='{{graph1}}'></img>
             </div>
-        </div>
+            <div class="col-sm xborder xborder-info">
+                    <img class="img-fluid xborder xborder-danger" src='{{graph2}}'></img>
+                </div>
+            </div>
         <!--row-1:grpah1-->
-        <!--d-lg-none : hide on screens wider than large-->
+        <!--d-lg-none : hide on screens wider than large
         <div class="row d-xl-none">
             <div class="col-xs ">
                 <img class="img-fluid " src='{{graph1}}'></img>
             </div>
         </div>
-        <!--row-2:grpah2-->
+        <!--row-2:grpah2
         <div class="row">
             <div class="col-xs xborder xborder-info">
                 <img class="img-fluid xborder xborder-danger" src='{{graph2}}'></img>
             </div>
         </div>
+    -->
         <!--row-3:grpah3-->
         <div class="row">
-            <div class="col-xs xborder xborder-info">
+            <div class="col-sm xborder xborder-info">
                 <img class="img-fluid xborder xborder-danger" src='{{graph3}}'></img>
             </div>
-        </div>
-        <!--row-4:grpah4-->
+            <div class="col-sm xborder xborder-info">
+                    <img class="img-fluid xborder xborder-danger" src='{{graph4}}'></img>
+                </div>
+            </div>
+        <!--row-4:grpah4
         <div class="row">
             <div class="col-xs xborder xborder-info">
                 <img class="img-fluid xborder xborder-danger" src='{{graph4}}'></img>
             </div>
         </div>
+    -->
     </div>
 </div>

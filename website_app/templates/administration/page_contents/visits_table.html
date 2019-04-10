@@ -1,20 +1,26 @@
-{% set title="VisitPoints" %}
-{% set icon="fas fa-globe-europe" %}
-{% set links = "visits_pagelinks.html" %}
-{% set next_page_url=url_for("administration.usersadmin",action_tab='users') %}
-{% set next_page_caption="Users Admin" %}
+{% set page_title="Visits Table" %}
+{% set page_icon="fas fa-chart-line" %}
+{% set page_links = "visits_pagelinks.html" %}
+{% set next_page_url=url_for("administration.visitspage") %}
+{% set next_page_caption="Visits Statistics" %}
+{% set next_page_url="" %}
+<!--already in page_links(==visits_pagelinks.html)-->
 <div class="d-flex flex-column">
     {% if not is_tab_form %}
+    {% if next_page_url or page_links%}
     <div class="d-flex flex-row justify-content-end p-0" style="transform: translate(0%, 0%);">
-        {#% include include_files(page_links,type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %#}
+        {% include include_files(page_links,type='PAGE',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         {% if next_page_url %}
-        {#% include include_files('button_next.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %#}
+        {% include include_files('button_next.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         {% endif %}
     </div>
-    <div class="modal-header align-items-center pr-0" style="margin-top:-1.5em">
+    {% endif %}
+    {% if page_title or next_page_url%}
+    <div class="modal-header align-items-center pr-0" style="margin-top:-1em">
         {% include include_files('page_title.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         {% include include_files('page_close_icon.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
     </div>
+    {% endif %}
     {% endif %}
 
     <div class="d-flex flex-row m-0 p-0 mt-1 align-items-center justify-content-between">
@@ -22,7 +28,9 @@
             {{ visitsPagination.links }}
         </div>
         <div class="ml-2">
-            {{ visitsPagination.info }}
+            <small>
+                {{ visitsPagination.info }}
+            </small>
         </div>
     </div>
 
@@ -55,7 +63,7 @@
         </div>
     </div>
 
-    <div class="d-flex m-0 p-0 align-items-center justify-content-end">
+    <div class="d-flex m-0 p-0 mb-1 align-items-center justify-content-end">
         {{ visitsPagination.links }}
     </div>
 </div>

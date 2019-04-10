@@ -7,23 +7,25 @@ import os
 import os.path
 from os import environ
 import configparser
+from colorama import init as colorsInit, Fore, Back, Style
 from server_init import initialize_server
 
-print('### start: server_start_app')
+colorsInit()
+print(Fore.WHITE+'### start: server_start_app')
 
 initialize_server(startupProgram_fullpathfile=__file__, server_ini_filename='server.ini', debug=False, print_env_params=False, print_all_env_params=False)
-print('   ###start: import flask app from website_app')
+print(Fore.WHITE+'   ###start: import flask app from website_app')
 from website_app import app
-print('   ###finish: import flask app from website_app')
+print(Fore.WHITE+'   ###finish: import flask app from website_app')
 
-print('   ###start: Init databases')
+print(Fore.WHITE+'   ###start: Init databases')
 from database import init_database as init_application_database
 from website_app.module_authorization.database import init_database as init_authorization_database
 from website_app.module_administration.database import init_database as init_administration_database
 # init_administration_database()
 # init_authorization_database()
 # init_application_database()
-print('   ###finish: Init databases')
+print(Fore.WHITE+'   ###finish: Init databases')
 # print all config params
 # if app.config.get('DEBUG_STARTUP'):
 #     keylist = sorted(app.config.items())
@@ -40,7 +42,7 @@ print('   ###finish: Init databases')
 
 print('### finish: server_start_app')
 if __name__ == '__main__':
-    print('')
+    print(Fore.WHITE+'')
     print('### START APP')
 
     HOST = environ.get('SERVER_HOST', 'localhost')

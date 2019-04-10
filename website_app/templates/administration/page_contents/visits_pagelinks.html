@@ -1,3 +1,4 @@
+<!--BEGIN:visits_pagelinks.html-->
 <nav class="navbar navbar-expand-sm p-0">
     <ul class="navbar-nav">
         {% if request.path != url_for('administration.visitspage') %}          
@@ -6,5 +7,12 @@
         {% if request.path != url_for('administration.visitpointspage') %}          
         <li class="nav-item mr-0"><a href="{{url_for('administration.visitpointspage')}}" class="nav-link py-0 px-1 btn btn-light btn-sm" style="xborder:1px solid teal;border-radius:1em">VisitPoints &raquo;</a></li>
         {% endif %}          
+        {% if request.path != url_for('administration.visitstable') %}          
+        <li class="nav-item mr-1"><a href="{{url_for('administration.visitstable')}}" class="nav-link py-0 px-1 btn btn-light btn-sm" style="xborder:1px solid teal;border-radius:1em">Visits Table &raquo;</a></li>
+        {% endif %}          
+        {% if request.path != url_for('administration.visitpointstable') %}          
+        <li class="nav-item mr-0"><a href="{{url_for('administration.visitpointstable')}}" class="nav-link py-0 px-1 btn btn-light btn-sm" style="xborder:1px solid teal;border-radius:1em">VisitPoints Table &raquo;</a></li>
+        {% endif %}          
     </ul>
 </nav>
+<!--END:visits_pagelinks.html-->

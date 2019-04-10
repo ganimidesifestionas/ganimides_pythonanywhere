@@ -27,7 +27,7 @@
             {% set button_menu_controlled="AdminMenu" %}
             {% include include_files('button_menu_toggler.html',type='COMPONENT',module=active_module,language=CURRENT_LANGUAGE) ignore missing %}
         </div>
-        <!-- SUPPORT MENU  -->
+        <!-- ADMIN MENU  -->
         <div id="AdminMenu" class="collapse navbar-collapse p-0 support_menu">
             <nav class="nav flex-column">
 
@@ -36,11 +36,25 @@
                 {% set xactive='disabled' %}
                 {% endif %}
                 <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for('administration.visitspage')}}">Visits &raquo;</a>
+
                 {% set xactive='' %}
                 {% if request.path == url_for('administration.visitpointspage') %}
                 {% set xactive='disabled' %}
                 {% endif %}
                 <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-info btn-sm" href="{{url_for('administration.visitpointspage')}}">VisitPoints &raquo;</a>
+
+                {% set xactive='' %}
+                {% if request.path == url_for('administration.visitstable') %}
+                {% set xactive='disabled' %}
+                {% endif %}
+                <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-secondary btn-sm" href="{{url_for('administration.visitstable')}}">Visits table &raquo;</a>
+
+                {% set xactive='' %}
+                {% if request.path == url_for('administration.visitpointstable') %}
+                {% set xactive='disabled' %}
+                {% endif %}
+                <a class="nav-link {{xactive}} py-0 px-1 btn btn-outline-secondary btn-sm" href="{{url_for('administration.visitpointstable')}}">VisitPoints table &raquo;</a>
+
                 {% set xactive='' %}
                 {% if request.path == url_for('administration.usersadmin') %}
                 {% set xactive='disabled' %}
